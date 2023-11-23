@@ -1,28 +1,28 @@
-import React from "react";
-import logo from "./logo.svg";
+import { useContext, useEffect } from "react";
 import "./App.css";
+import { ThemeProvider } from "@mui/material/styles";
+import { Ctx } from "./DataContext";
+import { HomePage } from "./components/Layout/HomePage";
+import { themeApp } from "./assets/jss/themeApp";
+
+// const themeMerged = createTheme(deepmerge(theme, themeLocal));
 
 function App() {
+	const context = useContext(Ctx);
+	const RELEASE_VERSION = process.env.REACT_APP_VERSION;
+
+	useEffect(() => {
+		console.log("ATM-LAYER-EMULATOR RELEASE VERSION:", RELEASE_VERSION);
+	}, []);
+
 	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<h2>
-          Atm Layer Emulator
-				</h2>
-				{/* <h2>
-          Edit <code>src/App.tsx</code> and save to reload.
-				</h2> */}
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-          Learn React
-				</a>
-			</header>
-		</div>
+		<ThemeProvider theme={themeApp}>
+			<Ctx.Consumer>
+				{() => (
+					<HomePage />
+				)}
+			</Ctx.Consumer>
+		</ThemeProvider>
 	);
 }
 
