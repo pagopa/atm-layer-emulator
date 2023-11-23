@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, CardActions, Grid, IconButton, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
-import { LogoPagoPAProduct } from "@pagopa/mui-italia";
+import { LogoPagoPAProduct, theme } from "@pagopa/mui-italia";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 type Prop = {
@@ -11,14 +11,14 @@ type Prop = {
 
 export const CardComponent = ({ title, logo, handleClick }: Prop) => {
 
-	const theme = useTheme();
+	const themeCustom = useTheme();
 
 	return (
 		<Box >
 			<Card
 				style={{ 
 					width: "100%", 
-					border: theme.cardStyle?.border,
+					border: themeCustom.cardStyle?.border,
 					borderColor: "lightgrey",
 					maxHeight: theme.spacing(18)
 				}}>

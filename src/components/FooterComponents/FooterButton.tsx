@@ -1,4 +1,5 @@
 import { Button, useTheme } from "@mui/material";
+import { theme } from "@pagopa/mui-italia";
 import React from "react";
 
 
@@ -13,7 +14,7 @@ export default function FooterButton({
 	icon,
 	backButton
 }:Props) {
-	const theme = useTheme();
+	const themeCustom = useTheme();
 	const borderBottons = { borderRadius: theme.shape.borderRadius, width: "80%" };
 	return (
 		<React.Fragment>
@@ -38,7 +39,7 @@ export default function FooterButton({
 						height: "100%",
 						width: "100%",
 						color: "black",
-						borderColor: theme.colorVariant?.customBorderColor,
+						borderColor: themeCustom.colorVariant?.customBorderColor,
 						borderRadius: theme.shape.borderRadius,
 						justifyContent: "flex-start",
 					}}

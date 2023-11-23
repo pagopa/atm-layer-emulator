@@ -1,4 +1,5 @@
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
+import { theme } from "@pagopa/mui-italia";
 import React from "react";
 
 type Props = {
@@ -6,8 +7,6 @@ type Props = {
 };
 
 export default function FooterBox({ children }: Props) {
-	const theme = useTheme();
-
 	return (
 		<Box
 			display="flex"

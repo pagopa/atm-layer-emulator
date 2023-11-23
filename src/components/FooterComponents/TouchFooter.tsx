@@ -1,13 +1,13 @@
-import { Button, Grid, useTheme } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { theme } from "@pagopa/mui-italia";
 
 type Props = {
     backButton: () => void;
 };
 
 export const TouchFooter = ({ backButton }: Props) => {
-	const theme = useTheme();
 	const borderButtons = { width: theme.spacing(20) };
 
 	return (
