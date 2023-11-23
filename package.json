@@ -39,7 +39,6 @@
     "lint": "eslint /src -c .eslintrc.js --ext .js,.ts,.tsx ",
     "prettify": "prettier --write \"./**/*.{ts,tsx}\"",
     "serve": "npx serve -s build"
-
   },
   "eslintConfig": {
     "extends": [

@@ -6,7 +6,6 @@ type Props = {
 };
 
 export default function FooterBox({ children }: Props) {
-
 	const theme = useTheme();
 
 	return (

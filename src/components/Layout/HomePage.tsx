@@ -11,8 +11,8 @@ export const HomePage = () => {
 	
 	const theme = useTheme();
 	const { interfaceType, setInterfaceType } = useCtx(); 
-	useEffect(() => setInterfaceType(false), []);
-
+	useEffect(() => setInterfaceType(false), [];
+            
 	return (
 		<>
 			<Header 

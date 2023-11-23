@@ -1,5 +1,3 @@
-
-
 import { Button, Grid, useTheme } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ManualButtonGrid from "../ManualComponents/ManualButtonGrid";
