@@ -1,27 +1,43 @@
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
+import { useCtx } from "../DataContext";
 import { TouchFooter } from "./FooterComponents/TouchFooter";
-import { ManualFooter } from "./FooterComponents/ManualFooter";
 import FooterBox from "./FooterComponents/FooterBox";
+import { ManualFooter } from "./FooterComponents/ManualFooter";
 
 export const Footer = () => {
-	const footerTouch: boolean = true;
+	const theme = useTheme();
+	
+	const { interfaceType, setInterfaceType } = useCtx();
 
-	const backButton = () => console.log("Bottone indietro");	
+	const backButton = () => console.log("Bottone indietro");
+	const style = {
+		fontSize: theme.typography.pxToRem(12),
+		height: "100%",
+		width: "100%",
+		color: "black",
+		borderColor: theme.colorVariant?.customBorderColor,
+		borderRadius: theme.shape.borderRadius,
+		justifyContent: "flex-start",
+	};
 
 	return (
 		<Box 
 			component="footer" 
 			borderTop={1} 
-			borderColor={footerTouch ? "divider" : "transparent" }
+			borderColor={interfaceType ? "divider" : "transparent" }
 			width="100%"
 			marginTop="auto"
 			position="absolute"
 			bottom={0}
 		>
 			<FooterBox>
-				{ footerTouch ? 
+				{ interfaceType ? 
 					<TouchFooter backButton={backButton}/> : 
-					<ManualFooter backButton={backButton}/> 
+					<ManualFooter 
+						handleClick={backButton} 
+						label="Indietro" 
+						style={style}
+					/>
 				}
 			</FooterBox>
 		</Box>

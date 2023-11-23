@@ -20,11 +20,11 @@ export const CardComponent = ({ title, logo, handleClick }: Prop) => {
 					width: "100%", 
 					border: theme.cardStyle?.border,
 					borderColor: "lightgrey",
-					// borderRadius: "8px",
+					maxHeight: theme.spacing(18)
 				}}>
-				<CardContent sx={{ pt: "12px", pb: "8px", px: "12px"}}>
+				<CardContent sx={{ pt: theme.spacing(1), pb: theme.spacing(0), px: theme.spacing(1.5) }}>
 					<Typography 
-						fontSize={"1.5rem"} 
+						fontSize={theme.typography.pxToRem(18)}
 						fontWeight={theme.typography.sidenav.fontWeight}  
 						gutterBottom
 					>
@@ -32,9 +32,9 @@ export const CardComponent = ({ title, logo, handleClick }: Prop) => {
 					</Typography>
 								
 				</CardContent>
-				<CardActions sx={{ pt: "0px", pb: "12px", px: "12px"}}>
+				<CardActions sx={{ pt: theme.spacing(0), pb: theme.spacing(1.5), px: theme.spacing(1.5) }}>
 					<Grid item xs={6} alignContent="center">
-						<Box textAlign="start" sx={{ pt: "12px" }}>
+						<Box textAlign="start" paddingTop={theme.spacing(1)}>
 							{logo}
 						</Box>
 					</Grid>

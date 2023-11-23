@@ -1,12 +1,17 @@
 import {Box, Typography, useTheme } from "@mui/material";
+import { useEffect } from "react";
 import { Header } from "../Header";
 import { getCompletePathImage } from "../../utils/Commons";
 import { Footer } from "../Footer";
 import { CardLayout } from "../CardComponents/CardLayout";
+import { ManualLayout } from "../ManualComponents/ManualLayout";
+import { useCtx } from "../../DataContext";
 
 export const HomePage = () => {
 	
 	const theme = useTheme();
+	const { interfaceType, setInterfaceType } = useCtx(); 
+	useEffect(() => setInterfaceType(false), []);
 
 	return (
 		<>
@@ -34,8 +39,8 @@ export const HomePage = () => {
 				 	Puoi effettuare pagamenti verso la PA e gestire le tue iniziative di welfare. 
 				 </Typography>
 				</Box>
-				<Box marginTop={9}>
-					<CardLayout />
+				<Box marginTop={13}>
+					{interfaceType ?  <CardLayout /> : <ManualLayout />}
 				</Box>
 			</Box>
 			<Footer />

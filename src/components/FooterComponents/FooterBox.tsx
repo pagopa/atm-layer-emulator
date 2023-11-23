@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import React from "react";
 
 type Props = {
@@ -6,13 +6,16 @@ type Props = {
 };
 
 export default function FooterBox({ children }: Props) {
+
+	const theme = useTheme();
+
 	return (
 		<Box
 			display="flex"
 			flexDirection="row"
 			alignItems="center"
 			maxWidth={"false"}
-			py={3}
+			py={theme.spacing(3)}
 			mr={0}
 		>
 			{children}
