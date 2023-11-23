@@ -2,13 +2,16 @@
   "name": "atm-layer-emulator",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.14.16",
     "@mui/lab": "^5.0.0-alpha.152",
     "@mui/material": "^5.14.17",
     "@mui/system": "^5.14.17",
+    "@mui/utils": "^5.14.18",
     "@pagopa/mui-italia": "^1.0.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -21,17 +24,22 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
+    "source-map-explorer": "^2.5.3",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "start": "PORT=3005 react-scripts start",
+    "start-win": "set PORT=3005 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint-autofix": "eslint /src -c .eslintrc.js --ext .js,.ts,.tsx --fix",
     "lint": "eslint /src -c .eslintrc.js --ext .js,.ts,.tsx ",
-    "prettify": "prettier --write \"./**/*.{ts,tsx}\""
+    "prettify": "prettier --write \"./**/*.{ts,tsx}\"",
+    "serve": "npx serve -s build"
+
   },
   "eslintConfig": {
     "extends": [
