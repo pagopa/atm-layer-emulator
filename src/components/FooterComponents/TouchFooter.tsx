@@ -7,22 +7,21 @@ type Props = {
 };
 
 export const TouchFooter = ({ backButton }: Props) => {
-   
 	const theme = useTheme();
-	const borderBottons = { /* borderRadius: "8px" */ width: "80%" };
+	const borderButtons = { width: theme.spacing(20) };
 
 	return (
-		<Grid container ml={3}>
-		    <Grid item xs={3} sx={{ textAlign: "start" }}>
+		<Grid container ml={theme.spacing(3)}>
+			<Grid item xs={3} sx={{ textAlign: "start" }}>
 				<Button
 					color="primary"
 					size="medium"
 					startIcon={<ArrowBackIcon />}
 					variant="outlined"
-					sx={borderBottons}
+					sx={borderButtons}
 					onClick={backButton}
 				>
-                Indietro
+                    Indietro
 				</Button>
 			</Grid>
 			<Grid item xs={2} sx={{ textAlign: "start" }}>
@@ -31,12 +30,12 @@ export const TouchFooter = ({ backButton }: Props) => {
 					size="medium"
 					startIcon={<LogoutIcon />}
 					variant="outlined"
-					sx={borderBottons}
+					sx={borderButtons}
 					onClick={() => console.log("Bottone ")}
 				>
                     Esci
 				</Button>
-		    </Grid>
-		</Grid>  
+			</Grid>
+		</Grid>
 	);
 };

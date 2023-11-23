@@ -15,31 +15,40 @@ export const CardLayout = () => {
 			return console.log("Error");
 		}
 	};
+
+	const cardComponents = [
+		{
+			title: "Paga un avviso pagoPA",
+			logo: <LogoPagoPAProduct 
+				color="default" 
+				title={""} 
+				size={32} 
+			/>,
+		},
+		{
+			title: "Gestisci le iniziative ID Pay",
+			logo: <LogoPagoPAProduct 
+				color="default" 
+				title={""} 
+				size={32} 
+			/>,
+		}
+	];
     
 	return (
-		<Grid container my={2} gap={3}>
-			<Grid item xs={3}>
-				<CardComponent
-					title={"Paga un avviso pagoPA"} 
-					logo={<LogoPagoPAProduct 
-						color="default" 
-						title={""} 
-						size={32} 
-					/>}
-					handleClick={() => handleClickFunction(1)} 
-				/>	
-			</Grid>				
-			<Grid item xs={3}>
-				<CardComponent
-					key={2} 
-					title={"Gestisci le iniziative ID Pay"} 
-					logo={<LogoPagoPAProduct 
-						color="default" 
-						title={""} 
-						size={32} 
-					/>} 
-					handleClick={() => handleClickFunction(2)} 
-				/>
-			</Grid>
+		<Grid container gap={3}>
+			{
+				cardComponents.map((e, i) => (
+					<Grid item xs={3} key={i}>
+						<CardComponent
+							key={i}
+							title={e.title} 
+							logo={e.logo}
+							handleClick={() => handleClickFunction(i)} 
+						/>
+					</Grid>	)
+				)
+			}
 		</Grid>
-	);};
+	);
+};

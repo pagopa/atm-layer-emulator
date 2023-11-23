@@ -4,7 +4,7 @@ import "./index.css";
 import { CssBaseline } from "@mui/material";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { Ctx } from "./DataContext.js";
+import { Ctx, CtxProvider } from "./DataContext.js";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,10 +12,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
 	<React.StrictMode>		
-		<Ctx.Provider value={{}}>
+		<CtxProvider>
 			<CssBaseline />
 			<App />
-		</Ctx.Provider>
+		</CtxProvider>
 	</React.StrictMode>
 );
 

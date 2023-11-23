@@ -5,7 +5,6 @@ import { Ctx } from "./DataContext";
 import { HomePage } from "./components/Layout/HomePage";
 import { themeApp } from "./assets/jss/themeApp";
 
-
 // const themeMerged = createTheme(deepmerge(theme, themeLocal));
 
 function App() {
@@ -13,7 +12,7 @@ function App() {
 	const RELEASE_VERSION = process.env.REACT_APP_VERSION;
 
 	useEffect(() => {
-		console.log("ATM-LAYER-WEB-CONSOLE RELEASE VERSION:", RELEASE_VERSION);
+		console.log("ATM-LAYER-EMULATOR RELEASE VERSION:", RELEASE_VERSION);
 	}, []);
 
 	return (

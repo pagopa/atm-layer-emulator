@@ -1,5 +1,4 @@
 import { createTheme, Theme } from "@mui/material/styles";
-
 import { deepmerge } from "@mui/utils";
 import { theme } from "@pagopa/mui-italia";
 
