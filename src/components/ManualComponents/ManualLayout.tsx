@@ -1,14 +1,15 @@
 import { Box, Grid, useTheme } from "@mui/material";
-import { LogoPagoPAProduct, LogoPagoPAProductProps } from "@pagopa/mui-italia";
+import { LogoPagoPAProduct, LogoPagoPAProductProps, theme } from "@pagopa/mui-italia";
+import { TitleComponent } from "../TitleComponents/TitleComponent";
 import { ManualButton } from "./ManualButton";
 
 export const ManualLayout = () => {
-	const theme = useTheme();
+	const customTheme = useTheme();
 	const buttonStyle = {
 		height: "100%",
 		width: "100%",
 		color: "black",
-		borderColor: theme.colorVariant?.customBorderColor,
+		borderColor: customTheme.colorVariant?.customBorderColor,
 		borderRadius: theme.shape.borderRadius,
 		minHeight: theme.spacing(8.5),
 		paddingLeft: theme.spacing(2),

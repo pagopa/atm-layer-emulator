@@ -1,12 +1,13 @@
 import { Box, useTheme } from "@mui/material";
+import { theme } from "@pagopa/mui-italia";
 import { useCtx } from "../DataContext";
 import { TouchFooter } from "./FooterComponents/TouchFooter";
 import FooterBox from "./FooterComponents/FooterBox";
 import { ManualFooter } from "./FooterComponents/ManualFooter";
 
 export const Footer = () => {
-	const theme = useTheme();
 	
+	const themeCustom = useTheme();
 	const { interfaceType, setInterfaceType } = useCtx();
 
 	const backButton = () => console.log("Bottone indietro");
@@ -15,7 +16,7 @@ export const Footer = () => {
 		height: "100%",
 		width: "100%",
 		color: "black",
-		borderColor: theme.colorVariant?.customBorderColor,
+		borderColor: themeCustom.colorVariant?.customBorderColor,
 		borderRadius: theme.shape.borderRadius,
 		justifyContent: "flex-start",
 	};

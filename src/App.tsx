@@ -12,7 +12,7 @@ function App() {
 	const RELEASE_VERSION = process.env.REACT_APP_VERSION;
 
 	useEffect(() => {
-		console.log("ATM-LAYER-EMULATOR RELEASE VERSION:", RELEASE_VERSION);
+		console.log("ATM-LAYER-EMULATORRELEASE VERSION:", RELEASE_VERSION);
 	}, []);
 
 	return (
