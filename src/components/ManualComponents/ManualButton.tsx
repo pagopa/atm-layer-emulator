@@ -12,21 +12,22 @@ type Props = {
 export const ManualButton = ({ handleClick, label, style, endIcon }: Props) =>  (
 	<Button
 		size="large"
-		startIcon={<ChevronLeftIcon color="primary" style={{ fontSize: theme.typography.pxToRem(28) }} />}
+		startIcon={<ChevronLeftIcon color="primary" fontSize="medium" />}
 		variant="outlined"
 		onClick={handleClick}
-		style={{
+		sx={{
+			...style, 
 			display: "flex",
 			justifyContent: "space-between",
 			alignItems: "center",
-			width: "100%",
-			...style,
+			width:"100%",
+			minHeight: theme.spacing(8.5),
 		}}
 	>
-		<Box style={{ display: "flex", alignItems: "center", fontSize: theme.typography.pxToRem(16) }}>
+		<Box display="flex" alignItems="center" fontSize={theme.typography.pxToRem(16) }>
 			{label}
 		</Box>
-		<Box style={{ marginLeft: "auto", marginTop: theme.spacing(1) }}>
+		<Box marginLeft="auto" marginTop={theme.spacing(1)}>
 			{endIcon}
 		</Box>
 	</Button>

@@ -5,19 +5,23 @@ import { TouchFooter } from "./FooterComponents/TouchFooter";
 import FooterBox from "./FooterComponents/FooterBox";
 import { ManualFooter } from "./FooterComponents/ManualFooter";
 
-export const Footer = () => {
+type Props = {
+	backButton: () => void;
+	continueButton?: string;
+};
+export const Footer = ({ backButton, continueButton }: Props) => {
 	
 	const themeCustom = useTheme();
 	const { interfaceType, setInterfaceType } = useCtx();
 
-	const backButton = () => console.log("Bottone indietro");
+
 	const style = {
 		fontSize: theme.typography.pxToRem(12),
 		height: "100%",
 		width: "100%",
 		color: "black",
 		borderColor: themeCustom.colorVariant?.customBorderColor,
-		borderRadius: theme.shape.borderRadius,
+		// borderRadius: theme.shape.borderRadius,
 		justifyContent: "flex-start",
 	};
 
@@ -33,7 +37,7 @@ export const Footer = () => {
 		>
 			<FooterBox>
 				{ interfaceType ? 
-					<TouchFooter backButton={backButton}/> : 
+					<TouchFooter backButton={backButton} continueButton="Continua"/> : 
 					<ManualFooter 
 						handleClick={backButton} 
 						label="Indietro" 

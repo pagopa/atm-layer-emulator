@@ -13,6 +13,7 @@ export const HomePage = () => {
 
 	const { interfaceType, setInterfaceType } = useCtx(); 
 	useEffect(() => setInterfaceType(false), []);
+	const backButton = () => console.log("Bottone");
             
 	return (
 		<>
@@ -35,7 +36,7 @@ export const HomePage = () => {
 			>
 				{interfaceType ?  <CardLayout /> : <ManualLayout />}
 			</Box>
-			<Footer />
+			<Footer backButton={backButton} />
 		</>
 	);	
 };

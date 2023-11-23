@@ -10,7 +10,7 @@ export const ManualLayout = () => {
 		width: "100%",
 		color: "black",
 		borderColor: customTheme.colorVariant?.customBorderColor,
-		borderRadius: theme.shape.borderRadius,
+		// borderRadius: theme.shape.borderRadius,
 		minHeight: theme.spacing(8.5),
 		paddingLeft: theme.spacing(2),
 	};
@@ -48,26 +48,30 @@ export const ManualLayout = () => {
 	];
 
 	return (
-		<Box style={{ 
-			display: "grid", 
-			gridTemplateColumns: "repeat(12, 2fr)", 
-			gridTemplateAreas: `
-				"button0 button0 button0 button0 button0 . . . . . . ."
-				"button1 button1 button1 button1 button1 . . . . . . ."
-			`,
-			rowGap: theme.spacing(3)
-		}}>
-			{buttons.map((e, i) => (
-				<Box key={i} style={{ gridArea: `button${i}`, gridColumn: "span 5"}}>
-					<ManualButton 
-						handleClick={() => handleClickFunction(i)} 
-						label={e.label} 
-						style={e.style}
-						endIcon={e.icon} 
-						key={i}
-					/>
-				</Box>
+		<Grid 
+			container
+			item
+			xs={12}
+			rowGap={theme.spacing(3)}
+		>
+		  {buttons.map((e, i) => (
+				<Grid
+					container
+					key={i}
+					gap={theme.spacing(3)}
+				>
+					<Grid item xs={5} >
+
+						<ManualButton
+							handleClick={() => handleClickFunction(i)}
+							label={e.label}
+							style={e.style}
+							endIcon={e.icon}
+							key={i}
+						/>
+					</Grid>
+				</Grid>
 			))}
-		</Box>
-	);
+		</Grid>
+	  );
 };
