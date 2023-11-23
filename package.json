@@ -1,5 +1,5 @@
 {
-  "name": "atm-layer-console",
+  "name": "atm-layer-emulator",
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
@@ -39,6 +39,7 @@
     "lint": "eslint /src -c .eslintrc.js --ext .js,.ts,.tsx ",
     "prettify": "prettier --write \"./**/*.{ts,tsx}\"",
     "serve": "npx serve -s build"
+
   },
   "eslintConfig": {
     "extends": [
