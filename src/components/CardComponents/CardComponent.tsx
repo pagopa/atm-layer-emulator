@@ -13,16 +13,22 @@ export const CardComponent = ({ title, logo, handleClick }: Prop) => {
 
 	const themeCustom = useTheme();
 
+	const cardStyle = {
+		width: "100%", 
+		border: themeCustom.cardStyle?.border,
+		borderColor: "lightgrey",
+		maxHeight: theme.spacing(18)
+	};
+
+	const cardContentStyle ={
+		firstCard: { pt: theme.spacing(1), pb: theme.spacing(0), px: theme.spacing(1.5) },
+		secondCard: { pt: theme.spacing(0), pb: theme.spacing(1.5), px: theme.spacing(1.5) }
+	};
+
 	return (
 		<Box >
-			<Card
-				style={{ 
-					width: "100%", 
-					border: themeCustom.cardStyle?.border,
-					borderColor: "lightgrey",
-					maxHeight: theme.spacing(18)
-				}}>
-				<CardContent sx={{ pt: theme.spacing(1), pb: theme.spacing(0), px: theme.spacing(1.5) }}>
+			<Card sx={cardStyle}>
+				<CardContent sx={cardContentStyle.firstCard}>
 					<Typography 
 						fontSize={theme.typography.pxToRem(18)}
 						fontWeight={theme.typography.sidenav.fontWeight}  
@@ -32,16 +38,18 @@ export const CardComponent = ({ title, logo, handleClick }: Prop) => {
 					</Typography>
 								
 				</CardContent>
-				<CardActions sx={{ pt: theme.spacing(0), pb: theme.spacing(1.5), px: theme.spacing(1.5) }}>
+				<CardActions sx={cardContentStyle.secondCard}>
 					<Grid item xs={6} alignContent="center">
 						<Box textAlign="start" paddingTop={theme.spacing(1)}>
 							{logo}
 						</Box>
 					</Grid>
 					<Grid item xs={6} alignContent="center">
-						<Box textAlign="end"><IconButton size="small" onClick={handleClick}> 
-							<ArrowForwardIosIcon fontSize="small" color="primary" />
-						</IconButton> </Box>
+						<Box textAlign="end">
+							<IconButton size="small" onClick={handleClick}> 
+								<ArrowForwardIosIcon fontSize="small" color="primary" />
+							</IconButton> 
+						</Box>
 					</Grid>
 				</CardActions>
 			</Card>

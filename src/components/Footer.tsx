@@ -21,7 +21,6 @@ export const Footer = ({ backButton, continueButton }: Props) => {
 		width: "100%",
 		color: "black",
 		borderColor: themeCustom.colorVariant?.customBorderColor,
-		// borderRadius: theme.shape.borderRadius,
 		justifyContent: "flex-start",
 	};
 

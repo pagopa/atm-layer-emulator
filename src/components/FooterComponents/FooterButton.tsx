@@ -34,10 +34,10 @@ export default function FooterButton({
 					startIcon={icon}
 					variant="outlined"
 					onClick={backButton}
+					fullWidth
 					style={{
 						fontSize: "1.5rem",
 						height: "100%",
-						width: "100%",
 						color: "black",
 						borderColor: themeCustom.colorVariant?.customBorderColor,
 						borderRadius: theme.shape.borderRadius,

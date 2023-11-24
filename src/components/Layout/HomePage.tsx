@@ -12,7 +12,7 @@ import { TitleComponent } from "../TitleComponents/TitleComponent";
 export const HomePage = () => {
 
 	const { interfaceType, setInterfaceType } = useCtx(); 
-	useEffect(() => setInterfaceType(false), []);
+	useEffect(() => setInterfaceType(true), []);
 	const backButton = () => console.log("Bottone");
             
 	return (
@@ -22,7 +22,7 @@ export const HomePage = () => {
 				bankLogo={getCompletePathImage("icon-48x48.png")} 
 				serviceDescription="Servizi di pubblica utilità" 
 			/>
-			<Box style={{ marginTop: theme.spacing(3), marginLeft: theme.spacing(3) }}>
+			<Box marginTop={theme.spacing(3)} marginLeft={theme.spacing(3)}>
 				<TitleComponent 
 					title={"A quale servizio vuoi accedere?"} 
 					subTitle={"Puoi effettuare pagamenti verso la PA e gestire le tue iniziative di welfare."}

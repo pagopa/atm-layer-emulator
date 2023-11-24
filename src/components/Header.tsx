@@ -14,18 +14,16 @@ export const Header = ({
 	bankLogo,
 	serviceDescription
 }: HeaderProps) => (
-	<AppBar position="static" elevation={0} sx={{backgroundColor: theme.palette.background.paper}}>
+	<AppBar position="static" elevation={0} sx={{ backgroundColor: theme.palette.background.paper }}>
 		<Box 
 			display="flex" 
 			flexDirection="row"
 			alignItems="center" 
-			justifyContent="space-between"	
+			justifyContent="space-between"
+			borderBottom={1}
+			borderColor={"divider"}
+			minHeight={"3.5em"}
 			px={2}
-			sx={{
-				borderBottom: 1,
-				borderColor: "divider",
-				minHeight: "3.5em",
-			}}
 		>
 			<Box display="flex" flexDirection="row" alignItems="center">
 
