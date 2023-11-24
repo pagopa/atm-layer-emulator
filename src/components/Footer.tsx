@@ -36,7 +36,7 @@ export const Footer = ({ backButton, continueButton }: Props) => {
 		>
 			<FooterBox>
 				{ interfaceType ? 
-					<TouchFooter backButton={backButton} continueButton="Continua"/> : 
+					<TouchFooter backButton={backButton} /> : 
 					<ManualFooter 
 						handleClick={backButton} 
 						label="Indietro" 
