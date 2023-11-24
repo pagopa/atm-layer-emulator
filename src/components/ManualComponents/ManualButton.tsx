@@ -9,25 +9,30 @@ type Props = {
 	endIcon?: any;
 };
 
-export const ManualButton = ({ handleClick, label, style, endIcon }: Props) =>  (
-	<Button
-		size="large"
-		startIcon={<ChevronLeftIcon color="primary" style={{ fontSize: theme.typography.pxToRem(28) }} />}
-		variant="outlined"
-		onClick={handleClick}
-		style={{
-			display: "flex",
-			justifyContent: "space-between",
-			alignItems: "center",
-			width: "100%",
-			...style,
-		}}
-	>
-		<Box style={{ display: "flex", alignItems: "center", fontSize: theme.typography.pxToRem(16) }}>
-			{label}
-		</Box>
-		<Box style={{ marginLeft: "auto", marginTop: theme.spacing(1) }}>
-			{endIcon}
-		</Box>
-	</Button>
-);
+export const ManualButton = ({ handleClick, label, style, endIcon }: Props) =>{ 
+	
+	const buttonStyle = {
+		...style, 
+		display: "flex",
+		justifyContent: "space-between",
+		alignItems: "center",
+		width:"100%",
+		minHeight: theme.spacing(8.5),
+	};
+
+	return (
+		<Button
+			size="large"
+			startIcon={<ChevronLeftIcon color="primary" fontSize="medium" />}
+			variant="outlined"
+			onClick={handleClick}
+			sx={buttonStyle}
+		>
+			<Box display="flex" alignItems="center" fontSize={theme.typography.pxToRem(16) }>
+				{label}
+			</Box>
+			<Box marginLeft="auto" marginTop={theme.spacing(1)}>
+				{endIcon}
+			</Box>
+		</Button>
+	);};
