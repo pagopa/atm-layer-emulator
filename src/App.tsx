@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import "./App.css";
 import { ThemeProvider } from "@mui/material/styles";
 import { Ctx } from "./DataContext";
-import { HomePage } from "./components/Layout/HomePage";
+import { HomePage } from "./pages/Layout/HomePage";
 import { themeApp } from "./assets/jss/themeApp";
 
 // const themeMerged = createTheme(deepmerge(theme, themeLocal));

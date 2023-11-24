@@ -1,13 +1,13 @@
 import {Box, Typography, useTheme } from "@mui/material";
 import { useEffect } from "react";
 import { theme } from "@pagopa/mui-italia";
-import { Header } from "../Header";
+import { Header } from "../../components/Header";
 import { getCompletePathImage } from "../../utils/Commons";
-import { Footer } from "../Footer";
-import { CardLayout } from "../CardComponents/CardLayout";
-import { ManualLayout } from "../ManualComponents/ManualLayout";
+import { Footer } from "../../components/Footer";
+import { CardLayout } from "../../components/CardComponents/CardLayout";
+import { ManualLayout } from "../../components/ManualComponents/ManualLayout";
 import { useCtx } from "../../DataContext";
-import { TitleComponent } from "../TitleComponents/TitleComponent";
+import { TitleComponent } from "../../components/TitleComponents/TitleComponent";
 
 export const HomePage = () => {
 
@@ -17,11 +17,6 @@ export const HomePage = () => {
             
 	return (
 		<>
-			<Header 
-				bankTitle="Test" 
-				bankLogo={getCompletePathImage("icon-48x48.png")} 
-				serviceDescription="Servizi di pubblica utilità" 
-			/>
 			<Box marginTop={theme.spacing(3)} marginLeft={theme.spacing(3)}>
 				<TitleComponent 
 					title={"A quale servizio vuoi accedere?"} 
