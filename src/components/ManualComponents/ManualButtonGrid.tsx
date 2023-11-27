@@ -2,14 +2,18 @@ import { Grid } from "@mui/material";
 import { theme } from "@pagopa/mui-italia";
 
 type Props = {
-    children?: React.ReactNode;
+    children1?: React.ReactNode;
+	children2?: React.ReactNode;
 };
 
-export default function ManualButtonGrid({ children }: Props) {
+export default function ManualButtonGrid({ children1, children2 }: Props) {
 	return (
-		<Grid container ml={theme.spacing(3)}>
+		<Grid container mx={theme.spacing(3)} justifyContent={"space-between"}>
 			<Grid item xs={5} width="100%" minHeight={theme.spacing(8)}>
-				{children}
+				{children1}
+			</Grid>
+			<Grid item xs={5} width="100%" minHeight={theme.spacing(8)}>
+				{children2}
 			</Grid>
 		</Grid>
 	);
