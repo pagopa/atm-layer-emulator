@@ -1,6 +1,5 @@
-import { Box, Grid, useTheme } from "@mui/material";
-import { LogoPagoPAProduct, LogoPagoPAProductProps, theme } from "@pagopa/mui-italia";
-import { TitleComponent } from "../TitleComponents/TitleComponent";
+import { Grid, useTheme } from "@mui/material";
+import { LogoPagoPAProduct, theme } from "@pagopa/mui-italia";
 import { ManualButton } from "./ManualButton";
 
 export const ManualLayout = () => {

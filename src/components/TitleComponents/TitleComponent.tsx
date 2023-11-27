@@ -8,7 +8,7 @@ type Props = {
 
 export const TitleComponent = ({ title, subTitle }: Props) => (
 	<>
-		<Typography variant="h5" textAlign={"start"}> 
+		<Typography variant="h5"> 
 			{title} 
 		</Typography>
 		<Typography
@@ -17,7 +17,6 @@ export const TitleComponent = ({ title, subTitle }: Props) => (
 			noWrap
 			fontWeight={theme.typography.body2.fontWeight}
 			color={"text.secondary"}
-			textAlign={"start"}
 		>
 			{subTitle}
 		</Typography>
