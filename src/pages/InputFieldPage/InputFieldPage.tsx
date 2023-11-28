@@ -1,20 +1,14 @@
 import { Box } from "@mui/system";
 import { theme } from "@pagopa/mui-italia";
-import KeyboardHideOutlinedIcon from "@mui/icons-material/KeyboardHideOutlined";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { Button } from "@mui/material";
+import { useEffect } from "react";
 import { Header } from "../../components/Header";
 import { TitleComponent } from "../../components/TitleComponents/TitleComponent";
 import { getCompletePathImage } from "../../utils/Commons";
-import { Footer } from "../../components/Footer";
-import { useCtx } from "../../DataContext";
+
+
 
 export const InputFieldPage = () => {
-
-	const backButton = () => console.log("Bottone");
-
-	const { interfaceType } = useCtx();
-            
+	useEffect(() => {},[]);  
 	return (
 		<>
 			<Header 

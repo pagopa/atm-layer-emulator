@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
-import { useCtx } from "../DataContext";
+import { useContext } from "react";
+import { Ctx } from "../DataContext";
 import { TouchFooter } from "./FooterComponents/TouchFooter";
 import FooterBox from "./FooterComponents/FooterBox";
 import { ManualFooter } from "./FooterComponents/ManualFooter";
@@ -12,7 +13,9 @@ type Props = {
 };
 export const Footer = ({ backButton, continueButton, startIcon, endIcon }: Props) => {
 	
-	const { interfaceType } = useCtx();
+	const context = useContext(Ctx);
+	const {interfaceType}=context;
+
 
 	return (
 		<Box 
