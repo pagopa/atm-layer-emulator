@@ -1,10 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { CssBaseline } from "@mui/material";
+// import { CssBaseline } from "@mui/material";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { Ctx, CtxProvider } from "./DataContext.js";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,10 +11,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
 	<React.StrictMode>		
-		<CtxProvider>
-			<CssBaseline />
-			<App />
-		</CtxProvider>
+		{/* <CssBaseline /> */}
+		<App />
 	</React.StrictMode>
 );
 
