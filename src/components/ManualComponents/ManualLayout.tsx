@@ -3,17 +3,6 @@ import { LogoPagoPAProduct, theme } from "@pagopa/mui-italia";
 import { ManualButton } from "./ManualButton";
 
 export const ManualLayout = () => {
-	const customTheme = useTheme();
-	const buttonStyle = {
-		height: "100%",
-		width: "100%",
-		color: "black",
-		borderColor: customTheme.colorVariant?.customBorderColor,
-		// borderRadius: theme.shape.borderRadius,
-		minHeight: theme.spacing(8.5),
-		paddingLeft: theme.spacing(2),
-	};
-
 	const handleClickFunction = (key: number) => {
 		switch (key) {
 		case 1:
@@ -36,12 +25,10 @@ export const ManualLayout = () => {
 	const buttons = [
 		{
 			label: "Paga un avviso pagoPA",
-			style: buttonStyle,
 			icon: LogoPagoPA(),
 		},
 		{
 			label: "Iniziative ID Pay",
-			style: buttonStyle,
 			icon: LogoPagoPA(),
 		}
 	];
@@ -58,13 +45,13 @@ export const ManualLayout = () => {
 					container
 					key={i}
 					gap={theme.spacing(3)}
+					mr={theme.spacing(3)}
 				>
 					<Grid item xs={5} >
 
 						<ManualButton
 							handleClick={() => handleClickFunction(i)}
 							label={e.label}
-							style={e.style}
 							endIcon={e.icon}
 							key={i}
 						/>

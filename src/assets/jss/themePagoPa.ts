@@ -19,7 +19,6 @@ const mainTypeface = ["\"Titillium Web\"", "sans-serif"].join(", ");
 const monospacedTypeface = ["\"DM Mono\"", "monospace"].join(", ");
 const colorTextPrimary = "#17324D";
 const responsiveBreakpoint = "sm";
-const colorPrimaryContainedHover = "#0055AA"; // Not exposed by the theme object
 export const ringWidth = "4px";
 const shadowColor = "#002B55";
 
@@ -66,6 +65,12 @@ declare module "@mui/material/Typography" {
   }
 }
 
+declare module "@mui/material/Badge" {
+  interface BadgePropsVariantOverrides {
+    sidenav: true;
+  }
+}
+
 /* Custom Palette */
 declare module "@mui/material/styles" {
   interface Palette {
@@ -86,19 +91,6 @@ declare module "@mui/material/styles" {
   interface PaletteColor {
     extraLight?: string;
   }
-}
-
-
-declare module "@mui/material/Button" {
-	interface ButtonPropsVariantOverrides {
-		manual: true;
-	}
-}
-
-declare module "@mui/material/Button" {
-	interface CustomButtonProps {
-	  CustomButton: "root";
-	}
 }
 
 const foundation: Theme = createTheme({
@@ -221,7 +213,7 @@ const foundation: Theme = createTheme({
 	spacing: 8,
 });
 
-export const themeApp: Theme = createTheme(foundation, {
+export const theme: Theme = createTheme(foundation, {
 	typography: {
 		/* H1 Large */
 		headline: {
@@ -287,7 +279,7 @@ export const themeApp: Theme = createTheme(foundation, {
 		},
 		sidenav: {
 			fontFamily: mainTypeface,
-			fontSize: pxToRem(22),
+			fontSize: pxToRem(18),
 			lineHeight: 1.35 /* ~24px */,
 			color: colorTextPrimary,
 			fontWeight: foundation.typography.fontWeightMedium,
@@ -346,8 +338,7 @@ export const themeApp: Theme = createTheme(foundation, {
 
 		/* Start: To be revised */
 		subtitle1: {
-			fontSize: pxToRem(14),
-			fontWeight: foundation.typography.fontWeightRegular,
+			fontWeight: foundation.typography.fontWeightMedium,
 		},
 		subtitle2: {
 			fontSize: pxToRem(14),
@@ -356,174 +347,6 @@ export const themeApp: Theme = createTheme(foundation, {
 		/* End: To be revised */
 	},
 	components: {
-		/* START Button */
-		MuiButton: {
-			defaultProps: {
-				disableElevation: true,
-				disableFocusRipple: true,
-			},
-			styleOverrides: {
-				root: {
-					padding: "0 20px",
-					"&.Mui-focusVisible": {
-						boxShadow: `0 0 0 ${ringWidth} ${alpha(
-							foundation.palette.primary.main,
-							0.4
-						)}`,
-					},
-				},
-				sizeSmall: {
-					height: "40px",
-					padding: "0 20px",
-					fontSize: pxToRem(14),
-					lineHeight: 1.25 /* ~18px */,
-				},
-				sizeMedium: {
-					height: "48px",
-					padding: "0 24px",
-					fontSize: pxToRem(16),
-					lineHeight: 1.25 /* 20px */,
-				},
-				sizeLarge: {
-					height: "56px",
-					padding: "0 24px",
-					fontSize: pxToRem(18),
-					lineHeight: 1.2 /* ~22px */,
-				},
-				outlined: {
-					borderWidth: "2px",
-					"&:hover": {
-						borderWidth: "2px",
-					},
-					"&:disabled": {
-						borderWidth: "2px",
-					},
-				},
-				outlinedPrimary: {
-					borderColor: foundation.palette.primary.main,
-					"&:hover": {
-						color: foundation.palette.primary.dark,
-						borderColor: "currentColor",
-					},
-				},
-				outlinedError: {
-					borderColor: foundation.palette.error.main,
-					"&:hover": {
-						color: foundation.palette.error.dark,
-						borderColor: "currentColor",
-					},
-					"&.Mui-focusVisible": {
-						boxShadow: `0 0 0 ${ringWidth} ${alpha(
-							foundation.palette.error.main,
-							0.4
-						)}`,
-					},
-				},
-			},
-			variants: [
-				{
-					props: { variant: "naked" },
-					style: {
-						color: foundation.palette.text.primary,
-						padding: 0,
-						height: "auto",
-						minWidth: "auto",
-						"&:hover": {
-							color: alpha(foundation.palette.text.primary, 0.8),
-							backgroundColor: "transparent",
-						},
-						"&.Mui-focusVisible": {
-							boxShadow: `0 0 0 3px ${alpha(
-								foundation.palette.text.primary,
-								0.2
-							)}`,
-						},
-					},
-				},
-				{
-					props: { variant: "naked", color: "primary" },
-					style: {
-						color: foundation.palette.primary.main,
-						"&:hover": {
-							color: colorPrimaryContainedHover,
-						},
-						"&.Mui-focusVisible": {
-							boxShadow: `0 0 0 3px ${alpha(
-								foundation.palette.primary.main,
-								0.35
-							)}`,
-						},
-					},
-				},
-				{
-					props: { variant: "naked", color: "error" },
-					style: {
-						color: foundation.palette.error.main,
-						"&:hover": {
-							color: foundation.palette.error.light,
-						},
-						"&.Mui-focusVisible": {
-							boxShadow: `0 0 0 3px ${alpha(
-								foundation.palette.error.main,
-								0.35
-							)}`,
-						},
-					},
-				},
-				{
-					props: { variant: "manual" },
-					style: {
-						fontSize: foundation.typography.pxToRem(12),
-						height: "100%",
-						width: "100%",
-						color: "black",
-						display: "flex",
-						alignItems: "center",
-						minHeight: foundation.spacing(8.5),
-						borderWidth: "2px",
-						border: "2px solid lightgrey",
-						"&:hover": {
-							borderWidth: "2px",
-						},
-						"&:disabled": {
-							borderWidth: "2px",
-						},
-						"&.Mui-focusVisible": {
-							boxShadow: `0 0 0 3px ${alpha(
-								foundation.palette.error.main,
-								0.35
-							)}`,
-						},
-					},
-				},
-			],
-		},
-		/* END Button */
-		/* START Card */
-		MuiCard: {
-			styleOverrides: {
-				root: {
-					border: "1px solid lightgrey",
-					borderRadius: foundation.spacing(1),
-					maxHeight: foundation.spacing(18)
-				},
-			},
-		},
-		MuiCardContent: {
-			styleOverrides: {
-				root: {
-					padding: foundation.spacing(3),
-				},
-			},
-		},
-		MuiCardActions: {
-			styleOverrides: {
-				root: {
-					padding: foundation.spacing(3),
-					paddingTop: 0,
-				},
-			},
-		},
-		/* END Card */
+		//
 	},
 });

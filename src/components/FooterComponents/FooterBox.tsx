@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import { theme } from "@pagopa/mui-italia";
 import React from "react";
+import { themeApp } from "../../assets/jss/themeApp";
 
 type Props = {
     children?: React.ReactNode;
@@ -13,7 +13,7 @@ export default function FooterBox({ children }: Props) {
 			flexDirection="row"
 			alignItems="center"
 			maxWidth={"false"}
-			py={theme.spacing(3)}
+			py={themeApp.spacing(3)}
 			mr={0}
 		>
 			{children}

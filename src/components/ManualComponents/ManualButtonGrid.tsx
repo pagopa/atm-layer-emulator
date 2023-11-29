@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { theme } from "@pagopa/mui-italia";
+import { theme } from "../../assets/jss/themePagoPa";
 
 type Props = {
     children1?: React.ReactNode;

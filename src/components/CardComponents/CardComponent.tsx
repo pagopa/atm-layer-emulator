@@ -13,13 +13,6 @@ export const CardComponent = ({ title, logo, handleClick }: Prop) => {
 
 	const themeCustom = useTheme();
 
-	const cardStyle = {
-		width: "100%", 
-		border: themeCustom.cardStyle?.border,
-		borderColor: "lightgrey",
-		maxHeight: theme.spacing(18)
-	};
-
 	const cardContentStyle ={
 		firstCard: { pt: theme.spacing(1), pb: theme.spacing(0), px: theme.spacing(1.5) },
 		secondCard: { pt: theme.spacing(0), pb: theme.spacing(1.5), px: theme.spacing(1.5) }
@@ -27,11 +20,10 @@ export const CardComponent = ({ title, logo, handleClick }: Prop) => {
 
 	return (
 		<Box >
-			<Card sx={cardStyle}>
+			<Card /* sx={cardStyle} */>
 				<CardContent sx={cardContentStyle.firstCard}>
 					<Typography 
-						fontSize={theme.typography.pxToRem(18)}
-						fontWeight={theme.typography.sidenav.fontWeight}  
+						variant="sidenav"  
 						gutterBottom
 					>
 						{title}
