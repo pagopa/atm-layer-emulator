@@ -1,18 +1,18 @@
-import {Box, Typography, useTheme } from "@mui/material";
-import { useEffect } from "react";
+import {Box } from "@mui/material";
+import { useContext } from "react";
 import { theme } from "@pagopa/mui-italia";
 import { Header } from "../../components/Header";
 import { getCompletePathImage } from "../../utils/Commons";
 import { Footer } from "../../components/Footer";
 import { CardLayout } from "../../components/CardComponents/CardLayout";
 import { ManualLayout } from "../../components/ManualComponents/ManualLayout";
-import { useCtx } from "../../DataContext";
 import { TitleComponent } from "../../components/TitleComponents/TitleComponent";
+import { Ctx } from "../../DataContext";
 
 export const HomePage = () => {
 
-	const { interfaceType, setInterfaceType } = useCtx(); 
-	useEffect(() => setInterfaceType(true), []);
+	const context = useContext(Ctx);
+	const {interfaceType,}=context;
 	const backButton = () => console.log("Bottone");
             
 	return (

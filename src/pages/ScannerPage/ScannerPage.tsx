@@ -3,17 +3,20 @@ import { theme } from "@pagopa/mui-italia";
 import KeyboardHideOutlinedIcon from "@mui/icons-material/KeyboardHideOutlined";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Button } from "@mui/material";
+import { useContext } from "react";
 import { Header } from "../../components/Header";
 import { TitleComponent } from "../../components/TitleComponents/TitleComponent";
 import { getCompletePathImage } from "../../utils/Commons";
 import { Footer } from "../../components/Footer";
-import { useCtx } from "../../DataContext";
+import { Ctx } from "../../DataContext";
+
 
 export const ScannerPage = () => {
 
 	const backButton = () => console.log("Bottone");
 
-	const { interfaceType } = useCtx();
+	const context = useContext(Ctx);
+	const {interfaceType}=context;
             
 	return (
 		<>
