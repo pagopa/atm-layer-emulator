@@ -1,5 +1,6 @@
-import { Box, Grid } from "@mui/material";
-import { LogoPagoPAProduct, theme } from "@pagopa/mui-italia";
+import { Grid } from "@mui/material";
+import { LogoPagoPAProduct } from "@pagopa/mui-italia";
+import { themeApp } from "../../assets/jss/themeApp";
 import { CardComponent } from "./CardComponent";
 
 
@@ -38,7 +39,7 @@ export const CardLayout = () => {
 	return (
 
 		<>
-			<Grid container item xs={12} gap={theme.spacing(3)} marginTop={theme.spacing(0)}>
+			<Grid container item xs={12} spacing={3} >
 				{
 					cardComponents.map((e, i) => (
 						<Grid item xs={3} key={i}>
