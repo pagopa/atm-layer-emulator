@@ -20,16 +20,19 @@ const CustomButtonRoot = styled(Button, {
 	width: "100%",
 	color: "black",
 	display: "flex",
-	justifyContent: direction === "right" ? "flex-end" : "flex-start",
+	justifyContent: direction === "left" ? "flex-start" : "space-between",
+	border: "1px solid lightgray",
+	borderRadius: "8px",
 	alignItems: "center",
 	"&:hover": {
 		borderWidth: "2px",
+		backgroundColor: "#DEDEDE",
 	},
 	"&:disabled": {
 		borderWidth: "2px",
 	},
 	"&.Mui-focusVisible": {
-		boxShadow: `0 0 0 3px ${alpha(theme.palette.error.main, 0.35)}`,
+		boxShadow: `0 0 0 3px ${alpha(theme.palette.error.main ?? "", 0.35)}`,
 	},
 }));
 
@@ -51,7 +54,7 @@ const CustomButton = React.forwardRef<HTMLDivElement, CustomButtonProps>(
 							<Box>
 								{continueButton}
 							</Box>
-							<Box ml={1}>
+							<Box ml={1} mt={0.5}>
 								{endIcon}
 							</Box>
 						</Box>
