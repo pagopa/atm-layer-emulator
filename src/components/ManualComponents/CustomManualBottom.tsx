@@ -21,7 +21,7 @@ const CustomButtonRoot = styled(Button, {
 	color: "black",
 	display: "flex",
 	justifyContent: direction === "left" ? "flex-start" : "space-between",
-	paddingX: "16px",
+  paddingX: "16px",
 	minHeight: theme.spacing(9),
 	border: "1px solid lightgray",
 	borderRadius: "8px",
