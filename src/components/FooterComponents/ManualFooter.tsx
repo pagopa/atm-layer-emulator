@@ -14,8 +14,6 @@ type Props = {
 
 export const ManualFooter = ({ handleClick, continueButton, startIcon, endIcon }: Props) => {
 
-	
-
 	// const secondaryButton = (<Button
 	// 	size="large"
 	// 	variant="manual"

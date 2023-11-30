@@ -57,6 +57,7 @@ declare module "@mui/material/styles" {
     "caption-semibold"?: React.CSSProperties;
   }
 }
+
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     headline: true;
@@ -87,7 +88,6 @@ declare module "@mui/material/styles" {
     extraLight?: string;
   }
 }
-
 
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
@@ -525,7 +525,7 @@ export const themeApp: Theme = createTheme(foundation, {
 			},
 		},
 		/* END Card */
-	},
+	}
 });
 
 export const themeButton = createTheme({
