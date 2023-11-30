@@ -2,6 +2,7 @@
 import React, { useContext } from "react";
 import { Ctx } from "../../DataContext";
 import { LoadingPage } from "../LoadingPage/LoadingPage";
+import { ScannerPage } from "../ScannerPage/ScannerPage";
 import { HomePage } from "./HomePage";
 
 export default function PageLayout() {
@@ -15,7 +16,7 @@ export default function PageLayout() {
 		<Ctx.Consumer>
 			{() => (
 				<React.Fragment>
-					{loading? <LoadingPage /> : <HomePage />}
+					{loading? <LoadingPage /> : <ScannerPage />}
 				</React.Fragment>
 			)}
 		</Ctx.Consumer>

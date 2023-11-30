@@ -57,6 +57,7 @@ declare module "@mui/material/styles" {
     "caption-semibold"?: React.CSSProperties;
   }
 }
+
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     headline: true;
@@ -87,7 +88,6 @@ declare module "@mui/material/styles" {
     extraLight?: string;
   }
 }
-
 
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
@@ -525,5 +525,37 @@ export const themeApp: Theme = createTheme(foundation, {
 			},
 		},
 		/* END Card */
+	}
+});
+
+export const themeButton = createTheme({
+	components: {
+	  MuiButton: {
+			styleOverrides: {
+		  root: {
+					fontSize: foundation.typography.pxToRem(12),
+					height: "100%",
+					width: "100%",
+					color: "black",
+					display: "flex",
+					alignItems: "center",
+					minHeight: foundation.spacing(8.5),
+					borderWidth: "2px",
+					border: "2px solid lightgrey",
+					"&:hover": {
+						borderWidth: "2px",
+					},
+					"&:disabled": {
+						borderWidth: "2px",
+					},
+					"&.Mui-focusVisible": {
+						boxShadow: `0 0 0 3px ${alpha(
+							foundation.palette.error.main,
+							0.35
+						)}`,
+					},
+		  }
+			},
+	  },
 	},
 });
