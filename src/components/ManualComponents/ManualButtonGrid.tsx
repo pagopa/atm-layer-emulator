@@ -9,10 +9,10 @@ type Props = {
 export default function ManualButtonGrid({ children1, children2 }: Props) {
 	return (
 		<Grid container mx={theme.spacing(3)} justifyContent={"space-between"}>
-			<Grid item xs={5} width="100%" minHeight={theme.spacing(8)}>
+			<Grid item xs={5} width="100%">
 				{children1}
 			</Grid>
-			<Grid item xs={5} width="100%" minHeight={theme.spacing(8)}>
+			<Grid item xs={5} py={1} width="100%">
 				{children2}
 			</Grid>
 		</Grid>

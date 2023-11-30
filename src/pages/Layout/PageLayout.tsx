@@ -16,7 +16,7 @@ export default function PageLayout() {
 		<Ctx.Consumer>
 			{() => (
 				<React.Fragment>
-					{loading? <LoadingPage /> : <ScannerPage />}
+					{loading? <LoadingPage /> : <HomePage />}
 				</React.Fragment>
 			)}
 		</Ctx.Consumer>
