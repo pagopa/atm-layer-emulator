@@ -1,6 +1,5 @@
 import {Box } from "@mui/material";
 import { useContext } from "react";
-import { theme } from "@pagopa/mui-italia";
 import { Header } from "../../components/Header";
 import { getCompletePathImage } from "../../utils/Commons";
 import { Footer } from "../../components/Footer";
@@ -8,6 +7,7 @@ import { CardLayout } from "../../components/CardComponents/CardLayout";
 import { ManualLayout } from "../../components/ManualComponents/ManualLayout";
 import { TitleComponent } from "../../components/TitleComponents/TitleComponent";
 import { Ctx } from "../../DataContext";
+import { theme } from "../../assets/jss/themePagoPa";
 
 export const HomePage = () => {
 
@@ -19,7 +19,7 @@ export const HomePage = () => {
 		<>
 			<Header 
 				bankTitle="Test" 
-				bankLogo={getCompletePathImage("icon-48x48.png")} 
+				bankLogo={getCompletePathImage("icon-52x52.png")} 
 				serviceDescription="Servizi di pubblica utilità" 
 			/>
 			<Box marginTop={theme.spacing(3)} marginLeft={theme.spacing(3)} textAlign={"start"}>
@@ -30,13 +30,13 @@ export const HomePage = () => {
 			</Box>
 			<Box 
 				className="App" 
-				minHeight="56.5vmin"
+				minHeight="70vmin"
 				justifyContent={"center"}
 				ml={3} 
 			>
 				{interfaceType ?  <CardLayout /> : <ManualLayout />}
 			</Box>
-			<Footer backButton={backButton} />
+			<Footer disabled={false} backButton={backButton} />
 		</>
 	);	
 };
