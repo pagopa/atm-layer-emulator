@@ -1,5 +1,5 @@
 /* eslint-disable functional/no-let */
-export default function useFetch(endPoint: string) {
+export default function useRestFetch(endPoint: string) {
 	// endpoint per test di ingrazione interni
 
 	// const SERVER_API_ORIGIN = endPoint ? endPoint : process.env.REACT_APP_BACKEND_URL;
@@ -15,7 +15,13 @@ export default function useFetch(endPoint: string) {
 	}:any) => {
 		let data; 
 		let status;
-		
+
+		let headerRequest={};
+		if(headers){
+			headerRequest={"Content-Type": "application/json", ...headers};
+		}else{
+			headerRequest={"Content-Type": "application/json"};
+		}
 		const options:any = 
 		
 			 (method === "POST" || method === "PUT")
@@ -25,10 +31,10 @@ export default function useFetch(endPoint: string) {
 			 		credentials: "include",
 			 		signal: abortController?.current?.signal,
 			 		cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-			 		headers: {...headers},
+			 		headers: {...headerRequest},
 			 		redirect: "manual", // manual, *follow, error
 			 		referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-			 		body: body ? body : JSON.stringify(""), // body data type must match "Content-Type" header
+			 		body: body ? JSON.stringify(body) : JSON.stringify(""), // body data type must match "Content-Type" header
 			  }
 			 	: {
 			 		method, // *GET, POST, PUT, DELETE, etc.
@@ -36,7 +42,7 @@ export default function useFetch(endPoint: string) {
 			 		credentials: "include",
 			 		signal: abortController?.current?.signal,
 			 		cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-			 		headers: {...headers},
+			 		headers: {...headerRequest},
 			 		redirect: "manual", // manual, *follow, error
 			 		referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
 			  };
@@ -70,7 +76,7 @@ export default function useFetch(endPoint: string) {
 			}
 		} catch (error) {
 			data = {
-				valuesObj: { message: "Errore durante la useFetch" }, // aluesObj conterrà il messaggio di errore
+				valuesObj: { message: "Errore durante la useRestFetch" }, // aluesObj conterrà il messaggio di errore
 				success: false,
 			}; 
 		}
