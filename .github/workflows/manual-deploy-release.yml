@@ -1,0 +1,45 @@
+name: Manual deploy release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Which pre-release/release to deploy:'
+        type: string
+        required: true
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: write    # This is required for actions/checkout
+
+jobs:
+  manual-deploy-release:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/uat' || startsWith(github.ref, 'refs/heads/hotfix/') || github.ref == 'refs/heads/main' 
+    strategy:
+      matrix: #pre-prod
+        environment: ["${{ github.ref == 'refs/heads/dev' && 'dev' || github.ref == 'refs/heads/uat' && 'uat' || startsWith(github.ref, 'refs/heads/hotfix/') && 'uat' || github.ref == 'refs/heads/main' && 'prod' }}"]
+
+    name: "manual-deploy-release"
+    runs-on: ubuntu-latest
+    environment: ${{ matrix.environment }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
+        with:
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Deploy app version = ${{ inputs.release }}
+        run: |
+          aws s3api get-object --bucket ${{ vars.BUCKET_NAME_ARTIFACTS }} --key ${{ inputs.release }}.zip ./${{ inputs.release }}.zip
+          unzip ${{ inputs.release }}.zip
+          aws s3 cp build s3://${{ vars.BUCKET_NAME_FRONTEND }}/ --recursive
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"

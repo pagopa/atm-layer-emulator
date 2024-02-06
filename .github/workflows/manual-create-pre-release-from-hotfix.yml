@@ -1,0 +1,112 @@
+name: Manual create pre-release from hotfix
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: 'Pre-release type:'
+        type: choice
+        required: true
+        default: feat
+        options:
+        - feat
+        - fix
+        - major
+
+defaults:
+  run:
+    shell: bash
+
+permissions: write-all
+
+jobs:
+  manual-create-pre-release:
+    if: github.event_name == 'workflow_dispatch' && startsWith(github.ref, 'refs/heads/hotfix/')
+    strategy:
+      matrix:
+        environment: [uat] #pre-prod
+
+    name: "manual-create-pre-release"
+    runs-on: ubuntu-latest
+    environment: ${{ matrix.environment }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 20.9.0
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20.9.0
+
+      - name: Build app
+        run: |
+          npm install
+          npm run build
+
+      - name: Commit with "${{ inputs.commit }}:" prefix
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git pull
+          git add .
+          git commit --allow-empty -m "${{ inputs.commit }}: ${{ github.sha }}"
+          git push
+
+      - name: Semantic Release
+        id: semantic-release-dryrun
+        uses: cycjimmy/semantic-release-action@bdd914ff2423e2792c73475f11e8da603182f32d
+        with:
+          dry_run: true
+          semantic_version: 19
+          extra_plugins: |
+            @semantic-release/release-notes-generator@10.0.3
+            @semantic-release/git@10.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit with "${{ inputs.commit }}:" prefix
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git pull
+          git add .
+          git commit --allow-empty -m "${{ inputs.commit }}: image: v${{ steps.semantic-release-dryrun.outputs.new_release_version }}"
+          git push
+
+      - name: Semantic Release
+        id: semantic-release
+        uses: cycjimmy/semantic-release-action@bdd914ff2423e2792c73475f11e8da603182f32d
+        with:
+          semantic_version: 19
+          extra_plugins: |
+            @semantic-release/release-notes-generator@10.0.3
+            @semantic-release/git@10.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update file package.json with the new version
+        if: steps.semantic-release.outputs.new_release_published == 'true'
+        run: |
+          echo "`jq '.version = "v${{ steps.semantic-release.outputs.new_release_version }}"' package.json`" > package.json
+          git pull
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add package.json
+          git commit -m "package.json updated with new version ${{ steps.semantic-release.outputs.new_release_version }}"
+          git push
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
+        with:
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Zip app
+        run: |
+          zip -r v${{ steps.semantic-release.outputs.new_release_version }}.zip build
+
+      - name: Push pre-release on S3
+        if: steps.semantic-release.outputs.new_release_published == 'true'
+        run: |
+          aws s3 cp v${{ steps.semantic-release.outputs.new_release_version }}.zip s3://${{ vars.BUCKET_NAME_ARTIFACTS }}/
