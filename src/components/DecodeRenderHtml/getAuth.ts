@@ -5,7 +5,6 @@ const abortController = useRef(new AbortController());
 export const getAuth=()=>{
 	const auth = new Promise((resolve) => {
 		const headers={
-			"Authorization": "Basic MTR0bjFlaGtoc3E5bjJwYTZlYjBlMWozaGk6MTg2dnF1aG9haGdqNW5oaGFpbzQ0bTRqMmZocnV1cmdvbW82dWhocmwxMm52Y3A4c2ZmcA",
 			"Content-Type": "application/x-www-form-urlencoded"
 		};
 		const formBody = new URLSearchParams();
