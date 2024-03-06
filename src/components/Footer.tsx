@@ -7,11 +7,13 @@ import { ManualFooter } from "./FooterComponents/ManualFooter";
 
 type Props = {
 	backButton: () => void;
+	disabled: boolean;
+	handleClick?: () => void;
 	continueButton?: string;
 	startIcon?: any;
 	endIcon?: any;
 };
-export const Footer = ({ backButton, continueButton, startIcon, endIcon }: Props) => {
+export const Footer = ({ backButton, disabled, handleClick, continueButton, startIcon, endIcon }: Props) => {
 	
 	const context = useContext(Ctx);
 	const {interfaceType}=context;
@@ -29,9 +31,11 @@ export const Footer = ({ backButton, continueButton, startIcon, endIcon }: Props
 		>
 			<FooterBox>
 				{ interfaceType ? 
-					<TouchFooter backButton={backButton} continueButton={continueButton}/> : 
-					<ManualFooter 
-						handleClick={backButton}
+					<TouchFooter backButton={backButton} handleClick={handleClick} continueButton={continueButton}/> : 
+					<ManualFooter
+						disabled={disabled}
+						handleClick={backButton} 
+						handleSubmit={handleClick}
 						continueButton={continueButton}
 						startIcon={startIcon}
 						endIcon={endIcon}

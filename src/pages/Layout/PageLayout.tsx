@@ -3,20 +3,22 @@ import React, { useContext } from "react";
 import { Ctx } from "../../DataContext";
 import { LoadingPage } from "../LoadingPage/LoadingPage";
 import { ScannerPage } from "../ScannerPage/ScannerPage";
+import { InputFieldPage } from "../../components/InputFieldPage/InputFieldPage";
 import { HomePage } from "./HomePage";
 
-export default function PageLayout() {
+type Prop= {
+	page: any;
+};
 
-	const context = useContext(Ctx);
-	const {loading}=context;
+export default function PageLayout({page}: Prop) {
 
-
+	const { loading } = useContext(Ctx);
 
 	return (
 		<Ctx.Consumer>
 			{() => (
 				<React.Fragment>
-					{loading? <LoadingPage /> : <ScannerPage />}
+					{loading ? <LoadingPage /> : page}
 				</React.Fragment>
 			)}
 		</Ctx.Consumer>

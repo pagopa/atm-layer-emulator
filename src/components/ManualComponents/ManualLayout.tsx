@@ -1,13 +1,17 @@
 import { Grid, useTheme } from "@mui/material";
 import { LogoPagoPAProduct, theme } from "@pagopa/mui-italia";
+import { useNavigate } from "react-router-dom";
+import routes from "../../routes";
 import { ManualButton } from "./ManualButton";
 
 export const ManualLayout = () => {
+	const navigate = useNavigate();
 	const handleClickFunction = (key: number) => {
 		switch (key) {
+		case 0:
+			navigate(routes.SCANNER_PAGE);
+			break;
 		case 1:
-			return console.log("Button 1 clicked!");
-		case 2:
 			return console.log("Button 2 clicked!");
 		default:
 			return console.log("clicked!");

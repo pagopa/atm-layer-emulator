@@ -21,7 +21,7 @@ const CustomButtonRoot = styled(Button, {
 	color: "black",
 	display: "flex",
 	justifyContent: direction === "left" ? "flex-start" : "space-between",
-  paddingX: "16px",
+	paddingX: "16px",
 	minHeight: theme.spacing(9),
 	border: "1px solid lightgray",
 	borderRadius: "8px",
@@ -52,7 +52,7 @@ const CustomButton = React.forwardRef<HTMLDivElement, CustomButtonProps>(
 						<Box>
 							{startIcon}
 						</Box>
-						<Box display="flex" justifyContent="flex-end" alignItems="center">
+						<Box display="flex" justifyContent="flex-end" alignItems="center" py={0}>
 							<Box>
 								{continueButton}
 							</Box>

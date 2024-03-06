@@ -12,7 +12,7 @@ export default function ManualButtonGrid({ children1, children2 }: Props) {
 			<Grid item xs={5} width="100%">
 				{children1}
 			</Grid>
-			<Grid item xs={5} py={1} width="100%">
+			<Grid item xs={5} width="100%">
 				{children2}
 			</Grid>
 		</Grid>
