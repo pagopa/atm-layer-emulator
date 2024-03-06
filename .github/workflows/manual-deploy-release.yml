@@ -39,7 +39,7 @@ jobs:
 
       - name: Deploy app version = ${{ inputs.release }}
         run: |
-          aws s3api get-object --bucket ${{ vars.BUCKET_NAME_ARTIFACTS }} --key ${{ inputs.release }}.zip ./${{ inputs.release }}.zip
+          aws s3api get-object --bucket ${{ vars.BUCKET_NAME_ARTIFACTS }} --key emulator/${{ inputs.release }}.zip ./${{ inputs.release }}.zip
           unzip ${{ inputs.release }}.zip
           aws s3 cp build s3://${{ vars.BUCKET_NAME_FRONTEND }}/ --recursive
           aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
