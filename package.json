@@ -28,6 +28,7 @@
     "env-cmd": "^10.1.0",
     "eslint": "^8.53.0",
     "formik": "^2.4.5",
+    "html-react-parser": "^5.0.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
