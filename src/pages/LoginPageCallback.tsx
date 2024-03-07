@@ -13,7 +13,7 @@ const LoginPageCallback = () => {
 
 	const getTokenEmail = async (token: string) => {
 		try {
-			const response = await fetchRequest({ urlEndpoint: USER_EMAIL, method: "GET", abortController, headers: { "Authorization": `Bearer ${token}` } })();
+			const response = await fetchRequest({ urlEndpoint: USER_EMAIL, method: "GET", abortController })();
 
 			if (response?.success) {
 				setUserEmail(response?.valuesObj.email);
