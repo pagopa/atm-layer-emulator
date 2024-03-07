@@ -4,7 +4,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { themeApp } from "./assets/jss/themeApp";
 import { Ctx } from "./DataContext.js";
-import PageLayout from "./pages/Layout/PageLayout";
 import { HomePage } from "./pages/Layout/HomePage";
 import { ScannerPage } from "./pages/ScannerPage/ScannerPage";
 import { CommonErrorPage } from "./pages/ErrorPage/CommonErrorPage";
@@ -13,18 +12,21 @@ import EcFiscalCodeInput from "./pages/EcFiscalCodePage/EcFiscalCodeInput";
 import { DecodeRenderHtml } from "./components/DecodeRenderHtml/DecodeRenderHtml";
 import { HomePage2 } from "./pages/Layout/HomePage2";
 import routes from "./routes";
+import PageLayout from "./pages/Layout/PageLayout";
 
 
 const LocalRoutes = () => (
 	<Routes>
-	  <Route path="/" element={<PageLayout page={<HomePage2 />} />} />
-	  <Route path={routes.SCANNER_PAGE} element={<PageLayout page={<ScannerPage />} />} />
-	  <Route path={routes.WARNING_CODE} element={<PageLayout page={<WarningCodeInput />} />} />
-	  <Route path={routes.EC_FISCAL_CODE} element={<PageLayout page={<EcFiscalCodeInput />} />} />
+		
+	  <Route path="/" element={<PageLayout><HomePage2 /></PageLayout>} />
+	  <Route path={routes.SCANNER_PAGE} element={<PageLayout><ScannerPage /></PageLayout>} />
+	  <Route path={routes.WARNING_CODE} element={<PageLayout><WarningCodeInput /></PageLayout>} />
+	  <Route path={routes.EC_FISCAL_CODE} element={<PageLayout><EcFiscalCodeInput /></PageLayout>} />
 	  <Route
 			path={routes.ERROR_PAGE}
-			element={<PageLayout page={<CommonErrorPage title={""} icon={undefined} />} /> }
+			element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout> }
 	  />
+	  
 	</Routes>
 );
   
