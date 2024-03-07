@@ -1,20 +1,19 @@
-import {Box } from "@mui/material";
+import {Box, useTheme } from "@mui/material";
 import { useContext } from "react";
-import { Header } from "../../components/Header";
-import { getCompletePathImage } from "../../utils/Commons";
-import { Footer } from "../../components/Footer";
-import { CardLayout } from "../../components/CardComponents/CardLayout";
-import { ManualLayout } from "../../components/ManualComponents/ManualLayout";
-import { TitleComponent } from "../../components/TitleComponents/TitleComponent";
-import { Ctx } from "../../DataContext";
-import { theme } from "../../assets/jss/themePagoPa";
+import { Header } from "../components/Header";
+import { getCompletePathImage } from "../utils/Commons";
+import { Footer } from "../components/Footer";
+import { CardLayout } from "../components/CardComponents/CardLayout";
+import { ManualLayout } from "../components/ManualComponents/ManualLayout";
+import { TitleComponent } from "../components/TitleComponents/TitleComponent";
+import { Ctx } from "../DataContext";
 
-export const HomePage = () => {
+export const HomePage3 = () => {
 
 	const context = useContext(Ctx);
 	const {interfaceType,}=context;
 	const backButton = () => console.log("Bottone");
-            
+	const theme=useTheme();     
 	return (
 		<>
 			<Header 
