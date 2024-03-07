@@ -18,7 +18,7 @@ import PageLayout from "./pages/Layout/PageLayout";
 const LocalRoutes = () => (
 	<Routes>
 		
-	  <Route path="/" element={<PageLayout><HomePage2 /></PageLayout>} />
+	  <Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
 	  <Route path={routes.SCANNER_PAGE} element={<PageLayout><ScannerPage /></PageLayout>} />
 	  <Route path={routes.WARNING_CODE} element={<PageLayout><WarningCodeInput /></PageLayout>} />
 	  <Route path={routes.EC_FISCAL_CODE} element={<PageLayout><EcFiscalCodeInput /></PageLayout>} />
@@ -56,9 +56,9 @@ function App() {
 	return (
 	  <ThemeProvider theme={themeApp}>
 			<Ctx.Provider value={values}>
-				<BrowserRouter>
-					{LocalRoutes()}
-		  		</BrowserRouter>
+			
+				{LocalRoutes()}
+		  		
 			</Ctx.Provider>
 	  </ThemeProvider>
 	);
