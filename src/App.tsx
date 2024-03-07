@@ -4,7 +4,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { themeApp } from "./assets/jss/themeApp";
 import { Ctx } from "./DataContext.js";
-import { HomePage } from "./pages/Layout/HomePage";
 import { ScannerPage } from "./pages/ScannerPage/ScannerPage";
 import { CommonErrorPage } from "./pages/ErrorPage/CommonErrorPage";
 import WarningCodeInput from "./pages/WarningCodePage/WarningCodeInput";
@@ -14,12 +13,14 @@ import { HomePage2 } from "./pages/Layout/HomePage2";
 import routes from "./routes";
 import PageLayout from "./pages/Layout/PageLayout";
 import { JwtUser } from "./components/model/UserModel";
+import HomePage from "./pages/HomePage";
+import { HomePage3 } from "./pages/HomePage3";
 
 
 const LocalRoutes = () => (
 	<Routes>
 		
-	  <Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
+	  <Route path="/" element={<PageLayout><HomePage3 /></PageLayout>} />
 	  <Route path={routes.SCANNER_PAGE} element={<PageLayout><ScannerPage /></PageLayout>} />
 	  <Route path={routes.WARNING_CODE} element={<PageLayout><WarningCodeInput /></PageLayout>} />
 	  <Route path={routes.EC_FISCAL_CODE} element={<PageLayout><EcFiscalCodeInput /></PageLayout>} />
