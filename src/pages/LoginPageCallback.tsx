@@ -26,13 +26,13 @@ const LoginPageCallback = () => {
 	};
 
 	useEffect(() => {
-		const token=window?.location?.hash?.split("&")[1]?.split("=")[1];
-		if(token) {
+		const token = window?.location?.hash?.split("&")[1]?.split("=")[1];
+		if (token) {
 			setLogged(true);
 			void getTokenEmail(token);
-			sessionStorage.setItem("jwt", token);
+			sessionStorage.setItem("jwt_emulator", token);
 			navigate(routes.HOME);
-		}else{
+		} else {
 			navigate(routes.LOGIN);
 		}
 	}, []);
