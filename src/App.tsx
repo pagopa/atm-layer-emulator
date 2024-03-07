@@ -13,6 +13,7 @@ import { DecodeRenderHtml } from "./components/DecodeRenderHtml/DecodeRenderHtml
 import { HomePage2 } from "./pages/Layout/HomePage2";
 import routes from "./routes";
 import PageLayout from "./pages/Layout/PageLayout";
+import { JwtUser } from "./components/model/UserModel";
 
 
 const LocalRoutes = () => (
@@ -37,30 +38,73 @@ function App() {
 	const [warningCodeValue, setWarningCodeValue] = useState("");
 	const [ecFiscalCodeValue, setEcFiscalCodeValue] = useState("");
 	const [loading, setLoading] = useState(false);
+	const temp= localStorage.getItem("tempLog");
+	const jwt= localStorage.getItem("jwt");
+	const debugOn=sessionStorage.getItem("debugOn");
+	const [logged, setLogged] = useState(temp||jwt?true:false);
+	const [userEmail, setUserEmail] = useState<JwtUser>({ email: undefined });
+	const abortController = new AbortController();
+
+	function clearAll(){
+		if(localStorage.getItem("jwt")){
+			setTokenExpired();
+		}
+		clearStorage();
+	}
+
+	function setTokenExpired(){
+		localStorage.removeItem("jwt");
+		setLogged(false);
+		// navigate(ROUTES.LOGIN);
+	}
+
+	function clearStorage(){
+		if(sessionStorage.getItem("recordParams")){
+			sessionStorage.removeItem("recordParams");		
+		}
+		if(sessionStorage.getItem("recordParamsAssociated")){
+			sessionStorage.removeItem("recordParamsAssociated");
+		}
+	}
   
 	const values = {
-	  interfaceType,
-	  setInterfaceType,
-	  warningCodeValue,
-	  setWarningCodeValue,
-	  ecFiscalCodeValue,
-	  setEcFiscalCodeValue,
-	  loading,
-	  setLoading,
+		interfaceType,
+		setInterfaceType,
+		warningCodeValue,
+		setWarningCodeValue,
+		ecFiscalCodeValue,
+		setEcFiscalCodeValue,
+		loading,
+		setLoading,
+		clearAll,
+		setTokenExpired,
+		logged, 
+		setLogged,
+		userEmail,
+		setUserEmail,
+		abortController,
+		debugOn,
+		clearStorage,
 	};
   
 	useEffect(() => {
-	  console.log("ATM-LAYER-EMULATOR-RELEASE VERSION:", RELEASE_VERSION);
+		if(debugOn){
+	  		console.log("ATM-LAYER-EMULATOR-RELEASE VERSION:", RELEASE_VERSION);
+		}
 	}, []);
+
+	useEffect(() => {
+		if(debugOn){
+			console.log("login utente", logged);
+		}
+	}, [logged]);
   
 	return (
-	  <ThemeProvider theme={themeApp}>
+		<ThemeProvider theme={themeApp}>
 			<Ctx.Provider value={values}>
-			
-				{LocalRoutes()}
-		  		
+				{LocalRoutes()}				
 			</Ctx.Provider>
-	  </ThemeProvider>
+		</ThemeProvider>
 	);
 }
   
