@@ -5,10 +5,11 @@ import { theme } from "@pagopa/mui-italia";
 
 type Props = {
     backButton: () => void;
+	handleClick?: () => void;
 	continueButton?: string; 
 };
 
-export const TouchFooter = ({ backButton, continueButton }: Props) => (
+export const TouchFooter = ({ backButton, handleClick, continueButton }: Props) => (
 	<Grid
 		container
 		ml={theme.spacing(3)}
@@ -46,7 +47,7 @@ export const TouchFooter = ({ backButton, continueButton }: Props) => (
 						size="medium"
 						variant="contained"
 						sx={{width: theme.spacing(20)}}
-						onClick={() => console.log("Bottone")}
+						onClick={handleClick}
 					>
 						{continueButton}
 					</Button>

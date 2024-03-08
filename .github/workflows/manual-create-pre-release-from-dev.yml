@@ -42,7 +42,7 @@ jobs:
       - name: Build app
         run: |
           npm install
-          npm run build
+          npm run build:dev
 
       - name: Commit with "${{ inputs.commit }}:" prefix
         run: |
@@ -96,6 +96,17 @@ jobs:
           git commit -m "package.json updated with new version ${{ steps.semantic-release.outputs.new_release_version }}"
           git push
 
+      - name: Update file .env.development with the new version
+        if: steps.semantic-release.outputs.new_release_published == 'true'
+        run: |
+          sed -i 's/^REACT_APP_VERSION=.*/REACT_APP_VERSION=v${{ steps.semantic-release.outputs.new_release_version }}/' .env.development
+          git pull
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add .env.development .env.test .env.production
+          git commit -m ".env.development updated with new version ${{ steps.semantic-release.outputs.new_release_version }}"
+          git push
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
         with:
@@ -109,4 +120,4 @@ jobs:
       - name: Push pre-release on S3
         if: steps.semantic-release.outputs.new_release_published == 'true'
         run: |
-          aws s3 cp v${{ steps.semantic-release.outputs.new_release_version }}.zip s3://${{ vars.BUCKET_NAME_ARTIFACTS }}/
+          aws s3 cp v${{ steps.semantic-release.outputs.new_release_version }}.zip s3://${{ vars.BUCKET_NAME_ARTIFACTS }}/emulator/

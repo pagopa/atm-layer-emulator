@@ -1,0 +1,53 @@
+{
+  "task": {
+    "id": "8431fb64-9e59-11ee-87c9-067a93966eb7",
+    "data": {
+      "amount": "10,00",
+      "dueDate": "31/07/2021",
+      "description": "Pagamento di Test",
+      "company": "companyName",
+      "codiceEnte": "00000000201",
+      "codiceAvviso": "012345678901234567"
+    },
+    "onError": {
+      "errorCode": "31",
+      "errorDescription": "error on inputCodiceAttoEnte.html"
+    },
+    "timeout": 60,
+    "onTimeout": {
+      "errorCode": "27",
+      "errorDescription": "timeout on inputCodiceAttoEnte.html"
+    },
+    "template": {
+      "content": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSIgPz4NCjwhRE9DVFlQRSBodG1sIFBVQkxJQyAiLS8vVzNDLy9EVEQgWEhUTUwgMS4wIFRyYW5zaXRpb25hbC8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9UUi94aHRtbDEvRFREL3hodG1sMS10cmFuc2l0aW9uYWwuZHRkIj4NCjxodG1sIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj4NCjxoZWFkPg0KPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJjc3MvZW11bGF0b3JlLmNzcyIgLz4NCjwvaGVhZD4NCjxib2R5Pg0KDQoJPGltZyBpZD0ibG9nbyIgc3JjPSJodHRwczovL2QyeGR1eTd0Ymd1MmQzLmNsb3VkZnJvbnQubmV0L2ZpbGVzL0lDT04vZGVmYXVsdF9sb2dvLnN2ZyIvPg0KCTxoMT5TZXJ2aXppIGRpIHB1YmJsaWNhIHV0aWxpdCZhZ3JhdmU7PC9oMT4JDQoJDQoJPGgyPkRhdGkgZGVsbCdhdnZpc288L2gyPg0KCQ0KCTx0YWJsZSBpZD0idGFibGUiPg0KCQ0KCTx0Ym9keT4JDQoJICA8dHI+DQoJCTx0ZD4NCgkJCTxpbWcgc3JjPSJodHRwczovL2QyeGR1eTd0Ymd1MmQzLmNsb3VkZnJvbnQubmV0L2ZpbGVzL0lDT04vZW50ZS5zdmciLz4JDQoJCQk8cD4NCgkJCQk8c3BhbiBjbGFzcz0ic21hbGwiPkVudGUgY3JlZGl0b3JlPC9zcGFuPg0KCQkJCTxzcGFuPmNvbXBhbnlOYW1lPC9zcGFuPgkJCQ0KCQkJPC9wPg0KCQk8L3RkPg0KCQk8dGQ+DQoJCQk8aW1nIHNyYz0iaHR0cHM6Ly9kMnhkdXk3dGJndTJkMy5jbG91ZGZyb250Lm5ldC9maWxlcy9JQ09OL2NhbGVuZGFyLnN2ZyIvPgkJDQoJCQk8cD4NCgkJCQk8c3BhbiBjbGFzcz0ic21hbGwiPkVudHJvIGlsPC9zcGFuPg0KCQkJCTxzcGFuPjMxLzA3LzIwMjE8L3NwYW4+CQkJDQoJCQk8L3A+DQoJCTwvdGQ+DQoJICA8L3RyPg0KCSAgPHRyPg0KCQk8dGQ+DQoJCQk8aW1nIHNyYz0iaHR0cHM6Ly9kMnhkdXk3dGJndTJkMy5jbG91ZGZyb250Lm5ldC9maWxlcy9JQ09OL29nZ2V0dG8tcGFnYW1ldG8uc3ZnIi8+DQoJCQk8cD4NCgkJCQk8c3BhbiBjbGFzcz0ic21hbGwiPk9nZ2V0dG8gZGVsIHBhZ2FtZW50bzwvc3Bhbj4NCgkJCQk8c3Bhbj5QYWdhbWVudG8gZGkgVGVzdDwvc3Bhbj4JCQ0KCQkJPC9wPgkJCQ0KCQk8L3RkPg0KCQk8dGQ+DQoJCQk8aW1nIHNyYz0iaHR0cHM6Ly9kMnhkdXk3dGJndTJkMy5jbG91ZGZyb250Lm5ldC9maWxlcy9JQ09OL2NvZGljZS1hdnZpc28uc3ZnIi8+DQoJCQk8cD4NCgkJCQk8c3BhbiBjbGFzcz0ic21hbGwiPkNvZGljZSBBdnZpc288L3NwYW4+DQoJCQkJPHNwYW4+MDEyMzQ1Njc4OTAxMjM0NTY3PC9zcGFuPgkJDQoJCQk8L3A+DQoJCTwvdGQ+CQkNCgkgIDwvdHI+DQoJICA8dHI+DQoJCTx0ZD4NCgkJCTxpbWcgc3JjPSJodHRwczovL2QyeGR1eTd0Ymd1MmQzLmNsb3VkZnJvbnQubmV0L2ZpbGVzL0lDT04vaW1wb3J0by5zdmciLz4NCgkJCTxwPg0KCQkJCTxzcGFuIGNsYXNzPSJzbWFsbCI+SW1wb3J0byBhZ2dpb3JuYXRvPC9zcGFuPg0KCQkJCTxzcGFuPjEwLDAwICZldXJvOzwvc3Bhbj4JCQ0KCQkJPC9wPg0KCQk8L3RkPg0KCQk8dGQ+DQoJCQk8aW1nIHNyYz0iaHR0cHM6Ly9kMnhkdXk3dGJndTJkMy5jbG91ZGZyb250Lm5ldC9maWxlcy9JQ09OL2NvZGljZS1lbnRlLnN2ZyIvPg0KCQkJPHA+DQoJCQkJPHNwYW4gY2xhc3M9InNtYWxsIj5Db2RpY2UgRmlzY2FsZSBFbnRlIENyZWRpdG9yZTwvc3Bhbj4NCgkJCQk8c3Bhbj4wMDAwMDAwMDIwMTwvc3Bhbj4JCQ0KCQkJPC9wPgkJCQ0KCQk8L3RkPgkJDQoJICA8L3RyPg0KCSAgPC90Ym9keT4JDQoJIA0KCTwvdGFibGU+DQoJPHAgY2xhc3M9ImxlZnQiPg0KCQk8aW1nIHNyYz0iaHR0cHM6Ly9kMnhkdXk3dGJndTJkMy5jbG91ZGZyb250Lm5ldC9maWxlcy9JQ09OL2luZm8uc3ZnIiAvPjwvYnI+DQoJCVNlIHZlZGkgdW4gaW1wb3J0byBkaXZlcnNvIHJpc3BldHRvIGFsbCdhdnZpc28sICZlZ3JhdmU7IHBlcmNoJmVhY3V0ZTsgbG8gYWdnaW9ybmlhbW8gcGVyIGFzc2ljdXJhcnRpIGRpIHBhZ2FyZSBlc2F0dGFtZW50ZSBxdWFudG8gZG92dXRvLg0KCTwvcD4NCiANCiAgICA8YnV0dG9uIGNsYXNzPSJuZWdhdGl2ZSIgZGF0YS1mZGs9IlM0IiBpZD0iYmFjayI+DQogICAgICA8c3Bhbj5JbmRpZXRybzwvc3Bhbj4NCiAgICA8L2J1dHRvbj4NCgkNCgk8YnV0dG9uIGNsYXNzPSJuZWdhdGl2ZSIgIGlkPSJleGl0Ij4NCiAgICAgIDxzcGFuPkVzY2k8L3NwYW4+DQogICAgPC9idXR0b24+DQoJDQoJPGJ1dHRvbiBjbGFzcz0icG9zaXRpdmUiIGRhdGEtZmRrPSJTOCIgaWQ9ImNvbmZpcm0iPg0KICAgICAgPHNwYW4+VmFpIGFsIHBhZ2FtZW50bzwvc3Bhbj4NCgk8L2J1dHRvbj4NCg0KCTwvYm9keT4NCgkNCjwvaHRtbD4=",
+      "type": "SUMMARY"
+    },
+    "buttons": [
+      {
+        "id": "confirm",
+        "data": {
+          "continue": true,
+          "goBack": false
+        }
+      },
+      {
+        "id": "exit",
+        "data": {
+          "continue": false
+        }
+      },
+      {
+        "id": "back",
+        "data": {
+          "continue": false,
+          "goBack": true
+        }
+      }
+    ]
+  },
+  "transactionId": "06789-12345-0001-64874412-1698769800000-05c5ba7f-2",
+  "outcome": {
+    "result": "OK",
+    "description": "The operation completed successfully"
+  }
+}
