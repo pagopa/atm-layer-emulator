@@ -6,6 +6,7 @@ export default function useFetch(endPoint?: string | undefined) {
 
 	const SERVER_API_ORIGIN = endPoint&& endPoint!=="" ? endPoint : process.env.REACT_APP_BACKEND_URL;
 	const CODE_SUCCESS = [200, 201, 202, 203] ;
+	// const token = localStorage.getItem("jwt_emulator");
 
 	const fetchFromServer = async ({
 		urlEndpoint,
@@ -23,6 +24,7 @@ export default function useFetch(endPoint?: string | undefined) {
 		let headerRequest = {};
 		if (headers) {
 			headerRequest = {
+				// "Authorization": token ? token : "",
 				"Accept": "application/json",
 				...headers
 			};

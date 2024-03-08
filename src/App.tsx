@@ -13,12 +13,13 @@ import PageLayout from "./pages/Layout/PageLayout";
 import { JwtUser } from "./components/model/UserModel";;
 import { HomePage3 } from "./pages/HomePage3";
 import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
 
 
 const LocalRoutes = () => (
 	<Routes>
 
-		<Route path="/" element={<PageLayout><HomePage3 /></PageLayout>} />
+		<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
 		<Route path={routes.SCANNER_PAGE} element={<PageLayout><ScannerPage /></PageLayout>} />
 		<Route path={routes.WARNING_CODE} element={<PageLayout><WarningCodeInput /></PageLayout>} />
 		<Route path={routes.EC_FISCAL_CODE} element={<PageLayout><EcFiscalCodeInput /></PageLayout>} />

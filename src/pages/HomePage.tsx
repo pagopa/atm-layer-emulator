@@ -1,22 +1,22 @@
 import { Box, Grid } from "@mui/material";
 // import HomeCardComponent from "../components/CardComponents/HomeCardComponent";
 // import { homePageCard } from "../utils/homePageCard";
-// import { HomePageTitle } from "../components/TitleComponents/HomePageTitle";
+import { HomePageTitle } from "../components/TitleComponents/HomePageTitle";
 import BoxPageLayout from "./Layout/BoxPageLayout";
 
 
 
-export default function HomePage () {
-	return(
+export default function HomePage() {
+	return (
 		<BoxPageLayout px={15}>
 			<Grid container spacing={0.5}>
-				{/* <HomePageTitle
-					title={"Console management"}
-					subTitle={"Console per la gestione delle risorse"}
-				/> */}
-				
+				<HomePageTitle
+					title={"Emulator"}
+					subTitle={"Strumento per simulare il comportamento delle risorse"}
+				/>
+
 			</Grid>
-			<Box  my="8%">
+			<Box my="8%">
 				<Grid container spacing={8} >
 					{/* {
 						homePageCard.filter(el=> el.id!=="home").map((e, i) => (

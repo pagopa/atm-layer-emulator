@@ -7,7 +7,7 @@ import BoxPageLayout from "./Layout/BoxPageLayout";
 
 
 const LoginPage = () => {
-	const { clearAll, debugOn, logged } = useContext(Ctx);
+	const { clearAll, debugOn, logged, setLogged } = useContext(Ctx);
 	const theme = useTheme();
 	const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const LoginPage = () => {
 
 		if (jwtConsole) {
 			localStorage.setItem("jwt_emulator", jwtConsole);
-
+			setLogged(true);
 			// eslint-disable-next-line functional/immutable-data
 			window.location.hash = "";
 			navigate(routes.HOME);
