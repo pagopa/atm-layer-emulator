@@ -28,7 +28,7 @@ export default function FormTemplate({ handleSubmit, setOpenSnackBar, children, 
 	const disabledConfirmButton = () => openSnackBar ? true : false;
 
 	return (
-		<Box sx={{ maxWidth: "75%" }}>
+		<Box sx={{ maxWidth: "50%" }}>
 			<Box marginTop={3} textAlign={"center"}>
 				<TitleComponent title={"Parametri simulazione"} subTitle={""} />
 			</Box>
@@ -37,7 +37,7 @@ export default function FormTemplate({ handleSubmit, setOpenSnackBar, children, 
 					<Grid item xs={12}>
 						<Box display="flex" mb={2}>
 							<Typography variant="body1" fontWeight="600">
-								{"compilare tutti i campi per iniziare la simulazione"}
+								{"Compilare tutti i campi per iniziare la simulazione"}
 							</Typography>
 						</Box>
 					</Grid>
