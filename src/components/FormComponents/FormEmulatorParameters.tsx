@@ -3,10 +3,15 @@ import React, { ReactElement, useContext, useState } from "react";
 import { FormControlLabel, Grid, Switch, TextField } from "@mui/material";
 import { Ctx } from "../../DataContext";
 import { ParametersDto } from "../model/ParametersModel";
+import { fetchRequest } from "../../hook/fetch/fetchRequest";
+import { handleSnackbar } from "../Commons/Commons";
+import { TASK_MAIN } from "../../commons/endpoints";
+import { getAuth } from "../DecodeRenderHtml/getAuth";
+import fetchAuth from "../../hook/fetchAuth";
 import FormTemplate from "./template/FormTemplate";
 
 
-export const FormEmulatorParameters = (props: any): ReactElement | null => {
+export const FormEmulatorParameters = () => {
 
     const [loadingButton, setLoadingButton] = useState(false);
 
@@ -59,30 +64,94 @@ export const FormEmulatorParameters = (props: any): ReactElement | null => {
         e.preventDefault();
 
         if (validateForm()) {
-            const postData = new FormData();
+            // eslint-disable-next-line functional/no-let
+            let postData = new Object();
             if (formData.acquirerId && formData.branchId && formData.code && formData.terminalId && formData.fiscalCode) {
-                postData.append("bankId", formData.acquirerId);
-                postData.append("branchId", formData.branchId);
-                postData.append("code", formData.code);
-                postData.append("terminalId", formData.terminalId);
-                postData.append("fiscalCode", formData.fiscalCode);
-                postData.append("PRINTER", formData.printer);
-                postData.append("SCANNER", formData.scanner);
+                postData = {
+                    device: {
+                        bankId: formData.acquirerId,
+                        branchId: formData.branchId,
+                        code: formData.code,
+                        terminalId: formData.terminalId,
+                        opTimestamp: "2023-10-31T17:30:00",
+                        channel: "ATM",
+                        peripherals: [
+                            {
+                                id: "PRINTER",
+                                name: formData.printer,
+                                status: formData.printer
+                            },
+                            {
+                                id: "SCANNER",
+                                name: formData.scanner,
+                                status: formData.scanner
+                            }
+                        ]
+                    },
+                    taskId: "string",
+                    data: {
+                        additionalProp1: "string",
+                        additionalProp2: "string",
+                        additionalProp3: "string"
+                    },
+                    fiscalCode: formData.fiscalCode,
+                    panInfo: [
+                        {
+                            pan: "string",
+                            circuits: [
+                                "string"
+                            ],
+                            bankName: "string"
+                        }
+                    ]
+                };
             }
             setLoadingButton(true);
-            // 	try {
-            // 		const response = await fetchRequest({ urlEndpoint: CREATE_BPMN_API, method: "POST", abortController, body: postData, isFormData: true })();
-            // 		setLoadingButton(false);
-            // 		handleSnackbar(response?.success, setMessage, setSeverity, setTitle, setOpenSnackBar, response?.valuesObj?.message);
+            const auth = new Promise((resolve) => {
+                const headers = {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                };
+                const formBody = new URLSearchParams();
+                formBody.set("grant_type", "client_credentials");
+                formBody.set("scope", "uat/tasks");
+                console.log("formBody", formBody.values());
+                // const body= {
+                // 	'grant_type':'client_credentials',
+                // 	'scope':'uat/tasks'
+                // };
 
-            // 	} catch (error) {
-            // 		setLoadingButton(false);
-            // 		console.log("Response negative: ", error);
-            // 		handleSnackbar(false, setMessage, setSeverity, setTitle, setOpenSnackBar);
-            // 	}
+                void fetchAuth({ abortController, headers, body: formBody })().then((dataObj: any) => {
+                    if (dataObj) {
+                        resolve({
+                            data: dataObj,
+                            type: "SUCCES",
+                        });
+                    } else { resolve({ type: "error" }); } // procedo comunque, altrimenti avrei lanciato reject
+                    console.log("Auth res", dataObj);
+                });
+            });
+
+            auth.then(({ data }: any) => {
+                // tempFastDataValues = {
+                // 	...tempFastDataValues,
+                // 	...data
+                // 	//TO DO GESTIRE CORRETTAMENTE RISPOSTA
+                // };
+                console.log("Auth res", data);
+                return data;
+            }).catch((e) => e);
+            // try {
+            //     const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: postData, isFormData: true })();
+            //     setLoadingButton(false);
+            //     handleSnackbar(response?.success, setMessage, setSeverity, setTitle, setOpenSnackBar, response?.valuesObj?.message);
+            // } catch (error) {
+            //     setLoadingButton(false);
+            //     console.log("Response negative: ", error);
+            //     handleSnackbar(false, setMessage, setSeverity, setTitle, setOpenSnackBar);
+
             // }
+        }
 
-        };
     };
 
 
