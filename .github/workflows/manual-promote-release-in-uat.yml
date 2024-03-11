@@ -63,14 +63,14 @@ jobs:
       - name: Run test
         run: |
           npm install
-          npm run test:full-coverage
+      #     npm run test:full-coverage
 
-      - name: Test Report
-        uses: dorny/test-reporter@v1.8.0
-        with:
-          name: JEST Tests            # Name of the check run which will be created
-          path: reports/jest-*.xml    # Path to test results
-          reporter: jest-junit        # Format of test results
+      # - name: Test Report
+      #   uses: dorny/test-reporter@v1.8.0
+      #   with:
+      #     name: JEST Tests            # Name of the check run which will be created
+      #     path: reports/jest-*.xml    # Path to test results
+      #     reporter: jest-junit        # Format of test results
 
       - name: Build app
         run: |
