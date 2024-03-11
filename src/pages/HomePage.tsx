@@ -2,6 +2,7 @@ import { Box, Grid } from "@mui/material";
 // import HomeCardComponent from "../components/CardComponents/HomeCardComponent";
 // import { homePageCard } from "../utils/homePageCard";
 import { HomePageTitle } from "../components/TitleComponents/HomePageTitle";
+import FormEmulatorParameters from "../components/FormComponents/FormEmulatorParameters";
 import BoxPageLayout from "./Layout/BoxPageLayout";
 
 
@@ -16,8 +17,8 @@ export default function HomePage() {
 				/>
 
 			</Grid>
-			<Box my="8%">
-				<Grid container spacing={8} >
+			<Box my="2%" alignContent={"center"} >
+				<Grid display={"flex"} justifyContent={"center"}>
 					{/* {
 						homePageCard.filter(el=> el.id!=="home").map((e, i) => (
 							<Grid item xs={4} mx={"auto"} key={e.title}>
@@ -30,6 +31,7 @@ export default function HomePage() {
 							</Grid>
 						))
 					} */}
+					<FormEmulatorParameters />
 				</Grid>
 			</Box>
 		</BoxPageLayout>
