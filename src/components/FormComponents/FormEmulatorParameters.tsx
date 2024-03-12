@@ -7,6 +7,7 @@ import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import { handleSnackbar } from "../Commons/Commons";
 import { TASK_MAIN } from "../../commons/endpoints";
 // import fetchAuth from "../../hook/fetchAuth";
+import { ACQUIRER_ID_LENGTH, FISCAL_CODE_REGEX, TERMINAL_BRANCH_LENGTH } from "../../commons/constants";
 import FormTemplate from "./template/FormTemplate";
 
 
@@ -54,8 +55,6 @@ export const FormEmulatorParameters = () => {
         const newValue = isChecked ? "OK" : "KO";
         setFormData({ ...formData, [fieldName]: newValue });
     };
-    
-    
 
     const validateForm = () => {
         const newErrors = {
@@ -63,7 +62,7 @@ export const FormEmulatorParameters = () => {
             branchId: formData.branchId ? "" : "Campo obbligatorio",
             code: formData.code ? "" : "Campo obbligatorio",
             terminalId: formData.terminalId ? "" : "Campo obbligatorio",
-            fiscalCode: formData.fiscalCode ? "" : "Campo obbligatorio",
+            // fiscalCode: formData.fiscalCode ? "" : "Campo obbligatorio",
         };
 
         setErrors(newErrors);
@@ -117,7 +116,6 @@ export const FormEmulatorParameters = () => {
                 setLoadingButton(false);
                 console.log("Response negative: ", error);
                 handleSnackbar(false, setMessage, setSeverity, setTitle, setOpenSnackBar);
-
             }
         }
 
@@ -147,6 +145,7 @@ export const FormEmulatorParameters = () => {
                     onChange={handleChange}
                     error={Boolean(errors.acquirerId)}
                     helperText={errors.acquirerId}
+                    inputProps={{ maxLength: ACQUIRER_ID_LENGTH}}
                 />
             </Grid>
             <Grid xs={12} item my={1}>
@@ -161,6 +160,7 @@ export const FormEmulatorParameters = () => {
                     onChange={handleChange}
                     error={Boolean(errors.branchId)}
                     helperText={errors.branchId}
+                    inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH}}
                 />
             </Grid>
             <Grid xs={12} item my={1}>
@@ -189,6 +189,7 @@ export const FormEmulatorParameters = () => {
                     onChange={handleChange}
                     error={Boolean(errors.terminalId)}
                     helperText={errors.terminalId}
+                    inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH}}
                 />
             </Grid>
             <Grid xs={12} item my={1}>
