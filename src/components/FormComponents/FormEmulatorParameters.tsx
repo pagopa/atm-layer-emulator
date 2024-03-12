@@ -44,6 +44,20 @@ export const FormEmulatorParameters = () => {
         }));
     };
 
+    const handleSwitchChange = (fieldName: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        const isChecked = event.target.checked;
+        if (fieldName === "printer") {
+            setPrinterChecked(isChecked);
+        } else if (fieldName === "scanner") {
+            setScannerChecked(isChecked);
+        }
+        const newValue = isChecked ? "OK" : "KO";
+        setFormData({ ...formData, [fieldName]: newValue });
+        console.log(fieldName, newValue);
+    };
+    
+    
+
     const validateForm = () => {
         const newErrors = {
             acquirerId: formData.acquirerId ? "" : "Campo obbligatorio",
@@ -76,12 +90,12 @@ export const FormEmulatorParameters = () => {
                     peripherals: [
                         {
                             id: "PRINTER",
-                            name: formData.printer,
+                            name: "Receipt printer",
                             status: formData.printer
                         },
                         {
                             id: "SCANNER",
-                            name: formData.scanner,
+                            name: "Scanner",
                             status: formData.scanner
                         }
                     ],
@@ -198,10 +212,7 @@ export const FormEmulatorParameters = () => {
                     value="OK"
                     control={<Switch
                         checked={printerChecked}
-                        onChange={() => {
-                            setPrinterChecked(!printerChecked);
-                            setFormData({ ...formData, printer: "KO" });
-                        }}
+                        onChange={handleSwitchChange("printer")}
                         name="printerSwitch"
                     />}
                     label="Stampante"
@@ -215,10 +226,7 @@ export const FormEmulatorParameters = () => {
                     value="OK"
                     control={<Switch
                         checked={scannerChecked}
-                        onChange={() => {
-                            setScannerChecked(!scannerChecked);
-                            setFormData({ ...formData, scanner: "KO" });
-                        }}
+                        onChange={handleSwitchChange("scanner")}
                         name="scannerSwitch"
                     />}
                     label="Scanner"
