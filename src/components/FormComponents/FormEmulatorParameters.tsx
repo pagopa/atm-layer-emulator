@@ -53,7 +53,6 @@ export const FormEmulatorParameters = () => {
         }
         const newValue = isChecked ? "OK" : "KO";
         setFormData({ ...formData, [fieldName]: newValue });
-        console.log(fieldName, newValue);
     };
     
     
