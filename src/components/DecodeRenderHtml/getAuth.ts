@@ -1,19 +1,17 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import fetchAuth from "../../hook/fetchAuth";
+import { Ctx } from "../../DataContext";
 
-const abortController = useRef(new AbortController());
-export const getAuth=()=>{
+export const getAuth = () => {
 	const auth = new Promise((resolve) => {
+		const { abortController } = useContext(Ctx);
 		const headers={
+			"Authorization": localStorage.getItem("jwt_emulator") ?? "",
 			"Content-Type": "application/x-www-form-urlencoded"
 		};
 		const formBody = new URLSearchParams();
 		formBody.set("grant_type", "client_credentials");
 		formBody.set("scope", "uat/tasks");
-		// const body= {
-		// 	'grant_type':'client_credentials',
-		// 	'scope':'uat/tasks'
-		// };
         
 		void fetchAuth({ abortController, headers, body:formBody })().then((dataObj:any) => {
 			if (dataObj) {

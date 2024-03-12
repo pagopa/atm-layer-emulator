@@ -1,13 +1,12 @@
 /* eslint-disable indent */
-import React, { ReactElement, useContext, useState } from "react";
+import React, { useContext, /* useEffect, */ useState } from "react";
 import { FormControlLabel, Grid, Switch, TextField } from "@mui/material";
 import { Ctx } from "../../DataContext";
 import { ParametersDto } from "../model/ParametersModel";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import { handleSnackbar } from "../Commons/Commons";
 import { TASK_MAIN } from "../../commons/endpoints";
-import { getAuth } from "../DecodeRenderHtml/getAuth";
-import fetchAuth from "../../hook/fetchAuth";
+// import fetchAuth from "../../hook/fetchAuth";
 import FormTemplate from "./template/FormTemplate";
 
 
@@ -34,7 +33,7 @@ export const FormEmulatorParameters = () => {
     const [printerChecked, setPrinterChecked] = useState(true);
     const [scannerChecked, setScannerChecked] = useState(true);
     const [title, setTitle] = useState("");
-
+    const token = localStorage.getItem("jwt_emulator") ?? "";
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -64,92 +63,49 @@ export const FormEmulatorParameters = () => {
         e.preventDefault();
 
         if (validateForm()) {
-            // eslint-disable-next-line functional/no-let
-            let postData = new Object();
-            if (formData.acquirerId && formData.branchId && formData.code && formData.terminalId && formData.fiscalCode) {
-                postData = {
-                    device: {
-                        bankId: formData.acquirerId,
-                        branchId: formData.branchId,
-                        code: formData.code,
-                        terminalId: formData.terminalId,
-                        opTimestamp: "2023-10-31T17:30:00",
-                        channel: "ATM",
-                        peripherals: [
-                            {
-                                id: "PRINTER",
-                                name: formData.printer,
-                                status: formData.printer
-                            },
-                            {
-                                id: "SCANNER",
-                                name: formData.scanner,
-                                status: formData.scanner
-                            }
-                        ]
-                    },
-                    taskId: "string",
-                    data: {
-                        additionalProp1: "string",
-                        additionalProp2: "string",
-                        additionalProp3: "string"
-                    },
-                    fiscalCode: formData.fiscalCode,
-                    panInfo: [
+            const postData = {
+                data: {
+                    continue: true
+                },
+                device: {
+                    bankId: formData.acquirerId,
+                    branchId: formData.branchId,
+                    channel: "ATM",
+                    code: formData.code,
+                    opTimestamp: "2023-10-31T16:30:00",
+                    peripherals: [
                         {
-                            pan: "string",
-                            circuits: [
-                                "string"
-                            ],
-                            bankName: "string"
+                            id: "PRINTER",
+                            name: formData.printer,
+                            status: formData.printer
+                        },
+                        {
+                            id: "SCANNER",
+                            name: formData.scanner,
+                            status: formData.scanner
                         }
-                    ]
-                };
-            }
+                    ],
+                    terminalId: formData.terminalId,
+                },
+                fiscalCode: formData.fiscalCode,
+            };
+
             setLoadingButton(true);
-            const auth = new Promise((resolve) => {
-                const headers = {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                };
-                const formBody = new URLSearchParams();
-                formBody.set("grant_type", "client_credentials");
-                formBody.set("scope", "uat/tasks");
-                console.log("formBody", formBody.values());
-                // const body= {
-                // 	'grant_type':'client_credentials',
-                // 	'scope':'uat/tasks'
-                // };
+            const customHeaders = {
+                "Content-Type": "application/json",
+                "Authorization": token
+            };
 
-                void fetchAuth({ abortController, headers, body: formBody })().then((dataObj: any) => {
-                    if (dataObj) {
-                        resolve({
-                            data: dataObj,
-                            type: "SUCCES",
-                        });
-                    } else { resolve({ type: "error" }); } // procedo comunque, altrimenti avrei lanciato reject
-                    console.log("Auth res", dataObj);
-                });
-            });
+            try {
+                const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: JSON.stringify(postData), headers: customHeaders, isFormData: true })();
+                setLoadingButton(false);
+                handleSnackbar(response?.success, setMessage, setSeverity, setTitle, setOpenSnackBar, response?.valuesObj?.message);
+            } catch (error) {
+                setLoadingButton(false);
+                console.log("Response negative: ", error);
+                handleSnackbar(false, setMessage, setSeverity, setTitle, setOpenSnackBar);
 
-            auth.then(({ data }: any) => {
-                // tempFastDataValues = {
-                // 	...tempFastDataValues,
-                // 	...data
-                // 	//TO DO GESTIRE CORRETTAMENTE RISPOSTA
-                // };
-                console.log("Auth res", data);
-                return data;
-            }).catch((e) => e);
-            // try {
-            //     const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: postData, isFormData: true })();
-            //     setLoadingButton(false);
-            //     handleSnackbar(response?.success, setMessage, setSeverity, setTitle, setOpenSnackBar, response?.valuesObj?.message);
-            // } catch (error) {
-            //     setLoadingButton(false);
-            //     console.log("Response negative: ", error);
-            //     handleSnackbar(false, setMessage, setSeverity, setTitle, setOpenSnackBar);
-
-            // }
+            }
         }
 
     };

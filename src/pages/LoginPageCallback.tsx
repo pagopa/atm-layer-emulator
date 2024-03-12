@@ -5,6 +5,7 @@ import routes from "../routes";
 // import { Loading } from "../components/Commons/Loading";
 import { fetchRequest } from "../hook/fetch/fetchRequest";
 import { USER_EMAIL } from "../commons/endpoints";
+import { Loading } from "../components/Commons/Loading";
 
 
 const LoginPageCallback = () => {
@@ -16,7 +17,7 @@ const LoginPageCallback = () => {
 			const response = await fetchRequest({ urlEndpoint: USER_EMAIL, method: "GET", abortController, headers: { "Authorization": `Bearer ${token}` } })();
 
 			if (response?.success) {
-				setUserEmail(response?.valuesObj.email);
+				setUserEmail({email: response?.valuesObj.email});
 			} else {
 				setUserEmail("Benvenuto utente");
 			}
@@ -37,9 +38,9 @@ const LoginPageCallback = () => {
 		}
 	}, []);
 
-	// return(
-	// 	<Loading/>
-	// );
+	return(
+		<Loading />
+	);
 };
 
 export default LoginPageCallback;
