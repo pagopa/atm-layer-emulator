@@ -1,6 +1,6 @@
 import {Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { theme } from "@pagopa/mui-italia";
-import { Header } from "../../components/Header";
+import { Header } from "../../components/Header_old";
 import { getCompletePathImage } from "../../utils/Commons";
 
 export const LoadingPage = () => (

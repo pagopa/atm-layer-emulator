@@ -4,7 +4,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Button } from "@mui/material";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Header } from "../../components/Header";
+import { Header } from "../../components/Header_old";
 import { TitleComponent } from "../../components/TitleComponents/TitleComponent";
 import { getCompletePathImage } from "../../utils/Commons";
 import { Footer } from "../../components/Footer";

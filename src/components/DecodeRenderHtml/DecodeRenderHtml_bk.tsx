@@ -14,7 +14,6 @@ const getTemplate=(element:string)=>{
 	const parser = new DOMParser();
 	const parsedHtml = parser.parseFromString(element, "text/html");
 	const body = parsedHtml.getElementsByTagName("body");
-	// console.log(document.querySelector("body")?, parsedHtml, body);
 	const bodyText = body[0].innerHTML;
 	return bodyText? parse(bodyText): "<div />";
 };
