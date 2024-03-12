@@ -7,7 +7,7 @@ import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import { handleSnackbar } from "../Commons/Commons";
 import { TASK_MAIN } from "../../commons/endpoints";
 // import fetchAuth from "../../hook/fetchAuth";
-import { ACQUIRER_ID_LENGTH, FISCAL_CODE_REGEX, TERMINAL_BRANCH_LENGTH } from "../../commons/constants";
+import { ACQUIRER_ID_LENGTH, TERMINAL_BRANCH_LENGTH } from "../../commons/constants";
 import FormTemplate from "./template/FormTemplate";
 
 
