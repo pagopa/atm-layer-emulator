@@ -1,32 +1,14 @@
-/* eslint-disable quotes */
-import React, { useEffect } from "react";
-import parse from "html-react-parser";
-import "./DecodeRenderHtml.css";
-import { base64_decode } from "../../commons/decode";
-import resp from "./resp.json";
+const DecodeRenderHtml = (template: any) => {
 
-const template= resp?.task?.template?.content;
+	const getTemplate = (template: any) => {
+		const parser = new DOMParser();
+		const parsedHtml = parser.parseFromString(template, "text/html");
+		const body = parsedHtml.getElementsByTagName("body")[0];
+		return body;
+	};
 
-
-const getTemplate=(element:string)=>{
-	
-	const parser = new DOMParser();
-	const parsedHtml = parser.parseFromString(element, "text/html");
-	const body = parsedHtml.getElementsByTagName("body");
-	const bodyText = body[0].innerHTML;
-	return bodyText? parse(bodyText): "<div />";
+	return getTemplate(template);
 };
 
-
-export function DecodeRenderHtml() : JSX.Element {
-	
-	const element= base64_decode(template);
-	return (
-		<React.Fragment>
-			{getTemplate(element)}
-	 	{/* <div dangerouslySetInnerHTML={ { __html: base64_decode(template)}}/> */}
-		</React.Fragment>
-        
-	);
-}
+export default DecodeRenderHtml;
 

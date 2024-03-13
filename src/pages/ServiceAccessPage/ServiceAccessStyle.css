@@ -1,0 +1,53 @@
+.decoded-html {
+    font-family: "Titillium Web", sans-serif;
+}
+
+.decoded-html #logo {
+    display: inline;
+    vertical-align: middle; /* Allinea verticalmente l'immagine */
+}
+
+.decoded-html h1 {
+    display: inline;
+    margin-top: 0px;
+    margin-left: 10px; /* Aggiunge uno spazio a sinistra dell'h1 */
+    vertical-align: middle; /* Allinea verticalmente l'elemento h1 */
+    font-weight: 400;
+    font-size: large;
+    /* float: right; */
+}
+
+.decoded-html h2 {
+    margin-top: 10px;
+    vertical-align: middle; 
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 4px;
+}
+
+.decoded-html h3 {
+    font-weight: 400;
+    font-size: 16px;
+    margin-top: 0px;
+}
+
+/* Stili per il bottone */
+.decoded-html button {
+    display: flex;
+    background-color: #106aca; /* Colore di sfondo */
+    color: white; /* Colore del testo */
+    border: none; /* Rimuove il bordo */
+    padding: 10px 20px; /* Spaziatura interna */
+    margin-right: 10px; /* Margine a destra per separare i bottoni */
+    border-radius: 4px; /* Bordi arrotondati */
+    cursor: pointer; /* Cambia il cursore al passaggio sopra */
+    font-weight: 600;
+    font-size: 14px;
+    gap: 10px;
+    align-items: center;
+}
+
+.decoded-html #exit {
+    display: block; /* Imposta il bottone su una riga separata */
+    margin-top: 10px; /* Aggiunge uno spazio sopra il bottone */
+}

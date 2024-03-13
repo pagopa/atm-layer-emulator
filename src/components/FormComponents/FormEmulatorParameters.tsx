@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { FormControlLabel, Grid, Switch, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { Ctx } from "../../DataContext";
 import { ParametersDto } from "../model/ParametersModel";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
@@ -7,6 +8,9 @@ import { handleSnackbar, resetErrors } from "../Commons/Commons";
 import { TASK_MAIN } from "../../commons/endpoints";
 import { ACQUIRER_ID_LENGTH, CODE_LEGTH, FISCAL_CODE_LENGTH, TERMINAL_BRANCH_LENGTH } from "../../commons/constants";
 import checks from "../../utils/checks";
+// import fetchAuth from "../../hook/fetchAuth";
+import { base64_decode } from "../../commons/decode";
+import ROUTES from "../../routes";
 import FormTemplate from "./template/FormTemplate";
 
 
@@ -27,7 +31,7 @@ export const FormEmulatorParameters = () => {
 
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
-	const { abortController } = useContext(Ctx);
+	const { abortController, setTemplate } = useContext(Ctx);
 	const [openSnackBar, setOpenSnackBar] = useState(false);
 	const [message, setMessage] = useState("");
 	const [severity, setSeverity] = useState<"success" | "error">("success");
@@ -35,6 +39,7 @@ export const FormEmulatorParameters = () => {
 	const [scannerChecked, setScannerChecked] = useState(true);
 	const [title, setTitle] = useState("");
 	const token = localStorage.getItem("jwt_emulator") ?? "";
+	const navigate = useNavigate();
 
 	const handleChange = (fieldName?: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		if(fieldName){
@@ -56,8 +61,6 @@ export const FormEmulatorParameters = () => {
 			}));
 		}
 	};
-    
-    
 
 	const validateForm = () => {
 		const newErrors = {
@@ -112,18 +115,25 @@ export const FormEmulatorParameters = () => {
 			};
 
 			try {
-				const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: JSON.stringify(postData), headers: customHeaders, isFormData: true })();
+				const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: postData, headers: customHeaders })();
 				setLoadingButton(false);
 				handleSnackbar(response?.success, setMessage, setSeverity, setTitle, setOpenSnackBar, response?.valuesObj?.message);
+
+				if (response?.success) {
+					const element = base64_decode(response?.valuesObj?.task?.template?.content);
+					setTemplate(element);
+					console.log("RESPONSE DECODED: ", element);
+					navigate(ROUTES.SERVICE_ACCESS);
+				}
 			} catch (error) {
 				setLoadingButton(false);
 				console.log("Response negative: ", error);
 				handleSnackbar(false, setMessage, setSeverity, setTitle, setOpenSnackBar);
-			}
-		}
+			};
+		};
+
 
 	};
-
 
 
 	return (
@@ -148,7 +158,7 @@ export const FormEmulatorParameters = () => {
 					onChange={handleChange()}
 					error={Boolean(errors.acquirerId)}
 					helperText={errors.acquirerId}
-					inputProps={{ maxLength: ACQUIRER_ID_LENGTH}}
+					inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
 				/>
 			</Grid>
 			<Grid xs={12} item my={1}>
@@ -163,7 +173,7 @@ export const FormEmulatorParameters = () => {
 					onChange={handleChange()}
 					error={Boolean(errors.branchId)}
 					helperText={errors.branchId}
-					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH}}
+					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
 				/>
 			</Grid>
 			<Grid xs={12} item my={1}>
@@ -178,7 +188,7 @@ export const FormEmulatorParameters = () => {
 					onChange={handleChange()}
 					error={Boolean(errors.code)}
 					helperText={errors.code}
-					inputProps={{ maxLength: CODE_LEGTH}}
+					inputProps={{ maxLength: CODE_LEGTH }}
 				/>
 			</Grid>
 			<Grid xs={12} item my={1}>
@@ -193,7 +203,7 @@ export const FormEmulatorParameters = () => {
 					onChange={handleChange()}
 					error={Boolean(errors.terminalId)}
 					helperText={errors.terminalId}
-					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH}}
+					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
 				/>
 			</Grid>
 			<Grid xs={12} item my={1}>
@@ -208,7 +218,7 @@ export const FormEmulatorParameters = () => {
 					onChange={handleChange()}
 					error={Boolean(errors.fiscalCode)}
 					helperText={errors.fiscalCode}
-					inputProps={{ maxLength: FISCAL_CODE_LENGTH}}
+					inputProps={{ maxLength: FISCAL_CODE_LENGTH }}
 				/>
 			</Grid>
 			<Grid xs={6} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>

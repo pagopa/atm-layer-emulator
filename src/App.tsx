@@ -14,6 +14,7 @@ import { JwtUser } from "./components/model/UserModel";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import LoginPageCallback from "./pages/LoginPageCallback";
+import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
 
 
 const LocalRoutes = () => (
@@ -23,6 +24,7 @@ const LocalRoutes = () => (
 		
 		<Route path={routes.SCANNER_PAGE} element={<PageLayout><ScannerPage /></PageLayout>} />
 		<Route path={routes.WARNING_CODE} element={<PageLayout><WarningCodeInput /></PageLayout>} />
+		<Route path={routes.SERVICE_ACCESS} element={<ServiceAccessPage />} />
 		<Route path={routes.EC_FISCAL_CODE} element={<PageLayout><EcFiscalCodeInput /></PageLayout>} />
 		<Route
 			path={routes.ERROR_PAGE}
@@ -46,6 +48,7 @@ function App() {
 	const debugOn = sessionStorage.getItem("debugOn");
 	const [logged, setLogged] = useState(temp || jwt ? true : false);
 	const [userEmail, setUserEmail] = useState<JwtUser>({ email: undefined });
+	const [template, setTemplate] = useState({});
 	const abortController = new AbortController();
 
 	function clearAll() {
@@ -88,6 +91,8 @@ function App() {
 		abortController,
 		debugOn,
 		clearStorage,
+		template,
+		setTemplate
 	};
 
 	useEffect(() => {
