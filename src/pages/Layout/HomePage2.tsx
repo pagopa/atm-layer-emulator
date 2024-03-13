@@ -1,13 +1,9 @@
 import React from "react";
-import { useContext } from "react";
 import ReactDOM from "react-dom/client";
-import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenHtml";
 
 
 export const HomePage2 = () => {
-
-	const context = useContext(Ctx);
 
 	
 	const reader = ReactDOM.createRoot(
@@ -21,6 +17,6 @@ export const HomePage2 = () => {
 			  </React.StrictMode>
 	);
 			
-	return <React.Fragment></React.Fragment>;
+	return <React.Fragment/>;
 	
 };
