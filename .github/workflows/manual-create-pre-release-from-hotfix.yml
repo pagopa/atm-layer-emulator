@@ -91,9 +91,9 @@ jobs:
       # - name: Test Report
       #   uses: dorny/test-reporter@v1.8.0
       #   with:
-      #     name: JEST Tests            # Name of the check run which will be created
-      #     path: reports/jest-*.xml    # Path to test results
-      #     reporter: jest-junit        # Format of test results
+      #     name: JEST Tests hotfix           # Name of the check run which will be created
+      #     path: reports/jest-*.xml          # Path to test results
+      #     reporter: jest-junit              # Format of test results
 
       - name: Build app
         run: |
