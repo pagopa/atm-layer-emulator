@@ -1,5 +1,5 @@
 /* eslint-disable quotes */
-import React, { useEffect } from "react";
+
 import parse from "html-react-parser";
 import "./DecodeRenderHtml.css";
 import { base64_decode } from "../../commons/decode";
@@ -19,16 +19,7 @@ const getTemplate=(element:string)=>{
 };
 
 
-export function DecodeRenderHtml() : JSX.Element {
-
-	
+export function decodeRenderHtml() : string | React.JSX.Element | Array<React.JSX.Element> {
 	const element= base64_decode(template);
-	return (
-		<React.Fragment>
-			{getTemplate(element)}
-	 	{/* <div dangerouslySetInnerHTML={ { __html: base64_decode(template)}}/> */}
-		</React.Fragment>
-        
-	);
+	return getTemplate(element);
 }
-

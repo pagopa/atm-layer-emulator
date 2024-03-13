@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import ReactDOM from "react-dom/client";
 import { Ctx } from "../../DataContext";
-import { DecodeRenderHtml } from "../../components/DecodeRenderHtml/DecodeRenderHtml";
+import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenHtml";
 
 
 export const HomePage2 = () => {
@@ -17,7 +17,7 @@ export const HomePage2 = () => {
 	reader.render(
 			  <React.StrictMode>		
 				  {/* <CssBaseline /> */}
-				  <DecodeRenderHtml />
+				  {decodeRenderHtml()}
 			  </React.StrictMode>
 	);
 			
