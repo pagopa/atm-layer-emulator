@@ -26,7 +26,7 @@ const LoginPage = () => {
 		const jwtConsole = new URLSearchParams(hash).get("jwt_console");
 
 		if (jwtConsole) {
-			localStorage.setItem("jwt_emulator", jwtConsole);
+			sessionStorage.setItem("jwt_emulator", jwtConsole);
 			setLogged(true);
 			// eslint-disable-next-line functional/immutable-data
 			window.location.hash = "";

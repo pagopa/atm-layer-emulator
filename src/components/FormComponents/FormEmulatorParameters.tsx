@@ -17,7 +17,7 @@ import FormTemplate from "./template/FormTemplate";
 export const FormEmulatorParameters = () => {
 
 	const [loadingButton, setLoadingButton] = useState(false);
-	const { isValidFiscalCode } = checks();
+	const { cfIsValid } = checks();
 
 	const initialValues: ParametersDto = {
 		acquirerId: "",
@@ -42,19 +42,21 @@ export const FormEmulatorParameters = () => {
 	const navigate = useNavigate();
 
 	const handleChange = (fieldName?: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		if(fieldName){
-			const target = e.target as HTMLInputElement;
-			const isChecked = target.checked;
+		const target = e.target as HTMLInputElement;
+		const { name, value, checked } = target;
+
+		if (fieldName) {
+			const isChecked = checked;
+			const newValue = isChecked ? "OK" : "KO";
+			setFormData({ ...formData, [fieldName]: newValue });
+
 			if (fieldName === "printer") {
 				setPrinterChecked(isChecked);
 			} else if (fieldName === "scanner") {
 				setScannerChecked(isChecked);
 			}
-			const newValue = isChecked ? "OK" : "KO";
-			setFormData({ ...formData, [fieldName]: newValue });
 		} else {
-			const { name, value } = e.target;
-			resetErrors(errors, setErrors, e.target.name);
+			resetErrors(errors, setErrors, name);
 			setFormData((prevFormData: any) => ({
 				...prevFormData,
 				[name]: value
@@ -68,7 +70,7 @@ export const FormEmulatorParameters = () => {
 			branchId: formData.branchId ? "" : "Campo obbligatorio",
 			code: formData.code ? "" : "Campo obbligatorio",
 			terminalId: formData.terminalId ? "" : "Campo obbligatorio",
-			fiscalCode: formData.fiscalCode ? isValidFiscalCode(formData.fiscalCode) ? "" : "Codice fiscale non valido" : "Campo obbligatorio",
+			fiscalCode: formData.fiscalCode ? cfIsValid(formData.fiscalCode) ? "" : "Codice fiscale non valido" : "Campo obbligatorio",
 		};
 
 		setErrors(newErrors);
@@ -109,13 +111,8 @@ export const FormEmulatorParameters = () => {
 			};
 
 			setLoadingButton(true);
-			const customHeaders = {
-				"Content-Type": "application/json",
-				"Authorization": token
-			};
-
 			try {
-				const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: postData, headers: customHeaders })();
+				const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: postData, headers: { "Content-Type": "application/json" } })();
 				setLoadingButton(false);
 				handleSnackbar(response?.success, setMessage, setSeverity, setTitle, setOpenSnackBar, response?.valuesObj?.message);
 
@@ -131,19 +128,12 @@ export const FormEmulatorParameters = () => {
 				handleSnackbar(false, setMessage, setSeverity, setTitle, setOpenSnackBar);
 			};
 		};
-
-
 	};
 
 
 	return (
 		<FormTemplate
-			setOpenSnackBar={setOpenSnackBar}
 			handleSubmit={handleSubmit}
-			openSnackBar={openSnackBar}
-			severity={severity}
-			message={message}
-			title={title}
 			loadingButton={loadingButton}
 		>
 			<Grid xs={12} item my={1}>
