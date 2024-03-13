@@ -20,7 +20,7 @@ const LocalRoutes = () => (
 	<Routes>
 
 		<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
-		<Route path={routes.HOME} element={<PageLayout><HomePage /></PageLayout>} />
+		
 		<Route path={routes.SCANNER_PAGE} element={<PageLayout><ScannerPage /></PageLayout>} />
 		<Route path={routes.WARNING_CODE} element={<PageLayout><WarningCodeInput /></PageLayout>} />
 		<Route path={routes.EC_FISCAL_CODE} element={<PageLayout><EcFiscalCodeInput /></PageLayout>} />
@@ -41,22 +41,22 @@ function App() {
 	const [warningCodeValue, setWarningCodeValue] = useState("");
 	const [ecFiscalCodeValue, setEcFiscalCodeValue] = useState("");
 	const [loading, setLoading] = useState(false);
-	const temp = localStorage.getItem("tempLog");
-	const jwt = localStorage.getItem("jwt_emulator");
+	const temp = sessionStorage.getItem("tempLog");
+	const jwt = sessionStorage.getItem("jwt_emulator");
 	const debugOn = sessionStorage.getItem("debugOn");
 	const [logged, setLogged] = useState(temp || jwt ? true : false);
 	const [userEmail, setUserEmail] = useState<JwtUser>({ email: undefined });
 	const abortController = new AbortController();
 
 	function clearAll() {
-		if (localStorage.getItem("jwt_emulator")) {
+		if (sessionStorage.getItem("jwt_emulator")) {
 			setTokenExpired();
 		}
 		clearStorage();
 	}
 
 	function setTokenExpired() {
-		localStorage.removeItem("jwt_emulator");
+		sessionStorage.removeItem("jwt_emulator");
 		setLogged(false);
 		// navigate(ROUTES.LOGIN);
 	}
