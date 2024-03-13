@@ -37,25 +37,28 @@ export const FormEmulatorParameters = () => {
 	const token = sessionStorage.getItem("jwt_emulator") ?? "";
 
 	const handleChange = (fieldName?: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+		const target = e.target as HTMLInputElement;
+		const { name, value, checked } = target;
+	
 		if(fieldName){
-			const target = e.target as HTMLInputElement;
-			const isChecked = target.checked;
+			const isChecked = checked;
+			const newValue = isChecked ? "OK" : "KO";
+			setFormData({ ...formData, [fieldName]: newValue });
+	
 			if (fieldName === "printer") {
 				setPrinterChecked(isChecked);
 			} else if (fieldName === "scanner") {
 				setScannerChecked(isChecked);
 			}
-			const newValue = isChecked ? "OK" : "KO";
-			setFormData({ ...formData, [fieldName]: newValue });
 		} else {
-			const { name, value } = e.target;
-			resetErrors(errors, setErrors, e.target.name);
+			resetErrors(errors, setErrors, name);
 			setFormData((prevFormData: any) => ({
 				...prevFormData,
 				[name]: value
 			}));
 		}
 	};
+	
     
     
 
