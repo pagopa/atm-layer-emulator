@@ -29,9 +29,6 @@ export default function FormTemplate({ handleSubmit, setOpenSnackBar, children, 
 
 	return (
 		<Box sx={{ maxWidth: "50%" }}>
-			<Box marginTop={3} textAlign={"center"}>
-				<TitleComponent title={"Parametri simulazione"} subTitle={""} />
-			</Box>
 			<Box p={3} my={3} mx={"auto"} sx={inputGroupStyle}  >
 				<Grid container >
 					<Grid item xs={12}>

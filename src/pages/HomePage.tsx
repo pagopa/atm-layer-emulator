@@ -12,8 +12,8 @@ export default function HomePage() {
 		<BoxPageLayout px={20}>
 			<Grid container spacing={0.5}>
 				<HomePageTitle
-					title={"Emulator"}
-					subTitle={"Strumento per simulare il comportamento delle risorse"}
+					title={"Simulatore ATM"}
+					subTitle={"Strumento di simulazione per il comportamento delle risorse"}
 				/>
 
 			</Grid>

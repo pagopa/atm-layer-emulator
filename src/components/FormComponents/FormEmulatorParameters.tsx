@@ -3,15 +3,17 @@ import { FormControlLabel, Grid, Switch, TextField } from "@mui/material";
 import { Ctx } from "../../DataContext";
 import { ParametersDto } from "../model/ParametersModel";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
-import { handleSnackbar } from "../Commons/Commons";
+import { handleSnackbar, resetErrors } from "../Commons/Commons";
 import { TASK_MAIN } from "../../commons/endpoints";
-import { ACQUIRER_ID_LENGTH, TERMINAL_BRANCH_LENGTH } from "../../commons/constants";
+import { ACQUIRER_ID_LENGTH, CODE_LEGTH, FISCAL_CODE_LENGTH, TERMINAL_BRANCH_LENGTH } from "../../commons/constants";
+import checks from "../../utils/checks";
 import FormTemplate from "./template/FormTemplate";
 
 
 export const FormEmulatorParameters = () => {
 
 	const [loadingButton, setLoadingButton] = useState(false);
+	const { isValidFiscalCode } = checks();
 
 	const initialValues: ParametersDto = {
 		acquirerId: "",
@@ -34,25 +36,28 @@ export const FormEmulatorParameters = () => {
 	const [title, setTitle] = useState("");
 	const token = localStorage.getItem("jwt_emulator") ?? "";
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		const { name, value } = e.target;
-		// resetErrors(errors, setErrors, e.target.name);
-		setFormData((prevFormData: any) => ({
-			...prevFormData,
-			[name]: value
-		}));
-	};
-
-	const handleSwitchChange = (fieldName: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-		const isChecked = event.target.checked;
-		if (fieldName === "printer") {
-			setPrinterChecked(isChecked);
-		} else if (fieldName === "scanner") {
-			setScannerChecked(isChecked);
+	const handleChange = (fieldName?: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+		if(fieldName){
+			const target = e.target as HTMLInputElement;
+			const isChecked = target.checked;
+			if (fieldName === "printer") {
+				setPrinterChecked(isChecked);
+			} else if (fieldName === "scanner") {
+				setScannerChecked(isChecked);
+			}
+			const newValue = isChecked ? "OK" : "KO";
+			setFormData({ ...formData, [fieldName]: newValue });
+		} else {
+			const { name, value } = e.target;
+			resetErrors(errors, setErrors, e.target.name);
+			setFormData((prevFormData: any) => ({
+				...prevFormData,
+				[name]: value
+			}));
 		}
-		const newValue = isChecked ? "OK" : "KO";
-		setFormData({ ...formData, [fieldName]: newValue });
 	};
+    
+    
 
 	const validateForm = () => {
 		const newErrors = {
@@ -60,7 +65,7 @@ export const FormEmulatorParameters = () => {
 			branchId: formData.branchId ? "" : "Campo obbligatorio",
 			code: formData.code ? "" : "Campo obbligatorio",
 			terminalId: formData.terminalId ? "" : "Campo obbligatorio",
-			// fiscalCode: formData.fiscalCode ? "" : "Campo obbligatorio",
+			fiscalCode: formData.fiscalCode ? isValidFiscalCode(formData.fiscalCode) ? "" : "Codice fiscale non valido" : "Campo obbligatorio",
 		};
 
 		setErrors(newErrors);
@@ -140,7 +145,7 @@ export const FormEmulatorParameters = () => {
 					placeholder={"06789"}
 					size="small"
 					value={formData.acquirerId}
-					onChange={handleChange}
+					onChange={handleChange()}
 					error={Boolean(errors.acquirerId)}
 					helperText={errors.acquirerId}
 					inputProps={{ maxLength: ACQUIRER_ID_LENGTH}}
@@ -155,7 +160,7 @@ export const FormEmulatorParameters = () => {
 					placeholder={"12345"}
 					size="small"
 					value={formData.branchId}
-					onChange={handleChange}
+					onChange={handleChange()}
 					error={Boolean(errors.branchId)}
 					helperText={errors.branchId}
 					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH}}
@@ -170,9 +175,10 @@ export const FormEmulatorParameters = () => {
 					placeholder={"0001"}
 					size="small"
 					value={formData.code}
-					onChange={handleChange}
+					onChange={handleChange()}
 					error={Boolean(errors.code)}
 					helperText={errors.code}
+					inputProps={{ maxLength: CODE_LEGTH}}
 				/>
 			</Grid>
 			<Grid xs={12} item my={1}>
@@ -184,7 +190,7 @@ export const FormEmulatorParameters = () => {
 					placeholder={"64874412"}
 					size="small"
 					value={formData.terminalId}
-					onChange={handleChange}
+					onChange={handleChange()}
 					error={Boolean(errors.terminalId)}
 					helperText={errors.terminalId}
 					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH}}
@@ -196,21 +202,22 @@ export const FormEmulatorParameters = () => {
 					id="fiscalCode"
 					name="fiscalCode"
 					label={"Codice Fiscale"}
-					placeholder={"ABCDEFG12H34I567J"}
+					placeholder={"RSSMRA74D22A001Q"}
 					size="small"
 					value={formData.fiscalCode}
-					onChange={handleChange}
+					onChange={handleChange()}
 					error={Boolean(errors.fiscalCode)}
 					helperText={errors.fiscalCode}
+					inputProps={{ maxLength: FISCAL_CODE_LENGTH}}
 				/>
 			</Grid>
-			<Grid xs={6} item my={1}>
+			<Grid xs={6} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
 				<FormControlLabel
 					id="printer"
 					value="OK"
 					control={<Switch
 						checked={printerChecked}
-						onChange={handleSwitchChange("printer")}
+						onChange={handleChange("printer")}
 						name="printerSwitch"
 					/>}
 					label="Stampante"
@@ -218,13 +225,13 @@ export const FormEmulatorParameters = () => {
 				/>
 
 			</Grid>
-			<Grid xs={6} item my={1}>
+			<Grid xs={6} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
 				<FormControlLabel
 					id="scanner"
 					value="OK"
 					control={<Switch
 						checked={scannerChecked}
-						onChange={handleSwitchChange("scanner")}
+						onChange={handleChange("scanner")}
 						name="scannerSwitch"
 					/>}
 					label="Scanner"

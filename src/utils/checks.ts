@@ -6,6 +6,14 @@ const checks = () => {
         (typeof field === "number" && field < 0)
 	);
 
-	return{isInvalidField};
+	const isValidFiscalCode = (e: string) => {
+		const fiscalCodeRegex = /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/;
+		return fiscalCodeRegex.test(e);
+	};
+
+	return{
+		isInvalidField,
+		isValidFiscalCode
+	};
 };
 export default checks;
