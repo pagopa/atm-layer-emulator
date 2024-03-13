@@ -4,7 +4,6 @@ import parse from "html-react-parser";
 import "./DecodeRenderHtml.css";
 import { base64_decode } from "../../commons/decode";
 import resp from "./resp.json";
-import { getAuth } from "./getAuth";
 
 const template= resp?.task?.template?.content;
 
@@ -21,9 +20,6 @@ const getTemplate=(element:string)=>{
 
 
 export function DecodeRenderHtml() : JSX.Element {
-	// useEffect(() =>{
-	// 	getAuth();
-	// },[]);
 
 	
 	const element= base64_decode(template);
