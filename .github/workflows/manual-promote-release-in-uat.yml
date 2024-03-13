@@ -104,6 +104,22 @@ jobs:
           git commit -m ".env.test and .env.production updated with new version ${{ steps.semantic-release-dryrun.outputs.new_release_version }}"
           git push
 
+      - name: Run test
+        run: |
+          npm install
+      #     npm run test:full-coverage
+
+      # - name: Test Report
+      #   uses: dorny/test-reporter@v1.8.0
+      #   with:
+      #     name: JEST Tests            # Name of the check run which will be created
+      #     path: reports/jest-*.xml    # Path to test results
+      #     reporter: jest-junit        # Format of test results
+
+      - name: Build app
+        run: |
+          npm run build:uat
+
       - name: Commit with "${{ inputs.commit }}:" prefix
         run: |
           git config user.name "GitHub Action"
@@ -123,22 +139,6 @@ jobs:
             @semantic-release/git@10.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run test
-        run: |
-          npm install
-      #     npm run test:full-coverage
-
-      # - name: Test Report
-      #   uses: dorny/test-reporter@v1.8.0
-      #   with:
-      #     name: JEST Tests            # Name of the check run which will be created
-      #     path: reports/jest-*.xml    # Path to test results
-      #     reporter: jest-junit        # Format of test results
-
-      - name: Build app
-        run: |
-          npm run build:uat
 
       - name: Configure uat AWS Credentials
         uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
