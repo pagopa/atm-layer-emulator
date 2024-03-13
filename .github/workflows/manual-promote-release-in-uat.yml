@@ -21,9 +21,7 @@ defaults:
   run:
     shell: bash
 
-permissions:
-  id-token: write
-  contents: write
+permissions: write-all
 
 jobs:
   manual-promote-release-in-uat:
@@ -89,7 +87,7 @@ jobs:
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add package.json
-          git commit -m "package.json updated with new version ${{ steps.semantic-release-dryrun.outputs.new_release_version }}"
+          git commit --allow-empty -m "package.json updated with new version ${{ steps.semantic-release-dryrun.outputs.new_release_version }}"
           git push
 
       - name: Update file .env.test  and .env.production with the new version
@@ -101,7 +99,7 @@ jobs:
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add .env.development .env.test .env.production
-          git commit -m ".env.test and .env.production updated with new version ${{ steps.semantic-release-dryrun.outputs.new_release_version }}"
+          git commit --allow-empty -m ".env.test and .env.production updated with new version ${{ steps.semantic-release-dryrun.outputs.new_release_version }}"
           git push
 
       - name: Run test
