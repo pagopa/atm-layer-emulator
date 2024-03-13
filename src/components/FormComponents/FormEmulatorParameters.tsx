@@ -13,7 +13,7 @@ import FormTemplate from "./template/FormTemplate";
 export const FormEmulatorParameters = () => {
 
 	const [loadingButton, setLoadingButton] = useState(false);
-	const { isValidFiscalCode } = checks();
+	const { cfIsValid } = checks();
 
 	const initialValues: ParametersDto = {
 		acquirerId: "",
@@ -28,12 +28,8 @@ export const FormEmulatorParameters = () => {
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
 	const { abortController } = useContext(Ctx);
-	const [openSnackBar, setOpenSnackBar] = useState(false);
-	const [message, setMessage] = useState("");
-	const [severity, setSeverity] = useState<"success" | "error">("success");
 	const [printerChecked, setPrinterChecked] = useState(true);
 	const [scannerChecked, setScannerChecked] = useState(true);
-	const [title, setTitle] = useState("");
 	const token = sessionStorage.getItem("jwt_emulator") ?? "";
 
 	const handleChange = (fieldName?: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -68,7 +64,7 @@ export const FormEmulatorParameters = () => {
 			branchId: formData.branchId ? "" : "Campo obbligatorio",
 			code: formData.code ? "" : "Campo obbligatorio",
 			terminalId: formData.terminalId ? "" : "Campo obbligatorio",
-			fiscalCode: formData.fiscalCode ? isValidFiscalCode(formData.fiscalCode) ? "" : "Codice fiscale non valido" : "Campo obbligatorio",
+			fiscalCode: formData.fiscalCode ? cfIsValid(formData.fiscalCode) ? "" : "Codice fiscale non valido" : "Campo obbligatorio",
 		};
 
 		setErrors(newErrors);
@@ -112,11 +108,9 @@ export const FormEmulatorParameters = () => {
 			try {
 				const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: postData, headers: { "Content-Type": "application/json" } })();
 				setLoadingButton(false);
-				handleSnackbar(response?.success, setMessage, setSeverity, setTitle, setOpenSnackBar, response?.valuesObj?.message);
 			} catch (error) {
 				setLoadingButton(false);
 				console.log("Response negative: ", error);
-				handleSnackbar(false, setMessage, setSeverity, setTitle, setOpenSnackBar);
 			}
 		}
 
@@ -126,12 +120,7 @@ export const FormEmulatorParameters = () => {
 
 	return (
 		<FormTemplate
-			setOpenSnackBar={setOpenSnackBar}
 			handleSubmit={handleSubmit}
-			openSnackBar={openSnackBar}
-			severity={severity}
-			message={message}
-			title={title}
 			loadingButton={loadingButton}
 		>
 			<Grid xs={12} item my={1}>

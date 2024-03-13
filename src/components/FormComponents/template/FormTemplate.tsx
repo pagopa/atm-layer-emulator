@@ -5,18 +5,12 @@ import { Loading } from "../../Commons/Loading";
 
 type Props = {
 	handleSubmit: (e: React.FormEvent) => void;
-	setOpenSnackBar?: React.Dispatch<SetStateAction<boolean>>;
 	children?: any;
-	openSnackBar?: boolean;
-	severity?: any;
-	message?: string;
-	title?: string;
-	errorCode?: string;
 	handleSwitchAssociationFetch?: () => Promise<void>;
 	loadingButton?: boolean;
 };
 
-export default function FormTemplate({ handleSubmit, setOpenSnackBar, children, openSnackBar, severity, message, title, errorCode, handleSwitchAssociationFetch, loadingButton }: Readonly<Props>) {
+export default function FormTemplate({ handleSubmit, children, loadingButton }: Readonly<Props>) {
 	const theme = useTheme();
 
 	const inputGroupStyle = {
