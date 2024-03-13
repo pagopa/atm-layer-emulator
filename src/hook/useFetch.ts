@@ -6,7 +6,7 @@ export default function useFetch(endPoint?: string | undefined) {
 
 	const SERVER_API_ORIGIN = endPoint&& endPoint!=="" ? endPoint : process.env.REACT_APP_BACKEND_URL;
 	const CODE_SUCCESS = [200, 201, 202, 203] ;
-	// const token = localStorage.getItem("jwt_emulator");
+	const token = localStorage.getItem("jwt_emulator");
 
 	const fetchFromServer = async ({
 		urlEndpoint,
@@ -21,18 +21,18 @@ export default function useFetch(endPoint?: string | undefined) {
 		let response;
 		
 
-		let headerRequest = {};
+		let headerRequest = {
+			"Authorization": token ? token : "",
+			"Accept": "application/json",
+		};
+
 		if (headers) {
 			headerRequest = {
-				// "Authorization": token ? token : "",
-				"Accept": "application/json",
+				...headerRequest,
 				...headers
 			};
-		} else {
-			headerRequest = { 
-				"Accept": "application/json",
-			};
 		}
+
 
 		const options: any = isFormData
 			? {
