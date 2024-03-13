@@ -34,7 +34,7 @@ export const FormEmulatorParameters = () => {
 	const [printerChecked, setPrinterChecked] = useState(true);
 	const [scannerChecked, setScannerChecked] = useState(true);
 	const [title, setTitle] = useState("");
-	const token = localStorage.getItem("jwt_emulator") ?? "";
+	const token = sessionStorage.getItem("jwt_emulator") ?? "";
 
 	const handleChange = (fieldName?: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		if(fieldName){
