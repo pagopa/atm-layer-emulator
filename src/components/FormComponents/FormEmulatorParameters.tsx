@@ -109,13 +109,8 @@ export const FormEmulatorParameters = () => {
 			};
 
 			setLoadingButton(true);
-			const customHeaders = {
-				"Content-Type": "application/json",
-				"Authorization": token
-			};
-
 			try {
-				const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: JSON.stringify(postData), headers: customHeaders, isFormData: true })();
+				const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: postData, headers: { "Content-Type": "application/json" } })();
 				setLoadingButton(false);
 				handleSnackbar(response?.success, setMessage, setSeverity, setTitle, setOpenSnackBar, response?.valuesObj?.message);
 			} catch (error) {
