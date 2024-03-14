@@ -20,11 +20,11 @@ export const FormEmulatorParameters = () => {
 	const { cfIsValid } = checks();
 
 	const initialValues: ParametersDto = {
-		acquirerId: "",
-		branchId: "",
-		code: "",
-		terminalId: "",
-		fiscalCode: "",
+		acquirerId: "06789",
+		branchId: "12345",
+		code: "0001",
+		terminalId: "64874412",
+		fiscalCode: "RSSMRA74D22A001Q",
 		printer: "OK",
 		scanner: "OK",
 	};
@@ -32,13 +32,9 @@ export const FormEmulatorParameters = () => {
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
 	const { abortController, setTemplate } = useContext(Ctx);
-	const [openSnackBar, setOpenSnackBar] = useState(false);
-	const [message, setMessage] = useState("");
-	const [severity, setSeverity] = useState<"success" | "error">("success");
 	const [printerChecked, setPrinterChecked] = useState(true);
 	const [scannerChecked, setScannerChecked] = useState(true);
-	const [title, setTitle] = useState("");
-	const token = localStorage.getItem("jwt_emulator") ?? "";
+	const token = sessionStorage.getItem("jwt_emulator") ?? "";
 	const navigate = useNavigate();
 
 	const handleChange = (fieldName?: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -114,7 +110,6 @@ export const FormEmulatorParameters = () => {
 			try {
 				const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: postData, headers: { "Content-Type": "application/json" } })();
 				setLoadingButton(false);
-				handleSnackbar(response?.success, setMessage, setSeverity, setTitle, setOpenSnackBar, response?.valuesObj?.message);
 
 				if (response?.success) {
 					const element = base64_decode(response?.valuesObj?.task?.template?.content);
@@ -125,7 +120,6 @@ export const FormEmulatorParameters = () => {
 			} catch (error) {
 				setLoadingButton(false);
 				console.log("Response negative: ", error);
-				handleSnackbar(false, setMessage, setSeverity, setTitle, setOpenSnackBar);
 			};
 		};
 	};
