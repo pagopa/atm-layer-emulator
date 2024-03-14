@@ -7,7 +7,7 @@ import { Ctx } from "./DataContext.js";
 import { ScannerPage } from "./pages/ScannerPage/ScannerPage";
 import { CommonErrorPage } from "./pages/ErrorPage/CommonErrorPage";
 import WarningCodeInput from "./pages/WarningCodePage/WarningCodeInput";
-import EcFiscalCodeInput from "./pages/EcFiscalCodePage/EcFiscalCodeInput";
+// import EcFiscalCodeInput from "./pages/EcFiscalCodePage/EcFiscalCodeInput";
 import routes from "./routes";
 import PageLayout from "./pages/Layout/PageLayout";
 import { JwtUser } from "./components/model/UserModel";
@@ -24,9 +24,9 @@ const LocalRoutes = () => (
 		
 		<Route path={routes.SCANNER_PAGE} element={<PageLayout><ScannerPage /></PageLayout>} />
 		<Route path={routes.WARNING_CODE} element={<PageLayout><WarningCodeInput /></PageLayout>} />
-		{/* <Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} /> */}
-		<Route path={routes.SERVICE_ACCESS} element={<ServiceAccessPage />} />
-		<Route path={routes.EC_FISCAL_CODE} element={<PageLayout><EcFiscalCodeInput /></PageLayout>} />
+		<Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} />
+		{/* <Route path={routes.SERVICE_ACCESS} element={<ServiceAccessPage />} /> */}
+		{/* <Route path={routes.EC_FISCAL_CODE} element={<PageLayout><EcFiscalCodeInput /></PageLayout>} /> */}
 		<Route
 			path={routes.ERROR_PAGE}
 			element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>}
@@ -42,7 +42,7 @@ function App() {
 
 	const [interfaceType, setInterfaceType] = useState(false);
 	const [warningCodeValue, setWarningCodeValue] = useState("");
-	const [ecFiscalCodeValue, setEcFiscalCodeValue] = useState("");
+	// const [ecFiscalCodeValue, setEcFiscalCodeValue] = useState("");
 	const [loading, setLoading] = useState(false);
 	const temp = sessionStorage.getItem("tempLog");
 	const jwt = sessionStorage.getItem("jwt_emulator");
@@ -79,8 +79,8 @@ function App() {
 		setInterfaceType,
 		warningCodeValue,
 		setWarningCodeValue,
-		ecFiscalCodeValue,
-		setEcFiscalCodeValue,
+		// ecFiscalCodeValue,
+		// setEcFiscalCodeValue,
 		loading,
 		setLoading,
 		clearAll,

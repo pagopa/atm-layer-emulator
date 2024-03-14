@@ -9,6 +9,7 @@ const ServiceAccessPage = () => {
 
 	const { template } = useContext(Ctx);
 	const bodyHtml = decodeRenderHtml(template);
+	console.log(bodyHtml);
 	const liElements = bodyHtml.querySelectorAll("li");
 
 	// Sostituisci gli elementi <li> con bottoni <button>
