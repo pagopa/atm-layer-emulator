@@ -209,11 +209,13 @@ export const FormEmulatorParameters = () => {
 				<FormControlLabel
 					id="printer"
 					value="OK"
-					control={<Switch
-						checked={printerChecked}
-						onChange={handleChange("printer")}
-						name="printerSwitch"
-					/>}
+					control={
+						<Switch
+							checked={printerChecked}
+							onChange={handleChange("printer")}
+							name="printerSwitch"
+						/>
+					}
 					label="Stampante"
 					labelPlacement="start"
 				/>
@@ -223,11 +225,13 @@ export const FormEmulatorParameters = () => {
 				<FormControlLabel
 					id="scanner"
 					value="OK"
-					control={<Switch
-						checked={scannerChecked}
-						onChange={handleChange("scanner")}
-						name="scannerSwitch"
-					/>}
+					control={
+						<Switch
+							checked={scannerChecked}
+							onChange={handleChange("scanner")}
+							name="scannerSwitch"
+						/>
+					}
 					label="Scanner"
 					labelPlacement="start"
 				/>
