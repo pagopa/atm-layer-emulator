@@ -20,11 +20,11 @@ export const FormEmulatorParameters = () => {
 	const { cfIsValid } = checks();
 
 	const initialValues: ParametersDto = {
-		acquirerId: "06789",
-		branchId: "12345",
-		code: "0001",
-		terminalId: "64874412",
-		fiscalCode: "RSSMRA74D22A001Q",
+		acquirerId: "",
+		branchId: "",
+		code: "",
+		terminalId: "",
+		fiscalCode: "",
 		printer: "OK",
 		scanner: "OK",
 	};
