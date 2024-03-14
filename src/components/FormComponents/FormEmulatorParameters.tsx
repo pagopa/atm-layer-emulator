@@ -117,9 +117,6 @@ export const FormEmulatorParameters = () => {
 
 				if (response?.success) {
 					setResponseProcess(response?.valuesObj);
-					// const element = base64_decode(response?.valuesObj?.task?.template?.content);
-					// decodeRenderHtml(response?.valuesObj?.task?.template?.content);
-					
 					navigate(ROUTES.SERVICE_ACCESS);
 				}
 			} catch (error) {
