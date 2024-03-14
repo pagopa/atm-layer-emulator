@@ -24,6 +24,7 @@ const LocalRoutes = () => (
 		
 		<Route path={routes.SCANNER_PAGE} element={<PageLayout><ScannerPage /></PageLayout>} />
 		<Route path={routes.WARNING_CODE} element={<PageLayout><WarningCodeInput /></PageLayout>} />
+		{/* <Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} /> */}
 		<Route path={routes.SERVICE_ACCESS} element={<ServiceAccessPage />} />
 		<Route path={routes.EC_FISCAL_CODE} element={<PageLayout><EcFiscalCodeInput /></PageLayout>} />
 		<Route
