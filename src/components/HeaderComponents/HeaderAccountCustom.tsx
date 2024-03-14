@@ -1,9 +1,11 @@
 import { Container, Button, Stack, Typography } from "@mui/material";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import { Box } from "@mui/system";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Ctx } from "../../DataContext";
 import { RootLinkType } from "../model/UserModel";
+import { USER_EMAIL } from "../../commons/endpoints";
+import { fetchRequest } from "../../hook/fetch/fetchRequest";
 
 type HeaderAccountProps = {
 	rootLink: RootLinkType;
@@ -17,7 +19,27 @@ export const HeaderAccountCustom = ({
 	onLogout
 }: HeaderAccountProps) => {
 
-	const { userEmail } = useContext(Ctx);
+	const { userEmail, setUserEmail, abortController } = useContext(Ctx);
+
+	const token = sessionStorage.getItem("jwt_console");
+
+	const getTokenEmail = async () => {
+		try {
+			const response = await fetchRequest({ urlEndpoint: USER_EMAIL, method: "GET", abortController })();
+
+			if (response?.success) {
+				setUserEmail({ email: response?.valuesObj.email });
+			}
+		} catch (error) {
+			console.error("ERROR", error);
+		}
+	};
+
+	useEffect(() => {
+		if(!userEmail.email && token){
+			void getTokenEmail();
+		}
+	}, []);
 
 	return (
 		<Stack
