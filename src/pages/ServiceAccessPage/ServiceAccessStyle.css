@@ -32,15 +32,15 @@
 }
 
 /* Stili per il bottone */
-.decoded-html button {
+/* .decoded-html button {
     display: flex;
-    background-color: #106aca; /* Colore di sfondo */
-    color: white; /* Colore del testo */
-    border: none; /* Rimuove il bordo */
-    padding: 10px 20px; /* Spaziatura interna */
-    margin-right: 10px; /* Margine a destra per separare i bottoni */
-    border-radius: 4px; /* Bordi arrotondati */
-    cursor: pointer; /* Cambia il cursore al passaggio sopra */
+    background-color: #106aca; 
+    color: white;
+    border: none; 
+    padding: 10px 20px; 
+    margin-right: 10px; 
+    border-radius: 4px; 
+    cursor: pointer; 
     font-weight: 600;
     font-size: 14px;
     gap: 10px;
@@ -48,6 +48,6 @@
 }
 
 .decoded-html #exit {
-    display: block; /* Imposta il bottone su una riga separata */
-    margin-top: 10px; /* Aggiunge uno spazio sopra il bottone */
-}
+    display: block; 
+    margin-top: 10px; 
+} */
