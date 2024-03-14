@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FormControlLabel, Grid, Switch, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Ctx } from "../../DataContext";
 import { ParametersDto } from "../model/ParametersModel";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
-import { handleSnackbar, resetErrors } from "../Commons/Commons";
+import { resetErrors } from "../Commons/Commons";
 import { TASK_MAIN } from "../../commons/endpoints";
 import { ACQUIRER_ID_LENGTH, CODE_LEGTH, FISCAL_CODE_LENGTH, TERMINAL_BRANCH_LENGTH } from "../../commons/constants";
 import checks from "../../utils/checks";
@@ -20,14 +20,18 @@ export const FormEmulatorParameters = () => {
 	const { cfIsValid } = checks();
 
 	const initialValues: ParametersDto = {
-		acquirerId: "",
-		branchId: "",
-		code: "",
-		terminalId: "",
-		fiscalCode: "",
+		acquirerId: "06789",
+		branchId: "12345",
+		code: "0001",
+		terminalId: "64874412",
+		fiscalCode: "RSSMRA74D22A001Q",
 		printer: "OK",
 		scanner: "OK",
 	};
+
+	useEffect(() => {
+		validateForm();
+	}, []);
 
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
@@ -79,6 +83,7 @@ export const FormEmulatorParameters = () => {
 		e.preventDefault();
 
 		if (validateForm()) {
+			const date = new Date().toISOString().slice(0, -5);
 			const postData = {
 				data: {
 					continue: true
@@ -88,7 +93,7 @@ export const FormEmulatorParameters = () => {
 					branchId: formData.branchId,
 					channel: "ATM",
 					code: formData.code,
-					opTimestamp: "2023-10-31T16:30:00",
+					opTimestamp: date,
 					peripherals: [
 						{
 							id: "PRINTER",
@@ -143,6 +148,7 @@ export const FormEmulatorParameters = () => {
 					error={Boolean(errors.acquirerId)}
 					helperText={errors.acquirerId}
 					inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
+					defaultValue={initialValues.acquirerId}
 				/>
 			</Grid>
 			<Grid xs={12} item my={1}>
@@ -158,6 +164,7 @@ export const FormEmulatorParameters = () => {
 					error={Boolean(errors.branchId)}
 					helperText={errors.branchId}
 					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
+					defaultValue={initialValues.branchId}
 				/>
 			</Grid>
 			<Grid xs={12} item my={1}>
@@ -173,6 +180,7 @@ export const FormEmulatorParameters = () => {
 					error={Boolean(errors.code)}
 					helperText={errors.code}
 					inputProps={{ maxLength: CODE_LEGTH }}
+					defaultValue={initialValues.code}
 				/>
 			</Grid>
 			<Grid xs={12} item my={1}>
@@ -188,6 +196,7 @@ export const FormEmulatorParameters = () => {
 					error={Boolean(errors.terminalId)}
 					helperText={errors.terminalId}
 					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
+					defaultValue={initialValues.terminalId}
 				/>
 			</Grid>
 			<Grid xs={12} item my={1}>
@@ -203,6 +212,7 @@ export const FormEmulatorParameters = () => {
 					error={Boolean(errors.fiscalCode)}
 					helperText={errors.fiscalCode}
 					inputProps={{ maxLength: FISCAL_CODE_LENGTH }}
+					defaultValue={initialValues.fiscalCode}
 				/>
 			</Grid>
 			<Grid xs={6} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
