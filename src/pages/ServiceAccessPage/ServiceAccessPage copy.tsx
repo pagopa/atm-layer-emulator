@@ -52,7 +52,7 @@ const ServiceAccessPage = () => {
 	const logoColumn = document.createElement("div");
 	if(logoColumn) {
 		// Aggiunta dello stile alla colonna che rendiamo md-5
-		logoColumn.classList.add("mui-col-md-5");
+		logoColumn.classList.add("mui-col-md-6");
 		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
 		headerRow.appendChild(logoColumn);
 	}
@@ -66,7 +66,7 @@ const ServiceAccessPage = () => {
 	const descColumn = document.createElement("div");
 	if(descColumn) {
 		// Aggiunta dello stile alla colonna che rendiamo md-5
-		descColumn.classList.add("mui-col-md-5");
+		descColumn.classList.add("mui-col-md-6");
 		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
 		headerRow.appendChild(descColumn);
 	}
@@ -82,7 +82,7 @@ const ServiceAccessPage = () => {
 	const titleRow = document.createElement("div");
 	if (titleRow) {
 		// aggiunta dello stile mui-row all'elemento appena creato
-		titleRow.classList.add("mui-row");
+		titleRow.classList.add("mui-row", "mui-divider");
 	}
 
 	const titleCol = document.createElement("div");
@@ -133,8 +133,8 @@ const ServiceAccessPage = () => {
 	const buttonPaymentColumn = document.createElement("div");
 	if(buttonPaymentColumn) {
 		// Aggiunta dello stile alla colonna che rendiamo md-5
-		buttonPaymentColumn.classList.add("mui-col-md-5");
-		buttonPaymentColumn.setAttribute("style", "padding: 0px");
+		buttonPaymentColumn.classList.add("mui-col-md-6");
+		// buttonPaymentColumn.setAttribute("style", "padding: 0px");
 		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
 		rowButtons.appendChild(buttonPaymentColumn);
 	}
@@ -152,8 +152,7 @@ const ServiceAccessPage = () => {
 	const buttonInitiativeIDPayColumn = document.createElement("div");
 	if(buttonInitiativeIDPayColumn) {
 		// Aggiunta dello stile alla colonna che rendiamo md-5
-		buttonInitiativeIDPayColumn.classList.add("mui-col-md-5");
-		buttonInitiativeIDPayColumn.setAttribute("style", "padding: 0px; margin-left: 16px");
+		buttonInitiativeIDPayColumn.classList.add("mui-col-md-6");
 		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
 		rowButtons.appendChild(buttonInitiativeIDPayColumn);
 	}
