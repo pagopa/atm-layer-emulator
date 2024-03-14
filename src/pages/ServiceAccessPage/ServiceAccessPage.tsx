@@ -9,6 +9,7 @@ const getRender=()=> {
 	const { responseProcess } = useContext(Ctx);
 	console.log("template",responseProcess?.task?.template?.content);
 	const bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
+	console.log("parsed body", bodyHtml);
 	console.log(bodyHtml);
 
 	const liElements = bodyHtml.querySelectorAll("li");
@@ -20,6 +21,7 @@ const getRender=()=> {
 		button.id = li.id;
 		li.parentNode.replaceChild(button, li);
 	});
+
 
 	// Crea un componente griglia e assegna lo stile ad un elemento <div>
 
@@ -51,40 +53,67 @@ const getRender=()=> {
 	// "Appendere" all'elemento padre grid l'elemento figlio row
 	grid.appendChild(rowButtons);
 
-	// creazione di un elemento div (una nuova colonna per la row della griglia)
-	const buttonPaymentColumn = document.createElement("div");
-	if(buttonPaymentColumn) {
-	// Aggiunta dello stile alla colonna che rendiamo md-5
-		buttonPaymentColumn.classList.add("mui-col-md-5");
-		buttonPaymentColumn.setAttribute("style", "padding: 0px");
-		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
-		rowButtons.appendChild(buttonPaymentColumn);
-	}
+
+	const responseButtons = [];
+	responseButtons.push(responseProcess?.task?.buttons);
+	// eslint-disable-next-line array-callback-return
+	responseButtons.map( (responseButton, i) => {
+		const buttonColumn = document.createElement("div");
+		if(buttonColumn) {
+			// Aggiunta dello stile alla colonna che rendiamo md-5
+			buttonColumn.classList.add("mui-col-md-5");
+			buttonColumn.setAttribute("style", "padding: 0px");
+			// "Appendere" all'elemento padre rowButtons l'elemento della colonna
+			rowButtons.appendChild(buttonColumn);
+		}
+		// Prendersi l'elemento con id "pagamentoAviso"
+		const renderedButton = bodyHtml.querySelector(responseButton.id);
+		if (renderedButton) {
+			renderedButton.setAttribute("style", "width: 100%");
+			// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
+			buttonColumn.appendChild(renderedButton);
+		}
+	});
 
 
-	// Prendersi l'elemento con id "pagamentoAviso"
-	const buttonPayment = bodyHtml.querySelector("#pagamentoAviso");
-	if (buttonPayment) {
-		buttonPayment.setAttribute("style", "width: 100%");
-		// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
-		buttonPaymentColumn.appendChild(buttonPayment);
-	}
 
-	// creazione di un elemento div (una nuova colonna per la row della griglia)
-	const buttonInitiativeIDPayColumn = document.createElement("div");
-	if(buttonInitiativeIDPayColumn) {
-	// Aggiunta dello stile alla colonna che rendiamo md-5
-		buttonInitiativeIDPayColumn.classList.add("mui-col-md-5");
-		buttonInitiativeIDPayColumn.setAttribute("style", "padding: 0px; margin-left: 16px");
-		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
-		rowButtons.appendChild(buttonInitiativeIDPayColumn);
-	}
+	// // creazione di un elemento div (una nuova colonna per la row della griglia)
+	// const buttonPaymentColumn = document.createElement("div");
+	// if(buttonPaymentColumn) {
+	// // Aggiunta dello stile alla colonna che rendiamo md-5
+	// 	buttonPaymentColumn.classList.add("mui-col-md-5");
+	// 	buttonPaymentColumn.setAttribute("style", "padding: 0px");
+	// 	// "Appendere" all'elemento padre rowButtons l'elemento della colonna
+	// 	rowButtons.appendChild(buttonPaymentColumn);
+	// }
+	// // Prendersi l'elemento con id "pagamentoAviso"
+	// const buttonPayment = bodyHtml.querySelector("#pagamentoAviso");
+	// if (buttonPayment) {
+	// 	buttonPayment.setAttribute("style", "width: 100%");
+	// 	// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
+	// 	buttonPaymentColumn.appendChild(buttonPayment);
+	// }
 
-	const buttonInitiativeIDPay = bodyHtml.querySelector("#iniziativeIDPay");
-	if(buttonInitiativeIDPay) {
-		buttonInitiativeIDPay.setAttribute("style", "width: 100%");
-		buttonInitiativeIDPayColumn.appendChild(buttonInitiativeIDPay);
-	}
+
+	// // creazione di un elemento div (una nuova colonna per la row della griglia)
+	// const buttonInitiativeIDPayColumn = document.createElement("div");
+	// if(buttonInitiativeIDPayColumn) {
+	// // Aggiunta dello stile alla colonna che rendiamo md-5
+	// 	buttonInitiativeIDPayColumn.classList.add("mui-col-md-5");
+	// 	buttonInitiativeIDPayColumn.setAttribute("style", "padding: 0px; margin-left: 16px");
+	// 	// "Appendere" all'elemento padre rowButtons l'elemento della colonna
+	// 	rowButtons.appendChild(buttonInitiativeIDPayColumn);
+	// }
+	// const buttonInitiativeIDPay = bodyHtml.querySelector("#iniziativeIDPay");
+	// if(buttonInitiativeIDPay) {
+	// 	buttonInitiativeIDPay.setAttribute("style", "width: 100%");
+	// 	buttonInitiativeIDPayColumn.appendChild(buttonInitiativeIDPay);
+	// }
+
+
+
+
+
 
 	const rowButtonExit = document.createElement("div");
 	if (rowButtonExit) {
