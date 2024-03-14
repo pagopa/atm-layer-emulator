@@ -8,9 +8,8 @@ import { resetErrors } from "../Commons/Commons";
 import { TASK_MAIN } from "../../commons/endpoints";
 import { ACQUIRER_ID_LENGTH, CODE_LEGTH, FISCAL_CODE_LENGTH, TERMINAL_BRANCH_LENGTH } from "../../commons/constants";
 import checks from "../../utils/checks";
-// import fetchAuth from "../../hook/fetchAuth";
-import { base64_decode } from "../../commons/decode";
 import ROUTES from "../../routes";
+import { decodeRenderHtml } from "../DecodeRenderHtml/decodeRenderHtml";
 import FormTemplate from "./template/FormTemplate";
 
 
@@ -35,7 +34,7 @@ export const FormEmulatorParameters = () => {
 
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
-	const { abortController, setTemplate } = useContext(Ctx);
+	const { abortController, setResponseProcess } = useContext(Ctx);
 	const [printerChecked, setPrinterChecked] = useState(true);
 	const [scannerChecked, setScannerChecked] = useState(true);
 	const token = sessionStorage.getItem("jwt_emulator") ?? "";
@@ -117,9 +116,10 @@ export const FormEmulatorParameters = () => {
 				setLoadingButton(false);
 
 				if (response?.success) {
-					const element = base64_decode(response?.valuesObj?.task?.template?.content);
-					setTemplate(element);
-					console.log("RESPONSE DECODED: ", element);
+					setResponseProcess(response?.valuesObj);
+					// const element = base64_decode(response?.valuesObj?.task?.template?.content);
+					// decodeRenderHtml(response?.valuesObj?.task?.template?.content);
+					
 					navigate(ROUTES.SERVICE_ACCESS);
 				}
 			} catch (error) {

@@ -49,7 +49,7 @@ function App() {
 	const debugOn = sessionStorage.getItem("debugOn");
 	const [logged, setLogged] = useState(temp || jwt ? true : false);
 	const [userEmail, setUserEmail] = useState<JwtUser>({ email: undefined });
-	const [template, setTemplate] = useState({});
+	const [responseProcess, setResponseProcess] = useState({});
 	const abortController = new AbortController();
 
 	function clearAll() {
@@ -92,8 +92,8 @@ function App() {
 		abortController,
 		debugOn,
 		clearStorage,
-		template,
-		setTemplate
+		responseProcess,
+		setResponseProcess
 	};
 
 	useEffect(() => {

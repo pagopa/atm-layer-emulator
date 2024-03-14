@@ -3,15 +3,13 @@ import { useContext } from "react";
 import { Ctx } from "../../DataContext";
 // import "./ServiceAccessStyle.css";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
-
+// eslint-disable-next-line import/order
 
 const ServiceAccessPage = () => {
 
-	const { responseProcess } = useContext(Ctx);
-	console.log("template",responseProcess?.task?.template?.content);
-	const bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
+	const { template } = useContext(Ctx);
+	const bodyHtml = decodeRenderHtml(template);
 	console.log(bodyHtml);
-
 	const liElements = bodyHtml.querySelectorAll("li");
 
 	// Sostituisci gli elementi <li> con bottoni <button>

@@ -1,8 +1,9 @@
-/* eslint-disable quotes */
-
+import { base64_decode } from "../../commons/decode";
 import "./DecodeRenderHtml.css";
 
+
 const getTemplate = (template: any) => {
+
 	const parser = new DOMParser();
 	const parsedHtml = parser.parseFromString(template, "text/html");
 	const body = parsedHtml.getElementsByTagName("body")[0];
@@ -10,5 +11,6 @@ const getTemplate = (template: any) => {
 };
 
 export function decodeRenderHtml(template: any) {
-	return getTemplate(template);
+	const element= base64_decode(template);
+	return getTemplate(element);
 }
