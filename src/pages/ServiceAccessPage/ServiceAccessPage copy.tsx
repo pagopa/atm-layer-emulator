@@ -1,15 +1,18 @@
 /* eslint-disable functional/immutable-data */
 import { useContext } from "react";
+import parse from "html-react-parser";
+import React from "react";
 import { Ctx } from "../../DataContext";
-// import "./ServiceAccessStyle.css";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
-// eslint-disable-next-line import/order
+
 
 const ServiceAccessPage = () => {
 
-	const { template } = useContext(Ctx);
-	const bodyHtml = decodeRenderHtml(template);
+	const { responseProcess } = useContext(Ctx);
+	console.log("template",responseProcess?.task?.template?.content);
+	const bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
 	console.log(bodyHtml);
+
 	const liElements = bodyHtml.querySelectorAll("li");
 
 	// Sostituisci gli elementi <li> con bottoni <button>
@@ -23,8 +26,8 @@ const ServiceAccessPage = () => {
 	// Crea un componente griglia e assegna lo stile ad un elemento <div>
 
 	const grid = document.createElement("div");
-	const menu = bodyHtml.querySelector("#menu");
 
+	const menu = bodyHtml.querySelector("#menu");
 	if (menu) {
 
 		// aggiungi alla griglia lo stile del container
@@ -39,6 +42,82 @@ const ServiceAccessPage = () => {
 		// rimpiazza sul nodo definitivamente l'elemento menu con l'elemento grid
 		menu.parentNode?.replaceChild(grid, menu);
 	}
+
+	const headerRow = document.createElement("div");
+	if (headerRow) {
+		// aggiunta dello stile mui-row all'elemento appena creato
+		headerRow.classList.add("mui-row");
+	}
+	
+	const logoColumn = document.createElement("div");
+	if(logoColumn) {
+		// Aggiunta dello stile alla colonna che rendiamo md-5
+		logoColumn.classList.add("mui-col-md-5");
+		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
+		headerRow.appendChild(logoColumn);
+	}
+
+	const logoElement = bodyHtml.querySelector("#logo");
+	if (logoElement) {
+		// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
+		logoColumn.appendChild(logoElement);
+	}
+
+	const descColumn = document.createElement("div");
+	if(descColumn) {
+		// Aggiunta dello stile alla colonna che rendiamo md-5
+		descColumn.classList.add("mui-col-md-5");
+		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
+		headerRow.appendChild(descColumn);
+	}
+
+	const descElement = bodyHtml.querySelector("h1");
+	if (descElement) {
+		// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
+		descColumn.appendChild(descElement);
+	}
+
+	grid.appendChild(headerRow);
+
+	const titleRow = document.createElement("div");
+	if (titleRow) {
+		// aggiunta dello stile mui-row all'elemento appena creato
+		titleRow.classList.add("mui-row");
+	}
+
+	const titleCol = document.createElement("div");
+	if(titleCol) {
+		titleCol.classList.add("mui-col-md-8");
+		titleRow.appendChild(titleCol);
+	}
+	
+	const titleElement = bodyHtml.querySelector("h2");
+	if(titleElement) {
+		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
+		titleCol.appendChild(titleElement);
+	}
+
+	grid.appendChild(titleRow);
+
+	const subtitleRow = document.createElement("div");
+	if (subtitleRow) {
+		// aggiunta dello stile mui-row all'elemento appena creato
+		subtitleRow.classList.add("mui-row");
+	}
+
+	const subtitleCol = document.createElement("div");
+	if(subtitleCol) {
+		subtitleCol.classList.add("mui-col-md-8");
+		subtitleRow.appendChild(subtitleCol);
+	}
+	
+	const subtitleElement = bodyHtml.querySelector("h3");
+	if(subtitleElement) {
+		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
+		subtitleCol.appendChild(subtitleElement);
+	}
+
+	grid.appendChild(subtitleRow);
 
 	// creazione di un elemento div (una nuova row per la griglia)
 	const rowButtons = document.createElement("div");
@@ -102,37 +181,10 @@ const ServiceAccessPage = () => {
 	// Aggiungere al body della pagina HTML il componente appena creato e modificato
 	bodyHtml.appendChild(grid);
 
-
-
-
-
-	// // // Creare una tabella per organizzare i bottoni
-	// const table = document.createElement("table");
-	// const row1 = table.insertRow();
-	// const row2 = table.insertRow();
-
-	// // Aggiungi il bottone #pagamentoAviso nella prima riga della tabella
-	// const cell1 = row1.insertCell();
-	// cell1.appendChild(bodyHtml.querySelector("#pagamentoAviso") ?? <div /> as unknown as HTMLElement);
-
-	// // Aggiungi il bottone #iniziativeIDPay nella prima riga della tabella
-	// const cell2 = row1.insertCell();
-	// cell2.appendChild(bodyHtml.querySelector("#iniziativeIDPay") ?? <div /> as unknown as HTMLElement);
-
-	// // Aggiungi il bottone #exit nella seconda riga della tabella
-	// const cell3 = row2.insertCell();
-
-	// const buttonExit = bodyHtml.querySelector("#exit");
-	// if (buttonExit) {
-	// 	buttonExit.classList.add("mui-btn", "mui-btn--raised", "mui-btn--danger");
-	// 	cell3.appendChild(buttonExit);
-	// }
-
-	// // Aggiungi la tabella al corpo HTML
-
-
-	return (
-		<div dangerouslySetInnerHTML={{ __html: bodyHtml.innerHTML }} />
+	return(
+		<React.Fragment>
+			{parse(bodyHtml.innerHTML)}
+		</React.Fragment>
 	);
 };
 
