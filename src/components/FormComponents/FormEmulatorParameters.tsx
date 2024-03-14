@@ -143,7 +143,6 @@ export const FormEmulatorParameters = () => {
 					label={"ID Banca"}
 					placeholder={"06789"}
 					size="small"
-					value={formData.acquirerId}
 					onChange={handleChange()}
 					error={Boolean(errors.acquirerId)}
 					helperText={errors.acquirerId}
@@ -159,7 +158,6 @@ export const FormEmulatorParameters = () => {
 					label={"ID Filiale"}
 					placeholder={"12345"}
 					size="small"
-					value={formData.branchId}
 					onChange={handleChange()}
 					error={Boolean(errors.branchId)}
 					helperText={errors.branchId}
@@ -175,7 +173,6 @@ export const FormEmulatorParameters = () => {
 					label={"Codice"}
 					placeholder={"0001"}
 					size="small"
-					value={formData.code}
 					onChange={handleChange()}
 					error={Boolean(errors.code)}
 					helperText={errors.code}
@@ -191,7 +188,6 @@ export const FormEmulatorParameters = () => {
 					label={"ID Terminale"}
 					placeholder={"64874412"}
 					size="small"
-					value={formData.terminalId}
 					onChange={handleChange()}
 					error={Boolean(errors.terminalId)}
 					helperText={errors.terminalId}
@@ -207,7 +203,6 @@ export const FormEmulatorParameters = () => {
 					label={"Codice Fiscale"}
 					placeholder={"RSSMRA74D22A001Q"}
 					size="small"
-					value={formData.fiscalCode}
 					onChange={handleChange()}
 					error={Boolean(errors.fiscalCode)}
 					helperText={errors.fiscalCode}
