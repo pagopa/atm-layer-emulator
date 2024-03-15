@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FormControlLabel, Grid, Switch, TextField } from "@mui/material";
+import { FormControlLabel, Grid, Switch, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Ctx } from "../../DataContext";
 import { ParametersDto } from "../model/ParametersModel";
@@ -202,7 +202,7 @@ export const FormEmulatorParameters = () => {
 					defaultValue={initialValues.fiscalCode}
 				/>
 			</Grid>
-			<Grid xs={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={12} sm={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
 				<FormControlLabel
 					id="printer"
 					value="OK"
@@ -213,12 +213,15 @@ export const FormEmulatorParameters = () => {
 							name="printer"
 						/>
 					}
-					label="Stampante"
+					label={
+						<Typography noWrap={true}>
+							Stampante
+						</Typography>
+					}
 					labelPlacement="start"
 				/>
-
 			</Grid>
-			<Grid xs={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={12} sm={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
 				<FormControlLabel
 					id="scanner"
 					value="OK"
@@ -229,11 +232,15 @@ export const FormEmulatorParameters = () => {
 							name="scanner"
 						/>
 					}
-					label="Scanner"
+					label={
+						<Typography noWrap={true}>
+							Scanner
+						</Typography>
+					}
 					labelPlacement="start"
 				/>
 			</Grid>
-			<Grid xs={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={12} sm={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
 				<FormControlLabel
 					id="touch"
 					value="touch"
@@ -244,7 +251,11 @@ export const FormEmulatorParameters = () => {
 							name="touch"
 						/>
 					}
-					label={"ATM touch"}
+					label={
+						<Typography noWrap={true}>
+							ATM Touch
+						</Typography>
+					}
 					labelPlacement="start"
 				/>
 			</Grid>
