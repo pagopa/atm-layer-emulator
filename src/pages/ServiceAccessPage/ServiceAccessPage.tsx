@@ -12,70 +12,66 @@ const getRender=()=> {
 	console.log("parsed body", bodyHtml);
 	console.log(bodyHtml);
 
-	const liElements = bodyHtml.querySelectorAll("li");
-
-	// Sostituisci gli elementi <li> con bottoni <button>
-	liElements.forEach((li: any) => {
-		const button = document.createElement("button");
-		button.innerHTML = li.innerHTML;
-		button.id = li.id;
-		li.parentNode.replaceChild(button, li);
-	});
-
 
 	// Crea un componente griglia e assegna lo stile ad un elemento <div>
-
 	const grid = document.createElement("div");
-	const menu = bodyHtml.querySelector("#menu");
 
-	if (menu) {
 
-		// aggiungi alla griglia lo stile del container
-		grid.classList.add("mui-container-fluid");
 
-		// sostituisci l'elemento griglia appena creato con l'elemento HTML con il tag id="menu"
-		grid.innerHTML = menu.innerHTML;
+	// Il template MENU è l'unico ad avere un menu nella schermata
+	if (responseProcess?.task?.template?.type === "MENU"){
+
+		// Sostituisci gli elementi <li> con bottoni <button>
+		const liElements = bodyHtml.querySelectorAll("li");
+		liElements.forEach((li: any) => {
+			const button = document.createElement("button");
+			button.innerHTML = li.innerHTML;
+			button.id = li.id;
+			li.parentNode.replaceChild(button, li);
+		});
+
+		const menu = bodyHtml.querySelector("#menu");
+		if (menu) {
+			// aggiungi alla griglia lo stile del container
+			grid.classList.add("mui-container-fluid");
+			// sostituisci l'elemento griglia appena creato con l'elemento HTML con il tag id="menu"
+			grid.innerHTML = menu.innerHTML;
+			// sostituisci l'id dell'elemento griglia appena creato con l'id del vecchio elemento a cui era assegnato l'id "menu"
+			grid.id = menu.id;
+			// rimpiazza sul nodo definitivamente l'elemento menu con l'elemento grid
+			menu.parentNode?.replaceChild(grid, menu);
+		}
 	
-		// sostituisci l'id dell'elemento griglia appena creato con l'id del vecchio elemento a cui era assegnato l'id "menu"
-		grid.id = menu.id;
-
-		// rimpiazza sul nodo definitivamente l'elemento menu con l'elemento grid
-		menu.parentNode?.replaceChild(grid, menu);
-	}
-
-	// creazione di un elemento div (una nuova row per la griglia)
-	const rowButtons = document.createElement("div");
-	if (rowButtons) {
-	// aggiunta dello stile mui-row all'elemento appena creato
-		rowButtons.classList.add("mui-row");
-	}
-
-	// "Appendere" all'elemento padre grid l'elemento figlio row
-	grid.appendChild(rowButtons);
-
-
-	const responseButtons = [];
-	responseButtons.push(responseProcess?.task?.buttons);
-	// eslint-disable-next-line array-callback-return
-	responseButtons.map( (responseButton, i) => {
-		const buttonColumn = document.createElement("div");
-		if(buttonColumn) {
-			// Aggiunta dello stile alla colonna che rendiamo md-5
-			buttonColumn.classList.add("mui-col-md-5");
-			buttonColumn.setAttribute("style", "padding: 0px");
-			// "Appendere" all'elemento padre rowButtons l'elemento della colonna
-			rowButtons.appendChild(buttonColumn);
+		// creazione di un elemento div (una nuova row per la griglia)
+		const rowButtons = document.createElement("div");
+		if (rowButtons) {
+		// aggiunta dello stile mui-row all'elemento appena creato
+			rowButtons.classList.add("mui-row");
 		}
-		// Prendersi l'elemento con id "pagamentoAviso"
-		const renderedButton = bodyHtml.querySelector(responseButton.id);
-		if (renderedButton) {
-			renderedButton.setAttribute("style", "width: 100%");
-			// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
-			buttonColumn.appendChild(renderedButton);
-		}
-	});
-
-
+		// "Appendere" all'elemento padre grid l'elemento figlio row
+		grid.appendChild(rowButtons);
+	
+		const responseButtons = [];
+		responseButtons.push(responseProcess?.task?.buttons);
+		// eslint-disable-next-line array-callback-return
+		responseButtons.map( (responseButton, i) => {
+			const buttonColumn = document.createElement("div");
+			if(buttonColumn) {
+				// Aggiunta dello stile alla colonna che rendiamo md-5
+				buttonColumn.classList.add("mui-col-md-5");
+				buttonColumn.setAttribute("style", "padding: 0px");
+				// "Appendere" all'elemento padre rowButtons l'elemento della colonna
+				rowButtons.appendChild(buttonColumn);
+			}
+			// Prendersi l'elemento con id "pagamentoAviso"
+			const renderedButton = bodyHtml.querySelector(responseButton.id);
+			if (renderedButton) {
+				renderedButton.setAttribute("style", "width: 100%");
+				// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
+				buttonColumn.appendChild(renderedButton);
+			}
+		});
+	}
 
 	// // creazione di un elemento div (una nuova colonna per la row della griglia)
 	// const buttonPaymentColumn = document.createElement("div");
