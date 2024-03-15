@@ -1,4 +1,4 @@
-import { Container, Button, Stack, Typography, Box, useTheme, ButtonBase } from "@mui/material";
+import { Container, Button, Stack, Typography, Box, useTheme } from "@mui/material";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,6 @@ import { RootLinkType } from "../model/UserModel";
 import { USER_EMAIL } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import IconBox from "../Commons/IconBox";
-import ActionIcon from "../CustomTextField/ActionIcon";
 import ROUTES from "../../routes";
 
 type HeaderAccountProps = {
@@ -61,34 +60,36 @@ export const HeaderAccountCustom = ({
 				<Stack
 					spacing={2}
 					direction="row"
-					// justifyContent="space-between"
+					justifyContent="space-between"
 					alignItems="center"
 				>
-					<Box pl={3} className="logo" aria-label={rootLink?.ariaLabel} title={rootLink?.title} display={"flex"} flexDirection={"row"} alignItems={"center"}>
-						{rootLink?.element}
-					</Box>
-					<Box pl={2} mb={2} className="home" aria-label={"buttonHome"} display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"flex-start"}>
-						{/* <Button variant="text" size="medium" >Text</Button> */}
-						{/* <ActionIcon icon={"Launch"} color={theme.palette.text.primary} pad={1.5} size={"1em"}  /> */}
-						<Button
-							variant="text"
-							size="large"
-							onClick={()=>navigate(ROUTES.HOME)}
-							sx={{
-								padding: "0px 0px 0px 8px",
-								fontSize:"1.5em",
-								marginBottom: "5px",
-								// color: theme.palette.text.primary,
-								"&:hover": {
-									backgroundColor: "transparent",
-									textDecoration:"underline"
-								},
-							}}
-							startIcon={<IconBox icon={"HomeOutlined"} color={theme.palette.primary.main} pad={0.5} size={"1em"} marg={"5px 0px 0px 0px"} />}
-						>
+					<Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
+						<Box pl={3} className="logo" aria-label={rootLink?.ariaLabel} title={rootLink?.title} display={"flex"} flexDirection={"row"} alignItems={"center"}>
+							{rootLink?.element}
+						</Box>
+						<Box pl={2} className="home" aria-label={"buttonHome"} display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"flex-start"}>
+							{/* <Button variant="text" size="medium" >Text</Button> */}
+							{/* <ActionIcon icon={"Launch"} color={theme.palette.text.primary} pad={1.5} size={"1em"}  /> */}
+							<Button
+								variant="text"
+								size="large"
+								onClick={()=>navigate(ROUTES.HOME)}
+								sx={{
+									padding: "0px 0px 0px 8px",
+									fontSize:"1.5em",
+									marginBottom: "5px",
+									// color: theme.palette.text.primary,
+									"&:hover": {
+										backgroundColor: "transparent",
+										textDecoration:"underline"
+									},
+								}}
+								startIcon={<IconBox icon={"HomeOutlined"} color={theme.palette.primary.main} pad={0.5} size={"1em"} marg={"5px 0px 0px 0px"} />}
+							>
 		Home
 							
-						</Button>
+							</Button>
+						</Box>
 					</Box>
 
 					<Stack

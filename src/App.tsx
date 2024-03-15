@@ -53,6 +53,7 @@ function App() {
 	const [responseProcess, setResponseProcess] = useState({});
 	const [transactionData, setTransactionData] = useState ({});
 	const abortController = new AbortController();
+	const [touch, setTouch] = useState(true);
 
 	function clearAll() {
 		if (sessionStorage.getItem("jwt_emulator")) {
@@ -97,7 +98,9 @@ function App() {
 		responseProcess,
 		setResponseProcess,
 		transactionData,
-		setTransactionData
+		setTransactionData,
+		touch,
+		setTouch
 	};
 
 	useEffect(() => {

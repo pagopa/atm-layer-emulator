@@ -10,7 +10,7 @@ import { fetchRequest } from "../../hook/fetch/fetchRequest";
 
 const ServiceAccessPage = () => {
 
-	const { responseProcess, abortController, setResponseProcess, transactionData } = useContext(Ctx);
+	const { responseProcess, abortController, setResponseProcess, transactionData, touch } = useContext(Ctx);
 	const bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
 
 	useEffect(() => {
@@ -67,7 +67,7 @@ const ServiceAccessPage = () => {
 	};
 
 	const handleExitClick = () => {
-		void next({continue: false});
+		void next({ continue: false });
 	};
 
 	const liElements = bodyHtml.querySelectorAll("li");
@@ -190,29 +190,29 @@ const ServiceAccessPage = () => {
 		buttonExit.classList.add("mui-btn", "mui-btn--raised", "mui-btn--danger");
 		rowButtonExit.appendChild(buttonExit);
 	}
-	
+
 	const addButtonClickListener = () => {
 		const exitButton = document.getElementById("exit");
 		if (exitButton) {
 			exitButton.addEventListener("click", handleExitClick);
 		}
 	};
-	
+
 	const removeButtonClickListener = () => {
 		const exitButton = document.getElementById("exit");
 		if (exitButton) {
 			exitButton.removeEventListener("click", handleExitClick);
 		}
 	};
-	
-	
+
+
 
 	bodyHtml.appendChild(grid);
 
 	return (
-		<React.Fragment>
+		<div id={touch ? "touch" : "no-touch"}>
 			{parse(bodyHtml.innerHTML)}
-		</React.Fragment>
+		</ div>
 	);
 };
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FormControlLabel, Grid, Switch, TextField } from "@mui/material";
+import { FormControlLabel, Grid, Switch, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Ctx } from "../../DataContext";
 import { ParametersDto } from "../model/ParametersModel";
@@ -9,8 +9,8 @@ import { TASK_MAIN } from "../../commons/endpoints";
 import { ACQUIRER_ID_LENGTH, CODE_LEGTH, FISCAL_CODE_LENGTH, TERMINAL_BRANCH_LENGTH } from "../../commons/constants";
 import checks from "../../utils/checks";
 import ROUTES from "../../routes";
-import { decodeRenderHtml } from "../DecodeRenderHtml/decodeRenderHtml";
 import FormTemplate from "./template/FormTemplate";
+
 
 
 export const FormEmulatorParameters = () => {
@@ -27,40 +27,35 @@ export const FormEmulatorParameters = () => {
 		printer: "OK",
 		scanner: "OK",
 	};
+	
+	const [formData, setFormData] = useState(initialValues);
+	const [errors, setErrors] = useState<any>(initialValues);
+	const { abortController, setResponseProcess,setTransactionData, touch, setTouch } = useContext(Ctx);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		validateForm();
 	}, []);
 
-	const [formData, setFormData] = useState(initialValues);
-	const [errors, setErrors] = useState<any>(initialValues);
-	const { abortController, setResponseProcess, setTransactionData } = useContext(Ctx);
-	const [printerChecked, setPrinterChecked] = useState(true);
-	const [scannerChecked, setScannerChecked] = useState(true);
-	const token = sessionStorage.getItem("jwt_emulator") ?? "";
-	const navigate = useNavigate();
-
-	const handleChange = (fieldName?: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const target = e.target as HTMLInputElement;
 		const { name, value, checked } = target;
+		resetErrors(errors, setErrors, name);
+		
+		if (name === "printer" || name === "scanner" || name==="touch") {
+			setFormData((prevFormData: any) => ({ ...prevFormData, [name]: checked ? "OK" : "KO" }));
 
-		if (fieldName) {
-			const isChecked = checked;
-			const newValue = isChecked ? "OK" : "KO";
-			setFormData({ ...formData, [fieldName]: newValue });
-
-			if (fieldName === "printer") {
-				setPrinterChecked(isChecked);
-			} else if (fieldName === "scanner") {
-				setScannerChecked(isChecked);
+			if (name === "touch") {
+				setTouch(checked);
 			}
-		} else {
-			resetErrors(errors, setErrors, name);
+		}else{
 			setFormData((prevFormData: any) => ({
 				...prevFormData,
 				[name]: value
 			}));
 		}
+
+		
 	};
 
 	const validateForm = () => {
@@ -141,7 +136,7 @@ export const FormEmulatorParameters = () => {
 					label={"ID Banca"}
 					placeholder={"06789"}
 					size="small"
-					onChange={handleChange()}
+					onChange={handleChange}
 					error={Boolean(errors.acquirerId)}
 					helperText={errors.acquirerId}
 					inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
@@ -156,7 +151,7 @@ export const FormEmulatorParameters = () => {
 					label={"ID Filiale"}
 					placeholder={"12345"}
 					size="small"
-					onChange={handleChange()}
+					onChange={handleChange}
 					error={Boolean(errors.branchId)}
 					helperText={errors.branchId}
 					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
@@ -171,7 +166,7 @@ export const FormEmulatorParameters = () => {
 					label={"Codice"}
 					placeholder={"0001"}
 					size="small"
-					onChange={handleChange()}
+					onChange={handleChange}
 					error={Boolean(errors.code)}
 					helperText={errors.code}
 					inputProps={{ maxLength: CODE_LEGTH }}
@@ -186,7 +181,7 @@ export const FormEmulatorParameters = () => {
 					label={"ID Terminale"}
 					placeholder={"64874412"}
 					size="small"
-					onChange={handleChange()}
+					onChange={handleChange}
 					error={Boolean(errors.terminalId)}
 					helperText={errors.terminalId}
 					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
@@ -201,41 +196,67 @@ export const FormEmulatorParameters = () => {
 					label={"Codice Fiscale"}
 					placeholder={"RSSMRA74D22A001Q"}
 					size="small"
-					onChange={handleChange()}
+					onChange={handleChange}
 					error={Boolean(errors.fiscalCode)}
 					helperText={errors.fiscalCode}
 					inputProps={{ maxLength: FISCAL_CODE_LENGTH }}
 					defaultValue={initialValues.fiscalCode}
 				/>
 			</Grid>
-			<Grid xs={6} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={12} sm={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
 				<FormControlLabel
 					id="printer"
 					value="OK"
 					control={
 						<Switch
-							checked={printerChecked}
-							onChange={handleChange("printer")}
-							name="printerSwitch"
+							checked={formData?.printer==="OK"?true:false}
+							onChange={handleChange}
+							name="printer"
 						/>
 					}
-					label="Stampante"
+					label={
+						<Typography noWrap={true}>
+							Stampante
+						</Typography>
+					}
 					labelPlacement="start"
 				/>
-
 			</Grid>
-			<Grid xs={6} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={12} sm={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
 				<FormControlLabel
 					id="scanner"
 					value="OK"
 					control={
 						<Switch
-							checked={scannerChecked}
-							onChange={handleChange("scanner")}
-							name="scannerSwitch"
+							checked={formData?.scanner==="OK"?true:false}
+							onChange={handleChange}
+							name="scanner"
 						/>
 					}
-					label="Scanner"
+					label={
+						<Typography noWrap={true}>
+							Scanner
+						</Typography>
+					}
+					labelPlacement="start"
+				/>
+			</Grid>
+			<Grid xs={12} sm={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+				<FormControlLabel
+					id="touch"
+					value="touch"
+					control={
+						<Switch
+							checked={touch}
+							onChange={handleChange}
+							name="touch"
+						/>
+					}
+					label={
+						<Typography noWrap={true}>
+							ATM Touch
+						</Typography>
+					}
 					labelPlacement="start"
 				/>
 			</Grid>
