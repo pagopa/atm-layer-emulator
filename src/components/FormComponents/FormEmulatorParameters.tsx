@@ -34,7 +34,7 @@ export const FormEmulatorParameters = () => {
 
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
-	const { abortController, setResponseProcess } = useContext(Ctx);
+	const { abortController, setResponseProcess, setTransactionData } = useContext(Ctx);
 	const [printerChecked, setPrinterChecked] = useState(true);
 	const [scannerChecked, setScannerChecked] = useState(true);
 	const token = sessionStorage.getItem("jwt_emulator") ?? "";
@@ -117,6 +117,7 @@ export const FormEmulatorParameters = () => {
 
 				if (response?.success) {
 					setResponseProcess(response?.valuesObj);
+					setTransactionData(formData);
 					navigate(ROUTES.SERVICE_ACCESS);
 				}
 			} catch (error) {
