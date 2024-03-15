@@ -203,7 +203,7 @@ export const FormEmulatorParameters = () => {
 					defaultValue={initialValues.fiscalCode}
 				/>
 			</Grid>
-			<Grid xs={12} sm={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={12} md={4} item my={1} >
 				<FormControlLabel
 					id="printer"
 					value="OK"
@@ -215,14 +215,14 @@ export const FormEmulatorParameters = () => {
 						/>
 					}
 					label={
-						<Typography noWrap={true}>
+						<Typography noWrap>
 							Stampante
 						</Typography>
 					}
 					labelPlacement="start"
 				/>
 			</Grid>
-			<Grid xs={12} sm={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={12} md={4} item my={1} >
 				<FormControlLabel
 					id="scanner"
 					value="OK"
@@ -234,14 +234,14 @@ export const FormEmulatorParameters = () => {
 						/>
 					}
 					label={
-						<Typography noWrap={true}>
+						<Typography noWrap>
 							Scanner
 						</Typography>
 					}
 					labelPlacement="start"
 				/>
 			</Grid>
-			<Grid xs={12} sm={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={12} sm={4} item my={1} >
 				<FormControlLabel
 					id="touch"
 					value="touch"
@@ -253,7 +253,7 @@ export const FormEmulatorParameters = () => {
 						/>
 					}
 					label={
-						<Typography noWrap={true}>
+						<Typography noWrap>
 							ATM Touch
 						</Typography>
 					}
