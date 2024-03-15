@@ -5,7 +5,7 @@ import { Ctx } from "../../DataContext";
 // import "./ServiceAccessStyle.css";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
 
-const getRender=()=> {
+const ServiceAccessPage = () => {
 	const { responseProcess } = useContext(Ctx);
 	console.log("template",responseProcess?.task?.template?.content);
 	const bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
@@ -106,11 +106,6 @@ const getRender=()=> {
 	// 	buttonInitiativeIDPayColumn.appendChild(buttonInitiativeIDPay);
 	// }
 
-
-
-
-
-
 	const rowButtonExit = document.createElement("div");
 	if (rowButtonExit) {
 	// aggiunta dello stile mui-row all'elemento appena creato
@@ -127,10 +122,6 @@ const getRender=()=> {
 
 	// Aggiungere al body della pagina HTML il componente appena creato e modificato
 	bodyHtml.appendChild(grid);
-
-
-
-
 
 	// // // Creare una tabella per organizzare i bottoni
 	// const table = document.createElement("table");
@@ -155,15 +146,11 @@ const getRender=()=> {
 	// }
 
 	// // Aggiungi la tabella al corpo HTML
-	return parse(bodyHtml.innerHTML);
-
-};
-
-export default function ServiceAccessPage() {
 	return(
 		<React.Fragment>
-			{getRender()}
+			{parse(bodyHtml.innerHTML)}
 		</React.Fragment>
 	);
-	// 	<div dangerouslySetInnerHTML={{ __html: bodyHtml.innerHTML }} />
-}
+};
+
+export default ServiceAccessPage;

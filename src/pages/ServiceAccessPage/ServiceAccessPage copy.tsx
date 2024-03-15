@@ -9,7 +9,7 @@ import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRender
 const ServiceAccessPage = () => {
 
 	const { responseProcess } = useContext(Ctx);
-	console.log("template",responseProcess?.task?.template?.content);
+	console.log("template", responseProcess?.task?.template?.content);
 	const bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
 	console.log(bodyHtml);
 
@@ -35,7 +35,7 @@ const ServiceAccessPage = () => {
 
 		// sostituisci l'elemento griglia appena creato con l'elemento HTML con il tag id="menu"
 		grid.innerHTML = menu.innerHTML;
-		
+
 		// sostituisci l'id dell'elemento griglia appena creato con l'id del vecchio elemento a cui era assegnato l'id "menu"
 		grid.id = menu.id;
 
@@ -48,11 +48,11 @@ const ServiceAccessPage = () => {
 		// aggiunta dello stile mui-row all'elemento appena creato
 		headerRow.classList.add("mui-row");
 	}
-	
+
 	const logoColumn = document.createElement("div");
-	if(logoColumn) {
+	if (logoColumn) {
 		// Aggiunta dello stile alla colonna che rendiamo md-5
-		logoColumn.classList.add("mui-col-md-6");
+		logoColumn.classList.add("mui-col-md-5");
 		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
 		headerRow.appendChild(logoColumn);
 	}
@@ -64,9 +64,9 @@ const ServiceAccessPage = () => {
 	}
 
 	const descColumn = document.createElement("div");
-	if(descColumn) {
+	if (descColumn) {
 		// Aggiunta dello stile alla colonna che rendiamo md-5
-		descColumn.classList.add("mui-col-md-6");
+		descColumn.classList.add("mui-col-md-5");
 		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
 		headerRow.appendChild(descColumn);
 	}
@@ -82,17 +82,17 @@ const ServiceAccessPage = () => {
 	const titleRow = document.createElement("div");
 	if (titleRow) {
 		// aggiunta dello stile mui-row all'elemento appena creato
-		titleRow.classList.add("mui-row", "mui-divider");
+		titleRow.classList.add("mui-row");
 	}
 
 	const titleCol = document.createElement("div");
-	if(titleCol) {
+	if (titleCol) {
 		titleCol.classList.add("mui-col-md-8");
 		titleRow.appendChild(titleCol);
 	}
-	
+
 	const titleElement = bodyHtml.querySelector("h2");
-	if(titleElement) {
+	if (titleElement) {
 		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
 		titleCol.appendChild(titleElement);
 	}
@@ -106,13 +106,13 @@ const ServiceAccessPage = () => {
 	}
 
 	const subtitleCol = document.createElement("div");
-	if(subtitleCol) {
+	if (subtitleCol) {
 		subtitleCol.classList.add("mui-col-md-8");
 		subtitleRow.appendChild(subtitleCol);
 	}
-	
+
 	const subtitleElement = bodyHtml.querySelector("h3");
-	if(subtitleElement) {
+	if (subtitleElement) {
 		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
 		subtitleCol.appendChild(subtitleElement);
 	}
@@ -129,39 +129,28 @@ const ServiceAccessPage = () => {
 	// "Appendere" all'elemento padre grid l'elemento figlio row
 	grid.appendChild(rowButtons);
 
-	// creazione di un elemento div (una nuova colonna per la row della griglia)
-	const buttonPaymentColumn = document.createElement("div");
-	if(buttonPaymentColumn) {
-		// Aggiunta dello stile alla colonna che rendiamo md-5
-		buttonPaymentColumn.classList.add("mui-col-md-6");
-		// buttonPaymentColumn.setAttribute("style", "padding: 0px");
-		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
-		rowButtons.appendChild(buttonPaymentColumn);
-	}
+	console.log("Array response", responseProcess?.task?.buttons);
+	// eslint-disable-next-line array-callback-return
+	responseProcess?.task?.buttons.map((responseButton: any) => {
+		console.log("responseButton", responseButton);
+		const buttonColumn = document.createElement("div");
+		rowButtons.appendChild(buttonColumn);
 
-
-	// Prendersi l'elemento con id "pagamentoAviso"
-	const buttonPayment = bodyHtml.querySelector("#pagamentoAviso");
-	if (buttonPayment) {
-		buttonPayment.setAttribute("style", "width: 100%");
-		// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
-		buttonPaymentColumn.appendChild(buttonPayment);
-	}
-
-	// creazione di un elemento div (una nuova colonna per la row della griglia)
-	const buttonInitiativeIDPayColumn = document.createElement("div");
-	if(buttonInitiativeIDPayColumn) {
-		// Aggiunta dello stile alla colonna che rendiamo md-5
-		buttonInitiativeIDPayColumn.classList.add("mui-col-md-6");
-		// "Appendere" all'elemento padre rowButtons l'elemento della colonna
-		rowButtons.appendChild(buttonInitiativeIDPayColumn);
-	}
-
-	const buttonInitiativeIDPay = bodyHtml.querySelector("#iniziativeIDPay");
-	if(buttonInitiativeIDPay) {
-		buttonInitiativeIDPay.setAttribute("style", "width: 100%");
-		buttonInitiativeIDPayColumn.appendChild(buttonInitiativeIDPay);
-	}
+		if (buttonColumn) {
+			// Aggiunta dello stile alla colonna che rendiamo md-5
+			buttonColumn.classList.add("mui-col-md-5");
+			buttonColumn.setAttribute("style", "padding: 0px");
+			// "Appendere" all'elemento padre rowButtons l'elemento della colonna
+		}
+		// Prendersi l'elemento con id "pagamentoAviso"
+		const renderedButton = bodyHtml.querySelector(`#${responseButton.id}`);
+		if (renderedButton) {
+			console.log("button", renderedButton.innerHTML);
+			renderedButton.setAttribute("style", "width: 100%");
+			// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
+			buttonColumn.appendChild(renderedButton);
+		}
+	});
 
 	const rowButtonExit = document.createElement("div");
 	if (rowButtonExit) {
@@ -180,7 +169,7 @@ const ServiceAccessPage = () => {
 	// Aggiungere al body della pagina HTML il componente appena creato e modificato
 	bodyHtml.appendChild(grid);
 
-	return(
+	return (
 		<React.Fragment>
 			{parse(bodyHtml.innerHTML)}
 		</React.Fragment>

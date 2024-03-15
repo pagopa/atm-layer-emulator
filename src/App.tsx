@@ -14,8 +14,8 @@ import { JwtUser } from "./components/model/UserModel";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import LoginPageCallback from "./pages/LoginPageCallback";
-import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
-// import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage copy";
+// import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
+import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage copy";
 
 
 const LocalRoutes = () => (
@@ -25,8 +25,8 @@ const LocalRoutes = () => (
 		
 		<Route path={routes.SCANNER_PAGE} element={<PageLayout><ScannerPage /></PageLayout>} />
 		<Route path={routes.WARNING_CODE} element={<PageLayout><WarningCodeInput /></PageLayout>} />
-		<Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} />
-		{/* <Route path={routes.SERVICE_ACCESS} element={<ServiceAccessPage />} /> */}
+		{/* <Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} /> */}
+		<Route path={routes.SERVICE_ACCESS} element={<ServiceAccessPage />} />
 		{/* <Route path={routes.EC_FISCAL_CODE} element={<PageLayout><EcFiscalCodeInput /></PageLayout>} /> */}
 		<Route
 			path={routes.ERROR_PAGE}
