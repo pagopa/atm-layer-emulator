@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { TextField, Theme, TextFieldProps, Tooltip, Box, useTheme, InputAdornment, IconButton, Input } from "@mui/material";
 import React, { useState } from "react";
-import checks from "../../commons/checks";
 import ActionIcon from "./ActionIcon";
 
 type Props = {

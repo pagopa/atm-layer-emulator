@@ -1,0 +1,53 @@
+.decoded-html {
+    font-family: "Titillium Web", sans-serif;
+}
+
+.decoded-html #logo {
+    display: inline;
+    vertical-align: middle; /* Allinea verticalmente l'immagine */
+}
+
+.decoded-html h1 {
+    display: inline;
+    margin-top: 0px;
+    margin-left: 10px; /* Aggiunge uno spazio a sinistra dell'h1 */
+    vertical-align: middle; /* Allinea verticalmente l'elemento h1 */
+    font-weight: 400;
+    font-size: large;
+    /* float: right; */
+}
+
+.decoded-html h2 {
+    margin-top: 10px;
+    vertical-align: middle; 
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 4px;
+}
+
+.decoded-html h3 {
+    font-weight: 400;
+    font-size: 16px;
+    margin-top: 0px;
+}
+
+/* Stili per il bottone */
+/* .decoded-html button {
+    display: flex;
+    background-color: #106aca; 
+    color: white;
+    border: none; 
+    padding: 10px 20px; 
+    margin-right: 10px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-weight: 600;
+    font-size: 14px;
+    gap: 10px;
+    align-items: center;
+}
+
+.decoded-html #exit {
+    display: block; 
+    margin-top: 10px; 
+} */
