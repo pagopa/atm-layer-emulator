@@ -147,10 +147,11 @@ const ServiceAccessPage = () => {
 
 	// // Aggiungi la tabella al corpo HTML
 	return(
-		<React.Fragment>
-			<div id = {touch ? "touch" : "no-touch"}></ div>
+		
+		<div id = {touch ? "touch" : "no-touch"}>
 			{parse(bodyHtml.innerHTML)}
-		</React.Fragment>
+		</ div>
+		
 	);
 };
 

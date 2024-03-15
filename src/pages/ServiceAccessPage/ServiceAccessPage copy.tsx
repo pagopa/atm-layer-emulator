@@ -1,7 +1,6 @@
 /* eslint-disable functional/immutable-data */
 import { useContext } from "react";
 import parse from "html-react-parser";
-import React from "react";
 import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
 
@@ -170,10 +169,9 @@ const ServiceAccessPage = () => {
 	bodyHtml.appendChild(grid);
 
 	return (
-		<React.Fragment>
-			<div id = {touch ? "touch" : "no-touch"}></ div>
+		<div id = {touch ? "touch" : "no-touch"}>
 			{parse(bodyHtml.innerHTML)}
-		</React.Fragment>
+		</ div>
 	);
 };
 
