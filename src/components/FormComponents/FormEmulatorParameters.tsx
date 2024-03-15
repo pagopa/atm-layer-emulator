@@ -30,18 +30,11 @@ export const FormEmulatorParameters = () => {
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
 	const { abortController, setResponseProcess, touch, setTouch } = useContext(Ctx);
-	const [printerChecked, setPrinterChecked] = useState(true);
-	const [scannerChecked, setScannerChecked] = useState(true);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		validateForm();
 	}, []);
-
-	useEffect(() => {
-		console.log("target", formData);	
-	}, [formData]);
-
 
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -49,16 +42,10 @@ export const FormEmulatorParameters = () => {
 		const { name, value, checked } = target;
 		resetErrors(errors, setErrors, name);
 		
-		
-		
 		if (name === "printer" || name === "scanner" || name==="touch") {
-			setFormData({ ...formData, [name]: checked ? "OK" : "KO" });
+			setFormData((prevFormData: any) => ({ ...prevFormData, [name]: checked ? "OK" : "KO" }));
 
-			if (name === "printer") {
-				setPrinterChecked(checked);
-			} else if (name === "scanner") {
-				setScannerChecked(checked);
-			}else if (name === "touch") {
+			if (name === "touch") {
 				setTouch(checked);
 			}
 		}else{
@@ -221,7 +208,7 @@ export const FormEmulatorParameters = () => {
 					value="OK"
 					control={
 						<Switch
-							checked={printerChecked}
+							checked={formData?.printer==="OK"?true:false}
 							onChange={handleChange}
 							name="printer"
 						/>
@@ -237,7 +224,7 @@ export const FormEmulatorParameters = () => {
 					value="OK"
 					control={
 						<Switch
-							checked={scannerChecked}
+							checked={formData?.scanner==="OK"?true:false}
 							onChange={handleChange}
 							name="scanner"
 						/>
@@ -257,7 +244,7 @@ export const FormEmulatorParameters = () => {
 							name="touch"
 						/>
 					}
-					label="ATM Touch"
+					label={"ATM touch"}
 					labelPlacement="start"
 				/>
 			</Grid>
