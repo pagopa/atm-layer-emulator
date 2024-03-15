@@ -12,6 +12,7 @@ import ROUTES from "../../routes";
 import FormTemplate from "./template/FormTemplate";
 
 
+
 export const FormEmulatorParameters = () => {
 
 	const [loadingButton, setLoadingButton] = useState(false);
@@ -26,11 +27,6 @@ export const FormEmulatorParameters = () => {
 		printer: "OK",
 		scanner: "OK",
 	};
-
-	useEffect(() => {
-		validateForm();
-	}, []);
-
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
 	const { abortController, setResponseProcess, touch, setTouch } = useContext(Ctx);
@@ -38,32 +34,41 @@ export const FormEmulatorParameters = () => {
 	const [scannerChecked, setScannerChecked] = useState(true);
 	const navigate = useNavigate();
 
-	const handleChange = (fieldName?: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	useEffect(() => {
+		validateForm();
+	}, []);
+
+	useEffect(() => {
+		console.log("target", formData);	
+	}, [formData]);
+
+
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const target = e.target as HTMLInputElement;
 		const { name, value, checked } = target;
+		resetErrors(errors, setErrors, name);
+		
+		
+		
+		if (name === "printer" || name === "scanner" || name==="touch") {
+			setFormData({ ...formData, [name]: checked ? "OK" : "KO" });
 
-		if (fieldName) {
-			const isChecked = checked;
-			if (fieldName === "printer" || fieldName === "scanner") {
-				const newValue = isChecked ? "OK" : "KO";
-				setFormData({ ...formData, [fieldName]: newValue });
-
-				if (fieldName === "printer") {
-					setPrinterChecked(isChecked);
-				} else if (fieldName === "scanner") {
-					setScannerChecked(isChecked);
-				}
-			} else {
-				setTouch(isChecked);
+			if (name === "printer") {
+				setPrinterChecked(checked);
+			} else if (name === "scanner") {
+				setScannerChecked(checked);
+			}else if (name === "touch") {
+				setTouch(checked);
 			}
-			
-		} else {
-			resetErrors(errors, setErrors, name);
+		}else{
 			setFormData((prevFormData: any) => ({
 				...prevFormData,
 				[name]: value
 			}));
 		}
+
+		
 	};
 
 	const validateForm = () => {
@@ -143,7 +148,7 @@ export const FormEmulatorParameters = () => {
 					label={"ID Banca"}
 					placeholder={"06789"}
 					size="small"
-					onChange={handleChange()}
+					onChange={handleChange}
 					error={Boolean(errors.acquirerId)}
 					helperText={errors.acquirerId}
 					inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
@@ -158,7 +163,7 @@ export const FormEmulatorParameters = () => {
 					label={"ID Filiale"}
 					placeholder={"12345"}
 					size="small"
-					onChange={handleChange()}
+					onChange={handleChange}
 					error={Boolean(errors.branchId)}
 					helperText={errors.branchId}
 					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
@@ -173,7 +178,7 @@ export const FormEmulatorParameters = () => {
 					label={"Codice"}
 					placeholder={"0001"}
 					size="small"
-					onChange={handleChange()}
+					onChange={handleChange}
 					error={Boolean(errors.code)}
 					helperText={errors.code}
 					inputProps={{ maxLength: CODE_LEGTH }}
@@ -188,7 +193,7 @@ export const FormEmulatorParameters = () => {
 					label={"ID Terminale"}
 					placeholder={"64874412"}
 					size="small"
-					onChange={handleChange()}
+					onChange={handleChange}
 					error={Boolean(errors.terminalId)}
 					helperText={errors.terminalId}
 					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
@@ -203,7 +208,7 @@ export const FormEmulatorParameters = () => {
 					label={"Codice Fiscale"}
 					placeholder={"RSSMRA74D22A001Q"}
 					size="small"
-					onChange={handleChange()}
+					onChange={handleChange}
 					error={Boolean(errors.fiscalCode)}
 					helperText={errors.fiscalCode}
 					inputProps={{ maxLength: FISCAL_CODE_LENGTH }}
@@ -217,8 +222,8 @@ export const FormEmulatorParameters = () => {
 					control={
 						<Switch
 							checked={printerChecked}
-							onChange={handleChange("printer")}
-							name="printerSwitch"
+							onChange={handleChange}
+							name="printer"
 						/>
 					}
 					label="Stampante"
@@ -233,8 +238,8 @@ export const FormEmulatorParameters = () => {
 					control={
 						<Switch
 							checked={scannerChecked}
-							onChange={handleChange("scanner")}
-							name="scannerSwitch"
+							onChange={handleChange}
+							name="scanner"
 						/>
 					}
 					label="Scanner"
@@ -248,8 +253,8 @@ export const FormEmulatorParameters = () => {
 					control={
 						<Switch
 							checked={touch}
-							onChange={handleChange("touch")}
-							name="touchSwitch"
+							onChange={handleChange}
+							name="touch"
 						/>
 					}
 					label="ATM Touch"
