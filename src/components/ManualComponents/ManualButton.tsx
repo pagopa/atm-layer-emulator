@@ -2,7 +2,7 @@ import { Box, Button, Grid, useTheme } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { theme } from "@pagopa/mui-italia";
 import { ThemeProvider } from "@emotion/react";
-import { themeButton } from "../../assets/jss/themeApp";
+// import { themeButton } from "../../assets/jss/themeApp";
 import CustomButton from "./CustomManualBottom";
 
 type Props = {

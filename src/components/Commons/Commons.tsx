@@ -1,14 +1,10 @@
 /* eslint-disable prefer-const */
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/immutable-data */
-import { DEFAULT_PATH_IMAGES } from "./Constants";
+import { Link } from "@mui/material";
+import { generatePath } from "react-router-dom";
+import ROUTES from "../../routes";
 
-export function getCompletePathImage (image: string){
-	const frontend_url = process.env.REACT_APP_URL_FE;
-	const pathImg=frontend_url + DEFAULT_PATH_IMAGES+ image;
-	console.log("path: " + pathImg);
-	return pathImg;
-}
 
 export const resetErrors = (errors: any, setErrors: any, field: string | number) => {
 	if (field) {
@@ -30,4 +26,18 @@ export const resetErrors = (errors: any, setErrors: any, field: string | number)
 			return newErr;
 		});
 	}
+};
+
+export const handleSnackbar = (
+	success: boolean,
+	setMessage: React.Dispatch<React.SetStateAction<any>>,
+	setSeverity: React.Dispatch<React.SetStateAction<any>>,
+	setTitle: React.Dispatch<React.SetStateAction<any>>,
+	setOpenSnackBar: React.Dispatch<React.SetStateAction<any>>,
+	valueMessage?: string
+) => {
+	setSeverity(success ? "success" : "error");
+	setMessage(success ? "" : valueMessage ? valueMessage : "Operazione fallita");
+	setTitle(success ? "Successo" : "Errore");
+	setOpenSnackBar(true);
 };
