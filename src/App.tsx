@@ -14,8 +14,8 @@ import { JwtUser } from "./components/model/UserModel";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import LoginPageCallback from "./pages/LoginPageCallback";
-// import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
-import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage copy";
+import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
+// import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage copy";
 
 
 const LocalRoutes = () => (
@@ -52,6 +52,7 @@ function App() {
 	const [userEmail, setUserEmail] = useState<JwtUser>({ email: undefined });
 	const [responseProcess, setResponseProcess] = useState({});
 	const abortController = new AbortController();
+	const [touch, setTouch] = useState(true);
 
 	function clearAll() {
 		if (sessionStorage.getItem("jwt_emulator")) {
@@ -94,7 +95,9 @@ function App() {
 		debugOn,
 		clearStorage,
 		responseProcess,
-		setResponseProcess
+		setResponseProcess,
+		touch,
+		setTouch
 	};
 
 	useEffect(() => {

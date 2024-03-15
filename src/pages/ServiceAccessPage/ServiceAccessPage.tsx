@@ -6,7 +6,7 @@ import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
 
 const ServiceAccessPage = () => {
-	const { responseProcess } = useContext(Ctx);
+	const { responseProcess, touch } = useContext(Ctx);
 	console.log("template",responseProcess?.task?.template?.content);
 	const bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
 	console.log("parsed body", bodyHtml);
@@ -148,6 +148,7 @@ const ServiceAccessPage = () => {
 	// // Aggiungi la tabella al corpo HTML
 	return(
 		<React.Fragment>
+			<div id = {touch ? "touch" : "no-touch"}></ div>
 			{parse(bodyHtml.innerHTML)}
 		</React.Fragment>
 	);

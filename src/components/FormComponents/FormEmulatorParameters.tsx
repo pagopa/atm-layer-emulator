@@ -9,7 +9,6 @@ import { TASK_MAIN } from "../../commons/endpoints";
 import { ACQUIRER_ID_LENGTH, CODE_LEGTH, FISCAL_CODE_LENGTH, TERMINAL_BRANCH_LENGTH } from "../../commons/constants";
 import checks from "../../utils/checks";
 import ROUTES from "../../routes";
-import { decodeRenderHtml } from "../DecodeRenderHtml/decodeRenderHtml";
 import FormTemplate from "./template/FormTemplate";
 
 
@@ -34,10 +33,9 @@ export const FormEmulatorParameters = () => {
 
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
-	const { abortController, setResponseProcess } = useContext(Ctx);
+	const { abortController, setResponseProcess, touch, setTouch } = useContext(Ctx);
 	const [printerChecked, setPrinterChecked] = useState(true);
 	const [scannerChecked, setScannerChecked] = useState(true);
-	const token = sessionStorage.getItem("jwt_emulator") ?? "";
 	const navigate = useNavigate();
 
 	const handleChange = (fieldName?: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -46,14 +44,19 @@ export const FormEmulatorParameters = () => {
 
 		if (fieldName) {
 			const isChecked = checked;
-			const newValue = isChecked ? "OK" : "KO";
-			setFormData({ ...formData, [fieldName]: newValue });
+			if (fieldName === "printer" || fieldName === "scanner") {
+				const newValue = isChecked ? "OK" : "KO";
+				setFormData({ ...formData, [fieldName]: newValue });
 
-			if (fieldName === "printer") {
-				setPrinterChecked(isChecked);
-			} else if (fieldName === "scanner") {
-				setScannerChecked(isChecked);
+				if (fieldName === "printer") {
+					setPrinterChecked(isChecked);
+				} else if (fieldName === "scanner") {
+					setScannerChecked(isChecked);
+				}
+			} else {
+				setTouch(isChecked);
 			}
+			
 		} else {
 			resetErrors(errors, setErrors, name);
 			setFormData((prevFormData: any) => ({
@@ -207,7 +210,7 @@ export const FormEmulatorParameters = () => {
 					defaultValue={initialValues.fiscalCode}
 				/>
 			</Grid>
-			<Grid xs={6} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
 				<FormControlLabel
 					id="printer"
 					value="OK"
@@ -223,7 +226,7 @@ export const FormEmulatorParameters = () => {
 				/>
 
 			</Grid>
-			<Grid xs={6} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
 				<FormControlLabel
 					id="scanner"
 					value="OK"
@@ -235,6 +238,21 @@ export const FormEmulatorParameters = () => {
 						/>
 					}
 					label="Scanner"
+					labelPlacement="start"
+				/>
+			</Grid>
+			<Grid xs={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+				<FormControlLabel
+					id="touch"
+					value="touch"
+					control={
+						<Switch
+							checked={touch}
+							onChange={handleChange("touch")}
+							name="touchSwitch"
+						/>
+					}
+					label="ATM Touch"
 					labelPlacement="start"
 				/>
 			</Grid>
