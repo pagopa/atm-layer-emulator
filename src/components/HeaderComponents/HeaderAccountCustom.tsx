@@ -1,4 +1,4 @@
-import { Container, Button, Stack, Typography, Box, useTheme, ButtonBase } from "@mui/material";
+import { Container, Button, Stack, Typography, Box, useTheme } from "@mui/material";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,6 @@ import { RootLinkType } from "../model/UserModel";
 import { USER_EMAIL } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import IconBox from "../Commons/IconBox";
-import ActionIcon from "../CustomTextField/ActionIcon";
 import ROUTES from "../../routes";
 
 type HeaderAccountProps = {
