@@ -18,7 +18,7 @@ const ServiceAccessPage = () => {
 		return () => {
 			removeButtonClickListener();
 		};
-	}, []);
+	}, [responseProcess]);
 
 	const date = new Date().toISOString().slice(0, -5);
 	const postData = (params: any) => ({
@@ -66,8 +66,27 @@ const ServiceAccessPage = () => {
 		};
 	};
 
-	const handleExitClick = () => {
-		void next({ continue: false });
+	const handleClick = (event: MouseEvent) => {
+		const button = event.currentTarget as HTMLButtonElement;
+		if (button) {
+			const dataString = button.getAttribute("data");
+			const data = dataString ? JSON.parse(dataString) : {};
+			void next(data);
+		}
+	};
+
+	const addButtonClickListener = () => {
+		const buttons = document.querySelectorAll("button");
+		buttons.forEach(button => {
+			button.addEventListener("click", handleClick);
+		});
+	};
+
+	const removeButtonClickListener = () => {
+		const buttons = document.querySelectorAll("button");
+		buttons.forEach(button => {
+			button.removeEventListener("click", handleClick);
+		});
 	};
 
 	const liElements = bodyHtml.querySelectorAll("li");
@@ -162,8 +181,7 @@ const ServiceAccessPage = () => {
 	grid.appendChild(rowButtons);
 
 	const buttonsArray = responseProcess?.task?.buttons.filter((e: any) => e.id !== "exit");
-	// eslint-disable-next-line array-callback-return
-	buttonsArray.map((responseButton: any) => {
+	buttonsArray.forEach((responseButton: any) => {
 		const buttonColumn = document.createElement("div");
 		rowButtons.appendChild(buttonColumn);
 
@@ -174,6 +192,12 @@ const ServiceAccessPage = () => {
 		const renderedButton = bodyHtml.querySelector(`#${responseButton.id}`);
 		if (renderedButton) {
 			renderedButton.setAttribute("style", "width: 100%");
+        
+			const data = responseButton.data;
+			if (data) {
+				renderedButton.setAttribute("data", JSON.stringify(data));
+			}
+
 			buttonColumn.appendChild(renderedButton);
 		}
 	});
@@ -191,28 +215,12 @@ const ServiceAccessPage = () => {
 		rowButtonExit.appendChild(buttonExit);
 	}
 
-	const addButtonClickListener = () => {
-		const exitButton = document.getElementById("exit");
-		if (exitButton) {
-			exitButton.addEventListener("click", handleExitClick);
-		}
-	};
-
-	const removeButtonClickListener = () => {
-		const exitButton = document.getElementById("exit");
-		if (exitButton) {
-			exitButton.removeEventListener("click", handleExitClick);
-		}
-	};
-
-
-
 	bodyHtml.appendChild(grid);
 
 	return (
 		<div id={touch ? "touch" : "no-touch"}>
 			{parse(bodyHtml.innerHTML)}
-		</ div>
+		</div>
 	);
 };
 
