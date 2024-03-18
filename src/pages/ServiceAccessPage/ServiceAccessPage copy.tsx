@@ -11,7 +11,10 @@ import { fetchRequest } from "../../hook/fetch/fetchRequest";
 const ServiceAccessPage = () => {
 
 	const { responseProcess, abortController, setResponseProcess, transactionData, touch } = useContext(Ctx);
-	const bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
+	// eslint-disable-next-line functional/no-let
+	let bodyHtml :any ;
+	if(responseProcess?.task?.template?.content)
+	{ bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);}
 
 	useEffect(() => {
 		addButtonClickListener();
@@ -76,23 +79,23 @@ const ServiceAccessPage = () => {
 	};
 
 	const addButtonClickListener = () => {
-		const buttons = document.querySelectorAll("button");
-		buttons.forEach(button => {
+		const buttons = document?.querySelectorAll("button");
+		buttons?.forEach(button => {
 			button.addEventListener("click", handleClick);
 		});
 	};
 
 	const removeButtonClickListener = () => {
-		const buttons = document.querySelectorAll("button");
-		buttons.forEach(button => {
+		const buttons = document?.querySelectorAll("button");
+		buttons?.forEach(button => {
 			button.removeEventListener("click", handleClick);
 		});
 	};
 
-	const liElements = bodyHtml.querySelectorAll("li");
+	const liElements = bodyHtml?.querySelectorAll("li");
 
-	liElements.forEach((li: any) => {
-		const button = document.createElement("button");
+	liElements?.forEach((li: any) => {
+		const button = document?.createElement("button");
 		button.innerHTML = li.innerHTML;
 		button.id = li.id;
 		li.parentNode.replaceChild(button, li);
@@ -100,7 +103,7 @@ const ServiceAccessPage = () => {
 
 	const grid = document.createElement("div");
 
-	const menu = bodyHtml.querySelector("#menu");
+	const menu = bodyHtml?.querySelector("#menu");
 	if (menu) {
 		grid.classList.add("mui-container-fluid");
 		grid.innerHTML = menu.innerHTML;
@@ -119,7 +122,7 @@ const ServiceAccessPage = () => {
 		headerRow.appendChild(logoColumn);
 	}
 
-	const logoElement = bodyHtml.querySelector("#logo");
+	const logoElement = bodyHtml?.querySelector("#logo");
 	if (logoElement) {
 		logoColumn.appendChild(logoElement);
 	}
@@ -130,7 +133,7 @@ const ServiceAccessPage = () => {
 		headerRow.appendChild(descColumn);
 	}
 
-	const descElement = bodyHtml.querySelector("h1");
+	const descElement = bodyHtml?.querySelector("h1");
 	if (descElement) {
 		descColumn.appendChild(descElement);
 	}
@@ -148,7 +151,7 @@ const ServiceAccessPage = () => {
 		titleRow.appendChild(titleCol);
 	}
 
-	const titleElement = bodyHtml.querySelector("h2");
+	const titleElement = bodyHtml?.querySelector("h2");
 	if (titleElement) {
 		titleCol.appendChild(titleElement);
 	}
@@ -181,7 +184,7 @@ const ServiceAccessPage = () => {
 	grid.appendChild(rowButtons);
 
 	const buttonsArray = responseProcess?.task?.buttons.filter((e: any) => e.id !== "exit");
-	buttonsArray.forEach((responseButton: any) => {
+	buttonsArray?.forEach((responseButton: any) => {
 		const buttonColumn = document.createElement("div");
 		rowButtons.appendChild(buttonColumn);
 
