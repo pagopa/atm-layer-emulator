@@ -20,9 +20,9 @@ export default function FormTemplate({ handleSubmit, children, loadingButton }: 
 	};
 
 	// const disabledConfirmButton = () => openSnackBar ? true : false;
-
+	console.log(window.innerWidth>theme.breakpoints.values.md);
 	return (
-		<Box sx={{ maxWidth: "60%" }}>
+		<Box sx={{ maxWidth: window.innerWidth>theme.breakpoints.values.md?"60%":"100%" }}>
 			<Box p={3} my={3} mx={"auto"} sx={inputGroupStyle}  >
 				<Grid container >
 					<Grid item xs={12}>

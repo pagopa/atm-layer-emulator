@@ -14,8 +14,8 @@ import { JwtUser } from "./components/model/UserModel";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import LoginPageCallback from "./pages/LoginPageCallback";
-import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
-// import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage copy";
+// import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
+import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage copy";
 
 
 const LocalRoutes = () => (
@@ -41,7 +41,6 @@ const LocalRoutes = () => (
 function App() {
 	const RELEASE_VERSION = process.env.REACT_APP_VERSION;
 
-	const [interfaceType, setInterfaceType] = useState(false);
 	const [warningCodeValue, setWarningCodeValue] = useState("");
 	// const [ecFiscalCodeValue, setEcFiscalCodeValue] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -53,7 +52,7 @@ function App() {
 	const [responseProcess, setResponseProcess] = useState({});
 	const [transactionData, setTransactionData] = useState ({});
 	const abortController = new AbortController();
-	const [touch, setTouch] = useState(true);
+	const [touchInterface, setTouchInterface] = useState(true);
 
 	function clearAll() {
 		if (sessionStorage.getItem("jwt_emulator")) {
@@ -78,8 +77,6 @@ function App() {
 	}
 
 	const values = {
-		interfaceType,
-		setInterfaceType,
 		warningCodeValue,
 		setWarningCodeValue,
 		// ecFiscalCodeValue,
@@ -99,8 +96,8 @@ function App() {
 		setResponseProcess,
 		transactionData,
 		setTransactionData,
-		touch,
-		setTouch
+		touchInterface,
+		setTouchInterface
 	};
 
 	useEffect(() => {

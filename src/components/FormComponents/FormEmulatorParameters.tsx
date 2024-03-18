@@ -30,7 +30,7 @@ export const FormEmulatorParameters = () => {
 	
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
-	const { abortController, setResponseProcess,setTransactionData, touch, setTouch } = useContext(Ctx);
+	const { abortController, setResponseProcess,setTransactionData, touchInterface, setTouchInterface } = useContext(Ctx);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -46,7 +46,7 @@ export const FormEmulatorParameters = () => {
 			setFormData((prevFormData: any) => ({ ...prevFormData, [name]: checked ? "OK" : "KO" }));
 
 			if (name === "touch") {
-				setTouch(checked);
+				setTouchInterface(checked);
 			}
 		}else{
 			setFormData((prevFormData: any) => ({
@@ -247,7 +247,7 @@ export const FormEmulatorParameters = () => {
 					value="touch"
 					control={
 						<Switch
-							checked={touch}
+							checked={touchInterface}
 							onChange={handleChange}
 							name="touch"
 						/>
