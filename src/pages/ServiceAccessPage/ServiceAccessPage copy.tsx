@@ -13,13 +13,20 @@ const ServiceAccessPage = () => {
 	const { responseProcess, abortController, setResponseProcess, transactionData, touch } = useContext(Ctx);
 	// eslint-disable-next-line functional/no-let
 	let bodyHtml :any ;
+	// eslint-disable-next-line functional/no-let
+	let timeout = responseProcess?.task?.timeout;
 	if(responseProcess?.task?.template?.content)
 	{ bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);}
 
 	useEffect(() => {
+		if (!timeout || timeout === null){
+			timeout = 30;
+		}
+		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		addButtonClickListener();
 		return () => {
 			removeButtonClickListener();
+			clearTimeout(nextTimeout);
 		};
 	}, [responseProcess]);
 
