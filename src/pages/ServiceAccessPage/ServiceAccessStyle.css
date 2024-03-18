@@ -7,13 +7,14 @@
     vertical-align: middle; /* Allinea verticalmente l'immagine */
 }
 
-.decoded-html h1 {
+.decoded-desc {
     display: inline;
     margin-top: 0px;
     margin-left: 10px; /* Aggiunge uno spazio a sinistra dell'h1 */
     vertical-align: middle; /* Allinea verticalmente l'elemento h1 */
     font-weight: 400;
     font-size: large;
+    text-align: right;
     /* float: right; */
 }
 
@@ -31,23 +32,50 @@
     margin-top: 0px;
 }
 
-/* Stili per il bottone */
-/* .decoded-html button {
-    display: flex;
-    background-color: #106aca; 
+.decoded-normal-button { 
+    width: 50%; 
+    border-radius: 4px;  
+    background-color: #ffffff;
+    border: none;  
+    padding: 15px 32px; 
+    text-align: center;  
+    text-decoration: none;
+    display: inline-flex;				
+    font-size: 16px;
+    margin: 10px;
+    float: right;
     color: white;
-    border: none; 
-    padding: 10px 20px; 
-    margin-right: 10px; 
-    border-radius: 4px; 
-    cursor: pointer; 
     font-weight: 600;
-    font-size: 14px;
-    gap: 10px;
+    cursor:pointer;
+    font-family:  "Titillium Web", sans-serif;
+    color: black;
+    border: 1px;
+    border-color: #E8EBF1;
+    border-style: solid;
+    justify-content: space-between;
     align-items: center;
 }
 
-.decoded-html #exit {
-    display: block; 
-    margin-top: 10px; 
-} */
+.decoded-exit-button { 
+    width: 50%; 
+    border-radius: 4px;  
+    background-color: #ffffff;
+    border: none;  
+    padding: 22px 32px; 
+    text-align: center;  
+    text-decoration: none;
+    display: inline-flex;				
+    font-size: 16px;
+    margin: 10px;
+    float: right;
+    color: white;
+    font-weight: 600;
+    cursor:pointer;
+    font-family:  "Titillium Web", sans-serif;
+    color: #D75252;
+    border: 1px;
+    border-color: #D75252;
+    border-style: solid;
+    justify-content: flex-start;
+    align-items: center;
+}
