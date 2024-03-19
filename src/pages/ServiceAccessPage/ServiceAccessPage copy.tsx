@@ -15,7 +15,7 @@ import { SCAN_BILL_DATA, AUTHORIZE, END, GET_IBAN, GET_PAN } from "../../commons
 
 const ServiceAccessPage = () => {
 
-	const { responseProcess, abortController, setResponseProcess, transactionData, touch } = useContext(Ctx);
+	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface } = useContext(Ctx);
 	const [loading, setLoading] = useState(false);
 	const [command, setCommand] = useState("");
 	let bodyHtml :any ;
@@ -332,7 +332,7 @@ const ServiceAccessPage = () => {
 	bodyHtml?.appendChild(grid);
 
 	return (
-		<div id={touch ? "touch" : "no-touch"}>
+		<div id={touchInterface ? "touch" : "no-touch"}>
 			{/* {loading ? (
 				<CircularProgress />
 			) : (

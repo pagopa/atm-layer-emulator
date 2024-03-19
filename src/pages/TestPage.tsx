@@ -13,7 +13,7 @@ import { fetchRequest } from "../hook/fetch/fetchRequest";
 
 const TestPage = () => {
 
-	const { responseProcess, abortController, setResponseProcess, transactionData, touch } = useContext(Ctx);
+	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface } = useContext(Ctx);
 	// eslint-disable-next-line functional/no-let
 	let bodyHtml :any ;
 	// eslint-disable-next-line functional/no-let
@@ -106,7 +106,7 @@ const TestPage = () => {
 
 	
 	return (
-		<div id={touch ? "touch" : "no-touch"}>
+		<div id={touchInterface ? "touch" : "no-touch"}>
 			{parse(bodyHtml.innerHTML)}
 		</div>
 	);
