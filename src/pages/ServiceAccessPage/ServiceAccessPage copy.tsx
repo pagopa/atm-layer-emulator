@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-let */
 /* eslint-disable functional/immutable-data */
 import React, { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
@@ -16,9 +17,8 @@ const ServiceAccessPage = () => {
 
 	const { responseProcess, abortController, setResponseProcess, transactionData, touch } = useContext(Ctx);
 	const [loading, setLoading] = useState(false);
-	// eslint-disable-next-line functional/no-let
+	const [command, setCommand] = useState("");
 	let bodyHtml :any ;
-	// eslint-disable-next-line functional/no-let
 	let timeout = responseProcess?.task?.timeout;
 	if(responseProcess?.task?.template?.content)
 	{ bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);}
@@ -43,16 +43,22 @@ const ServiceAccessPage = () => {
 		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		addButtonClickListener();
 		
-		const command = responseProcess?.task.command;
-		if (command !== undefined && command !== null) {
-			executeCommand(command);
-		}
+		// const command = responseProcess?.task.command;
+		// if (command !== undefined && command !== null) {
+		// 	executeCommand(command);
+		// }
 		
 		return () => {
 			removeButtonClickListener();
 			clearTimeout(nextTimeout);
 		};
 	}, [responseProcess]);
+
+	useEffect(() => {
+		if(command && command!==""){
+			executeCommand(command);
+		}
+	}, [command]);
 
 	const date = new Date().toISOString().slice(0, -5);
 	const postData = (params: any) => ({
@@ -94,6 +100,10 @@ const ServiceAccessPage = () => {
 			})();
 
 			if (response?.success) {
+				
+				if (response?.valuesObj?.task?.command) {
+					setCommand(response?.valuesObj?.task?.command);
+				}
 				setResponseProcess(response?.valuesObj);
 			}
 		} catch (error) {
