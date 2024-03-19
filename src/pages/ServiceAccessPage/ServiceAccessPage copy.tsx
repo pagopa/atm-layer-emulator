@@ -20,6 +20,7 @@ const ServiceAccessPage = () => {
 	const [command, setCommand] = useState("");
 	let bodyHtml :any ;
 	let timeout = responseProcess?.task?.timeout;
+	const templateType = responseProcess?.task?.template?.type;
 	if(responseProcess?.task?.template?.content)
 	{ bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);}
 	const svgArrowIcon = `
@@ -40,7 +41,7 @@ const ServiceAccessPage = () => {
 		if (!timeout || timeout === null){
 			timeout = 30;
 		}
-		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
+		// const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		addButtonClickListener();
 		
 		// const command = responseProcess?.task.command;
@@ -50,7 +51,7 @@ const ServiceAccessPage = () => {
 		
 		return () => {
 			removeButtonClickListener();
-			clearTimeout(nextTimeout);
+			// clearTimeout(nextTimeout);
 		};
 	}, [responseProcess]);
 
@@ -194,6 +195,10 @@ const ServiceAccessPage = () => {
 		};
 	};
 
+	const grid = document.createElement("div");
+	grid.classList.add("decoded-html");
+
+
 	const liElements = bodyHtml?.querySelectorAll("li");
 
 	liElements?.forEach((li: any) => {
@@ -202,8 +207,6 @@ const ServiceAccessPage = () => {
 		button.id = li.id;
 		li.parentNode.replaceChild(button, li);
 	});
-
-	const grid = document.createElement("div");
 
 	const menu = bodyHtml?.querySelector("#menu");
 	if (menu) {
@@ -230,11 +233,9 @@ const ServiceAccessPage = () => {
 	}
 
 	const descColumn = document.createElement("div");
-	if (descColumn) {
-		descColumn.classList.add("mui-col-md-6");
-		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
-		headerRow?.appendChild(descColumn);
-	}
+	descColumn.classList.add("mui-col-md-6");
+	descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
+	headerRow?.appendChild(descColumn);
 
 	const descElement = bodyHtml?.querySelector("h1");
 	if (descElement) {
@@ -245,9 +246,7 @@ const ServiceAccessPage = () => {
 	grid?.appendChild(headerRow);
 
 	const titleRow = document.createElement("div");
-	if (titleRow) {
-		titleRow.classList.add("mui-row", "mui-divider");
-	}
+	titleRow.classList.add("mui-row");
 
 	const titleCol = document.createElement("div");
 	if (titleCol) {
@@ -257,33 +256,38 @@ const ServiceAccessPage = () => {
 
 	const titleElement = bodyHtml?.querySelector("h2");
 	if (titleElement) {
-		titleElement.classList.add("decoded-title");
+		titleElement.classList.add("decoded-title", templateType === "MENU"? "left-aligned-text":"centered-text");
 		titleCol?.appendChild(titleElement);
 	}
 
 	grid?.appendChild(titleRow);
 
 	const subtitleRow = document.createElement("div");
-	if (subtitleRow) {
-		subtitleRow.classList.add("mui-row");
-	}
+	subtitleRow.classList.add("mui-row");
 
 	const subtitleCol = document.createElement("div");
-	if (subtitleCol) {
-		subtitleCol.classList.add("mui-col-md-8");
-		subtitleRow?.appendChild(subtitleCol);
-	}
+	subtitleCol.classList.add("mui-col-md-8");
+	subtitleRow?.appendChild(subtitleCol);
 
 	const subtitleElement = bodyHtml?.querySelector("h3");
 	if (subtitleElement) {
+		subtitleElement.classList.add("decoded-subtitle", templateType === "MENU"? "left-aligned-text":"centered-text");
 		subtitleCol?.appendChild(subtitleElement);
 	}
 
 	grid?.appendChild(subtitleRow);
 
+	if (templateType==="SUMMARY"){
+		const tableRow = document.createElement("div");
+		tableRow.classList.add("mui-row", "centered-element");
+		const tableElement = bodyHtml?.querySelector("table");
+		tableRow.appendChild(tableElement);
+		grid.appendChild(tableRow);
+	}
+
 	const rowButtons = document.createElement("div");
 	if (rowButtons) {
-		rowButtons.classList.add("mui-row");
+		rowButtons.classList.add("mui-row", templateType === "MENU"? "centered-element-vertical":"centered-element");
 	}
 
 	grid?.appendChild(rowButtons);
@@ -292,11 +296,7 @@ const ServiceAccessPage = () => {
 	buttonsArray?.forEach((responseButton: any) => {
 		const buttonColumn = document.createElement("div");
 		rowButtons?.appendChild(buttonColumn);
-
-		if (buttonColumn) {
-			buttonColumn.classList.add("mui-col-md-12");
-			buttonColumn.setAttribute("style", "padding: 0px; display: flex;justify-content: flex-start;");
-		}
+		buttonColumn.classList.add("mui-col-md-12", templateType === "MENU"? "left-aligned-element":"centered-element");
 		const renderedButton = bodyHtml?.querySelector(`#${responseButton.id}`);
 		if (renderedButton) {
         
@@ -312,21 +312,26 @@ const ServiceAccessPage = () => {
 		}
 	});
 
-	const rowButtonExit = document.createElement("div");
-	if (rowButtonExit) {
-		rowButtonExit.classList.add("mui-row");
-		rowButtonExit.setAttribute("style", "display: flex;justify-content: flex-start;");
-	}
-
-	grid?.appendChild(rowButtonExit);
-
-	const buttonExit = bodyHtml?.querySelector("#exit") as HTMLButtonElement;
-	if (buttonExit) {
-		buttonExit.classList.add("decoded-exit-button");
-		const svgElement = parser.parseFromString(svgExitIcon, "image/svg+xml").documentElement;
-		svgElement.setAttribute("style", "margin-right: 16px");
-		buttonExit.insertBefore(svgElement, buttonExit.firstChild);
-		rowButtonExit?.appendChild(buttonExit);
+	if (touchInterface){
+		const rowButtonExit = document.createElement("div");
+		if (rowButtonExit) {
+			rowButtonExit.classList.add("mui-row", templateType === "MENU"? "centered-element-vertical":"centered-element");
+			// rowButtonExit.setAttribute("style", "display: flex;justify-content: flex-start;");
+		}
+	
+		grid?.appendChild(rowButtonExit);
+	
+		const buttonExit = bodyHtml?.querySelector("#exit") as HTMLButtonElement;
+		if (buttonExit) {
+			// buttonExit.classList.add("decoded-exit-button");
+			const svgElement = parser.parseFromString(svgExitIcon, "image/svg+xml").documentElement;
+			svgElement.setAttribute("style", "margin-right: 16px");
+			buttonExit.insertBefore(svgElement, buttonExit.firstChild);
+			rowButtonExit?.appendChild(buttonExit);
+		}
+	} else {
+		const buttonExit = bodyHtml?.querySelector("#exit") as HTMLButtonElement;
+		buttonExit.remove();
 	}
 
 	bodyHtml?.appendChild(grid);
