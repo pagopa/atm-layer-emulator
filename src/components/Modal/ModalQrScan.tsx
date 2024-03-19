@@ -9,5 +9,11 @@ type Props = {
 };
 
 export default function ModalQrScan({ open, setOpen, title, setContentText }: Props) {
-	<ModalTemplate titleModal={title} contentText={setContentText} open={false} setOpen={setOpen} handleSubmit={undefined} />;
+	<ModalTemplate 
+		titleModal={title} 
+		contentText={setContentText} 
+		open={false} 
+		setOpen={setOpen} 
+		handleSubmit={undefined}
+	/>;
 };

@@ -143,15 +143,17 @@ const ServiceAccessPage = () => {
 				void next({ "result": "KO" });
 			}
 			break;
-		case AUTHORIZE: if (!confirm("Autorizzare il pagamento di"+(responseProcess?.task?.data?.totalAmount/100)+" ? ")){		
-			if(confirm("Esito Dubbio? ")){
-				void next("{\"authResult\":\"KO_DUBBIO\"}");
-			} else {
-				void next("{\"result\":\"KO\"}");
+		case AUTHORIZE: 
+			console.log("authorize", responseProcess?.task?.data?.totalAmount);
+			if (!confirm("Autorizzare il pagamento di"+(responseProcess?.task?.data?.totalAmount/100)+" ? ")){		
+				if(confirm("Esito Dubbio? ")){
+					void next("{\"authResult\":\"KO_DUBBIO\"}");
+				} else {
+					void next("{\"result\":\"KO\"}");
+				}
+			} else{
+				void next("{\"result\":\"OK\"}");
 			}
-		} else{
-			void next("{\"result\":\"OK\"}");
-		}
 			break;
 		// case PRINT_RECEIPT: const scontrino = responseProcess.task.receiptTemplate; 
 		// 	if (scontrino){  
