@@ -1,8 +1,8 @@
 /* eslint-disable functional/immutable-data */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { generatePath } from "react-router-dom";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { CircularProgress } from "@mui/material";
 import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
 import { TASK_NEXT } from "../../commons/endpoints";
@@ -14,6 +14,7 @@ import "./ServiceAccessStyle.css";
 const ServiceAccessPage = () => {
 
 	const { responseProcess, abortController, setResponseProcess, transactionData, touch } = useContext(Ctx);
+	const [loading, setLoading] = useState(false);
 	// eslint-disable-next-line functional/no-let
 	let bodyHtml :any ;
 	// eslint-disable-next-line functional/no-let
@@ -75,6 +76,7 @@ const ServiceAccessPage = () => {
 	});
 
 	const next = async (params: any) => {
+		setLoading(true);
 		try {
 			const response = await fetchRequest({
 				urlEndpoint: generatePath(TASK_NEXT, { transactionId: responseProcess?.transactionId }),
@@ -89,7 +91,9 @@ const ServiceAccessPage = () => {
 			}
 		} catch (error) {
 			console.log("Response negative: ", error);
-		};
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	const handleClick = (event: MouseEvent) => {
@@ -97,7 +101,13 @@ const ServiceAccessPage = () => {
 		if (button) {
 			const dataString = button.getAttribute("data");
 			const data = dataString ? JSON.parse(dataString) : {};
-			void next(data);
+			const params: any = { ...data };
+			const inputElements = document?.querySelectorAll("input");
+		
+			inputElements.forEach((input: any) => {
+				params[input.id] = input.value;
+			});
+			void next(params);
 		}
 	};
 
@@ -119,7 +129,7 @@ const ServiceAccessPage = () => {
 
 	liElements?.forEach((li: any) => {
 		const button = document?.createElement("button");
-		button.innerHTML = li.innerHTML;
+		button.innerHTML = li?.innerHTML;
 		button.id = li.id;
 		li.parentNode.replaceChild(button, li);
 	});
@@ -129,7 +139,7 @@ const ServiceAccessPage = () => {
 	const menu = bodyHtml?.querySelector("#menu");
 	if (menu) {
 		grid.classList.add("mui-container-fluid");
-		grid.innerHTML = menu.innerHTML;
+		grid.innerHTML = menu?.innerHTML;
 		grid.id = menu.id;
 		menu.parentNode?.replaceChild(grid, menu);
 	}
@@ -142,28 +152,28 @@ const ServiceAccessPage = () => {
 	const logoColumn = document.createElement("div");
 	if (logoColumn) {
 		logoColumn.classList.add("mui-col-md-6");
-		headerRow.appendChild(logoColumn);
+		headerRow?.appendChild(logoColumn);
 	}
 
 	const logoElement = bodyHtml?.querySelector("#logo");
 	if (logoElement) {
-		logoColumn.appendChild(logoElement);
+		logoColumn?.appendChild(logoElement);
 	}
 
 	const descColumn = document.createElement("div");
 	if (descColumn) {
 		descColumn.classList.add("mui-col-md-6");
 		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
-		headerRow.appendChild(descColumn);
+		headerRow?.appendChild(descColumn);
 	}
 
 	const descElement = bodyHtml?.querySelector("h1");
 	if (descElement) {
 		descElement.classList.add("decoded-desc");
-		descColumn.appendChild(descElement);
+		descColumn?.appendChild(descElement);
 	}
 
-	grid.appendChild(headerRow);
+	grid?.appendChild(headerRow);
 
 	const titleRow = document.createElement("div");
 	if (titleRow) {
@@ -173,16 +183,16 @@ const ServiceAccessPage = () => {
 	const titleCol = document.createElement("div");
 	if (titleCol) {
 		titleCol.classList.add("mui-col-md-8");
-		titleRow.appendChild(titleCol);
+		titleRow?.appendChild(titleCol);
 	}
 
 	const titleElement = bodyHtml?.querySelector("h2");
 	if (titleElement) {
 		titleElement.classList.add("decoded-title");
-		titleCol.appendChild(titleElement);
+		titleCol?.appendChild(titleElement);
 	}
 
-	grid.appendChild(titleRow);
+	grid?.appendChild(titleRow);
 
 	const subtitleRow = document.createElement("div");
 	if (subtitleRow) {
@@ -192,33 +202,33 @@ const ServiceAccessPage = () => {
 	const subtitleCol = document.createElement("div");
 	if (subtitleCol) {
 		subtitleCol.classList.add("mui-col-md-8");
-		subtitleRow.appendChild(subtitleCol);
+		subtitleRow?.appendChild(subtitleCol);
 	}
 
-	const subtitleElement = bodyHtml.querySelector("h3");
+	const subtitleElement = bodyHtml?.querySelector("h3");
 	if (subtitleElement) {
-		subtitleCol.appendChild(subtitleElement);
+		subtitleCol?.appendChild(subtitleElement);
 	}
 
-	grid.appendChild(subtitleRow);
+	grid?.appendChild(subtitleRow);
 
 	const rowButtons = document.createElement("div");
 	if (rowButtons) {
 		rowButtons.classList.add("mui-row");
 	}
 
-	grid.appendChild(rowButtons);
+	grid?.appendChild(rowButtons);
 
 	const buttonsArray = responseProcess?.task?.buttons.filter((e: any) => e.id !== "exit");
 	buttonsArray?.forEach((responseButton: any) => {
 		const buttonColumn = document.createElement("div");
-		rowButtons.appendChild(buttonColumn);
+		rowButtons?.appendChild(buttonColumn);
 
 		if (buttonColumn) {
 			buttonColumn.classList.add("mui-col-md-12");
 			buttonColumn.setAttribute("style", "padding: 0px; display: flex;justify-content: flex-start;");
 		}
-		const renderedButton = bodyHtml.querySelector(`#${responseButton.id}`);
+		const renderedButton = bodyHtml?.querySelector(`#${responseButton.id}`);
 		if (renderedButton) {
         
 			const data = responseButton.data;
@@ -227,7 +237,7 @@ const ServiceAccessPage = () => {
 			}
 
 			renderedButton.classList.add("decoded-normal-button");
-			buttonColumn.appendChild(renderedButton);
+			buttonColumn?.appendChild(renderedButton);
 			const svgElement = parser.parseFromString(svgArrowIcon, "image/svg+xml").documentElement;
 			renderedButton.insertBefore(svgElement, renderedButton.firstChild);
 		}
@@ -239,22 +249,26 @@ const ServiceAccessPage = () => {
 		rowButtonExit.setAttribute("style", "display: flex;justify-content: flex-start;");
 	}
 
-	grid.appendChild(rowButtonExit);
+	grid?.appendChild(rowButtonExit);
 
-	const buttonExit = bodyHtml.querySelector("#exit") as HTMLButtonElement;
+	const buttonExit = bodyHtml?.querySelector("#exit") as HTMLButtonElement;
 	if (buttonExit) {
 		buttonExit.classList.add("decoded-exit-button");
 		const svgElement = parser.parseFromString(svgExitIcon, "image/svg+xml").documentElement;
 		svgElement.setAttribute("style", "margin-right: 16px");
 		buttonExit.insertBefore(svgElement, buttonExit.firstChild);
-		rowButtonExit.appendChild(buttonExit);
+		rowButtonExit?.appendChild(buttonExit);
 	}
 
-	bodyHtml.appendChild(grid);
+	bodyHtml?.appendChild(grid);
 
 	return (
 		<div id={touch ? "touch" : "no-touch"}>
-			{parse(bodyHtml.innerHTML)}
+			{loading ? (
+				<CircularProgress />
+			) : (
+				parse(bodyHtml?.innerHTML)
+			)}
 		</div>
 	);
 };
