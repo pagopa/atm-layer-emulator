@@ -1,8 +1,9 @@
 /* eslint-disable functional/immutable-data */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { generatePath } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { CircularProgress } from "@mui/material";
 import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
 import { TASK_NEXT } from "../../commons/endpoints";
@@ -14,6 +15,7 @@ import "./ServiceAccessStyle.css";
 const ServiceAccessPage = () => {
 
 	const { responseProcess, abortController, setResponseProcess, transactionData, touch } = useContext(Ctx);
+	const [loading, setLoading] = useState(false);
 	// eslint-disable-next-line functional/no-let
 	let bodyHtml :any ;
 	// eslint-disable-next-line functional/no-let
@@ -75,6 +77,7 @@ const ServiceAccessPage = () => {
 	});
 
 	const next = async (params: any) => {
+		setLoading(true);
 		try {
 			const response = await fetchRequest({
 				urlEndpoint: generatePath(TASK_NEXT, { transactionId: responseProcess?.transactionId }),
@@ -89,7 +92,9 @@ const ServiceAccessPage = () => {
 			}
 		} catch (error) {
 			console.log("Response negative: ", error);
-		};
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	const handleClick = (event: MouseEvent) => {
@@ -97,7 +102,13 @@ const ServiceAccessPage = () => {
 		if (button) {
 			const dataString = button.getAttribute("data");
 			const data = dataString ? JSON.parse(dataString) : {};
-			void next(data);
+			const params: any = { ...data };
+			const inputElements = document.querySelectorAll("input");
+		
+			inputElements.forEach((input: any) => {
+				params[input.id] = input.value;
+			});
+			void next(params);
 		}
 	};
 
@@ -254,7 +265,11 @@ const ServiceAccessPage = () => {
 
 	return (
 		<div id={touch ? "touch" : "no-touch"}>
-			{parse(bodyHtml.innerHTML)}
+			{loading ? (
+				<CircularProgress />
+			) : (
+				parse(bodyHtml.innerHTML)
+			)}
 		</div>
 	);
 };
