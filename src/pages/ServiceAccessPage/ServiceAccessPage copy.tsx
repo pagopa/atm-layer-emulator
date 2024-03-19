@@ -8,6 +8,7 @@ import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRender
 import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./ServiceAccessStyle.css";
+import { SCAN_BILL_DATA, AUTHORIZE, END, GET_IBAN, GET_PAN } from "../../commons/constants";
 
 
 
@@ -41,6 +42,12 @@ const ServiceAccessPage = () => {
 		}
 		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		addButtonClickListener();
+		
+		const command = responseProcess?.task.command;
+		if (command !== undefined && command !== null) {
+			executeCommand(command);
+		}
+		
 		return () => {
 			removeButtonClickListener();
 			clearTimeout(nextTimeout);
@@ -123,6 +130,56 @@ const ServiceAccessPage = () => {
 		buttons?.forEach(button => {
 			button.removeEventListener("click", handleClick);
 		});
+	};
+
+	const executeCommand = (driver: string) => {
+
+		switch(driver) {
+		case SCAN_BILL_DATA:
+			const result = prompt("Inserisci codice scansionato:", "UEFHT1BBfDAwMnwwMTIzNDU2Nzg5MDEyMzQ1Njd8MDAwMDAwMDAyMDF8MTAwMDA");
+			if (result != null) {
+				void next({ "result": "OK", "scanData": result });
+			} else {
+				void next({ "result": "KO" });
+			}
+			break;
+		case AUTHORIZE: if (!confirm("Autorizzare il pagamento di"+(responseProcess?.task?.data?.totalAmount/100)+" ? ")){		
+			if(confirm("Esito Dubbio? ")){
+				void next("{\"authResult\":\"KO_DUBBIO\"}");
+			} else {
+				void next("{\"result\":\"KO\"}");
+			}
+		} else{
+			void next("{\"result\":\"OK\"}");
+		}
+			break;
+		// case PRINT_RECEIPT: const scontrino = responseProcess.task.receiptTemplate; 
+		// 	if (scontrino){  
+		// 		setTimeout(function() {
+		// 			const newDocumentReceipt = (new DOMParser).parseFromString(atob(scontrino), "text/html");
+		// 			const wnd = window.open();
+		// 			// wnd.document.write(atob(scontrino));   
+		// 			const el = wnd.document.createElement("style");
+		// 			// el.type = 'text/css';
+		// 			el.innerText = "body {border: 2px black solid;display: flex;flex-direction: column;width: 600px;margin-left:auto;margin-right:auto;font-family: Courier New, monospace; font-size: 23px;} p {display: flex;flex-wrap: wrap;margin-bottom: 0px; margin-left: 25px;margin-right: 25px;} .left {text-align: left; } .right {text-align: right; } .center {text-align: center; } .bold {font-weight: bold;} span{flex: 1; white-space: pre-line;-ms-word-wrap: break-word;}span:hover{border: 1px black dotted; } span.col-1 {flex: 0 0 8.33%; } span.col-2 {flex: 0 0 16.67%; } span.col-3 {flex: 0 0 25%; } span.col-4 {flex: 0 0 33.33%; } span.col-5 {flex: 0 0 41.67%; } span.col-6 {flex: 0 0 50%; } span.col-7 {flex: 0 0 58.33%; } span.col-8 {flex: 0 0 66.67%;} span.col-9 {flex: 0 0 75%;} span.col-10 {flex: 0 0 83.33%;} span.col-11 {flex: 0 0 91.67%;} span.col-12 {flex: 0 0 100%;}";
+		// 			wnd.document.head.appendChild(el);
+		// 			wnd.document.body.innerHTML = newDocumentReceipt.body.innerHTML;
+		// 			wnd.document.close();
+		// 			void next("{\"result\":\"OK\"}");
+		// 		}, 3000);
+		// 	} 
+		// 	break;
+		case END: 
+			void next("{\"result\":\"OK\"}");
+			break;
+		case GET_IBAN: 
+			void next("{\"result\":\"OK\",\"IBANlist\":[{\"IBAN\":\"IT12A1234512345123456789012\",\"bankName\": \"INTESA\"},{\"IBAN\":\"IT12A1234512345123456789018\",\"bankName\": \"POSTE\"}]}");
+			break;
+		case GET_PAN:
+			void next("{\"result\":\"OK\"}");    
+			break;
+		default: return "";
+		};
 	};
 
 	const liElements = bodyHtml?.querySelectorAll("li");
@@ -264,11 +321,12 @@ const ServiceAccessPage = () => {
 
 	return (
 		<div id={touch ? "touch" : "no-touch"}>
-			{loading ? (
+			{/* {loading ? (
 				<CircularProgress />
 			) : (
 				parse(bodyHtml?.innerHTML)
-			)}
+			)} */}
+			{parse(bodyHtml?.innerHTML)}
 		</div>
 	);
 };
