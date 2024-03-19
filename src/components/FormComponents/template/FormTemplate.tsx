@@ -1,13 +1,15 @@
 import { Grid, Typography, Box, useTheme, Button } from "@mui/material";
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useContext } from "react";
 import { TitleComponent } from "../../TitleComponents/TitleComponent";
 import { Loading } from "../../Commons/Loading";
+import { Ctx } from "../../../DataContext";
 
 type Props = {
 	handleSubmit: (e: React.FormEvent) => void;
 	children?: any;
 	handleSwitchAssociationFetch?: () => Promise<void>;
 	loadingButton?: boolean;
+	handleSubmitTest?: (e: React.FormEvent) => void;
 };
 
 export default function FormTemplate({ handleSubmit, children, loadingButton }: Readonly<Props>) {
@@ -18,6 +20,8 @@ export default function FormTemplate({ handleSubmit, children, loadingButton }: 
 		borderStyle: "solid",
 		borderColor: theme.palette.divider,
 	};
+	const {debugOn } = useContext(Ctx);
+
 
 	// const disabledConfirmButton = () => openSnackBar ? true : false;
 	console.log(window.innerWidth>theme.breakpoints.values.md);
@@ -36,7 +40,11 @@ export default function FormTemplate({ handleSubmit, children, loadingButton }: 
 					{children}
 				</Grid>
 				<Box display="flex" justifyContent="flex-end" mt={2}>
-
+					{debugOn&& 
+						<Button variant="outlined" onClick={handleSubmit} color="error" sx={{marginRight:5}}>
+											Test
+						</Button>
+					}
 					<Button variant="contained" onClick={handleSubmit} /* disabled={disabledConfirmButton()} */>
 						{loadingButton ? <Loading size={20} thickness={5} marginTop={"0px"} color={"white"} /> : "Conferma"}
 					</Button>
