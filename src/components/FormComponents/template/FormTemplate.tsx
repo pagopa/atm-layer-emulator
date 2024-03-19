@@ -12,7 +12,7 @@ type Props = {
 	handleSubmitTest?: (e: React.FormEvent) => void;
 };
 
-export default function FormTemplate({ handleSubmit, children, loadingButton }: Readonly<Props>) {
+export default function FormTemplate({ handleSubmit, children, loadingButton, handleSubmitTest }: Readonly<Props>) {
 	const theme = useTheme();
 	const isXl = useMediaQuery(theme.breakpoints.only("xl"));
 
@@ -42,7 +42,7 @@ export default function FormTemplate({ handleSubmit, children, loadingButton }: 
 				</Grid>
 				<Box display="flex" justifyContent="flex-end" mt={2}>
 					{debugOn&& 
-						<Button variant="outlined" onClick={handleSubmit} color="error" sx={{marginRight:5}}>
+						<Button variant="outlined" onClick={handleSubmitTest} color="error" sx={{marginRight:5}}>
 											Test
 						</Button>
 					}
