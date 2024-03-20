@@ -31,3 +31,39 @@ export const resetErrors = (errors: any, setErrors: any, field: string | number)
 		});
 	}
 };
+
+export const createMuiRow = () => {
+	const newRow = document.createElement("div");
+	newRow.classList.add("mui-row");
+	return newRow;
+};
+
+export const createMuiCol = (width : string) => {
+	const newCol = document.createElement("div");
+	newCol.classList.add("mui-col-"+width);
+	return newCol;
+};
+
+export const wrapElementInMuiRow = (element: HTMLElement) => {
+	const newRow = document.createElement("div");
+	newRow.classList.add("mui-row");
+	newRow.appendChild(element);
+	return newRow;
+};
+
+export const wrapElementInMuiCol = (width : string, element: HTMLElement) => {
+	const newCol = document.createElement("div");
+	newCol.classList.add("mui-col-"+width);
+	newCol.appendChild(element);
+	return newCol;
+};
+
+export const wrapElementInMuiColAndRow = (width : string, element: HTMLElement) => {
+	const newRow = document.createElement("div");
+	newRow.classList.add("mui-row");
+	const newCol = document.createElement("div");
+	newCol.classList.add("mui-col-"+width);
+	newCol.appendChild(element);
+	newRow.appendChild(newCol);
+	return newRow;
+};

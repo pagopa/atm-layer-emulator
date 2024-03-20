@@ -10,6 +10,7 @@ import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./ServiceAccessStyle.css";
 import { SCAN_BILL_DATA, AUTHORIZE, END, GET_IBAN, GET_PAN } from "../../commons/constants";
+import { createMuiCol, createMuiRow, wrapElementInMuiCol, wrapElementInMuiColAndRow, wrapElementInMuiRow } from "../../utils/Commons";
 
 
 
@@ -216,60 +217,39 @@ const ServiceAccessPage = () => {
 		menu.parentNode?.replaceChild(grid, menu);
 	}
 
-	const headerRow = document.createElement("div");
-	headerRow.classList.add("mui-row");
 
-	const logoColumn = document.createElement("div");
-	logoColumn.classList.add("mui-col-md-6");
-	headerRow?.appendChild(logoColumn);
 
+	const headerRow = createMuiRow();
 	const logoElement = bodyHtml?.querySelector("#logo");
 	if (logoElement) {
-		logoColumn?.appendChild(logoElement);
+		const logoColumn = wrapElementInMuiCol("md-6", logoElement);
+		headerRow.appendChild(logoColumn);
 	}
-
-	const descColumn = document.createElement("div");
-	descColumn.classList.add("mui-col-md-6");
-	descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
-	headerRow?.appendChild(descColumn);
-
 	const descElement = bodyHtml?.querySelector("h1");
 	if (descElement) {
 		descElement.classList.add("decoded-desc");
-		descColumn?.appendChild(descElement);
+		const descColumn = wrapElementInMuiCol("md-6", descElement);
+		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
+		headerRow.appendChild(descColumn);
 	}
-
 	grid?.appendChild(headerRow);
 
-	const titleRow = document.createElement("div");
-	titleRow.classList.add("mui-row");
 
-	const titleCol = document.createElement("div");
-	titleCol.classList.add("mui-col-md-8");
-	titleRow?.appendChild(titleCol);
 
 	const titleElement = bodyHtml?.querySelector("h2");
 	if (titleElement) {
 		titleElement.classList.add("decoded-title", templateType === "MENU"? "left-aligned-text":"centered-text");
-		titleCol?.appendChild(titleElement);
+		const titleRow = wrapElementInMuiColAndRow("md-8", titleElement);
+		grid?.appendChild(titleRow);
 	}
-
-	grid?.appendChild(titleRow);
-
-	const subtitleRow = document.createElement("div");
-	subtitleRow.classList.add("mui-row");
-
-	const subtitleCol = document.createElement("div");
-	subtitleCol.classList.add("mui-col-md-8");
-	subtitleRow?.appendChild(subtitleCol);
-
+	
 	const subtitleElement = bodyHtml?.querySelector("h3");
 	if (subtitleElement) {
 		subtitleElement.classList.add("decoded-subtitle", templateType === "MENU"? "left-aligned-text":"centered-text");
-		subtitleCol?.appendChild(subtitleElement);
+		const subtitleRow = wrapElementInMuiColAndRow("md-8", subtitleElement);
+		grid?.appendChild(subtitleRow);
 	}
 
-	grid?.appendChild(subtitleRow);
 
 	if (templateType==="SUMMARY"){
 		const tableRow = document.createElement("div");
@@ -286,42 +266,34 @@ const ServiceAccessPage = () => {
 
 	const buttonsArray = responseProcess?.task?.buttons.filter((e: any) => e.id !== "exit");
 	buttonsArray?.forEach((responseButton: any) => {
-		const buttonColumn = document.createElement("div");
-		rowButtons?.appendChild(buttonColumn);
-		buttonColumn.classList.add("mui-col-md-12", templateType === "MENU"? "left-aligned-element":"centered-element");
 		const renderedButton = bodyHtml?.querySelector(`#${responseButton.id}`);
 		if (renderedButton) {
-        
 			const data = responseButton.data;
 			if (data) {
 				renderedButton.setAttribute("data", JSON.stringify(data));
 			}
-
 			renderedButton.classList.add("decoded-normal-button");
-			buttonColumn?.appendChild(renderedButton);
+			const buttonColumn = wrapElementInMuiCol("md-12",renderedButton);
+			buttonColumn.classList.add(templateType === "MENU"? "left-aligned-element":"centered-element");
+			rowButtons.appendChild(buttonColumn);
 			const svgElement = parser.parseFromString(svgArrowIcon, "image/svg+xml").documentElement;
 			renderedButton.insertBefore(svgElement, renderedButton.firstChild);
 		}
 	});
 
 	if (touchInterface){
-		const rowButtonExit = document.createElement("div");
-		rowButtonExit.classList.add("mui-row", templateType === "MENU"? "centered-element-vertical":"centered-element");
-		// rowButtonExit.setAttribute("style", "display: flex;justify-content: flex-start;");
-	
-		grid?.appendChild(rowButtonExit);
-	
 		const buttonExit = bodyHtml?.querySelector("#exit") as HTMLButtonElement;
 		if (buttonExit) {
-			// buttonExit.classList.add("decoded-exit-button");
 			const svgElement = parser.parseFromString(svgExitIcon, "image/svg+xml").documentElement;
 			svgElement.setAttribute("style", "margin-right: 16px");
 			buttonExit.insertBefore(svgElement, buttonExit.firstChild);
-			rowButtonExit?.appendChild(buttonExit);
+			const rowButtonExit = wrapElementInMuiRow(buttonExit);
+			rowButtonExit.classList.add(templateType === "MENU"? "centered-element-vertical":"centered-element");
+			grid?.appendChild(rowButtonExit);
 		}
 	} else {
 		const buttonExit = bodyHtml?.querySelector("#exit") as HTMLButtonElement;
-		buttonExit.remove();
+		buttonExit?.remove();
 	}
 
 	bodyHtml?.appendChild(grid);
