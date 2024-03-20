@@ -217,15 +217,11 @@ const ServiceAccessPage = () => {
 	}
 
 	const headerRow = document.createElement("div");
-	if (headerRow) {
-		headerRow.classList.add("mui-row");
-	}
+	headerRow.classList.add("mui-row");
 
 	const logoColumn = document.createElement("div");
-	if (logoColumn) {
-		logoColumn.classList.add("mui-col-md-6");
-		headerRow?.appendChild(logoColumn);
-	}
+	logoColumn.classList.add("mui-col-md-6");
+	headerRow?.appendChild(logoColumn);
 
 	const logoElement = bodyHtml?.querySelector("#logo");
 	if (logoElement) {
@@ -249,10 +245,8 @@ const ServiceAccessPage = () => {
 	titleRow.classList.add("mui-row");
 
 	const titleCol = document.createElement("div");
-	if (titleCol) {
-		titleCol.classList.add("mui-col-md-8");
-		titleRow?.appendChild(titleCol);
-	}
+	titleCol.classList.add("mui-col-md-8");
+	titleRow?.appendChild(titleCol);
 
 	const titleElement = bodyHtml?.querySelector("h2");
 	if (titleElement) {
@@ -286,9 +280,7 @@ const ServiceAccessPage = () => {
 	}
 
 	const rowButtons = document.createElement("div");
-	if (rowButtons) {
-		rowButtons.classList.add("mui-row", templateType === "MENU"? "centered-element-vertical":"centered-element");
-	}
+	rowButtons.classList.add("mui-row", templateType === "MENU"? "centered-element-vertical":"centered-element");
 
 	grid?.appendChild(rowButtons);
 
@@ -314,10 +306,8 @@ const ServiceAccessPage = () => {
 
 	if (touchInterface){
 		const rowButtonExit = document.createElement("div");
-		if (rowButtonExit) {
-			rowButtonExit.classList.add("mui-row", templateType === "MENU"? "centered-element-vertical":"centered-element");
-			// rowButtonExit.setAttribute("style", "display: flex;justify-content: flex-start;");
-		}
+		rowButtonExit.classList.add("mui-row", templateType === "MENU"? "centered-element-vertical":"centered-element");
+		// rowButtonExit.setAttribute("style", "display: flex;justify-content: flex-start;");
 	
 		grid?.appendChild(rowButtonExit);
 	
