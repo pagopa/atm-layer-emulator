@@ -7,7 +7,7 @@ import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
 import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
-import "./ServiceAccess.css";
+import "./css/ServiceAccess.css";
 import { createMuiRow, wrapElementInMuiCol, wrapElementInMuiColAndRow, wrapElementInMuiRow } from "../../utils/Commons";
 import { executeCommand } from "../../commons/utilsFunctions";
 
