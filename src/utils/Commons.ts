@@ -44,25 +44,29 @@ export const createMuiCol = (width : string) => {
 	return newCol;
 };
 
-export const wrapElementInMuiRow = (element: HTMLElement) => {
+export const wrapElementInMuiRow = (element: HTMLElement, rowStyleClass?: string,) => {
 	const newRow = document.createElement("div");
 	newRow.classList.add("mui-row");
+	if(rowStyleClass){newRow.classList.add(rowStyleClass);}
 	newRow.appendChild(element);
 	return newRow;
 };
 
-export const wrapElementInMuiCol = (width : string, element: HTMLElement) => {
+export const wrapElementInMuiCol = (width : string, element: HTMLElement, colStyleClass?: string) => {
 	const newCol = document.createElement("div");
 	newCol.classList.add("mui-col-"+width);
+	if (colStyleClass) {newCol.classList.add(colStyleClass);}
 	newCol.appendChild(element);
 	return newCol;
 };
 
-export const wrapElementInMuiColAndRow = (width : string, element: HTMLElement) => {
+export const wrapElementInMuiColAndRow = (width : string, element: HTMLElement, rowStyleClass?: string, colStyleClass?: string) => {
 	const newRow = document.createElement("div");
 	newRow.classList.add("mui-row");
+	if(rowStyleClass){newRow.classList.add(rowStyleClass);}
 	const newCol = document.createElement("div");
 	newCol.classList.add("mui-col-"+width);
+	if(colStyleClass){newCol.classList.add(colStyleClass);}
 	newCol.appendChild(element);
 	newRow.appendChild(newCol);
 	return newRow;

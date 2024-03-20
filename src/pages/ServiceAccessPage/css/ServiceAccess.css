@@ -126,3 +126,48 @@ span.small::after{
     content: "\a";
     white-space: pre;
 }
+
+input {
+    width: 85%; 
+    border-radius: 4px;  
+    background-color: #ffffff;
+    border: none;  
+    padding: 15px 32px; 
+    text-align: center;  
+    text-decoration: none;
+    display: inline-flex;				
+    font-size: 16px;
+    margin-bottom: 10px;
+    float: right;
+    outline: white;
+    font-weight: 600;
+    cursor:pointer;
+    font-family:  "Titillium Web", sans-serif;
+    color: black;
+    border: 1px solid #e8ebf1;
+    border-style: solid;
+    justify-content: space-between;
+    text-align: left;
+
+}
+
+input:focus {
+    outline: 1px solid #0066cc;
+}
+
+label{
+    width:60%;
+    text-align: start;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+div .mui-row {
+    margin-bottom: 2%;
+}
+
+div .left{
+    background-color: #e1f5fe;
+    border-radius: 4px;
+}
