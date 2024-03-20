@@ -1,3 +1,5 @@
+
+@import "root.css";
 .decoded-html {
     font-family: "Titillium Web", sans-serif;
 }
@@ -99,11 +101,11 @@
     font-size: 16px;
     margin: 10px;
     float: right;
-    color: white;
+    /* color: white; */
     font-weight: 600;
     cursor:pointer;
     font-family:  "Titillium Web", sans-serif;
-    color: #D75252;
+    color: var(--error-main);
     border: 1px;
     border-color: #D75252;
     border-style: solid;
