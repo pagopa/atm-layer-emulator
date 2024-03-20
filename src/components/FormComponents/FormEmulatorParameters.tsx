@@ -23,7 +23,7 @@ export const FormEmulatorParameters = () => {
 		branchId: "12345",
 		code: "0001",
 		terminalId: "64874412",
-		fiscalCode: "RSSMRA74D22A001Q",
+		fiscalCode: "SNNCNA88S04A567U",
 		printer: "OK",
 		scanner: "OK",
 	};
@@ -265,7 +265,7 @@ export const FormEmulatorParameters = () => {
 						/>
 					}
 					label={
-						<Typography noWrap>
+						<Typography>
 							Stampante
 						</Typography>
 					}
@@ -284,7 +284,7 @@ export const FormEmulatorParameters = () => {
 						/>
 					}
 					label={
-						<Typography noWrap>
+						<Typography>
 							Scanner
 						</Typography>
 					}
@@ -303,7 +303,7 @@ export const FormEmulatorParameters = () => {
 						/>
 					}
 					label={
-						<Typography noWrap>
+						<Typography>
 							ATM Touch
 						</Typography>
 					}

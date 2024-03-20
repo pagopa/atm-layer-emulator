@@ -119,14 +119,18 @@ const ServiceAccessPage = () => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
 			const dataString = button.getAttribute("data");
-			const data = dataString ? JSON.parse(dataString) : {};
-			const params: any = { ...data };
-			const inputElements = document?.querySelectorAll("input");
-		
-			inputElements.forEach((input: any) => {
-				params[input.id] = input.value;
-			});
-			void next(params);
+			if(dataString){
+				const data = dataString ? JSON.parse(dataString) : {};
+				const params: any = { ...data };
+				const inputElements = document?.querySelectorAll("input");
+				inputElements.forEach((input: any) => {
+					params[input.id] = input.value;
+				});
+				void next(params);
+			} else {
+				void next({selected: button.id, continue: true});
+			}
+			
 		}
 	};
 
