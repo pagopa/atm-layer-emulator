@@ -13,6 +13,7 @@ import { executeCommand } from "../../commons/utilsFunctions";
 
 
 
+// eslint-disable-next-line complexity
 const ServiceAccessPage = () => {
 
 	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface } = useContext(Ctx);
@@ -146,24 +147,25 @@ const ServiceAccessPage = () => {
 	const grid = document.createElement("div");
 	grid.classList.add("decoded-html");
 
-	const liElements = bodyHtml?.querySelectorAll("li");
 
-	liElements?.forEach((li: any) => {
-		const button = document?.createElement("button");
-		button.innerHTML = li?.innerHTML;
-		button.id = li.id;
-		li.parentNode.replaceChild(button, li);
-	});
 
-	const menu = bodyHtml?.querySelector("#menu");
-	if (menu) {
-		grid.classList.add("mui-container-fluid");
-		grid.innerHTML = menu?.innerHTML;
-		grid.id = menu.id;
-		menu.parentNode?.replaceChild(grid, menu);
+	if (templateType ==="MENU") {
+		const liElements = bodyHtml?.querySelectorAll("li");
+		liElements?.forEach((li: any) => {
+			const button = document?.createElement("button");
+			button.innerHTML = li?.innerHTML;
+			button.id = li.id;
+			li.parentNode.replaceChild(button, li);
+		});
+
+		const menu = bodyHtml?.querySelector("#menu");
+		if (menu) {
+			grid.classList.add("mui-container-fluid");
+			grid.innerHTML = menu?.innerHTML;
+			grid.id = menu.id;
+			menu.parentNode?.replaceChild(grid, menu);
+		}
 	}
-
-
 
 	const headerRow = createMuiRow();
 	const logoElement = bodyHtml?.querySelector("#logo");
@@ -181,29 +183,43 @@ const ServiceAccessPage = () => {
 	grid?.appendChild(headerRow);
 
 
-
 	const titleElement = bodyHtml?.querySelector("h2");
 	if (titleElement) {
 		titleElement.classList.add("decoded-title", templateType === "MENU"? "left-aligned-text":"centered-text");
-		const titleRow = wrapElementInMuiColAndRow("md-8", titleElement);
+		const titleRow = wrapElementInMuiColAndRow("md-8", titleElement, templateType === "MENU"? "left-aligned-element":"centered-element");
 		grid?.appendChild(titleRow);
 	}
 	
 	const subtitleElement = bodyHtml?.querySelector("h3");
 	if (subtitleElement) {
 		subtitleElement.classList.add("decoded-subtitle", templateType === "MENU"? "left-aligned-text":"centered-text");
-		const subtitleRow = wrapElementInMuiColAndRow("md-8", subtitleElement);
+		const subtitleRow = wrapElementInMuiColAndRow("md-8", subtitleElement, templateType === "MENU"? "left-aligned-element":"centered-element");
 		grid?.appendChild(subtitleRow);
 	}
 
 
-	if (templateType==="SUMMARY"){
-		const tableRow = document.createElement("div");
-		tableRow.classList.add("mui-row", "centered-element");
+	switch (templateType){
+	case "SUMMARY":
 		const tableElement = bodyHtml?.querySelector("table");
-		tableRow.appendChild(tableElement);
+		const tableRow = wrapElementInMuiRow(tableElement);
+		tableRow.classList.add("centered-element");
 		grid.appendChild(tableRow);
+		const paragraphElement = bodyHtml?.querySelector("p");
+		if (paragraphElement){const paragraphRow = wrapElementInMuiColAndRow("md-6", paragraphElement, undefined, "left");
+			grid.appendChild(paragraphRow);}
+		break;
+	case "FORM":
+		const inputElement = bodyHtml?.querySelector("input");
+		const labelElement = bodyHtml?.querySelector("label");
+		const inputRow = wrapElementInMuiColAndRow("md-10",labelElement,"centered-element", "centered-element");
+		grid.appendChild(inputRow);
+		break;
+	case "FULL_SCREEN":
+		const imgElement = bodyHtml?.querySelector("img");
+		const imgRow = wrapElementInMuiRow(imgElement, "centered-element");
+		grid.appendChild(imgRow);
 	}
+
 
 	const rowButtons = document.createElement("div");
 	rowButtons.classList.add("mui-row", templateType === "MENU"? "centered-element-vertical":"centered-element");
