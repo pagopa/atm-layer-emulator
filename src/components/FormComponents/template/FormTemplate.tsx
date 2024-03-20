@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Grid, Typography, Box, useTheme, Button, useMediaQuery } from "@mui/material";
-import { TitleComponent } from "../../TitleComponents/TitleComponent";
 import { Loading } from "../../Commons/Loading";
 import { Ctx } from "../../../DataContext";
 
@@ -14,7 +13,7 @@ type Props = {
 
 export default function FormTemplate({ handleSubmit, children, loadingButton, handleSubmitTest }: Readonly<Props>) {
 	const theme = useTheme();
-	const isXl = useMediaQuery(theme.breakpoints.only("xl"));
+	const isMd = useMediaQuery(theme.breakpoints.only("md"));
 
 	const inputGroupStyle = {
 		borderWidth: "1px",
@@ -25,9 +24,9 @@ export default function FormTemplate({ handleSubmit, children, loadingButton, ha
 
 
 	// const disabledConfirmButton = () => openSnackBar ? true : false;
-	console.log(window.innerWidth>theme.breakpoints.values.md);
+	// console.log(window.innerWidth>theme.breakpoints.values.md);
 	return (
-		<Box sx={{ maxWidth: isXl ? "50%" : "100%" }}>
+		<Box sx={{ maxWidth: isMd ? "60%" : "100%" }}>
 			<Box p={3} my={3} mx={"auto"} sx={inputGroupStyle}  >
 				<Grid container >
 					<Grid item xs={12}>
