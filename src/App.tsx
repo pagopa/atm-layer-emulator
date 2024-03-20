@@ -4,10 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Route, Routes } from "react-router-dom";
 import { themeApp } from "./assets/jss/themeApp";
 import { Ctx } from "./DataContext.js";
-import { ScannerPage } from "./pages/ScannerPage/ScannerPage";
 import { CommonErrorPage } from "./pages/ErrorPage/CommonErrorPage";
-import WarningCodeInput from "./pages/WarningCodePage/WarningCodeInput";
-// import EcFiscalCodeInput from "./pages/EcFiscalCodePage/EcFiscalCodeInput";
 import routes from "./routes";
 import PageLayout from "./pages/Layout/PageLayout";
 import { JwtUser } from "./components/model/UserModel";
@@ -16,20 +13,14 @@ import HomePage from "./pages/HomePage";
 import LoginPageCallback from "./pages/LoginPageCallback";
 // import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
 import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage copy";
-import TestPage from "./pages/TestPage";
+
 
 
 const LocalRoutes = () => (
 	<Routes>
 
 		<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
-		
-		<Route path={routes.SCANNER_PAGE} element={<PageLayout><ScannerPage /></PageLayout>} />
-		<Route path={routes.WARNING_CODE} element={<PageLayout><WarningCodeInput /></PageLayout>} />
-		{/* <Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} /> */}
 		<Route path={routes.SERVICE_ACCESS} element={<ServiceAccessPage />} />
-		<Route path={routes.TEST} element={<TestPage />} />
-		{/* <Route path={routes.EC_FISCAL_CODE} element={<PageLayout><EcFiscalCodeInput /></PageLayout>} /> */}
 		<Route
 			path={routes.ERROR_PAGE}
 			element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>}
@@ -44,7 +35,6 @@ function App() {
 	const RELEASE_VERSION = process.env.REACT_APP_VERSION;
 
 	const [warningCodeValue, setWarningCodeValue] = useState("");
-	// const [ecFiscalCodeValue, setEcFiscalCodeValue] = useState("");
 	const [loading, setLoading] = useState(false);
 	const temp = sessionStorage.getItem("tempLog");
 	const jwt = sessionStorage.getItem("jwt_emulator");
@@ -81,8 +71,6 @@ function App() {
 	const values = {
 		warningCodeValue,
 		setWarningCodeValue,
-		// ecFiscalCodeValue,
-		// setEcFiscalCodeValue,
 		loading,
 		setLoading,
 		clearAll,
