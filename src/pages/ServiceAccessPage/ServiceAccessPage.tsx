@@ -8,7 +8,10 @@ import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRender
 const ServiceAccessPage = () => {
 	const { responseProcess, touchInterface } = useContext(Ctx);
 	console.log("template",responseProcess?.task?.template?.content);
-	const bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
+	// eslint-disable-next-line functional/no-let
+	let bodyHtml :any ;
+	if(responseProcess?.task?.template?.content)
+	{ bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);}
 	console.log("parsed body", bodyHtml);
 	console.log(bodyHtml);
 
@@ -22,15 +25,15 @@ const ServiceAccessPage = () => {
 	if (responseProcess?.task?.template?.type === "MENU"){
 
 		// Sostituisci gli elementi <li> con bottoni <button>
-		const liElements = bodyHtml.querySelectorAll("li");
-		liElements.forEach((li: any) => {
+		const liElements = bodyHtml?.querySelectorAll("li");
+		liElements?.forEach((li: any) => {
 			const button = document.createElement("button");
 			button.innerHTML = li.innerHTML;
 			button.id = li.id;
 			li.parentNode.replaceChild(button, li);
 		});
 
-		const menu = bodyHtml.querySelector("#menu");
+		const menu = bodyHtml?.querySelector("#menu");
 		if (menu) {
 			// aggiungi alla griglia lo stile del container
 			grid.classList.add("mui-container-fluid");
@@ -64,7 +67,7 @@ const ServiceAccessPage = () => {
 				rowButtons.appendChild(buttonColumn);
 			}
 			// Prendersi l'elemento con id "pagamentoAviso"
-			const renderedButton = bodyHtml.querySelector(responseButton.id);
+			const renderedButton = bodyHtml?.querySelector(responseButton.id);
 			if (renderedButton) {
 				renderedButton.setAttribute("style", "width: 100%");
 				// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
