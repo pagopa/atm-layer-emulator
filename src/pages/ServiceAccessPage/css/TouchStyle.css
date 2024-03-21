@@ -1,4 +1,4 @@
-#title_page {
+#touch #title_page {
 	color: white;
 	padding: 10;
 	text-align: center;
@@ -7,7 +7,7 @@
 	background-image: linear-gradient(to bottom, #ececec, #0066cc);
 }
 
-#subtitle {
+#touch #subtitle {
 	padding: 5;
 	text-align: left;
 	font-size: large;
@@ -15,13 +15,13 @@
 	/* //background-image: linear-gradient(to bottom, #ECECEC, #0066CC); */
 }
 
-#logo {
+#touch #logo {
 	position: absolute;
 	height: 60px;
 	margin: 10px;
 }
 
-h1 {
+#touch h1 {
 	letter-spacing: -0.011em;
 	font-size: 24px;
 	text-align: right;
@@ -31,7 +31,7 @@ h1 {
 	line-height: 28px;
 }
 
-h2 {
+#touch h2 {
 	font-weight: 600;
 	font-size: 28px;
 	line-height: 42px;
@@ -42,7 +42,7 @@ h2 {
 	padding-right: 20px;
 }
 
-h3 {
+#touch h3 {
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 24px;
@@ -52,42 +52,42 @@ h3 {
 	padding-right: 20px;
 }
 
-[data-fdk='S4'] {
+#touch [data-fdk='S4'] {
 	position: absolute;
 	top: 530px;
 	left: 0px;
 	right: auto;
 }
 
-[data-fdk='S3'] {
+#touch [data-fdk='S3'] {
 	position: absolute;
 	top: 400px;
 	left: 0px;
 	right: auto;
 }
 
-[data-fdk='S7'] {
+#touch [data-fdk='S7'] {
 	position: absolute;
 	right: 0px;
 	left: auto;
 	top: 400px;
 }
 
-[data-fdk='S8'] {
+#touch [data-fdk='S8'] {
 	position: absolute;
 	right: 0px;
 	left: auto;
 	top: 530px;
 }
 
-button:not([data-fdk]) {
+#touch button:not([data-fdk]) {
 	position: absolute;
 	right: 260px;
 	left: auto;
 	top: 530px;
 }
 
-.central {
+#touch .central {
 	margin-right: auto;
 	margin-left: auto;
 	display: block;
@@ -95,19 +95,19 @@ button:not([data-fdk]) {
 	position: relative;
 }
 
-.central ~ h2 {
+#touch .central ~ h2 {
 	text-align: center;
 	top: calc(50% - 200px);
 	position: relative;
 }
 
-.central ~ h3 {
+#touch .central ~ h3 {
 	text-align: center;
 	top: calc(50% - 200px);
 	position: relative;
 }
 
-button {
+#touch button {
 	border-radius: 10px;
 	background-color: #0066cc;
 	border: none;
@@ -126,13 +126,13 @@ button {
 	top: 530px;
 }
 
-button.negative {
+#touch button.negative {
 	background-color: #ececec;
 	color: #0066cc;
 	border: 2px solid;
 }
 
-#exit {
+#touch #exit {
 	background-color: #ececec;
 	color: rgba(204, 0, 0, 1);
 	border: 2px solid;
@@ -140,7 +140,7 @@ button.negative {
 	background-position-y: center;
 }
 
-#exit {
+#touch #exit {
 	background-color: #ececec;
 	color: rgba(204, 0, 0, 1);
 	border: 2px solid;
@@ -148,7 +148,7 @@ button.negative {
 	background-position-y: center;
 }
 
-#back {
+#touch #back {
 	background-color: #0066cc;
 	color: rgba(0, 102, 204, 1);
 	border: 2px solid;
@@ -156,13 +156,13 @@ button.negative {
 	background-position-y: center;
 }
 
-button.exit {
+#touch button.exit {
 	background-color: #ececec;
 	float: left;
 	color: black;
 }
 
-.body {
+#touch .body {
 	border-style: solid;
 	width: 800px;
 	height: 600px;
@@ -171,7 +171,7 @@ button.exit {
 	margin: auto;
 }
 
-input {
+#touch input {
 	width: 70%;
 	padding: 12px 20px;
 	margin: auto;
@@ -181,13 +181,13 @@ input {
 	background-color: rgba(0, 180, 204, 0.12);
 }
 
-ul {
+#touch ul {
 	list-style-type: none;
 	padding-left: 0px;
 	overflow: auto;
 	max-height: 350px;
 }
-li {
+#touch li {
 	border-radius: 4px;
 	border: none;
 	padding: 15px 10px;
@@ -208,30 +208,30 @@ li {
 	vertical-align: top;
 }
 
-li > span.small {
+#touch li > span.small {
 	color: rgba(0, 102, 204, 1);
 }
 
-li > span {
+#touch li > span {
 	transition: 0.5s;
 }
 
-li > img {
+#touch li > img {
 	position: absolute;
 	bottom: 5px;
 	margin-left: 10px;
 	right: 40px;
 }
 
-li > img + img {
+#touch li > img + img {
 	right: 75px;
 }
 
-li > img + img + img {
+#touch li > img + img + img {
 	right: 110px;
 }
 
-li span:after {
+#touch li span:after {
 	content: '\00bb';
 	position: absolute;
 	opacity: 1;
@@ -243,7 +243,7 @@ li span:after {
 	color: rgba(0, 102, 204, 1);
 }
 
-.loader {
+#touch .loader {
 	border: 10px solid #f3f3f3;
 	border-radius: 50%;
 	border-top: 10px solid #3498db;
@@ -257,7 +257,7 @@ li span:after {
 	animation: spin 1s linear infinite;
 }
 
-.loader::after {
+#touch .loader::after {
 	position: absolute;
 	top: -2370px;
 	left: -2370px;
@@ -287,7 +287,7 @@ li span:after {
 	}
 }
 
-label {
+#touch label {
 	display: block;
 	text-overflow: ellipsis;
 	margin: 26px;
@@ -296,54 +296,54 @@ label {
 	margin-left: auto;
 }
 
-span.small {
+#touch span.small {
 	display: inline-block;
 	text-align: left;
 	font-size: 12px;
 	color: gray;
 }
 
-span.large {
+#touch span.large {
 	display: inline-block;
 	text-align: left;
 	font-size: 28px;
 	color: black;
 }
 
-td > p > span,
-td > span {
+#touch td > p > span,
+#touch td > span {
 	color: black;
 	font-size: 20px;
 	font-weight: 900;
 }
 
-table {
+#touch table {
 	margin-left: auto;
 	margin-right: auto;
 	width: 80%;
 	text-align: center;
 }
 
-th {
+#touch th {
 	font-size: 25px;
 	font-weight: 900;
 }
 
-th,
-tr {
+#touch th,
+#touch tr {
 	text-align: left;
 }
 
-th.right,
-td.right {
+#touch th.right,
+#touch td.right {
 	text-align: right;
 }
 
-td {
+#touch td {
 	border-bottom: 1px solid lightGrey;
 }
 
-p.left {
+#touch p.left {
 	margin: 10px;
 	width: 350px;
 	background-color: lightBlue;
@@ -352,40 +352,40 @@ p.left {
 	padding-left: 15px;
 }
 
-td > p {
+#touch td > p {
 	display: inline-block;
 }
 
-span::before {
+#touch span::before {
 	content: '\A';
 	white-space: pre;
 }
 
-thead::before {
+#touch thead::before {
 	content: '-';
 	display: block;
 	line-height: 3em;
 	color: transparent;
 }
 
-.EPP {
+#touch .EPP {
 	position: absolute;
 	left: 834px;
 	top: 200px;
 }
 
-.EPP > button {
+#touch .EPP > button {
 	float: none;
 	background-color: #ececec;
 	color: black;
 	border: 1px solid;
 }
 
-.EPP > button[onclick] {
+#touch .EPP > button[onclick] {
 	background-color: #0066cc;
 }
 
-#message_free {
+#touch #message_free {
 	margin: auto;
 	padding: 100px 50px;
 	font-size: x-large;

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Grid, Typography, Box, useTheme, Button, useMediaQuery } from "@mui/material";
+import { Grid, Typography, Box, useTheme, Button } from "@mui/material";
 import { Loading } from "../../Commons/Loading";
 import { Ctx } from "../../../DataContext";
 
@@ -38,10 +38,9 @@ export default function FormTemplate({ handleSubmit, children, loadingButton }: 
 					{children}
 				</Grid>
 				<Box display="flex" justifyContent="flex-end" mt={2}>
-					<Button variant="contained" onClick={handleSubmit} /* disabled={disabledConfirmButton()} */>
+					<Button variant="contained" onClick={handleSubmit} id="confirm-button" /* disabled={disabledConfirmButton()} */>
 						{loadingButton ? <Loading size={20} thickness={5} marginTop={"0px"} color={"white"} /> : "Conferma"}
 					</Button>
-
 				</Box>
 			</Box>
 		</Box>
