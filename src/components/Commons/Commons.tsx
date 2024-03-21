@@ -2,8 +2,6 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/immutable-data */
 
-import ROUTES from "../../routes";
-
 
 export const resetErrors = (errors: any, setErrors: any, field: string | number) => {
 	if (field) {

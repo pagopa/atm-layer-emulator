@@ -21,16 +21,14 @@ defaults:
   run:
     shell: bash
 
-permissions:
-  id-token: write
-  contents: write
+permissions: write-all
 
 jobs:
   manual-promote-release-in-uat:
     if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/uat'
     strategy:
       matrix:
-        environment: [dev]
+        environment: [uat]
 
     name: "manual-promote-release-in-uat"
     runs-on: ubuntu-latest
@@ -39,13 +37,33 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-                          
+
+      - name: Cut $github.repository string
+        id: cut_repository
+        run: |
+          repository="${{ github.repository }}"
+          cut_repository=${repository#*/}
+          echo "Cut repository: $cut_repository"
+          echo "::set-output name=cut_repository::$cut_repository"
+    
+      - uses: robinraju/release-downloader@v1.8
+        with:
+          repository: "${{ github.repository }}"
+          tag: "${{ inputs.release }}"
+          zipBall: true
+          out-file-path: "${{ inputs.release }}"
+
+      - name: Unzip tag = ${{ inputs.release }}
+        run: |
+          cd ${{ inputs.release }}
+          unzip ${{ steps.cut_repository.outputs.cut_repository }}-${{ inputs.release }}.zip
+
       - name: Commit with "${{ inputs.commit }}:" prefix
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git pull
-          git add .
+          git add -N .
           git commit --allow-empty -m "${{ inputs.commit }}: ${{ github.sha }}"
           git push
 
@@ -61,12 +79,51 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Update file package.json with the new version
+        if: steps.semantic-release-dryrun.outputs.new_release_published == 'true'
+        run: |
+          echo "`jq '.version = "v${{ steps.semantic-release-dryrun.outputs.new_release_version }}"' package.json`" > package.json
+          git pull
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add package.json
+          git commit --allow-empty -m "package.json updated with new version ${{ steps.semantic-release-dryrun.outputs.new_release_version }}"
+          git push
+
+      - name: Update file .env.test  and .env.production with the new version
+        if: steps.semantic-release-dryrun.outputs.new_release_published == 'true'
+        run: |
+          sed -i 's/^REACT_APP_VERSION=.*/REACT_APP_VERSION=v${{ steps.semantic-release-dryrun.outputs.new_release_version }}/' .env.test
+          sed -i 's/^REACT_APP_VERSION=.*/REACT_APP_VERSION=v${{ steps.semantic-release-dryrun.outputs.new_release_version }}/' .env.production
+          git pull
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add .env.development .env.test .env.production
+          git commit --allow-empty -m ".env.test and .env.production updated with new version ${{ steps.semantic-release-dryrun.outputs.new_release_version }}"
+          git push
+
+      - name: Run test
+        run: |
+          npm install
+      #     npm run test:full-coverage
+
+      # - name: Test Report
+      #   uses: dorny/test-reporter@v1.8.0
+      #   with:
+      #     name: JEST Tests uat            # Name of the check run which will be created
+      #     path: reports/jest-*.xml        # Path to test results
+      #     reporter: jest-junit            # Format of test results
+
+      - name: Build app
+        run: |
+          npm run build:uat
+
       - name: Commit with "${{ inputs.commit }}:" prefix
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git pull
-          git add .
+          git add -N .
           git commit --allow-empty -m "${{ inputs.commit }}: image: v${{ steps.semantic-release-dryrun.outputs.new_release_version }}"
           git push
 
@@ -81,39 +138,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update file package.json with the new version
-        if: steps.semantic-release.outputs.new_release_published == 'true'
-        run: |
-          echo "`jq '.version = "v${{ steps.semantic-release.outputs.new_release_version }}"' package.json`" > package.json
-          git pull
-          git config user.name "GitHub Action"
-          git config user.email "action@github.com"
-          git add package.json
-          git commit -m "package.json updated with new version ${{ steps.semantic-release.outputs.new_release_version }}"
-          git push
-
-      - name: Configure dev AWS Credentials
-        uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
-        with:
-          role-to-assume: ${{ secrets.IAM_ROLE }}
-          aws-region: ${{ vars.AWS_REGION }}
-
-      - name: Pull pre-release = ${{ inputs.release }} from dev S3
-        run: |
-          aws s3api get-object --bucket ${{ vars.BUCKET_NAME_ARTIFACTS }} --key ${{ inputs.release }}.zip ./${{ inputs.release }}.zip
-          unzip ${{ inputs.release }}.zip
-
       - name: Configure uat AWS Credentials
         uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
         with:
-          role-to-assume: ${{ secrets.UAT_IAM_ROLE }}
+          role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Zip app
         run: |
           zip -r v${{ steps.semantic-release.outputs.new_release_version }}.zip build
 
-      - name: Push release on uat S3
+      - name: Push pre-release on S3
         if: steps.semantic-release.outputs.new_release_published == 'true'
         run: |
-          aws s3 cp v${{ steps.semantic-release.outputs.new_release_version }}.zip s3://${{ vars.UAT_BUCKET_NAME_ARTIFACTS }}/
+          aws s3 cp v${{ steps.semantic-release.outputs.new_release_version }}.zip s3://${{ vars.BUCKET_NAME_ARTIFACTS }}/emulator/

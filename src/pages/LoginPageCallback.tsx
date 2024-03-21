@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Ctx } from "../DataContext";
 import routes from "../routes";
 // import { Loading } from "../components/Commons/Loading";
-import { fetchRequest } from "../hook/fetch/fetchRequest";
-import { USER_EMAIL } from "../commons/endpoints";
 import { Loading } from "../components/Commons/Loading";
 
 

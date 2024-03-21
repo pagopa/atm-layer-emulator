@@ -33,7 +33,6 @@ export default function useFetch(endPoint?: string | undefined) {
 			};
 		}
 
-
 		const options: any = isFormData
 			? {
 				method, //  POST, PUT, DELETE, etc.

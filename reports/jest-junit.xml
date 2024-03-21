@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="2" failures="1" errors="0" time="10.064">
+  <testsuite name="src\hook\fetch\__tests__\fetchRequest.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-11T16:54:05" time="1.902" tests="1">
+    <testcase classname="formOption Test" name="Verifica la presenza dei dati in valueObject" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="src\App.test.tsx" errors="0" failures="1" skipped="0" timestamp="2024-03-11T16:54:05" time="5.132" tests="1">
+    <testcase classname="" name="renders learn react link" time="0.087">
+      <failure>Error: useRoutes() may be used only in the context of a &lt;Router&gt; component.
+    at Object.invariant [as UNSAFE_invariant] (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\@remix-run\router\history.ts:494:11)
+    at useRoutesImpl (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-router\lib\hooks.tsx:353:3)
+    at useRoutes (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-router\lib\hooks.tsx:343:10)
+    at Routes (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-router\lib\components.tsx:507:10)
+    at renderWithHooks (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-dom\cjs\react-dom.development.js:16305:18)
+    at mountIndeterminateComponent (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-dom\cjs\react-dom.development.js:20074:13)
+    at beginWork (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-dom\cjs\react-dom.development.js:21587:16)
+    at beginWork$1 (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-dom\cjs\react-dom.development.js:27426:14)
+    at performUnitOfWork (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-dom\cjs\react-dom.development.js:26560:12)
+    at workLoopSync (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-dom\cjs\react-dom.development.js:26466:5)
+    at renderRootSync (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-dom\cjs\react-dom.development.js:26434:7)
+    at recoverFromConcurrentError (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-dom\cjs\react-dom.development.js:25850:20)
+    at performConcurrentWorkOnRoot (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react-dom\cjs\react-dom.development.js:25750:22)
+    at flushActQueue (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react\cjs\react.development.js:2667:24)
+    at act (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\react\cjs\react.development.js:2582:11)
+    at C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\@testing-library\react\dist\act-compat.js:63:25
+    at renderRoot (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\@testing-library\react\dist\pure.js:159:26)
+    at render (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\@testing-library\react\dist\pure.js:246:10)
+    at Object.&lt;anonymous&gt; (C:\PROJECTS\ATM-layer\atm-layer-emulator\src\App.test.tsx:6:8)
+    at Promise.then.completed (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\jest-circus\build\utils.js:391:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\jest-circus\build\run.js:66:9)
+    at run (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+    at runTestInternal (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\PROJECTS\ATM-layer\atm-layer-emulator\node_modules\jest-runner\build\testWorker.js:133:12)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>
