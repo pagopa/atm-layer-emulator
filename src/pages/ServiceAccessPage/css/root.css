@@ -4,6 +4,10 @@
 
     --font-family: "Titillium Web";
 
+    --font-size-h1: "pxToRem(42)";
+    --font-size-h2: "pxToRem(36)";
+    --font-size-h3: "pxToRem(32)";
+
     --background-paper: "#FFFFFF";
     --background-default: "#F2F2F2";
     --primary-main: "#0073E6";

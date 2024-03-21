@@ -23,7 +23,7 @@
 
 h1 {
     letter-spacing: -0.011em;
-    font-size: 24px;
+    font-size: var(--font-size-h1);
     text-align: right;
     padding-right: 20px;
     color: #17324d;
@@ -33,7 +33,7 @@ h1 {
 
 h2 {
     font-weight: 600;
-    font-size: 28px;
+    font-size: var(--font-size-h2);
     line-height: 42px;
     color: #17324d;
     margin-top: 50px;
@@ -44,7 +44,7 @@ h2 {
 
 h3 {
     font-weight: 400;
-    font-size: 16px;
+    font-size: var(--font-size-h3);
     line-height: 24px;
     color: #5c6f82;
     margin-top: 0px;
