@@ -8,6 +8,7 @@ import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRender
 import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./css/CommonStyle.css";
+import "./css/NoTouchStyle.css";
 // import { createMuiRow, wrapElementInMuiCol, wrapElementInMuiColAndRow, wrapElementInMuiRow } from "../../utils/Commons";
 import { executeCommand } from "../../commons/utilsFunctions";
 
