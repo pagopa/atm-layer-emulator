@@ -80,12 +80,12 @@ h3 {
     top: 530px;
 }
 
-button:not([data-fdk], #home-button, #confirm-button) {
+/* button:not([data-fdk], #home-button, #confirm-button) {
     position: absolute;
     right: 260px;
     left: auto;
     top: 530px;
-}
+} */
 
 .central {
     margin-right: auto;
@@ -107,7 +107,7 @@ button:not([data-fdk], #home-button, #confirm-button) {
     position: relative;
 }
 
-button:not(#home-button, #confirm-button) {
+/* button:not(#home-button, #confirm-button) {
     border-radius: 10px;
     background-color: #0066cc;
     border: none;
@@ -160,7 +160,7 @@ button.exit {
     background-color: #ececec;
     float: left;
     color: black;
-}
+} */
 
 .body {
     border-style: solid;
@@ -182,7 +182,7 @@ input {
     background-color: rgba(0, 180, 204, 0.12);
 }
 
-ul {
+/* ul {
     list-style-type: none;
     padding-left: 0px;
     overflow: auto;
@@ -243,7 +243,7 @@ li span:after {
     transition: 0.5s;
     font-size: 33px;
     color: rgba(0, 102, 204, 1);
-}
+} */
 
 .loader {
     border: 10px solid #f3f3f3;

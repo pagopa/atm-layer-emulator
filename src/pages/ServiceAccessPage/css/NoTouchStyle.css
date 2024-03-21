@@ -114,7 +114,7 @@
     
     
     button:not(#home-button, #confirm-button) {   
-        border-radius: 10px;  
+        /* border-radius: 10px;  
         background-color: #0066CC;  
         border: none;  
         padding: 12px 32px; 
@@ -129,14 +129,35 @@
         cursor:pointer;				
         position: absolute;
         right: 0px;
-        top: 530px;
+        top: 530px; */
+        width: 50%; 
+        border-radius: 4px;  
+        background-color: #ffffff;
+        border: none;  
+        padding: 15px 32px; 
+        text-align: center;  
+        text-decoration: none;
+        display: inline-flex;				
+        font-size: 16px;
+        margin: 10px;
+        float: right;
+        color: white;
+        font-weight: 600;
+        cursor:pointer;
+        font-family:  "Titillium Web", sans-serif;
+        color: black;
+        border: 1px;
+        border-color: #E8EBF1;
+        border-style: solid;
+        justify-content: space-between;
+        align-items: center;
     }
     
-    button.negative { 
+    /* button.negative { 
     background-color: #ECECEC;
     color:  #0066CC;	
     border: 2px solid ;
-    }
+    } */
     
     #exit {
         background-color: #ECECEC;
@@ -192,9 +213,12 @@
         padding-left: 0px;
         overflow: auto;
         max-height: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
     }
     li {				
-        border-radius: 4px;  
+        /* border-radius: 4px;  
         background-color: #0066CC;  
         border: none;  
         padding: 15px 32px; 
@@ -211,7 +235,30 @@
         border-radius: 7px;
         box-shadow: 5px 5px 10px 0px #8e8e8e;
         transition: all 0.5s;
-        margin-bottom: 55px;
+        margin-bottom: 55px; */
+
+        width: 50%;
+        height: auto;
+        border-radius: 4px;  
+        background-color: #ffffff;
+        border: none;  
+        padding: 10px 20px; 
+        text-align: center;  
+        text-decoration: none;
+        display: inline-flex;				
+        font-size: 16px;
+        margin: 10px;
+        float: right;
+        color: white;
+        font-weight: 600;
+        cursor:pointer;
+        font-family:  "Titillium Web", sans-serif;
+        color: black;
+        border: 1px;
+        border-color: #E8EBF1;
+        border-style: solid;
+        justify-content: space-between;
+        align-items: center;
     }
     
     li > span.small {
@@ -227,7 +274,7 @@
         margin-left: 10px;
     }
     
-    li span:after {
+    /* li span:after {
       content: '\00bb';
       position: absolute;
       opacity: 0;
@@ -235,19 +282,19 @@
       top:0;
       transition: 0.5s;
       font-size: 33px;
-    }
+    } */
     
-    li:hover  {
+    /* li:hover  {
         padding-right: 57px;
         width: 275px;
-    }					
+    }					 */
     
-    li:hover span:after {
+    /* li:hover span:after {
       opacity: 1;
       right: 15;
       top:0;
       font-size: 33px;
-    }
+    } */
 
 
 .loader {
