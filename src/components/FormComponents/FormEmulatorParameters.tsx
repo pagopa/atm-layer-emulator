@@ -122,61 +122,10 @@ export const FormEmulatorParameters = () => {
 		};
 	};
 
-	const handleSubmitTest = async (e: React.FormEvent) => {
-		e.preventDefault();
-
-		if (validateForm()) {
-			const date = new Date().toISOString().slice(0, -5);
-			const postData = {
-				data: {
-					continue: true
-				},
-				device: {
-					bankId: formData.acquirerId,
-					branchId: formData.branchId,
-					channel: "ATM",
-					code: formData.code,
-					opTimestamp: date,
-					peripherals: [
-						{
-							id: "PRINTER",
-							name: "Receipt printer",
-							status: formData.printer
-						},
-						{
-							id: "SCANNER",
-							name: "Scanner",
-							status: formData.scanner
-						}
-					],
-					terminalId: formData.terminalId,
-				},
-				fiscalCode: formData.fiscalCode,
-			};
-
-			setLoadingButton(true);
-			try {
-				const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: postData, headers: { "Content-Type": "application/json" } })();
-				setLoadingButton(false);
-
-				if (response?.success) {
-					setResponseProcess(response?.valuesObj);
-					setTransactionData(formData);
-					navigate(ROUTES.TEST);
-				}
-			} catch (error) {
-				setLoadingButton(false);
-				console.log("Response negative: ", error);
-			};
-		};
-	};
-
-
 	return (
 		<FormTemplate
 			handleSubmit={handleSubmit}
 			loadingButton={loadingButton}
-			handleSubmitTest={handleSubmitTest}
 		>
 			<Grid xs={12} item my={1}>
 				<TextField

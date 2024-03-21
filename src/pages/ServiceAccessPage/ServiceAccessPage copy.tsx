@@ -8,7 +8,7 @@ import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRender
 import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./css/ServiceAccess.css";
-import { createMuiRow, wrapElementInMuiCol, wrapElementInMuiColAndRow, wrapElementInMuiRow } from "../../utils/Commons";
+// import { createMuiRow, wrapElementInMuiCol, wrapElementInMuiColAndRow, wrapElementInMuiRow } from "../../utils/Commons";
 import { executeCommand } from "../../commons/utilsFunctions";
 
 
@@ -139,6 +139,10 @@ const ServiceAccessPage = () => {
 		buttons?.forEach(button => {
 			button.addEventListener("click", handleClick);
 		});
+		const listButtons = document?.querySelectorAll("li");
+		listButtons?.forEach(listButton => {
+			listButton.addEventListener("click", handleClick);
+		});
 	};
 
 	const removeButtonClickListener = () => {
@@ -146,123 +150,127 @@ const ServiceAccessPage = () => {
 		buttons?.forEach(button => {
 			button.removeEventListener("click", handleClick);
 		});
+		const listButtons = document?.querySelectorAll("li");
+		listButtons?.forEach(listButton => {
+			listButton.removeEventListener("click", handleClick);
+		});
 	};
 
-	const grid = document.createElement("div");
-	grid.classList.add("decoded-html");
+	// const grid = document.createElement("div");
+	// grid.classList.add("decoded-html");
 
 
 
-	if (templateType ==="MENU") {
-		const liElements = bodyHtml?.querySelectorAll("li");
-		liElements?.forEach((li: any) => {
-			const button = document?.createElement("button");
-			button.innerHTML = li?.innerHTML;
-			button.id = li.id;
-			li.parentNode.replaceChild(button, li);
-		});
+	// if (templateType ==="MENU") {
+	// 	const liElements = bodyHtml?.querySelectorAll("li");
+	// 	liElements?.forEach((li: any) => {
+	// 		const button = document?.createElement("button");
+	// 		button.innerHTML = li?.innerHTML;
+	// 		button.id = li.id;
+	// 		li.parentNode.replaceChild(button, li);
+	// 	});
 
-		const menu = bodyHtml?.querySelector("#menu");
-		if (menu) {
-			grid.classList.add("mui-container-fluid");
-			grid.innerHTML = menu?.innerHTML;
-			grid.id = menu.id;
-			menu.parentNode?.replaceChild(grid, menu);
-		}
-	}
+	// 	const menu = bodyHtml?.querySelector("#menu");
+	// 	if (menu) {
+	// 		grid.classList.add("mui-container-fluid");
+	// 		grid.innerHTML = menu?.innerHTML;
+	// 		grid.id = menu.id;
+	// 		menu.parentNode?.replaceChild(grid, menu);
+	// 	}
+	// }
 
-	const headerRow = createMuiRow();
-	const logoElement = bodyHtml?.querySelector("#logo");
-	if (logoElement) {
-		const logoColumn = wrapElementInMuiCol("md-6", logoElement);
-		headerRow.appendChild(logoColumn);
-	}
-	const descElement = bodyHtml?.querySelector("h1");
-	if (descElement) {
-		descElement.classList.add("decoded-desc");
-		const descColumn = wrapElementInMuiCol("md-6", descElement);
-		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
-		headerRow.appendChild(descColumn);
-	}
-	grid?.appendChild(headerRow);
+	// const headerRow = createMuiRow();
+	// const logoElement = bodyHtml?.querySelector("#logo");
+	// if (logoElement) {
+	// 	const logoColumn = wrapElementInMuiCol("md-6", logoElement);
+	// 	headerRow.appendChild(logoColumn);
+	// }
+	// const descElement = bodyHtml?.querySelector("h1");
+	// if (descElement) {
+	// 	descElement.classList.add("decoded-desc");
+	// 	const descColumn = wrapElementInMuiCol("md-6", descElement);
+	// 	descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
+	// 	headerRow.appendChild(descColumn);
+	// }
+	// grid?.appendChild(headerRow);
 
 
-	const titleElement = bodyHtml?.querySelector("h2");
-	if (titleElement) {
-		titleElement.classList.add("decoded-title", templateType === "MENU"? "left-aligned-text":"centered-text");
-		const titleRow = wrapElementInMuiColAndRow("md-8", titleElement, templateType === "MENU"? "left-aligned-element":"centered-element");
-		grid?.appendChild(titleRow);
-	}
+	// const titleElement = bodyHtml?.querySelector("h2");
+	// if (titleElement) {
+	// 	titleElement.classList.add("decoded-title", templateType === "MENU"? "left-aligned-text":"centered-text");
+	// 	const titleRow = wrapElementInMuiColAndRow("md-8", titleElement, templateType === "MENU"? "left-aligned-element":"centered-element");
+	// 	grid?.appendChild(titleRow);
+	// }
 	
-	const subtitleElement = bodyHtml?.querySelector("h3");
-	if (subtitleElement) {
-		subtitleElement.classList.add("decoded-subtitle", templateType === "MENU"? "left-aligned-text":"centered-text");
-		const subtitleRow = wrapElementInMuiColAndRow("md-8", subtitleElement, templateType === "MENU"? "left-aligned-element":"centered-element");
-		grid?.appendChild(subtitleRow);
-	}
+	// const subtitleElement = bodyHtml?.querySelector("h3");
+	// if (subtitleElement) {
+	// 	subtitleElement.classList.add("decoded-subtitle", templateType === "MENU"? "left-aligned-text":"centered-text");
+	// 	const subtitleRow = wrapElementInMuiColAndRow("md-8", subtitleElement, templateType === "MENU"? "left-aligned-element":"centered-element");
+	// 	grid?.appendChild(subtitleRow);
+	// }
 
 
-	switch (templateType){
-	case "SUMMARY":
-		const tableElement = bodyHtml?.querySelector("table");
-		const tableRow = wrapElementInMuiRow(tableElement);
-		tableRow.classList.add("centered-element");
-		grid.appendChild(tableRow);
-		const paragraphElement = bodyHtml?.querySelector("p");
-		if (paragraphElement){const paragraphRow = wrapElementInMuiColAndRow("md-6", paragraphElement, undefined, "left");
-			grid.appendChild(paragraphRow);}
-		break;
-	case "FORM":
-		const inputElement = bodyHtml?.querySelector("input");
-		const labelElement = bodyHtml?.querySelector("label");
-		const inputRow = wrapElementInMuiColAndRow("md-10",labelElement,"centered-element", "centered-element");
-		grid.appendChild(inputRow);
-		break;
-	case "FULL_SCREEN":
-		const imgElement = bodyHtml?.querySelector("img");
-		const imgRow = wrapElementInMuiRow(imgElement, "centered-element");
-		grid.appendChild(imgRow);
-	}
+	// switch (templateType){
+	// case "SUMMARY":
+	// 	const tableElement = bodyHtml?.querySelector("table");
+	// 	const tableRow = wrapElementInMuiRow(tableElement);
+	// 	tableRow.classList.add("centered-element");
+	// 	grid.appendChild(tableRow);
+	// 	const paragraphElement = bodyHtml?.querySelector("p");
+	// 	if (paragraphElement){const paragraphRow = wrapElementInMuiColAndRow("md-6", paragraphElement, undefined, "left");
+	// 		grid.appendChild(paragraphRow);}
+	// 	break;
+	// case "FORM":
+	// 	const inputElement = bodyHtml?.querySelector("input");
+	// 	const labelElement = bodyHtml?.querySelector("label");
+	// 	const inputRow = wrapElementInMuiColAndRow("md-10",labelElement,"centered-element", "centered-element");
+	// 	grid.appendChild(inputRow);
+	// 	break;
+	// case "FULL_SCREEN":
+	// 	const imgElement = bodyHtml?.querySelector("img");
+	// 	const imgRow = wrapElementInMuiRow(imgElement, "centered-element");
+	// 	grid.appendChild(imgRow);
+	// }
 
 
-	const rowButtons = document.createElement("div");
-	rowButtons.classList.add("mui-row", templateType === "MENU"? "centered-element-vertical":"centered-element");
+	// const rowButtons = document.createElement("div");
+	// rowButtons.classList.add("mui-row", templateType === "MENU"? "centered-element-vertical":"centered-element");
 
-	grid?.appendChild(rowButtons);
+	// grid?.appendChild(rowButtons);
 
 	const buttonsArray = responseProcess?.task?.buttons;
-	buttonsArray?.forEach((responseButton: any) => {
-		const renderedButton = bodyHtml?.querySelector(`#${responseButton.id}`);
+	buttonsArray?.forEach((responseElement: any) => {
+		const renderedButton = bodyHtml?.querySelector(`#${responseElement.id}`);
 		if (renderedButton) {
-			const data = responseButton.data;
+			const data = responseElement.data;
 			if (data) {
 				renderedButton.setAttribute("data", JSON.stringify(data));
 			}
-			renderedButton.classList.add("decoded-normal-button");
-			const buttonColumn = wrapElementInMuiCol("md-12",renderedButton);
-			buttonColumn.classList.add(templateType === "MENU"? "left-aligned-element":"centered-element");
-			rowButtons.appendChild(buttonColumn);
-			const svgElement = parser.parseFromString(svgArrowIcon, "image/svg+xml").documentElement;
-			renderedButton.insertBefore(svgElement, renderedButton.firstChild);
+			// renderedButton.classList.add("decoded-normal-button");
+			// const buttonColumn = wrapElementInMuiCol("md-12",renderedButton);
+			// buttonColumn.classList.add(templateType === "MENU"? "left-aligned-element":"centered-element");
+			// rowButtons.appendChild(buttonColumn);
+			// const svgElement = parser.parseFromString(svgArrowIcon, "image/svg+xml").documentElement;
+			// renderedButton.insertBefore(svgElement, renderedButton.firstChild);
 		}
 	});
 
-	if (touchInterface){
-		const buttonExit = bodyHtml?.querySelector("#exit") as HTMLButtonElement;
-		if (buttonExit) {
-			const svgElement = parser.parseFromString(svgExitIcon, "image/svg+xml").documentElement;
-			svgElement.setAttribute("style", "margin-right: 16px");
-			buttonExit.insertBefore(svgElement, buttonExit.firstChild);
-			const rowButtonExit = wrapElementInMuiRow(buttonExit);
-			rowButtonExit.classList.add(templateType === "MENU"? "centered-element-vertical":"centered-element");
-			grid?.appendChild(rowButtonExit);
-		}
-	} else {
-		const buttonExit = bodyHtml?.querySelector("#exit") as HTMLButtonElement;
-		buttonExit?.remove();
-	}
+	// if (touchInterface){
+	// 	const buttonExit = bodyHtml?.querySelector("#exit") as HTMLButtonElement;
+	// 	if (buttonExit) {
+	// 		const svgElement = parser.parseFromString(svgExitIcon, "image/svg+xml").documentElement;
+	// 		svgElement.setAttribute("style", "margin-right: 16px");
+	// 		buttonExit.insertBefore(svgElement, buttonExit.firstChild);
+	// 		const rowButtonExit = wrapElementInMuiRow(buttonExit);
+	// 		rowButtonExit.classList.add(templateType === "MENU"? "centered-element-vertical":"centered-element");
+	// 		grid?.appendChild(rowButtonExit);
+	// 	}
+	// } else {
+	// 	const buttonExit = bodyHtml?.querySelector("#exit") as HTMLButtonElement;
+	// 	buttonExit?.remove();
+	// }
 
-	bodyHtml?.appendChild(grid);
+	// bodyHtml?.appendChild(grid);
 
 	return (
 		<div id={touchInterface ? "touch" : "no-touch"}>

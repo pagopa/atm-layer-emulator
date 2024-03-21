@@ -8,10 +8,9 @@ type Props = {
 	children?: any;
 	handleSwitchAssociationFetch?: () => Promise<void>;
 	loadingButton?: boolean;
-	handleSubmitTest?: (e: React.FormEvent) => void;
 };
 
-export default function FormTemplate({ handleSubmit, children, loadingButton, handleSubmitTest }: Readonly<Props>) {
+export default function FormTemplate({ handleSubmit, children, loadingButton }: Readonly<Props>) {
 	const theme = useTheme();
 
 	const inputGroupStyle = {
@@ -39,11 +38,6 @@ export default function FormTemplate({ handleSubmit, children, loadingButton, ha
 					{children}
 				</Grid>
 				<Box display="flex" justifyContent="flex-end" mt={2}>
-					{debugOn&& 
-						<Button variant="outlined" onClick={handleSubmitTest} color="error" sx={{marginRight:5}}>
-											Test
-						</Button>
-					}
 					<Button variant="contained" onClick={handleSubmit} /* disabled={disabledConfirmButton()} */>
 						{loadingButton ? <Loading size={20} thickness={5} marginTop={"0px"} color={"white"} /> : "Conferma"}
 					</Button>
