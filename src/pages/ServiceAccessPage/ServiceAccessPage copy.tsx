@@ -230,7 +230,7 @@ const ServiceAccessPage = () => {
 
 	grid?.appendChild(rowButtons);
 
-	const buttonsArray = responseProcess?.task?.buttons.filter((e: any) => e.id !== "exit");
+	const buttonsArray = responseProcess?.task?.buttons;
 	buttonsArray?.forEach((responseButton: any) => {
 		const renderedButton = bodyHtml?.querySelector(`#${responseButton.id}`);
 		if (renderedButton) {

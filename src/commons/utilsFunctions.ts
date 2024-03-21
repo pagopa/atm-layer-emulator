@@ -55,6 +55,7 @@ export function executeCommand(driver: string, next: any, responseProcess:any) {
 		break;
 	case END: 
 		void next("{\"result\":\"OK\"}");
+		history.back();
 		break;
 	case GET_IBAN: 
 		void next("{\"result\":\"OK\",\"IBANlist\":[{\"IBAN\":\"IT12A1234512345123456789012\",\"bankName\": \"INTESA\"},{\"IBAN\":\"IT12A1234512345123456789018\",\"bankName\": \"POSTE\"}]}");
