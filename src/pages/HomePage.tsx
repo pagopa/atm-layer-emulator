@@ -11,17 +11,17 @@ export default function HomePage() {
 	return (
 		<BoxPageLayout px={20}>
 			<Grid container spacing={0.5}>
-				{/* <HomePageTitle
+				<HomePageTitle
 					title={"Simulatore ATM"}
 					subTitle={"Strumento di simulazione per il comportamento delle risorse"}
-				/> */}
+				/>
 
 			</Grid>
-			{/* <Box my="2%" alignContent={"center"} >
+			<Box my="2%" alignContent={"center"} >
 				<Grid display={"flex"} justifyContent={"center"}>
 					<FormEmulatorParameters />
 				</Grid>
-			</Box> */}
+			</Box>
 		</BoxPageLayout>
 	);
 };

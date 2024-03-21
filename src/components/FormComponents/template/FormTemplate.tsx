@@ -1,16 +1,17 @@
-import { Grid, Typography, Box, useTheme, Button } from "@mui/material";
-import React, { SetStateAction } from "react";
-import { TitleComponent } from "../../TitleComponents/TitleComponent";
+import React, { useContext } from "react";
+import { Grid, Typography, Box, useTheme, Button, useMediaQuery } from "@mui/material";
 import { Loading } from "../../Commons/Loading";
+import { Ctx } from "../../../DataContext";
 
 type Props = {
 	handleSubmit: (e: React.FormEvent) => void;
 	children?: any;
 	handleSwitchAssociationFetch?: () => Promise<void>;
 	loadingButton?: boolean;
+	handleSubmitTest?: (e: React.FormEvent) => void;
 };
 
-export default function FormTemplate({ handleSubmit, children, loadingButton }: Readonly<Props>) {
+export default function FormTemplate({ handleSubmit, children, loadingButton, handleSubmitTest }: Readonly<Props>) {
 	const theme = useTheme();
 
 	const inputGroupStyle = {
@@ -18,11 +19,13 @@ export default function FormTemplate({ handleSubmit, children, loadingButton }: 
 		borderStyle: "solid",
 		borderColor: theme.palette.divider,
 	};
+	const {debugOn } = useContext(Ctx);
+
 
 	// const disabledConfirmButton = () => openSnackBar ? true : false;
-
+	// console.log(window.innerWidth>theme.breakpoints.values.md);
 	return (
-		<Box sx={{ maxWidth: "50%" }}>
+		<Box sx={{ maxWidth: window.innerWidth > theme.breakpoints.values.md ? "60%" : "100%" }}>
 			<Box p={3} my={3} mx={"auto"} sx={inputGroupStyle}  >
 				<Grid container >
 					<Grid item xs={12}>
@@ -36,7 +39,11 @@ export default function FormTemplate({ handleSubmit, children, loadingButton }: 
 					{children}
 				</Grid>
 				<Box display="flex" justifyContent="flex-end" mt={2}>
-
+					{debugOn&& 
+						<Button variant="outlined" onClick={handleSubmitTest} color="error" sx={{marginRight:5}}>
+											Test
+						</Button>
+					}
 					<Button variant="contained" onClick={handleSubmit} /* disabled={disabledConfirmButton()} */>
 						{loadingButton ? <Loading size={20} thickness={5} marginTop={"0px"} color={"white"} /> : "Conferma"}
 					</Button>

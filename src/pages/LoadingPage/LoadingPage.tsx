@@ -1,15 +1,13 @@
 import {Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { theme } from "@pagopa/mui-italia";
-import { Header } from "../../components/Header_old";
-import { getCompletePathImage } from "../../utils/Commons";
 
 export const LoadingPage = () => (
 	<>
-		<Header 
+		{/* <Header 
 			bankTitle="Test" 
 			bankLogo={getCompletePathImage("icon-48x48.png")} 
 			serviceDescription="Servizi di pubblica utilità" 
-		/>
+		/> */}
 		<Box 
 			height="90vh"
 			display="flex"

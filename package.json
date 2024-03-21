@@ -20,7 +20,7 @@
     "@mui/system": "^5.14.17",
     "@mui/utils": "^5.14.18",
     "@mui/x-data-grid": "^6.19.1",
-    "@pagopa/mui-italia": "^1.1.0",
+    "@pagopa/mui-italia": "^1.2.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.60",
     "@types/react": "^18.2.36",

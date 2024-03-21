@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FormControlLabel, Grid, Switch, TextField } from "@mui/material";
+import { FormControlLabel, Grid, Switch, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Ctx } from "../../DataContext";
 import { ParametersDto } from "../model/ParametersModel";
@@ -23,19 +23,19 @@ export const FormEmulatorParameters = () => {
 		branchId: "12345",
 		code: "0001",
 		terminalId: "64874412",
-		fiscalCode: "RSSMRA74D22A001Q",
+		fiscalCode: "SNNCNA88S04A567U",
 		printer: "OK",
 		scanner: "OK",
 	};
+	
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
-	const { abortController, setResponseProcess, touch, setTouch } = useContext(Ctx);
+	const { abortController, setResponseProcess,setTransactionData, touchInterface, setTouchInterface, debugOn } = useContext(Ctx);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		validateForm();
 	}, []);
-
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const target = e.target as HTMLInputElement;
@@ -46,7 +46,7 @@ export const FormEmulatorParameters = () => {
 			setFormData((prevFormData: any) => ({ ...prevFormData, [name]: checked ? "OK" : "KO" }));
 
 			if (name === "touch") {
-				setTouch(checked);
+				setTouchInterface(checked);
 			}
 		}else{
 			setFormData((prevFormData: any) => ({
@@ -112,7 +112,57 @@ export const FormEmulatorParameters = () => {
 
 				if (response?.success) {
 					setResponseProcess(response?.valuesObj);
+					setTransactionData(formData);
 					navigate(ROUTES.SERVICE_ACCESS);
+				}
+			} catch (error) {
+				setLoadingButton(false);
+				console.log("Response negative: ", error);
+			};
+		};
+	};
+
+	const handleSubmitTest = async (e: React.FormEvent) => {
+		e.preventDefault();
+
+		if (validateForm()) {
+			const date = new Date().toISOString().slice(0, -5);
+			const postData = {
+				data: {
+					continue: true
+				},
+				device: {
+					bankId: formData.acquirerId,
+					branchId: formData.branchId,
+					channel: "ATM",
+					code: formData.code,
+					opTimestamp: date,
+					peripherals: [
+						{
+							id: "PRINTER",
+							name: "Receipt printer",
+							status: formData.printer
+						},
+						{
+							id: "SCANNER",
+							name: "Scanner",
+							status: formData.scanner
+						}
+					],
+					terminalId: formData.terminalId,
+				},
+				fiscalCode: formData.fiscalCode,
+			};
+
+			setLoadingButton(true);
+			try {
+				const response = await fetchRequest({ urlEndpoint: TASK_MAIN, method: "POST", abortController, body: postData, headers: { "Content-Type": "application/json" } })();
+				setLoadingButton(false);
+
+				if (response?.success) {
+					setResponseProcess(response?.valuesObj);
+					setTransactionData(formData);
+					navigate(ROUTES.TEST);
 				}
 			} catch (error) {
 				setLoadingButton(false);
@@ -126,6 +176,7 @@ export const FormEmulatorParameters = () => {
 		<FormTemplate
 			handleSubmit={handleSubmit}
 			loadingButton={loadingButton}
+			handleSubmitTest={handleSubmitTest}
 		>
 			<Grid xs={12} item my={1}>
 				<TextField
@@ -202,7 +253,7 @@ export const FormEmulatorParameters = () => {
 					defaultValue={initialValues.fiscalCode}
 				/>
 			</Grid>
-			<Grid xs={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={12} md={4} item my={1} >
 				<FormControlLabel
 					id="printer"
 					value="OK"
@@ -213,12 +264,15 @@ export const FormEmulatorParameters = () => {
 							name="printer"
 						/>
 					}
-					label="Stampante"
+					label={
+						<Typography>
+							Stampante
+						</Typography>
+					}
 					labelPlacement="start"
 				/>
-
 			</Grid>
-			<Grid xs={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={12} md={4} item my={1} >
 				<FormControlLabel
 					id="scanner"
 					value="OK"
@@ -229,22 +283,30 @@ export const FormEmulatorParameters = () => {
 							name="scanner"
 						/>
 					}
-					label="Scanner"
+					label={
+						<Typography>
+							Scanner
+						</Typography>
+					}
 					labelPlacement="start"
 				/>
 			</Grid>
-			<Grid xs={4} item my={1} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+			<Grid xs={12} sm={4} item my={1} >
 				<FormControlLabel
 					id="touch"
 					value="touch"
 					control={
 						<Switch
-							checked={touch}
+							checked={touchInterface}
 							onChange={handleChange}
 							name="touch"
 						/>
 					}
-					label={"ATM touch"}
+					label={
+						<Typography>
+							ATM Touch
+						</Typography>
+					}
 					labelPlacement="start"
 				/>
 			</Grid>
