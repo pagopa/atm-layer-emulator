@@ -1,3 +1,11 @@
+@import url(../css/root.css);
+
+#touch:not(.touch-selector > #touch) {
+    width: 800px;
+    height: 600px;
+    border: 1px solid black;
+}
+
 #touch #title_page {
 	color: white;
 	padding: 10;
@@ -130,14 +138,6 @@
 	background-color: #ececec;
 	color: #0066cc;
 	border: 2px solid;
-}
-
-#touch #exit {
-	background-color: #ececec;
-	color: rgba(204, 0, 0, 1);
-	border: 2px solid;
-	background: url(./exit.svg) no-repeat;
-	background-position-y: center;
 }
 
 #touch #exit {
