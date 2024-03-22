@@ -10,8 +10,10 @@
 }
 
 #headerSection{
-    height: 6rem;
-    border-bottom: 1px solid #E8EBF1;
+    height: 5rem;
+    width: 100%;
+    padding: 0.5rem;
+    border-bottom: 0.2rem solid #E8EBF1;
 }
 
 #subtitle {
