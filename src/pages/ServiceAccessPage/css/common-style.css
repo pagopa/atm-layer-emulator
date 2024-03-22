@@ -45,7 +45,7 @@ h2 {
     font-size: var(--font-size-h2);
     line-height: 42px;
     color: var(--text-primary);
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 0px;
     padding-left: 20px;
     padding-right: 20px;
@@ -63,9 +63,8 @@ h3 {
 
 [data-fdk='S4'] {
     position: absolute;
-    top: 530px;
-    left: 0px;
-    right: auto;
+    top: 520px;
+    left: auto;
 }
 
 [data-fdk='S3'] {
@@ -84,17 +83,16 @@ h3 {
 
 [data-fdk='S8'] {
     position: absolute;
-    right: 0px;
-    left: auto;
-    top: 530px;
+    left: 610px;
+    top: 520px;
 }
 
-/* button:not([data-fdk], #home-button, #confirm-button) {
+button:not([data-fdk], #home-button, #confirm-button) {
     position: absolute;
     right: 260px;
     left: auto;
     top: 530px;
-} */
+}
 
 .central {
     margin-right: auto;

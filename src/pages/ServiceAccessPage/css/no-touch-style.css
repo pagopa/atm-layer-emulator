@@ -13,7 +13,7 @@
         border: 1px solid black;
     }
     
-    #subtitle {			
+    #no-touch #subtitle {			
     padding: 5;
     text-align: left;
     font-size: large;
@@ -21,7 +21,7 @@
     /* // background-image: linear-gradient(to bottom, #ECECEC, #0066CC); */
     }
     
-    #logo{
+    #no-touch #logo{
         position: absolute;
         height: 60px;
         margin:10px;
@@ -33,7 +33,7 @@
     } */
     
     
-    .central{
+    #no-touch .central{
         margin-right: auto;
         margin-left: auto;
         display: block;
@@ -41,13 +41,13 @@
         position: relative;
     }
     
-    .central ~ h2{
+    #no-touch .central ~ h2{
         text-align: center;
         top: calc(50% - 200px);
         position: relative;
     }
     
-    .central ~ h3{
+    #no-touch .central ~ h3{
         text-align: center;
         top: calc(50% - 200px);
         position: relative;
@@ -55,7 +55,7 @@
     
     
    
-    .central{
+    #no-touch .central{
         margin-right: auto;
         margin-left: auto;
         display: block;
@@ -63,13 +63,13 @@
         position: relative;
     }
     
-    .central ~ h2{
+    #no-touch .central ~ h2{
         text-align: center;
         top: calc(50% - 200px);
         position: relative;
     }
     
-    .central ~ h3{
+    #no-touch .central ~ h3{
         text-align: center;
         top: calc(50% - 200px);
         position: relative;
@@ -77,7 +77,7 @@
     
     
     
-    button:not(#home-button, #confirm-button) {   
+    #no-touch button:not(#home-button, #confirm-button) {   
         /* border-radius: 10px;  
         background-color: #0066CC;  
         border: none;  
@@ -123,7 +123,7 @@
     border: 2px solid ;
     } */
     
-    #exit {
+    #no-touch #exit {
         background-color: #ECECEC;
         color: rgba(204, 0, 0, 1);
         border: 2px solid;
@@ -131,15 +131,7 @@
         background-position-y: center;
     }
     
-    #exit {
-        background-color: #ECECEC;
-        color: rgba(204, 0, 0, 1);
-        border: 2px solid;
-        background:url(./exit.svg) no-repeat;
-        background-position-y: center;
-    }
-    
-    #back {
+    #no-touch #back {
         background-color: #0066CC;
         color: rgba(0, 102, 204, 1);
         border: 2px solid;
@@ -147,13 +139,13 @@
         background-position-y: center;
     } 
     
-    button.exit{
+    #no-touch button.exit{
         background-color: #ECECEC;
          float: left;
          color: black;
     }
     
-    ul {
+    #no-touch ul {
         list-style-type: none;
         padding-left: 0px;
         overflow: auto;
@@ -162,7 +154,7 @@
         flex-direction: column;
         align-items: start;
     }
-    li {				
+    #no-touch li {				
         /* border-radius: 4px;  
         background-color: #0066CC;  
         border: none;  
@@ -206,7 +198,7 @@
         align-items: center;
     }
     
-    li > span.small {
+    #no-touch li > span.small {
         color: rgba(236, 236, 236, 1);
     }	
     
@@ -215,7 +207,7 @@
          background:url(./leftArrow.svg) no-repeat;
     } */
 
-    li span::before {
+    #no-touch li span::before {
         content: url("leftArrow.svg");
         /* position: absolute;
         opacity: 1;
@@ -227,7 +219,7 @@
         color: rgba(0, 102, 204, 1); */
     }
 
-    li > img {
+    #no-touch li > img {
         display: block;
         float: right;
         margin-left: 10px;
@@ -256,7 +248,7 @@
     } */
 
 
-.loader {
+    #no-touch .loader {
 border: 10px solid #f3f3f3;
 border-radius: 50%;
 border-top: 10px solid #3498db;
@@ -271,7 +263,7 @@ animation: spin 1s linear infinite;
 
 }
 
-.loader::after {
+#no-touch .loader::after {
 position: absolute;
 top: -2370px;
 left: -2370px;
@@ -294,7 +286,7 @@ z-index: -1;
 100% { transform: rotate(720deg); }
 }
 
-label {
+#no-touch label {
 display: block;
 text-overflow: ellipsis;
 /* margin: 26px; */
@@ -305,7 +297,7 @@ margin-left: auto;
 
 
 
-span.small {
+#no-touch span.small {
 display: inline-block;
 text-align: left;	
 font-size: 12px;
@@ -313,7 +305,7 @@ color: gray;
 
 }
 
-span.large {
+#no-touch span.large {
 display: inline-block;
 text-align: left;
 font-size: 28px;
@@ -321,7 +313,7 @@ color: black;
 
 }
 
-td > p > span,td > span { 
+#no-touch td > p > span,td > span { 
 color: black;
 font-size: 20px;
 font-weight: 900;
@@ -329,31 +321,31 @@ font-weight: 900;
 
 
 
-table {
+#no-touch table {
 margin-left: auto;
 margin-right: auto;
 width: 80%;
 text-align: center;
 }
 
-th{
+#no-touch th{
 font-size: 25px;
 font-weight: 900;
 }
 
-th,tr {
+#no-touch th,tr {
 text-align: left;
 }
 
-th.right ,td.right {
+#no-touch h.right ,td.right {
 text-align: right;
 }
 
-td {
+#no-touch td {
 border-bottom: 1px solid lightGrey ;	
 }
 
-p.left {
+#no-touch p.left {
 margin: 10px;
 width: 350px;
 background-color: lightBlue;
@@ -364,7 +356,7 @@ padding-left: 15px;
 
 
 
-td > p{
+#no-touch td > p{
 display: inline-block;
 }
 
@@ -373,33 +365,33 @@ content: '\A';
 white-space: pre; 
 } */
 
-thead::before {	 
+#no-touch thead::before {	 
 content: "-";
 display: block;
 line-height: 3em;
 color: transparent;
 }
 
-.EPP{
+#no-touch .EPP{
 position: absolute;
 left: 834px;
 top: 200px;
 }
 
-.EPP > button{
+#no-touch .EPP > button{
 float: none;
 background-color: #ECECEC;
 color: black;
 border: 1px solid ;
 }
 
-.EPP > button[onclick] {
+#no-touch .EPP > button[onclick] {
 background-color: #0066CC;	
 }
 
 
 
-#message_free{
+#no-touch #message_free{
 margin: auto;
 padding: 100px 50px;
 font-size: x-large;

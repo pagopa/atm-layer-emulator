@@ -3,33 +3,37 @@
 #touch:not(.touch-selector > #touch) {
     width: 800px;
     height: 600px;
-    border: 1px solid black;
+    border: 2px solid black;
 }
 
-#touch #title_page {
+#touch #exit span {
+    vertical-align: middle;
+}
+
+/* #touch #title_page {
 	color: white;
-	padding: 10;
+	padding: 10px;
 	text-align: center;
 	font-size: xx-large;
 	font-weight: 600;
-	background-image: linear-gradient(to bottom, #ececec, #0066cc);
-}
+	background-image: linear-gradient(to bottom, #ECECEC, #0066CC);
+} */
 
-#touch #subtitle {
-	padding: 5;
+/* #touch #subtitle {
+	padding: 5px;
 	text-align: left;
 	font-size: large;
-	font-weight: 600;
+	font-weight: 600; */
 	/* //background-image: linear-gradient(to bottom, #ECECEC, #0066CC); */
-}
+/* } */
 
-#touch #logo {
+/* #touch #logo {
 	position: absolute;
 	height: 60px;
 	margin: 10px;
-}
+} */
 
-#touch h1 {
+/* #touch h1 {
 	letter-spacing: -0.011em;
 	font-size: 24px;
 	text-align: right;
@@ -58,11 +62,11 @@
 	margin-top: 0px;
 	padding-left: 20px;
 	padding-right: 20px;
-}
+} */
 
-#touch [data-fdk='S4'] {
+/* #touch [data-fdk='S4'] {
 	position: absolute;
-	top: 530px;
+	top: 520px;
 	left: 0px;
 	right: auto;
 }
@@ -85,17 +89,17 @@
 	position: absolute;
 	right: 0px;
 	left: auto;
-	top: 530px;
+	top: 520px;
 }
 
 #touch button:not([data-fdk]) {
 	position: absolute;
 	right: 260px;
 	left: auto;
-	top: 530px;
-}
+	top: 520px;
+} */
 
-#touch .central {
+/* #touch .central {
 	margin-right: auto;
 	margin-left: auto;
 	display: block;
@@ -113,14 +117,13 @@
 	text-align: center;
 	top: calc(50% - 200px);
 	position: relative;
-}
+} */
 
 #touch button {
 	border-radius: 10px;
 	background-color: #0066cc;
 	border: none;
 	padding: 12px 32px;
-	text-align: center;
 	text-decoration: none;
 	display: inline-flex;
 	font-size: 16px;
@@ -129,9 +132,9 @@
 	color: white;
 	font-weight: 600;
 	cursor: pointer;
-	position: absolute;
-	right: 0px;
-	top: 530px;
+	/* position: absolute; */
+	/* right: 0px; */
+	/* top: 510px; */
 }
 
 #touch button.negative {
@@ -162,16 +165,16 @@
 	color: black;
 }
 
-#touch .body {
+/* #touch .body {
 	border-style: solid;
 	width: 800px;
 	height: 600px;
 	word-break: normal !important;
 	position: relative;
 	margin: auto;
-}
+} */
 
-#touch input {
+/* #touch input {
 	width: 70%;
 	padding: 12px 20px;
 	margin: auto;
@@ -179,7 +182,7 @@
 	border: none;
 	border-radius: 4px;
 	background-color: rgba(0, 180, 204, 0.12);
-}
+} */
 
 #touch ul {
 	list-style-type: none;
@@ -187,6 +190,19 @@
 	overflow: auto;
 	max-height: 350px;
 }
+
+#no-touch li span::before {
+	content: url("leftArrow.svg");
+	/* position: absolute;
+	opacity: 1;
+	right: -10px;
+	right: 15;
+	bottom: 0;
+	transition: 0.5s;
+	font-size: 33px;
+	color: rgba(0, 102, 204, 1); */
+}
+
 #touch li {
 	border-radius: 4px;
 	border: none;
@@ -219,8 +235,8 @@
 #touch li > img {
 	position: absolute;
 	bottom: 5px;
-	margin-left: 10px;
-	right: 40px;
+	margin-left: 0px;
+	right: 120px;
 }
 
 #touch li > img + img {
@@ -235,8 +251,7 @@
 	content: '\00bb';
 	position: absolute;
 	opacity: 1;
-	right: -10px;
-	right: 15;
+	right: 5px;
 	bottom: 0;
 	transition: 0.5s;
 	font-size: 33px;
@@ -287,7 +302,15 @@
 	}
 }
 
-#touch label {
+#touch #exit span::before {
+	content: none;
+}
+
+#touch #exit span #text {
+    vertical-align: middle;
+}
+
+/* #touch label {
 	display: block;
 	text-overflow: ellipsis;
 	margin: 26px;
@@ -391,3 +414,7 @@
 	font-size: x-large;
 	text-align: center;
 }
+
+#touch > ul > button > span {
+	
+} */
