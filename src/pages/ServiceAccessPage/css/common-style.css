@@ -9,6 +9,11 @@
     background-image: linear-gradient(to bottom, var(--background-default), var(--primary-main));
 }
 
+#headerSection{
+    height: 6rem;
+    border-bottom: 1px solid #E8EBF1;
+}
+
 #subtitle {
     padding: 5;
     text-align: left;

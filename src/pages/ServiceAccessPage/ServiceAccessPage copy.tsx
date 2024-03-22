@@ -240,6 +240,32 @@ const ServiceAccessPage = () => {
 
 	// grid?.appendChild(rowButtons);
 
+	// const grid = document.createElement("div");
+	// grid.id = "header";
+	
+	const headerRow = document.createElement("div");
+	headerRow.classList.add("mui-row");
+	headerRow.id = "headerSection";
+	const logoElement = bodyHtml?.querySelector("#logo");
+	if (logoElement) {
+		const logoColumn = document.createElement("div");
+		logoColumn.classList.add("mui-col-md-6");
+		logoColumn.appendChild(logoElement);
+		headerRow.appendChild(logoColumn);
+	}
+	const descElement = bodyHtml?.querySelector("h1");
+	if (descElement) {
+		const descColumn = document.createElement("div");
+		descColumn.classList.add("mui-col-md-6");
+		descColumn.appendChild(descElement);
+		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
+		headerRow.appendChild(descColumn);
+	}
+	// grid?.appendChild(headerRow);
+
+	// bodyHtml?.appendChild(grid);
+	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
+
 	const buttonsArray = responseProcess?.task?.buttons;
 	buttonsArray?.forEach((responseElement: any) => {
 		const renderedButton = bodyHtml?.querySelector(`#${responseElement.id}`);
@@ -273,6 +299,10 @@ const ServiceAccessPage = () => {
 	// }
 
 	// bodyHtml?.appendChild(grid);
+
+	
+
+
 
 	return (
 		<div id={touchInterface ? "touch" : "no-touch"}>
