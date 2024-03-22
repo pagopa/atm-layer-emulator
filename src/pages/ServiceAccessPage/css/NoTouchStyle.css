@@ -27,70 +27,34 @@
         margin:10px;
     }
     
-    h1{
-        letter-spacing: -0.011em;
-        font-size: 24px;
-        text-align: right;
-        padding-right: 20px;
-        color: #17324D;				
-        font-weight: 400;				
-        line-height: 28px;
-    }
-    
-    h2{
-        font-weight: 600;
-        font-size: 28px;
-        line-height: 42px;
-        color: #17324D;
-        margin-top:50px;
-        margin-bottom:0px;
-        padding-left:20px;
-        padding-right:20px;
-    }
-    
-    h3{
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 24px;
-        color: #5C6F82;
-        margin-top:0px;
-        padding-left:20px;
-        padding-right:20px;				
-    }
-    
-    [data-fdk="S4"] {
-        position: absolute;
-        top: 530px;
-        left: 0px;
-        right: auto;
-    }
-    
-    [data-fdk="S3"] {
-        position: absolute;
-        top: 400px;
-        left: 0px;
-        right: auto;
-        
-    }
-    
-     [data-fdk="S7"] {
-        position: absolute;
-        right: 0px;
-        left: auto;
-        top: 400px;
-    }
-    
-    [data-fdk="S8"] {
-        position: absolute;
-        right: 0px;
-        left: auto;
-        top: 530px;
-    }
     
     /* button:not([data-fdk])  {
         display:none;
     } */
     
+    
+    .central{
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+        top: calc(50% - 200px);
+        position: relative;
+    }
+    
+    .central ~ h2{
+        text-align: center;
+        top: calc(50% - 200px);
+        position: relative;
+    }
+    
+    .central ~ h3{
+        text-align: center;
+        top: calc(50% - 200px);
+        position: relative;
+    }
+    
+    
+   
     .central{
         margin-right: auto;
         margin-left: auto;
@@ -187,25 +151,6 @@
         background-color: #ECECEC;
          float: left;
          color: black;
-    }
-    
-    .body {    
-        border-style: solid;
-        width: 800px;
-        height: 600px;
-        word-break: normal !important;
-        position:relative;
-        margin:auto;
-    }
-    
-    input {
-        width: 70%;
-        padding: 12px 20px;
-        margin: auto;
-        box-sizing: border-box;				
-        border: none;
-        border-radius: 4px;
-        background-color: rgba(0, 180, 204, 0.12);
     }
     
     ul {

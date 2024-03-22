@@ -1,10 +1,12 @@
+@import "./root.css";
+
 #title_page {
     color: white;
     padding: 10;
     text-align: center;
     font-size: xx-large;
     font-weight: 600;
-    background-image: linear-gradient(to bottom, #ECECEC, #0066CC);
+    background-image: linear-gradient(to bottom, var(--background-default), var(--primary-main));
 }
 
 #subtitle {
@@ -26,7 +28,7 @@ h1 {
     font-size: var(--font-size-h1);
     text-align: right;
     padding-right: 20px;
-    color: #17324d;
+    color: var(--text-primary);
     font-weight: 400;
     line-height: 28px;
 }
@@ -35,7 +37,7 @@ h2 {
     font-weight: 600;
     font-size: var(--font-size-h2);
     line-height: 42px;
-    color: #17324d;
+    color: var(--text-primary);
     margin-top: 50px;
     margin-bottom: 0px;
     padding-left: 20px;
