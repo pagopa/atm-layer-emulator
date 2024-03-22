@@ -7,9 +7,9 @@ import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
 import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
-import "./css/CommonStyle.css";
+import "./css/common-style.css";
 import "./css/touch-style.css";
-import "./css/NoTouchStyle.css";
+import "./css/no-touch-style.css";
 // import { createMuiRow, wrapElementInMuiCol, wrapElementInMuiColAndRow, wrapElementInMuiRow } from "../../utils/Commons";
 import { executeCommand } from "../../commons/utilsFunctions";
 
