@@ -38,7 +38,7 @@ export default function FormTemplate({ handleSubmit, children, loadingButton }: 
 					{children}
 				</Grid>
 				<Box display="flex" justifyContent="flex-end" mt={2}>
-					<Button variant="contained" onClick={handleSubmit} id="confirm-button" style={{ minWidth: "115px" }} /* disabled={disabledConfirmButton()} */>
+					<Button variant="contained" onClick={handleSubmit} id="confirm-button" style={{ minWidth: "115px" }} >
 						{loadingButton ? <Loading size={20} thickness={5} marginTop={"0px"} color={"white"} /> : "Conferma"}
 					</Button>
 				</Box>

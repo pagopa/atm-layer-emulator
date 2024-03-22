@@ -61,31 +61,7 @@ h3 {
     padding-right: 20px;
 }
 
-[data-fdk='S4'] {
-    position: absolute;
-    top: 520px;
-    left: auto;
-}
 
-[data-fdk='S3'] {
-    position: absolute;
-    top: 400px;
-    left: 0px;
-    right: auto;
-}
-
-[data-fdk='S7'] {
-    position: absolute;
-    right: 0px;
-    left: auto;
-    top: 400px;
-}
-
-[data-fdk='S8'] {
-    position: absolute;
-    left: 610px;
-    top: 520px;
-}
 
 button:not([data-fdk], #home-button, #confirm-button) {
     position: absolute;
@@ -252,7 +228,7 @@ li span:after {
     color: rgba(0, 102, 204, 1);
 } */
 
-.loader {
+/* .loader {
     border: 10px solid #f3f3f3;
     border-radius: 50%;
     border-top: 10px solid #3498db;
@@ -275,10 +251,10 @@ li span:after {
     content: '';
     background: rgba(0, 0, 0, 0.2);
     z-index: -1;
-}
+} */
 
 /* Safari */
-@-webkit-keyframes spin {
+/* @-webkit-keyframes spin {
     0% {
         -webkit-transform: rotate(0deg);
     }
@@ -296,7 +272,7 @@ li span:after {
     100% {
         transform: rotate(720deg);
     }
-}
+} */
 
 label {
     display: block;
