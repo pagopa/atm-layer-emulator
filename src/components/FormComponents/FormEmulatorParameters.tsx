@@ -19,7 +19,7 @@ export const FormEmulatorParameters = () => {
 	const { cfIsValid } = checks();
 
 	const initialValues: ParametersDto = {
-		acquirerId: "06789",
+		acquirerId: "Test_emu",
 		branchId: "12345",
 		code: "0001",
 		terminalId: "64874412",
