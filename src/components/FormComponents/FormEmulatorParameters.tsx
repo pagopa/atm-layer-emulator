@@ -242,7 +242,7 @@ export const FormEmulatorParameters = () => {
 			</Grid>
 			<Grid xs={12} sm={4} item my={1} className="touch-selector">
 				<FormControlLabel
-					id="touch"
+					id="touchLayout"
 					value="touch"
 					control={
 						<Switch
