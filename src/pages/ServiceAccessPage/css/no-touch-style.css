@@ -78,27 +78,27 @@
     
     
     #no-touch button:not(#home-button, #confirm-button, #exit) {   
-        width: 50%; 
-        border-radius: 4px;  
+        position:absolute;
         background-color: #ffffff;
-        border: none;  
-        padding: 15px 32px; 
+        width: 340px;
+        height: 64px;
+        border-radius: 4px;  
+        padding: 12px 28px; 
         text-align: center;  
         text-decoration: none;
         display: inline-flex;				
         font-size: 16px;
         margin: 10px;
         float: right;
-        color: white;
         font-weight: 600;
         cursor:pointer;
         font-family:  "Titillium Web", sans-serif;
-        color: black;
-        border: 1px;
-        border-color: #E8EBF1;
-        border-style: solid;
         justify-content: space-between;
         align-items: center;
+        color: black;
+        border: 1px solid #E8EBF1;
+        background:url(./leftArrow.svg) no-repeat;
+        background-position-y: center;
     }
     
     /* button.negative { 
@@ -110,7 +110,7 @@
     #no-touch #exit {
         position:absolute;
         background-color: #ffffff;
-        width: 56%;
+        width: 340px;
         height: auto;
         border-radius: 4px;  
         padding: 12px 28px; 
@@ -127,8 +127,9 @@
         align-items: center;
         color: black;
         border: 1px solid #E8EBF1;
-        /* background:url(./exit.svg) no-repeat;
-        background-position-y: center; */
+        background:url(./leftArrow.svg) no-repeat;
+        background-position-y: center;
+        top:320px;
     }
     
     #no-touch #back {
@@ -160,7 +161,7 @@
 
     #no-touch [data-fdk='S4'] {
         position: absolute;
-        top: 300px;
+        top: 510px;
         left: auto;
     }
     
@@ -180,17 +181,19 @@
     
     #no-touch [data-fdk='S8'] {
         position: absolute;
-        left: 610px;
-        top: 520px;
+        left: 418px;
+        top: 510px;
+        background:url(./rightArrow.svg) no-repeat;
+        justify-content: flex-end;
     }
 
     #no-touch li {				
-        width: 50%;
+        width: 340px;
         height: auto;
         border-radius: 4px;  
         background-color: #ffffff;
         border: none;  
-        padding: 10px 20px; 
+        padding: 15px 28px; 
         text-align: center;  
         text-decoration: none;
         display: inline-flex;				
@@ -207,6 +210,8 @@
         border-style: solid;
         justify-content: space-between;
         align-items: center;
+        background:url(./leftArrow.svg) no-repeat;
+        background-position-y: center;
     }
     
     #no-touch li > span.small {
@@ -215,12 +220,13 @@
 
 
     #no-touch li span::before {
-        content: url("leftArrow.svg");
+        content: none;
+        vertical-align: middle;
     }
 
-    #no-touch #exit span::before {
-        content: url("leftArrow.svg");
-        vertical-align: bottom;
+    #no-touch button span::before {
+        content: none;
+        vertical-align: middle;
     }
 
     #no-touch li > img {
