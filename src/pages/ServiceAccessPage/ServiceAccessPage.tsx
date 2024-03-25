@@ -53,6 +53,22 @@ const ServiceAccessPage = () => {
 	const date = new Date().toISOString().slice(0, -5);
 	const postData = (params: any) => ({
 		data: {
+			"panInfo": [
+				{
+					"pan": "1234567891234567",
+					"circuits": [
+						"VISA"
+					],
+					"bankName": "ISYBANK"
+				},{
+					"pan": "8234567891234565",
+					"circuits": [
+						"BANCOMAT",
+						"VISA"			
+					],
+					"bankName": "INTESA"
+				}
+			],
 			...params
 		},
 		device: {
@@ -78,7 +94,7 @@ const ServiceAccessPage = () => {
 		taskId: responseProcess?.task?.id,
 	});
 
-	const next = async (params: any) => {
+	const next = async (params: any, panInfo?:any) => {
 		// setCommand("");
 		setLoading(true);
 		try {
