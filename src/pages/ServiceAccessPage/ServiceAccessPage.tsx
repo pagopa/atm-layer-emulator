@@ -2,6 +2,7 @@
 /* eslint-disable functional/immutable-data */
 import { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
+import { Box } from "@mui/material";
 import { generatePath } from "react-router-dom";
 import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
@@ -9,6 +10,7 @@ import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./css/style-page.css";
 import { executeCommand } from "../../commons/utilsFunctions";
+
 
 
 
@@ -30,7 +32,7 @@ const ServiceAccessPage = () => {
 		if (!timeout || timeout === null){
 			timeout = 30;
 		}
-		// const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
+		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		addButtonClickListener();
 		
 		// const command = responseProcess?.task.command;
@@ -40,7 +42,7 @@ const ServiceAccessPage = () => {
 		
 		return () => {
 			removeButtonClickListener();
-			// clearTimeout(nextTimeout);
+			clearTimeout(nextTimeout);
 		};
 	}, [responseProcess]);
 
@@ -198,14 +200,14 @@ const ServiceAccessPage = () => {
 
 
 	return (
-		<div id={touchInterface ? "touch" : "no-touch"}>
+		<Box id={touchInterface ? "touch" : "no-touch"} m={2}>
 			{/* {loading ? (
 				<CircularProgress />
 			) : (
 				parse(bodyHtml?.innerHTML)
 			)} */}
 			{ bodyHtml ? parse(bodyHtml?.innerHTML) : null}
-		</div>
+		</Box>
 	);
 };
 
