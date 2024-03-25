@@ -1,5 +1,4 @@
 import { base64_decode } from "../../commons/decode";
-import "./DecodeRenderHtml.css";
 
 const getTemplate = (template: any) => {
 	const parser = new DOMParser();
