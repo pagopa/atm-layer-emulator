@@ -78,22 +78,6 @@
     
     
     #no-touch button:not(#home-button, #confirm-button, #exit) {   
-        /* border-radius: 10px;  
-        background-color: #0066CC;  
-        border: none;  
-        padding: 12px 32px; 
-        text-align: center;  
-        text-decoration: none;
-        display: inline-flex;				
-        font-size: 16px;
-        margin: 10px;
-        float: right;
-        color: white;
-        font-weight: 600;
-        cursor:pointer;				
-        position: absolute;
-        right: 0px;
-        top: 530px; */
         width: 50%; 
         border-radius: 4px;  
         background-color: #ffffff;
@@ -125,9 +109,11 @@
     
     #no-touch #exit {
         position:absolute;
-        width: 60%; 
+        background-color: #ffffff;
+        width: 56%;
+        height: auto;
         border-radius: 4px;  
-        padding: 15px 32px; 
+        padding: 12px 28px; 
         text-align: center;  
         text-decoration: none;
         display: inline-flex;				
@@ -139,10 +125,10 @@
         font-family:  "Titillium Web", sans-serif;
         justify-content: space-between;
         align-items: center;
-        color: rgba(204, 0, 0, 1);
-        border: 2px solid;
-        background:url(./exit.svg) no-repeat;
-        background-position-y: center;
+        color: black;
+        border: 1px solid #E8EBF1;
+        /* background:url(./exit.svg) no-repeat;
+        background-position-y: center; */
     }
     
     #no-touch #back {
@@ -198,25 +184,6 @@
     }
 
     #no-touch li {				
-        /* border-radius: 4px;  
-        background-color: #0066CC;  
-        border: none;  
-        padding: 15px 32px; 
-        text-align: center;  
-        text-decoration: none; 
-        display: inline-block;  
-        position: relative;				
-        font-size: 16px;
-        margin: 10px;				
-        color: white;
-        font-weight: 600;
-        cursor:pointer;
-        width: 300px;
-        border-radius: 7px;
-        box-shadow: 5px 5px 10px 0px #8e8e8e;
-        transition: all 0.5s;
-        margin-bottom: 55px; */
-
         width: 50%;
         height: auto;
         border-radius: 4px;  
@@ -244,22 +211,14 @@
     #no-touch li > span.small {
         color: rgba(236, 236, 236, 1);
     }	
-    
-    /* li > span :after {
-         transition: 0.5s;
-         background:url(./leftArrow.svg) no-repeat;
-    } */
+
 
     #no-touch li span::before {
         content: url("leftArrow.svg");
-        /* position: absolute;
-        opacity: 1;
-        right: -10px;
-        right: 15;
-        bottom: 0;
-        transition: 0.5s;
-        font-size: 33px;
-        color: rgba(0, 102, 204, 1); */
+    }
+
+    #no-touch #exit span::before {
+        content: url("leftArrow.svg");
     }
 
     #no-touch li > img {
