@@ -12,8 +12,9 @@
 #headerSection{
     height: 5rem;
     width: 100%;
-    padding: 0.5rem;
-    border-bottom: 0.2rem solid #E8EBF1;
+    border-bottom: 0.2rem solid var(--divider);
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 #subtitle {
@@ -37,7 +38,7 @@ h1 {
     padding-right: 20px;
     color: var(--text-primary);
     /* font-weight: 400; */
-    line-height: 28px;
+    /* line-height: 28px; */
 }
 
 h2 {
