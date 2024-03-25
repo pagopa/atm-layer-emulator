@@ -16,7 +16,7 @@ const ServiceAccessPage = () => {
 
 	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface } = useContext(Ctx);
 	const [loading, setLoading] = useState(false);
-	const [command, setCommand] = useState("");
+	const [command, setCommand] = useState(responseProcess?.task?.command);
 	let bodyHtml :any ;
 	let timeout = responseProcess?.task?.timeout;
 	
@@ -35,7 +35,7 @@ const ServiceAccessPage = () => {
 		
 		// const command = responseProcess?.task.command;
 		// if (command !== undefined && command !== null) {
-		// 	executeCommand(command);
+		// 	executeCommand(command, next, responseProcess);
 		// }
 		
 		return () => {
@@ -79,6 +79,7 @@ const ServiceAccessPage = () => {
 	});
 
 	const next = async (params: any) => {
+		// setCommand("");
 		setLoading(true);
 		try {
 			const response = await fetchRequest({

@@ -148,6 +148,7 @@
     #no-touch ul {
         list-style-type: none;
         padding-left: 0px;
+        padding-top: 25px;
         /* height: 100%; */
         /* overflow: auto; */
         max-height: 400px;
@@ -219,6 +220,7 @@
 
     #no-touch #exit span::before {
         content: url("leftArrow.svg");
+        vertical-align: bottom;
     }
 
     #no-touch li > img {

@@ -1,4 +1,4 @@
-import { AUTHORIZE, END, GET_IBAN, GET_PAN, PRINT_RECEIPT, SCAN_BILL_DATA } from "./constants";
+import { AUTHORIZE, END, GET_IBAN, GET_PAN, PRINT_RECEIPT, NEXT, SCAN_BILL_DATA } from "./constants";
 
 
 /* eslint-disable functional/no-let */
@@ -57,11 +57,14 @@ export function executeCommand(driver: string, next: any, responseProcess:any) {
 		void next("{\"result\":\"OK\"}");
 		history.back();
 		break;
+	case NEXT: 
+		void next("{\"result\":\"OK\"}");
+		break;
 	case GET_IBAN: 
 		void next("{\"result\":\"OK\",\"IBANlist\":[{\"IBAN\":\"IT12A1234512345123456789012\",\"bankName\": \"INTESA\"},{\"IBAN\":\"IT12A1234512345123456789018\",\"bankName\": \"POSTE\"}]}");
 		break;
 	case GET_PAN:
-		void next("{\"result\":\"OK\"}");    
+		void next("");    
 		break;
 	default: return "";
 	};
