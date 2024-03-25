@@ -77,7 +77,7 @@
     
     
     
-    #no-touch button:not(#home-button, #confirm-button) {   
+    #no-touch button:not(#home-button, #confirm-button, #exit) {   
         /* border-radius: 10px;  
         background-color: #0066CC;  
         border: none;  
@@ -124,7 +124,21 @@
     } */
     
     #no-touch #exit {
-        background-color: #ECECEC;
+        position:absolute;
+        width: 60%; 
+        border-radius: 4px;  
+        padding: 15px 32px; 
+        text-align: center;  
+        text-decoration: none;
+        display: inline-flex;				
+        font-size: 16px;
+        margin: 10px;
+        float: right;
+        font-weight: 600;
+        cursor:pointer;
+        font-family:  "Titillium Web", sans-serif;
+        justify-content: space-between;
+        align-items: center;
         color: rgba(204, 0, 0, 1);
         border: 2px solid;
         background:url(./exit.svg) no-repeat;
@@ -148,16 +162,18 @@
     #no-touch ul {
         list-style-type: none;
         padding-left: 0px;
-        overflow: auto;
-        max-height: 350px;
+        /* height: 100%; */
+        /* overflow: auto; */
+        max-height: 400px;
         display: flex;
         flex-direction: column;
         align-items: start;
+        position:relative;
     }
 
     #no-touch [data-fdk='S4'] {
         position: absolute;
-        top: 510px;
+        top: 300px;
         left: auto;
     }
     
