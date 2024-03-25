@@ -30,7 +30,7 @@ const ServiceAccessPage = () => {
 		if (!timeout || timeout === null){
 			timeout = 30;
 		}
-		// const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
+		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		addButtonClickListener();
 		
 		// const command = responseProcess?.task.command;
@@ -40,7 +40,7 @@ const ServiceAccessPage = () => {
 		
 		return () => {
 			removeButtonClickListener();
-			// clearTimeout(nextTimeout);
+			clearTimeout(nextTimeout);
 		};
 	}, [responseProcess]);
 
