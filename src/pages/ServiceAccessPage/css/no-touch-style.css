@@ -106,12 +106,13 @@
     color:  #0066CC;	
     border: 2px solid ;
     } */
-    
+
+       
     #no-touch #exit {
-        position:absolute;
+        /* position:absolute; */
         background-color: #ffffff;
         width: 340px;
-        height: auto;
+        height: 64px;
         border-radius: 4px;  
         padding: 12px 28px; 
         text-align: center;  
@@ -129,7 +130,6 @@
         border: 1px solid #E8EBF1;
         background:url(./leftArrow.svg) no-repeat;
         background-position-y: center;
-        top:320px;
     }
     
     #no-touch #back {
@@ -151,24 +151,37 @@
         padding-left: 0px;
         padding-top: 25px;
         /* height: 100%; */
-        /* overflow: auto; */
-        max-height: 400px;
+        overflow: auto;
+        max-height: 250px;
         display: flex;
         flex-direction: column;
         align-items: start;
-        position:relative;
     }
 
     #no-touch [data-fdk='S4'] {
         position: absolute;
         top: 510px;
-        left: auto;
+        left: 26px;
     }
     
     #no-touch [data-fdk='S3'] {
         position: absolute;
         top: 400px;
-        left: 0px;
+        left: 36px;
+        right: auto;
+    }
+
+    #no-touch [data-fdk='S2'] {
+        position: absolute;
+        top: 330px;
+        left: 36px;
+        right: auto;
+    }
+
+    #no-touch [data-fdk='S1'] {
+        position: absolute;
+        top: 270px;
+        left: 36px;
         right: auto;
     }
     
@@ -181,14 +194,14 @@
     
     #no-touch [data-fdk='S8'] {
         position: absolute;
-        left: 418px;
+        left: 446px;
         top: 510px;
         background:url(./rightArrow.svg) no-repeat;
         justify-content: flex-end;
     }
 
     #no-touch li {				
-        width: 340px;
+        width: 288px;
         height: auto;
         border-radius: 4px;  
         background-color: #ffffff;
@@ -199,6 +212,7 @@
         display: inline-flex;				
         font-size: 16px;
         margin: 10px;
+        margin-left: 20px;
         float: right;
         color: white;
         font-weight: 600;
@@ -356,7 +370,7 @@ border-bottom: 1px solid lightGrey ;
 }
 
 #no-touch p.left {
-margin: 10px;
+margin: 20px;
 width: 350px;
 background-color: lightBlue;
 border-radius: 4px;

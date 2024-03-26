@@ -186,6 +186,11 @@ const ServiceAccessPage = () => {
 	
 	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
 
+	if (!touchInterface && bodyHtml?.querySelector("#back")){
+		const exitButton= bodyHtml?.querySelector("#exit");
+		exitButton.remove();
+	}
+
 	const buttonsArray = responseProcess?.task?.buttons;
 	buttonsArray?.forEach((responseElement: any) => {
 		const renderedButton = bodyHtml?.querySelector(`#${responseElement.id}`);
