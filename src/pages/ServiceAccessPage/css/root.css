@@ -2,10 +2,10 @@
     /* --blue: #1e90ff;
     --white: #ffffff; */
 
-    --font-family: "Titillium Web";
+    --font-family: "Titillium Web", sans-serif;
 
     --font-size-h1: 1.2rem;
-    --font-size-h2: 2rem;
+    --font-size-h2: 1.8rem;
     --font-size-h3: 1rem;
 
     --background-paper: #FFFFFF;
