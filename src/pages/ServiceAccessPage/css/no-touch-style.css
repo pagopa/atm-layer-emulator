@@ -69,7 +69,7 @@
     width: 340px;
     height: 64px;
     border-radius: 4px;
-    padding: 12px 28px;
+    padding: 12px 40px;
     text-align: center;
     text-decoration: none;
     display: inline-flex;
@@ -94,7 +94,7 @@
     width: 340px;
     height: 64px;
     border-radius: 4px;
-    padding: 12px 28px;
+    padding: 12px 40px;
     text-align: center;
     text-decoration: none;
     display: inline-flex;
@@ -110,6 +110,8 @@
     border: 1px solid #E8EBF1;
     background: url(./leftArrow.svg) no-repeat;
     background-position-y: center;
+    background-position-x: 20px;
+    background-position-x: 10px;
 }
 
 
@@ -155,6 +157,7 @@
     padding-left: 3px;
     background: url(./leftArrow.svg) no-repeat;
     background-position-y: center;
+    background-position-x: 10px;
 }
 
 #no-touch [data-fdk='S3'] {
@@ -179,10 +182,18 @@
 }
 
 #no-touch [data-fdk='S7'] {
-    position: absolute;
-    right: 0px;
+    /* position: absolute; */
+    /* right: 0px;
     left: auto;
+    top: 400px; */
+
+    left: 446px;
     top: 400px;
+    padding-right: 3px;
+    background: url(./rightArrow.svg) no-repeat;
+    background-position: right;
+    justify-content: flex-end;
+    background-position-x: 303px;
 }
 
 #no-touch [data-fdk='S8'] {
@@ -193,6 +204,7 @@
     background: url(./rightArrow.svg) no-repeat;
     background-position: right;
     justify-content: flex-end;
+    background-position-x: 303px;
 }
 
 #no-touch li {
@@ -201,7 +213,7 @@
     border-radius: 4px;
     background-color: #ffffff;
     border: none;
-    padding: 12px 28px;
+    padding: 12px 40px;
     text-align: center;
     text-decoration: none;
     display: inline-flex;
@@ -221,6 +233,7 @@
     align-items: center;
     background: url(./leftArrow.svg) no-repeat;
     background-position-y: center;
+    background-position-x: 10px;
 }
 
 
