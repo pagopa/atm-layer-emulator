@@ -162,7 +162,7 @@ input {
     padding: 12px 20px;
     margin: auto;
     box-sizing: border-box;
-    border: none;
+    border: 1px solid var(--divider);
     border-radius: 4px;
     background-color: var(--background-paper);
 }
