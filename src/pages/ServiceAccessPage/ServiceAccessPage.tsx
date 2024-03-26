@@ -2,7 +2,7 @@
 /* eslint-disable functional/immutable-data */
 import { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { generatePath } from "react-router-dom";
 import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
@@ -10,6 +10,7 @@ import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./css/style-page.css";
 import { executeCommand } from "../../commons/utilsFunctions";
+import { Loading } from "../../components/Commons/Loading";
 
 
 
@@ -206,12 +207,12 @@ const ServiceAccessPage = () => {
 
 	return (
 		<Box id={touchInterface ? "touch" : "no-touch"} m={2}>
-			{/* {loading ? (
-				<CircularProgress />
+			{loading ? (
+				<Loading  marginTop={"20%"} message="Operazione in corso, si prega di attendere" />
 			) : (
-				parse(bodyHtml?.innerHTML)
-			)} */}
-			{ bodyHtml ? parse(bodyHtml?.innerHTML) : null}
+				bodyHtml && parse(bodyHtml?.innerHTML)
+			)}
+			
 		</Box>
 	);
 };
