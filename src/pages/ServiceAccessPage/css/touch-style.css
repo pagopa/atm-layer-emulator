@@ -37,22 +37,8 @@
 	border: 2px solid;
 	background: url(./exit.svg) no-repeat;
 	background-position-y: center;
-	position: absolute;
-    right: auto;
-    left: 180px;
+    max-width: 138px;
     top: 520px;
-}
-
-#touch #exit[data-fdk='S4']{
-	background-color: var(--background-paper);
-	color: var(--error-main);
-	border: 2px solid;
-	background: url(./exit.svg) no-repeat;
-	background-position-y: center;
-	position: absolute;
-    top: 520px;
-    left: auto;
-	min-height: 52px;
 }
 
 #touch #back {
@@ -128,30 +114,27 @@
 #touch [data-fdk='S3'] {
     position: absolute;
     top: 400px;
-    left: 0px;
-    right: auto;
+	margin-left: 10%;
 	min-height: 52px;
 }
 
-#touch [data-fdk='S4'] {
+#touch [data-fdk='S4']:not(#exit) {
     position: absolute;
     top: 520px;
-    left: auto;
 	min-height: 52px;
 }
+
 
 #touch [data-fdk='S7'] {
     position: absolute;
-    right: auto;
-    left: 390px;
+    margin-left: 22%;
     top: 520px;
 	min-height: 52px;
 }
 
 #touch [data-fdk='S8'] {
     position: absolute;
-    left: auto;
-	right: 80px;
+    margin-left: 32%;
     top: 520px;
 	min-height: 52px;
 }
@@ -163,4 +146,9 @@
 #touch span #text {
     vertical-align: middle;
 	text-align: center;
+}
+
+#touch #exit[data-fdk='S4']{
+	position: absolute;
+	min-height: 52px;
 }
