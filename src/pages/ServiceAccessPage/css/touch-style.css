@@ -10,115 +10,6 @@
     vertical-align: middle;
 }
 
-/* #touch #title_page {
-	color: white;
-	padding: 10px;
-	text-align: center;
-	font-size: xx-large;
-	font-weight: 600;
-	background-image: linear-gradient(to bottom, #ECECEC, #0066CC);
-} */
-
-/* #touch #subtitle {
-	padding: 5px;
-	text-align: left;
-	font-size: large;
-	font-weight: 600; */
-	/* //background-image: linear-gradient(to bottom, #ECECEC, #0066CC); */
-/* } */
-
-/* #touch #logo {
-	position: absolute;
-	height: 60px;
-	margin: 10px;
-} */
-
-/* #touch h1 {
-	letter-spacing: -0.011em;
-	font-size: 24px;
-	text-align: right;
-	padding-right: 20px;
-	color: #17324d;
-	font-weight: 400;
-	line-height: 28px;
-}
-
-#touch h2 {
-	font-weight: 600;
-	font-size: 28px;
-	line-height: 42px;
-	color: #17324d;
-	margin-top: 50px;
-	margin-bottom: 0px;
-	padding-left: 20px;
-	padding-right: 20px;
-}
-
-#touch h3 {
-	font-weight: 400;
-	font-size: 16px;
-	line-height: 24px;
-	color: #5c6f82;
-	margin-top: 0px;
-	padding-left: 20px;
-	padding-right: 20px;
-} */
-
-/* #touch [data-fdk='S4'] {
-	position: absolute;
-	top: 520px;
-	left: 0px;
-	right: auto;
-}
-
-#touch [data-fdk='S3'] {
-	position: absolute;
-	top: 400px;
-	left: 0px;
-	right: auto;
-}
-
-#touch [data-fdk='S7'] {
-	position: absolute;
-	right: 0px;
-	left: auto;
-	top: 400px;
-}
-
-#touch [data-fdk='S8'] {
-	position: absolute;
-	right: 0px;
-	left: auto;
-	top: 520px;
-}
-
-#touch button:not([data-fdk]) {
-	position: absolute;
-	right: 260px;
-	left: auto;
-	top: 520px;
-} */
-
-/* #touch .central {
-	margin-right: auto;
-	margin-left: auto;
-	display: block;
-	top: calc(50% - 200px);
-	position: relative;
-}
-
-#touch .central ~ h2 {
-	text-align: center;
-	top: calc(50% - 200px);
-	position: relative;
-}
-
-#touch .central ~ h3 {
-	text-align: center;
-	top: calc(50% - 200px);
-	position: relative;
-} */
-
 #touch button {
 	border-radius: 10px;
 	background-color: #0066cc;
@@ -132,9 +23,6 @@
 	color: white;
 	font-weight: 600;
 	cursor: pointer;
-	/* position: absolute; */
-	/* right: 0px; */
-	/* top: 510px; */
 }
 
 #touch button.negative {
@@ -149,6 +37,22 @@
 	border: 2px solid;
 	background: url(./exit.svg) no-repeat;
 	background-position-y: center;
+	position: absolute;
+    right: auto;
+    left: 180px;
+    top: 520px;
+}
+
+#touch #exit[data-fdk='S4']{
+	background-color: #ececec;
+	color: rgba(204, 0, 0, 1);
+	border: 2px solid;
+	background: url(./exit.svg) no-repeat;
+	background-position-y: center;
+	position: absolute;
+    top: 520px;
+    left: auto;
+	min-height: 52px;
 }
 
 #touch #back {
@@ -158,31 +62,6 @@
 	background: url(./back.svg) no-repeat;
 	background-position-y: center;
 }
-
-#touch button.exit {
-	background-color: #ececec;
-	float: left;
-	color: black;
-}
-
-/* #touch .body {
-	border-style: solid;
-	width: 800px;
-	height: 600px;
-	word-break: normal !important;
-	position: relative;
-	margin: auto;
-} */
-
-/* #touch input {
-	width: 70%;
-	padding: 12px 20px;
-	margin: auto;
-	box-sizing: border-box;
-	border: none;
-	border-radius: 4px;
-	background-color: rgba(0, 180, 204, 0.12);
-} */
 
 #touch ul {
 	list-style-type: none;
@@ -208,8 +87,8 @@
 	height: 100px;
 	border-radius: 10px;
 	/* box-shadow: 5px 5px 10px 0px #8e8e8e; */
-	transition: all 0.5s;
-	border: 1px solid rgba(0, 102, 204, 1);
+	/* transition: all 0.5s; */
+	border: 1px solid var(--divider);
 	vertical-align: top;
 }
 
@@ -237,7 +116,6 @@
 }
 
 #touch li span:after {
-	content: '\00bb';
 	position: absolute;
 	opacity: 1;
 	right: 5px;
@@ -247,197 +125,42 @@
 	color: rgba(0, 102, 204, 1);
 }
 
-#touch [data-fdk='S4'] {
-    position: absolute;
-    top: 510px;
-    left: auto;
-}
-
 #touch [data-fdk='S3'] {
     position: absolute;
     top: 400px;
     left: 0px;
     right: auto;
+	min-height: 52px;
+}
+
+#touch [data-fdk='S4'] {
+    position: absolute;
+    top: 520px;
+    left: auto;
+	min-height: 52px;
 }
 
 #touch [data-fdk='S7'] {
     position: absolute;
-    right: 0px;
-    left: auto;
-    top: 400px;
+    right: auto;
+    left: 390px;
+    top: 520px;
+	min-height: 52px;
 }
 
 #touch [data-fdk='S8'] {
     position: absolute;
-    left: 610px;
+    left: auto;
+	right: 80px;
     top: 520px;
-}
-
-/* #touch .loader {
-	border: 10px solid #f3f3f3;
-	border-radius: 50%;
-	border-top: 10px solid #3498db;
-	width: 60px;
-	height: 60px;
-	position: fixed;
-	top: 240px;
-	left: calc(50% - 30px);
-
-	-webkit-animation: spin 1s linear infinite;
-	animation: spin 1s linear infinite;
-}
-
-#touch .loader::after {
-	position: absolute;
-	top: -2370px;
-	left: -2370px;
-	width: 8000%;
-	height: 8000%;
-	content: '';
-	background: rgba(0, 0, 0, 0.2);
-	z-index: -1;
-} */
-
-/* Safari */
-/* @-webkit-keyframes spin {
-	0% {
-		-webkit-transform: rotate(0deg);
-	}
-	100% {
-		-webkit-transform: rotate(360deg);
-	}
-}
-
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(720deg);
-	}
-} */
-
-#touch #exit span::before {
-	content: none;
-}
-
-#touch #exit span #text {
-    vertical-align: middle;
-}
-
-#touch #confirm span::before {
-	content: none;
-}
-
-#touch #confirm span #text {
-    vertical-align: middle;
-}
-
-/* #touch label {
-	display: block;
-	text-overflow: ellipsis;
-	margin: 26px;
-	text-align: center;
-	margin-right: auto;
-	margin-left: auto;
-}
-
-#touch span.small {
-	display: inline-block;
-	text-align: left;
-	font-size: 12px;
-	color: gray;
-}
-
-#touch span.large {
-	display: inline-block;
-	text-align: left;
-	font-size: 28px;
-	color: black;
-}
-
-#touch td > p > span,
-#touch td > span {
-	color: black;
-	font-size: 20px;
-	font-weight: 900;
-}
-
-#touch table {
-	margin-left: auto;
-	margin-right: auto;
-	width: 80%;
-	text-align: center;
-}
-
-#touch th {
-	font-size: 25px;
-	font-weight: 900;
-}
-
-#touch th,
-#touch tr {
-	text-align: left;
-}
-
-#touch th.right,
-#touch td.right {
-	text-align: right;
-}
-
-#touch td {
-	border-bottom: 1px solid lightGrey;
-}
-
-#touch p.left {
-	margin: 10px;
-	width: 350px;
-	background-color: lightBlue;
-	border-radius: 4px;
-	padding: 5px;
-	padding-left: 15px;
-}
-
-#touch td > p {
-	display: inline-block;
+	min-height: 52px;
 }
 
 #touch span::before {
-	content: '\A';
-	white-space: pre;
+	content: none;
 }
 
-#touch thead::before {
-	content: '-';
-	display: block;
-	line-height: 3em;
-	color: transparent;
-}
-
-#touch .EPP {
-	position: absolute;
-	left: 834px;
-	top: 200px;
-}
-
-#touch .EPP > button {
-	float: none;
-	background-color: #ececec;
-	color: black;
-	border: 1px solid;
-}
-
-#touch .EPP > button[onclick] {
-	background-color: #0066cc;
-}
-
-#touch #message_free {
-	margin: auto;
-	padding: 100px 50px;
-	font-size: x-large;
+#touch span #text {
+    vertical-align: middle;
 	text-align: center;
 }
-
-#touch > ul > button > span {
-	
-} */
