@@ -13,9 +13,7 @@ export function executeCommand(driver: string, next: any, responseProcess:any) {
 		const result = prompt("Inserisci codice scansionato:", "UEFHT1BBfDAwMnwwMTIzNDU2Nzg5MDEyMzQ1Njd8MDAwMDAwMDAyMDF8MTAwMDA");
 		if (result != null) {
 			void next({ "result": "OK", "scanData": result });
-		} else {
-			void next({ "result": "KO" });
-		}
+		} 
 		break;
 	case AUTHORIZE: 
 		console.log("authorize", responseProcess?.task?.data?.totalAmount);
