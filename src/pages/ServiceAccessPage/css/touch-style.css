@@ -3,7 +3,7 @@
 #touch {
     width: 800px;
     height: 600px;
-    border: 2px solid var(--black);
+    border: 2px solid var(--validate-contrastText);
 }
 
 #touch #exit span {
@@ -12,7 +12,7 @@
 
 #touch button {
 	border-radius: 10px;
-	background-color: #0066cc;
+	background-color: var(--primary-main);
 	border: none;
 	padding: 15px 40px;
 	text-decoration: none;
@@ -26,14 +26,14 @@
 }
 
 #touch button.negative {
-	background-color: #ececec;
-	color: #0066cc;
+	background-color: var(--background-paper);
+	color: var(--primary-main);
 	border: 2px solid;
 }
 
 #touch #exit {
-	background-color: #ececec;
-	color: rgba(204, 0, 0, 1);
+	background-color: var(--background-paper);
+	color: var(--error-main);
 	border: 2px solid;
 	background: url(./exit.svg) no-repeat;
 	background-position-y: center;
@@ -44,8 +44,8 @@
 }
 
 #touch #exit[data-fdk='S4']{
-	background-color: #ececec;
-	color: rgba(204, 0, 0, 1);
+	background-color: var(--background-paper);
+	color: var(--error-main);
 	border: 2px solid;
 	background: url(./exit.svg) no-repeat;
 	background-position-y: center;
@@ -56,8 +56,8 @@
 }
 
 #touch #back {
-	background-color: #0066cc;
-	color: rgba(0, 102, 204, 1);
+	background-color: var(--primary-main);
+	color: var(--primary-main);
 	border: 2px solid;
 	background: url(./back.svg) no-repeat;
 	background-position-y: center;
@@ -93,7 +93,7 @@
 }
 
 #touch li > span.small {
-	color: rgba(0, 102, 204, 1);
+	color: var(--primary-main);
 }
 
 #touch li > span {
@@ -122,7 +122,7 @@
 	bottom: 0;
 	transition: 0.5s;
 	font-size: 33px;
-	color: rgba(0, 102, 204, 1);
+	color: var(--primary-main);
 }
 
 #touch [data-fdk='S3'] {

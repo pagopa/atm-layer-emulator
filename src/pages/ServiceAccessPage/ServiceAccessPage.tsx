@@ -2,7 +2,7 @@
 /* eslint-disable functional/immutable-data */
 import { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import { generatePath } from "react-router-dom";
 import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
@@ -23,10 +23,9 @@ const ServiceAccessPage = () => {
 	let bodyHtml :any ;
 	let timeout = responseProcess?.task?.timeout;
 	
-	if(responseProcess?.task?.template?.content)
-	{ bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);}
-	
-	const parser = new DOMParser();
+	if(responseProcess?.task?.template?.content){ 
+		bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);
+	}
 
 
 	useEffect(() => {
