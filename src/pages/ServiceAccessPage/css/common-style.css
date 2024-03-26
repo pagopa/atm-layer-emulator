@@ -301,14 +301,16 @@ span.large {
 td>p>span,
 td>span {
     color: black;
-    font-size: 20px;
+    font-size: 0.9rem;
     font-weight: 900;
 }
 
 table {
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
     text-align: center;
 }
 
@@ -320,6 +322,13 @@ th {
 th,
 tr {
     text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    justify-content: space-between;
 }
 
 th.right,
@@ -329,6 +338,9 @@ td.right {
 
 td {
     border-bottom: 1px solid var(--divider);
+    display:inline-flex;
+    align-items: center;
+    width: 47%;
 }
 
 p.left {
@@ -341,7 +353,9 @@ p.left {
 }
 
 td>p {
-    display: inline-block;
+    /* display: inline-block; */
+    display: flex;
+    flex-direction: column;
 }
 
 span::before {
