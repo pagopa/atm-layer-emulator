@@ -207,11 +207,11 @@ const ServiceAccessPage = () => {
 
 	return (
 		<Box id={touchInterface ? "touch" : "no-touch"} m={2}>
-			{loading ? (
+			{loading ? 
 				<Loading  marginTop={"20%"} message="Operazione in corso, si prega di attendere" />
-			) : (
+			 : 
 				bodyHtml && parse(bodyHtml?.innerHTML)
-			)}
+			}
 			
 		</Box>
 	);
