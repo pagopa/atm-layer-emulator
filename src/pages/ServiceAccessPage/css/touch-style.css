@@ -64,7 +64,6 @@
 	border-radius: 4px;
 	border: none;
 	padding: 15px 10px;
-	text-align: center;
 	text-decoration: none;
 	display: inline-block;
 	position: relative;
@@ -80,6 +79,9 @@
 	/* transition: all 0.5s; */
 	border: 1px solid var(--divider);
 	vertical-align: top;
+	background: url(./rightArrow.svg) no-repeat;
+    background-position-y: 85px;
+    background-position-x: 130px;
 }
 
 #touch li > span.small {
@@ -92,7 +94,7 @@
 
 #touch li > img {
 	position: absolute;
-	bottom: 5px;
+	bottom: 15px;
 	margin-left: 0px;
 	right: 120px;
 }
