@@ -3,7 +3,8 @@
 #touch {
     width: 800px;
     height: 600px;
-    border: 2px solid var(--divider);;
+    border: 2px solid var(--divider);
+	position:relative;
 }
 
 #touch #exit span {
@@ -38,6 +39,9 @@
 	background: url(./exit.svg) no-repeat;
 	background-position-y: center;
     max-width: 138px;
+	position: absolute;
+    top: 510px;
+    left: 180px;
     /* margin-top: 150px; */
 }
 
@@ -53,7 +57,7 @@
 	list-style-type: none;
 	padding-left: 0px;
 	overflow: auto;
-	max-height: 350px;
+	max-height: 290px;
 }
 
 #touch li {
@@ -118,25 +122,34 @@
 	min-height: 52px;
 } */
 
-/* #touch [data-fdk='S4'] {
-	position: absolute;
+#touch [data-fdk='S4'] {
+	/* position: absolute;
 	margin-top: 310px;
-    min-height: 52px;
+    min-height: 52px; */
+
+	position: absolute;
+    top: 510px;
+    left: 16px;
 }
 
-
+/*
 #touch [data-fdk='S7'] {
     position: absolute;
     margin-left: 22%;
     top: 520px;
 	min-height: 52px;
 }
-
+*/
 #touch [data-fdk='S8'] {
-	margin-left: 32%;
+	/* margin-left: 32%;
     margin-top: 310px;
-    min-height: 52px;
-} */
+    min-height: 52px; */
+
+	position: absolute;
+    top: 510px;
+    /* left: 650px; */
+	right: 16px;
+}
 
 #touch span::before {
 	content: none;
@@ -149,5 +162,6 @@
 
 #touch #exit[data-fdk='S4']{
 	position: absolute;
-	min-height: 52px;
+    top: 510px;
+    left: 16px;
 }

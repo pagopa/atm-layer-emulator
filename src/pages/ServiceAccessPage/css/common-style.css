@@ -72,10 +72,9 @@ button:not([data-fdk], #home-button, #confirm-button) {
 }
 
 .central {
-    margin-right: auto;
-    margin-left: auto;
+    margin:auto;
     display: block;
-    top: calc(50% - 200px);
+    top: calc(50% - 250px);
     position: relative;
     text-align: center;
 }
@@ -158,13 +157,18 @@ body {
 }
 
 input {
-    width: 70%;
+    width: 40%;
     padding: 12px 20px;
     margin: auto;
     box-sizing: border-box;
     border: 1px solid var(--divider);
     border-radius: 4px;
     background-color: var(--background-paper);
+    border-color: var(--divider);
+}
+
+input[type="text"]:focus{
+    border: 1px solid var(--primary-main);
 }
 
 /* ul {
