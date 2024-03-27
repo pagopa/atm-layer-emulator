@@ -20,19 +20,24 @@ const ServiceAccessPage = () => {
 	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface } = useContext(Ctx);
 	const [loading, setLoading] = useState(false);
 	const [command, setCommand] = useState(responseProcess?.task?.command);
-	const [menuList, setMenuList]=useState();
+	const [menuList, setMenuList]=useState<any | NodeList >();
+	const [pageIndex, setPageIndex]=useState(1);
 	const pageSize=4;
 	let bodyHtml :any ;
 	let timeout = responseProcess?.task?.timeout;
 	
 	if(responseProcess?.task?.template?.content){ 
 		bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);
-		
 	}
 
+	useEffect(() => {
+		console.log("menuList", menuList);
+	}, [menuList]);
+
 	// funzione paginazione array
-	function paginate(array:Array<Element>, pageNumber:number) {
+	function paginate( arr: Array<Element>, pageNumber:number) {
 		// human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+		const array= menuList? Array.from(menuList) :arr;
 		return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 	};
 
@@ -46,17 +51,16 @@ const ServiceAccessPage = () => {
 
 	function getPaginationElements(){
 		// const list=menuList?.querySelectorAll("li");
-		const menuList=document.querySelectorAll("#menu > li");
-		if(menuList?.length>pageSize){
+		const listItems=document.querySelectorAll("#menu > li");
+		if(listItems?.length>pageSize){
 			// mi metto da parte la lista non paginata di li
-			// setMenuList(list); 
-			// trasformo la lista in array 
-			const paginationArray=paginate(Array.from(menuList), 1);
+			setMenuList(listItems); 
+			const paginationArray=paginate(Array.from(listItems), 1);
 			// aggiungo bottoni 
 			// bodyHtml?.querySelector("#menu")?.innerHTML = paginationArray;
 			// eslint-disable-next-line no-param-reassign
-			menuList.forEach(el => el.remove());
-			console.log(menuList, menuList?.length, paginationArray);
+			listItems.forEach(el => el.remove());
+			console.log(listItems, listItems?.length, paginationArray);
 			// menuList.appendchild(paginationArray as unknown as  NodeList);
 			// menuList.=paginationArray;
 		}
