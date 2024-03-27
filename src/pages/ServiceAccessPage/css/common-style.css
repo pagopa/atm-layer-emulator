@@ -236,3 +236,7 @@ tfoot > tr > td {
 td > img {
     margin-right: 10px;
 }
+
+#home-button{
+    display:none;
+}

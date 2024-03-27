@@ -68,6 +68,10 @@
 
 #no-touch #confirm[data-fdk='S8']{
     color: white;
+    background: url(./whiteLeftArrow.svg) no-repeat;
+    background-position: right;
+    justify-content: flex-end;
+    background-position-x: 303px;
     background-color:#0062C3;
 }
 
