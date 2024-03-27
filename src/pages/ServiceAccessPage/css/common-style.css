@@ -74,20 +74,20 @@ button:not([data-fdk], #home-button, #confirm-button) {
 .central {
     margin:auto;
     display: block;
-    top: calc(50% - 200px);
+    top: calc(50% - 130px);
     position: relative;
     text-align: center;
 }
 
 .central~h2 {
     text-align: center;
-    top: calc(50% - 200px);
+    top: calc(50% - 130px);
     position: relative;
 }
 
 .central~h3 {
     text-align: center;
-    top: calc(50% - 200px);
+    top: calc(50% - 120px);
     position: relative;
 }
 
