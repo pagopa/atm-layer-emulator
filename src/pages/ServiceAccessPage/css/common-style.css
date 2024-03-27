@@ -346,11 +346,19 @@ td {
 
 p.left {
     margin: 10px;
-    width: 350px;
+    margin-left: 20px;
+    width: 330px;
     background-color: var(--info-extraLight);
     border-radius: 4px;
-    padding: 5px;
-    padding-left: 15px;
+    display: flex;
+    text-align: justify;
+    padding: 15px;
+    padding-right: 20px;
+}
+
+p.left > img {
+    padding-right: 15px;
+    height: 1.5rem;
 }
 
 td>p {
