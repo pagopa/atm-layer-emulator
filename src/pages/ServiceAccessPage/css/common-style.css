@@ -359,6 +359,7 @@ p.left {
     text-align: justify;
     padding: 15px;
     padding-right: 20px;
+    margin-left: 27px;
 }
 
 p.left > img {
