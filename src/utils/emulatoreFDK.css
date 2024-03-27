@@ -12,7 +12,7 @@
 	text-align: left;
 	font-size: large;
 	font-weight: 600;
-	/* background-image: linear-gradient(to bottom, #ECECEC, #0066CC); */
+	/* // background-image: linear-gradient(to bottom, #ECECEC, #0066CC); */
 }
 
 #logo {
@@ -55,39 +55,60 @@ h3 {
 [data-fdk='S4'] {
 	position: absolute;
 	top: 530px;
+	left: 0px;
+	right: auto;
 }
 
 [data-fdk='S3'] {
 	position: absolute;
 	top: 400px;
+	left: 0px;
+	right: auto;
+}
+
+[data-fdk='S7'] {
+	position: absolute;
+	right: 0px;
+	left: auto;
+	top: 400px;
 }
 
 [data-fdk='S8'] {
 	position: absolute;
+	right: 0px;
+	left: auto;
 	top: 530px;
-	left: 400px;
+}
+
+button:not([data-fdk]) {
+	display: none;
 }
 
 .central {
-	margin-top: 50px;
 	margin-right: auto;
 	margin-left: auto;
 	display: block;
+	top: calc(50% - 200px);
+	position: relative;
 }
 
 .central ~ h2 {
 	text-align: center;
+	top: calc(50% - 200px);
+	position: relative;
 }
 
 .central ~ h3 {
 	text-align: center;
+	top: calc(50% - 200px);
+	position: relative;
 }
 
 button {
-	border-radius: 4px;
+	border-radius: 10px;
 	background-color: #0066cc;
 	border: none;
-	padding: 15px 32px;
+	padding: 12px 32px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-flex;
@@ -97,6 +118,9 @@ button {
 	color: white;
 	font-weight: 600;
 	cursor: pointer;
+	position: absolute;
+	right: 0px;
+	top: 530px;
 }
 
 button.negative {
@@ -105,17 +129,43 @@ button.negative {
 	border: 2px solid;
 }
 
+#exit {
+	background-color: #ececec;
+	color: rgba(204, 0, 0, 1);
+	border: 2px solid;
+	background: url(./exit.svg) no-repeat;
+	background-position-y: center;
+}
+
+#exit {
+	background-color: #ececec;
+	color: rgba(204, 0, 0, 1);
+	border: 2px solid;
+	background: url(./exit.svg) no-repeat;
+	background-position-y: center;
+}
+
+#back {
+	background-color: #0066cc;
+	color: rgba(0, 102, 204, 1);
+	border: 2px solid;
+	background: url(./back.svg) no-repeat;
+	background-position-y: center;
+}
+
 button.exit {
 	background-color: #ececec;
 	float: left;
 	color: black;
 }
 
-body {
+.body {
 	border-style: solid;
 	width: 800px;
 	height: 600px;
 	word-break: normal !important;
+	position: relative;
+	margin: auto;
 }
 
 input {
@@ -123,7 +173,7 @@ input {
 	padding: 12px 20px;
 	margin: auto;
 	box-sizing: border-box;
-	border: 2px solid;
+	border: none;
 	border-radius: 4px;
 	background-color: rgba(0, 180, 204, 0.12);
 }
@@ -142,33 +192,77 @@ li {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
+	position: relative;
 	font-size: 16px;
 	margin: 10px;
 	color: white;
 	font-weight: 600;
 	cursor: pointer;
-	width: 305px;
+	width: 300px;
+	border-radius: 7px;
+	box-shadow: 5px 5px 10px 0px #8e8e8e;
+	transition: all 0.5s;
+	margin-bottom: 55px;
 }
 
 li > span.small {
 	color: rgba(236, 236, 236, 1);
 }
+
+li > span {
+	transition: 0.5s;
+}
 li > img {
-	display: b;
+	display: block;
 	float: right;
 	margin-left: 10px;
 }
 
+li span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	right: -10px;
+	top: 0;
+	transition: 0.5s;
+	font-size: 33px;
+}
+
+li:hover {
+	padding-right: 57px;
+	width: 275px;
+}
+
+li:hover span:after {
+	opacity: 1;
+	right: 15;
+	top: 0;
+	font-size: 33px;
+}
+
 .loader {
-	margin: auto;
-	padding: 200px 200px;
 	border: 10px solid #f3f3f3;
 	border-radius: 50%;
 	border-top: 10px solid #3498db;
 	width: 60px;
 	height: 60px;
-	-webkit-animation: spin 1s linear infinite; /* Safari */
+	position: fixed;
+	top: 240px;
+	left: calc(50% - 30px);
+
+	-webkit-animation: spin 1s linear infinite;
 	animation: spin 1s linear infinite;
+}
+
+.loader::after {
+	position: absolute;
+	top: -2370px;
+	left: -2370px;
+	width: 8000%;
+	height: 8000%;
+	content: '';
+	background: rgba(0, 0, 0, 0.2);
+	z-index: -1;
 }
 
 /* Safari */

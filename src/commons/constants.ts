@@ -9,3 +9,4 @@ export const PRINT_RECEIPT = "PRINT_RECEIPT";
 export const END = "END";
 export const GET_IBAN = "GET_IBAN";
 export const GET_PAN = "GET_PAN";
+export const NEXT = "NEXT";

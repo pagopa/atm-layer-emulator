@@ -1,160 +1,218 @@
+/* eslint-disable functional/no-let */
 /* eslint-disable functional/immutable-data */
-import React, { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
+import { Box } from "@mui/material";
+import { generatePath } from "react-router-dom";
 import { Ctx } from "../../DataContext";
-// import "./ServiceAccessStyle.css";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
+import { TASK_NEXT } from "../../commons/endpoints";
+import { fetchRequest } from "../../hook/fetch/fetchRequest";
+import "./css/style-page.css";
+import { executeCommand } from "../../commons/utilsFunctions";
+import { Loading } from "../../components/Commons/Loading";
+
+
+
 
 const ServiceAccessPage = () => {
-	const { responseProcess, touchInterface } = useContext(Ctx);
-	console.log("template",responseProcess?.task?.template?.content);
-	// eslint-disable-next-line functional/no-let
+
+	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface } = useContext(Ctx);
+	const [loading, setLoading] = useState(false);
+	const [command, setCommand] = useState(responseProcess?.task?.command);
 	let bodyHtml :any ;
-	if(responseProcess?.task?.template?.content)
-	{ bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);}
-	console.log("parsed body", bodyHtml);
-	console.log(bodyHtml);
-
-
-	// Crea un componente griglia e assegna lo stile ad un elemento <div>
-	const grid = document.createElement("div");
-
-
-
-	// Il template MENU è l'unico ad avere un menu nella schermata
-	if (responseProcess?.task?.template?.type === "MENU"){
-
-		// Sostituisci gli elementi <li> con bottoni <button>
-		const liElements = bodyHtml?.querySelectorAll("li");
-		liElements?.forEach((li: any) => {
-			const button = document.createElement("button");
-			button.innerHTML = li.innerHTML;
-			button.id = li.id;
-			li.parentNode.replaceChild(button, li);
-		});
-
-		const menu = bodyHtml?.querySelector("#menu");
-		if (menu) {
-			// aggiungi alla griglia lo stile del container
-			grid.classList.add("mui-container-fluid");
-			// sostituisci l'elemento griglia appena creato con l'elemento HTML con il tag id="menu"
-			grid.innerHTML = menu.innerHTML;
-			// sostituisci l'id dell'elemento griglia appena creato con l'id del vecchio elemento a cui era assegnato l'id "menu"
-			grid.id = menu.id;
-			// rimpiazza sul nodo definitivamente l'elemento menu con l'elemento grid
-			menu.parentNode?.replaceChild(grid, menu);
-		}
+	let timeout = responseProcess?.task?.timeout;
 	
-		// creazione di un elemento div (una nuova row per la griglia)
-		const rowButtons = document.createElement("div");
-		if (rowButtons) {
-		// aggiunta dello stile mui-row all'elemento appena creato
-			rowButtons.classList.add("mui-row");
+	if(responseProcess?.task?.template?.content){ 
+		bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);
+	}
+
+
+	useEffect(() => {
+		if (!timeout || timeout === null){
+			timeout = 30;
 		}
-		// "Appendere" all'elemento padre grid l'elemento figlio row
-		grid.appendChild(rowButtons);
-	
-		const responseButtons = [];
-		responseButtons.push(responseProcess?.task?.buttons);
-		// eslint-disable-next-line array-callback-return
-		responseButtons.map( (responseButton, i) => {
-			const buttonColumn = document.createElement("div");
-			if(buttonColumn) {
-				// Aggiunta dello stile alla colonna che rendiamo md-5
-				buttonColumn.classList.add("mui-col-md-5");
-				buttonColumn.setAttribute("style", "padding: 0px");
-				// "Appendere" all'elemento padre rowButtons l'elemento della colonna
-				rowButtons.appendChild(buttonColumn);
+		// const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
+		addButtonClickListener();
+		
+		// const command = responseProcess?.task.command;
+		// if (command !== undefined && command !== null) {
+		// 	executeCommand(command, next, responseProcess);
+		// }
+		
+		return () => {
+			removeButtonClickListener();
+			// clearTimeout(nextTimeout);
+		};
+	}, [responseProcess]);
+
+	useEffect(() => {
+		if(command && command!==""){
+			executeCommand(command, next, responseProcess);
+		}
+	}, [command]);
+
+	const date = new Date().toISOString().slice(0, -5);
+	const postData = (params: any) => ({
+		data: {
+			"panInfo": [
+				{
+					"pan": "1234567891234567",
+					"circuits": [
+						"VISA"
+					],
+					"bankName": "ISYBANK"
+				},{
+					"pan": "8234567891234565",
+					"circuits": [
+						"BANCOMAT",
+						"VISA"			
+					],
+					"bankName": "INTESA"
+				}
+			],
+			...params
+		},
+		device: {
+			bankId: transactionData.acquirerId,
+			branchId: transactionData.branchId,
+			channel: "ATM",
+			code: transactionData.code,
+			opTimestamp: date,
+			peripherals: [
+				{
+					id: "PRINTER",
+					name: "Receipt printer",
+					status: transactionData.printer
+				},
+				{
+					id: "SCANNER",
+					name: "Scanner",
+					status: transactionData.scanner
+				}
+			],
+			terminalId: transactionData.terminalId,
+		},
+		taskId: responseProcess?.task?.id,
+	});
+
+	const next = async (params: any, panInfo?:any) => {
+		// setCommand("");
+		setLoading(true);
+		try {
+			const response = await fetchRequest({
+				urlEndpoint: generatePath(TASK_NEXT, { transactionId: responseProcess?.transactionId }),
+				method: "POST",
+				abortController,
+				body: postData(params),
+				headers: { "Content-Type": "application/json" }
+			})();
+
+			if (response?.success) {
+				
+				if (response?.valuesObj?.task?.command) {
+					setCommand(response?.valuesObj?.task?.command);
+				}
+				setResponseProcess(response?.valuesObj);
 			}
-			// Prendersi l'elemento con id "pagamentoAviso"
-			const renderedButton = bodyHtml?.querySelector(responseButton.id);
-			if (renderedButton) {
-				renderedButton.setAttribute("style", "width: 100%");
-				// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
-				buttonColumn.appendChild(renderedButton);
+		} catch (error) {
+			console.log("Response negative: ", error);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	const handleClick = (event: MouseEvent) => {
+		const button = event.currentTarget as HTMLButtonElement;
+		if (button) {
+			const dataString = button.getAttribute("data");
+			if(dataString){
+				const data = dataString ? JSON.parse(dataString) : {};
+				const params: any = { ...data };
+				const inputElements = document?.querySelectorAll("input");
+				inputElements.forEach((input: any) => {
+					params[input.id] = input.value;
+				});
+				void next(params);
+			} else {
+				void next({selected: button.id, continue: true});
 			}
+			
+		}
+	};
+
+	const addButtonClickListener = () => {
+		const buttons = document?.querySelectorAll("button");
+		buttons?.forEach(button => {
+			button.addEventListener("click", handleClick);
 		});
+		const listButtons = document?.querySelectorAll("li");
+		listButtons?.forEach(listButton => {
+			listButton.addEventListener("click", handleClick);
+		});
+	};
+
+	const removeButtonClickListener = () => {
+		const buttons = document?.querySelectorAll("button");
+		buttons?.forEach(button => {
+			button.removeEventListener("click", handleClick);
+		});
+		const listButtons = document?.querySelectorAll("li");
+		listButtons?.forEach(listButton => {
+			listButton.removeEventListener("click", handleClick);
+		});
+	};
+
+	
+	
+	const headerRow = document.createElement("div");
+	headerRow.classList.add("mui-row");
+	headerRow.id = "headerSection";
+	const logoElement = bodyHtml?.querySelector("#logo");
+	if (logoElement) {
+		const logoColumn = document.createElement("div");
+		logoColumn.classList.add("mui-col-md-6");
+		logoColumn.appendChild(logoElement);
+		headerRow.appendChild(logoColumn);
+	}
+	const descElement = bodyHtml?.querySelector("h1");
+	if (descElement) {
+		const descColumn = document.createElement("div");
+		descColumn.classList.add("mui-col-md-6");
+		descColumn.appendChild(descElement);
+		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
+		headerRow.appendChild(descColumn);
+	}
+	
+	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
+
+	if (!touchInterface && bodyHtml?.querySelector("#back")){
+		const exitButton= bodyHtml?.querySelector("#exit");
+		exitButton.remove();
 	}
 
-	// // creazione di un elemento div (una nuova colonna per la row della griglia)
-	// const buttonPaymentColumn = document.createElement("div");
-	// if(buttonPaymentColumn) {
-	// // Aggiunta dello stile alla colonna che rendiamo md-5
-	// 	buttonPaymentColumn.classList.add("mui-col-md-5");
-	// 	buttonPaymentColumn.setAttribute("style", "padding: 0px");
-	// 	// "Appendere" all'elemento padre rowButtons l'elemento della colonna
-	// 	rowButtons.appendChild(buttonPaymentColumn);
-	// }
-	// // Prendersi l'elemento con id "pagamentoAviso"
-	// const buttonPayment = bodyHtml.querySelector("#pagamentoAviso");
-	// if (buttonPayment) {
-	// 	buttonPayment.setAttribute("style", "width: 100%");
-	// 	// "Appendere" all'elemento padre buttonPaymentColumn l'elemento figlio con id "pagamentoAviso"
-	// 	buttonPaymentColumn.appendChild(buttonPayment);
-	// }
+	const buttonsArray = responseProcess?.task?.buttons;
+	buttonsArray?.forEach((responseElement: any) => {
+		const renderedButton = bodyHtml?.querySelector(`#${responseElement.id}`);
+		if (renderedButton) {
+			const data = responseElement.data;
+			if (data) {
+				renderedButton.setAttribute("data", JSON.stringify(data));
+			}
+			
+		}
+	});
 
 
-	// // creazione di un elemento div (una nuova colonna per la row della griglia)
-	// const buttonInitiativeIDPayColumn = document.createElement("div");
-	// if(buttonInitiativeIDPayColumn) {
-	// // Aggiunta dello stile alla colonna che rendiamo md-5
-	// 	buttonInitiativeIDPayColumn.classList.add("mui-col-md-5");
-	// 	buttonInitiativeIDPayColumn.setAttribute("style", "padding: 0px; margin-left: 16px");
-	// 	// "Appendere" all'elemento padre rowButtons l'elemento della colonna
-	// 	rowButtons.appendChild(buttonInitiativeIDPayColumn);
-	// }
-	// const buttonInitiativeIDPay = bodyHtml.querySelector("#iniziativeIDPay");
-	// if(buttonInitiativeIDPay) {
-	// 	buttonInitiativeIDPay.setAttribute("style", "width: 100%");
-	// 	buttonInitiativeIDPayColumn.appendChild(buttonInitiativeIDPay);
-	// }
-
-	const rowButtonExit = document.createElement("div");
-	if (rowButtonExit) {
-	// aggiunta dello stile mui-row all'elemento appena creato
-		rowButtonExit.classList.add("mui-row");
-	}
-
-	grid.appendChild(rowButtonExit);
-
-	const buttonExit = bodyHtml.querySelector("#exit");
-	if (buttonExit) {
-		buttonExit.classList.add("mui-btn", "mui-btn--raised", "mui-btn--danger");
-		rowButtonExit.appendChild(buttonExit);
-	}
-
-	// Aggiungere al body della pagina HTML il componente appena creato e modificato
-	bodyHtml.appendChild(grid);
-
-	// // // Creare una tabella per organizzare i bottoni
-	// const table = document.createElement("table");
-	// const row1 = table.insertRow();
-	// const row2 = table.insertRow();
-
-	// // Aggiungi il bottone #pagamentoAviso nella prima riga della tabella
-	// const cell1 = row1.insertCell();
-	// cell1.appendChild(bodyHtml.querySelector("#pagamentoAviso") ?? <div /> as unknown as HTMLElement);
-
-	// // Aggiungi il bottone #iniziativeIDPay nella prima riga della tabella
-	// const cell2 = row1.insertCell();
-	// cell2.appendChild(bodyHtml.querySelector("#iniziativeIDPay") ?? <div /> as unknown as HTMLElement);
-
-	// // Aggiungi il bottone #exit nella seconda riga della tabella
-	// const cell3 = row2.insertCell();
-
-	// const buttonExit = bodyHtml.querySelector("#exit");
-	// if (buttonExit) {
-	// 	buttonExit.classList.add("mui-btn", "mui-btn--raised", "mui-btn--danger");
-	// 	cell3.appendChild(buttonExit);
-	// }
-
-	// // Aggiungi la tabella al corpo HTML
-	return(
-		
-		<div id = {touchInterface ? "touch" : "no-touch"}>
-			{parse(bodyHtml.innerHTML)}
-		</ div>
-		
+	return (
+		<Box id={touchInterface ? "touch" : "no-touch"} m={2}>
+			{loading ? 
+				<Loading  marginTop={"20%"} message="Operazione in corso, si prega di attendere" />
+			 : 
+				bodyHtml && parse(bodyHtml?.innerHTML)
+			}
+			
+		</Box>
 	);
 };
 

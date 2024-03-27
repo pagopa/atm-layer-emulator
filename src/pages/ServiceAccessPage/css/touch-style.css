@@ -1,0 +1,163 @@
+@import "./root.css";
+
+body #touch {
+    width: 800px;
+    height: 600px;
+    border: 2px solid var(--divider);
+	position:relative;
+}
+
+#touch #exit span {
+    vertical-align: middle;
+}
+
+#touch button {
+	border-radius: 10px;
+	background-color: var(--primary-main);
+	border: 2px solid var(--primary-main);;
+	padding: 10px 40px;
+	text-decoration: none;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 140px;
+    min-height: 45px;
+	min-width: 105px;
+	font-size: 16px;
+	margin: 10px;
+	float: right;
+	color: var(--background-paper);
+	font-weight: 600;
+	cursor: pointer;
+}
+
+#touch button.negative {
+	background-color: var(--background-paper);
+	color: var(--primary-main);
+	border: 2px solid;
+}
+
+#touch button.positive {
+	max-width: none;
+}
+
+#touch button.negative#confirm {
+	max-width: none;
+	max-height: 45px;
+}
+
+#touch #exit {
+	background-color: var(--background-paper);
+	color: var(--error-main);
+	border: 2px solid;
+	background: url(./exit.svg) no-repeat;
+	background-position-y: center;
+    max-width: 138px;
+	position: absolute;
+    top: 530px;
+    left: 180px;
+}
+
+#touch #back {
+	background-color: var(--primary-main);
+	color: var(--primary-main);
+	border: 2px solid;
+	background: url(./back.svg) no-repeat;
+	background-position-y: center;
+}
+
+#touch ul {
+	list-style-type: none;
+	padding-left: 10px;
+	overflow: auto;
+	max-height: 290px;
+}
+
+#touch li {
+	border-radius: 4px;
+	border: none;
+	padding: 15px 10px;
+	text-decoration: none;
+	display: inline-block;
+	position: relative;
+	font-size: 16px;
+	margin: 10px;
+	margin-top: 48px;
+	font-weight: 600;
+	cursor: pointer;
+	width: 150px;
+	height: 100px;
+	border-radius: 10px;
+	border: 1px solid var(--divider);
+	vertical-align: top;
+	background: url(./rightArrow.svg) no-repeat;
+	background-position-y: 85px;
+    background-position-x: 140px;
+}
+
+#touch li > span.small {
+	color: var(--primary-main);
+}
+
+#touch li > span {
+	transition: 0.5s;
+}
+
+#touch li > img {
+	position: absolute;
+	bottom: 15px;
+	margin-left: 0px;
+	right: 130px;
+}
+
+#touch li > img + img {
+	right: 75px;
+}
+
+#touch li > img + img + img {
+	right: 110px;
+}
+
+#touch li span:after {
+	position: absolute;
+	opacity: 1;
+	right: 5px;
+	bottom: 0;
+	transition: 0.5s;
+	font-size: 33px;
+	color: var(--primary-main);
+}
+
+#touch [data-fdk='S4'] {
+	position: absolute;
+    top: 530px;
+    left: 16px;
+}
+
+
+#touch [data-fdk='S7'] {
+    position: absolute;
+    top: 400px;
+	right:16px;
+}
+
+#touch [data-fdk='S8'] {
+	position: absolute;
+    top: 530px;
+	right: 16px;
+}
+
+#touch span::before {
+	content: none;
+}
+
+#touch span #text {
+    vertical-align: middle;
+	text-align: center;
+}
+
+#touch #exit[data-fdk='S4']{
+	position: absolute;
+    top: 530px;
+    left: 8px;
+}

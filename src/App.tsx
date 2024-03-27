@@ -11,8 +11,7 @@ import { JwtUser } from "./components/model/UserModel";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import LoginPageCallback from "./pages/LoginPageCallback";
-// import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
-import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage copy";
+import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
 
 
 

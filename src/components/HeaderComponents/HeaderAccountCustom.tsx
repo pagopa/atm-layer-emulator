@@ -74,6 +74,7 @@ export const HeaderAccountCustom = ({
 								variant="text"
 								size="large"
 								onClick={()=>navigate(ROUTES.HOME)}
+								id="home-button"
 								sx={{
 									padding: "0px 0px 0px 8px",
 									fontSize:"1.5em",

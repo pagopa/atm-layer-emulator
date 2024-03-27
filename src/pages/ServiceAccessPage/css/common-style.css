@@ -1,0 +1,238 @@
+@import "./root.css";
+
+#title_page {
+    color: white;
+    padding: 10;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 600;
+    background-image: linear-gradient(to bottom, var(--background-default), var(--primary-main));
+}
+
+#headerSection{
+    height: 5rem;
+    width: 100%;
+    border-bottom: 1.5px solid var(--divider);
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+
+#logo {
+    position: absolute;
+    height: 60px;
+    margin: 10px;
+}
+
+h1 {
+    letter-spacing: -0.011em;
+    font-size: var(--font-size-h1);
+    text-align: right;
+    padding-right: 20px;
+    color: var(--text-primary);
+}
+
+h2 {
+    font-weight: 600;
+    font-size: var(--font-size-h2);
+    line-height: 42px;
+    color: var(--text-primary);
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h3 {
+    font-weight: 400;
+    font-size: var(--font-size-h3);
+    line-height: 24px;
+    color: var(--text-secondary);
+    margin-top: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+
+button:not([data-fdk], #home-button, #confirm-button) {
+    position: absolute;
+    right: 260px;
+    left: auto;
+    top: 530px;
+}
+
+.central {
+    margin:auto;
+    display: block;
+    top: calc(50% - 130px);
+    position: relative;
+    text-align: center;
+}
+
+.central~h2 {
+    text-align: center;
+    top: calc(50% - 130px);
+    position: relative;
+}
+
+.central~h3 {
+    text-align: center;
+    top: calc(50% - 120px);
+    position: relative;
+}
+
+
+body {
+    font-family: var(--font-family);
+}
+
+input {
+    width: 40%;
+    padding: 12px 20px;
+    margin: auto;
+    box-sizing: border-box;
+    border: 1px solid var(--divider);
+    border-radius: 4px;
+    background-color: var(--background-paper);
+    border-color: var(--divider);
+}
+
+input[type="text"]:focus{
+    border: 1px solid var(--primary-main);
+}
+
+
+label {
+    display: block;
+    text-overflow: ellipsis;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+span.small {
+    display: inline-block;
+    text-align: left;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+span.large {
+    display: inline-block;
+    text-align: left;
+    font-size: 28px;
+    color: black;
+}
+
+td>p>span,
+td>span {
+    color: black;
+    font-size: 0.9rem;
+    font-weight: 900;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+th {
+    font-size: 25px;
+    font-weight: 900;
+}
+
+th,
+tr {
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    width: 90%;
+    margin-right: 50px;
+    margin-left: 40px;
+    justify-content: space-between;
+}
+
+th.right,
+td.right {
+    text-align: right;
+    padding-left: 25px;
+}
+
+td {
+    border-bottom: 1px solid var(--divider);
+    display:inline-flex;
+    align-items: center;
+    width: 47%;
+}
+
+p.left {
+    margin: 10px;
+    margin-left: 27px;
+    width: 330px;
+    background-color: var(--info-extraLight);
+    border-radius: 16px;
+    display: flex;
+    text-align: justify;
+    padding: 15px;
+    padding-right: 20px;
+}
+
+p.left > img {
+    padding-right: 15px;
+    height: 1.5rem;
+}
+
+td>p {
+    display: flex;
+    flex-direction: column;
+}
+
+span::before {
+    white-space: pre;
+}
+
+thead::before {
+    content: '-';
+    display: block;
+    line-height: 3em;
+    color: transparent;
+}
+
+
+#message_free {
+    margin: auto;
+    padding: 100px 50px;
+    font-size: x-large;
+    text-align: center;
+}
+
+thead > tr {
+    border: 1px solid var(--divider);
+    border-radius: 18px;
+    margin-bottom: 10px;
+}
+
+tbody > tr > td> span{
+    font-weight: 400;
+    margin-bottom: 10px;
+    margin-left: 50px;
+}
+
+tbody > tr > td.right > span{
+    font-weight: 900;
+}
+
+tfoot > tr > td {
+    border: none;
+    margin-left: 50px;
+}
+
+td > img {
+    margin-right: 10px;
+}
