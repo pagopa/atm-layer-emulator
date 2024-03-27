@@ -31,14 +31,14 @@ const ServiceAccessPage = () => {
 	}
 
 	useEffect(() => {
-		console.log("menuList", menuList);
+		// console.log("menuList", menuList);
 	}, [menuList]);
 
 	// funzione paginazione array
 	function paginate( arr: Array<Element>, pageNumber:number) {
 		// human-readable page numbers usually start with 1, so we reduce 1 in the first argument
 		const array= menuList? Array.from(menuList) :arr;
-		return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+		return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize) as Array<Node>;
 	};
 
 	// function convertToNodeList(arrayOfNodes:Array<any>){
@@ -52,17 +52,30 @@ const ServiceAccessPage = () => {
 	function getPaginationElements(){
 		// const list=menuList?.querySelectorAll("li");
 		const listItems=document.querySelectorAll("#menu > li");
+		// const listItems=document.querySelectorAll("#menu > li") as any as Array<HTMLElement>;
 		if(listItems?.length>pageSize){
 			// mi metto da parte la lista non paginata di li
 			setMenuList(listItems); 
-			const paginationArray=paginate(Array.from(listItems), 1);
+			const paginationArray=paginate(Array.from(listItems), pageIndex);
 			// aggiungo bottoni 
 			// bodyHtml?.querySelector("#menu")?.innerHTML = paginationArray;
 			// eslint-disable-next-line no-param-reassign
 			listItems.forEach(el => el.remove());
-			console.log(listItems, listItems?.length, paginationArray);
 			// menuList.appendchild(paginationArray as unknown as  NodeList);
 			// menuList.=paginationArray;
+			const frag = document.createDocumentFragment();
+			for (let i = 0; i < paginationArray.length; ++i) {
+				frag.appendChild(paginationArray[i]);
+			}
+			
+		
+				
+			for (let i=0;i<listItems.length;i++) {
+				// listItems.append(paginationArray[i].cloneNode(true));
+			}
+		
+			console.log(listItems, listItems, paginationArray);
+
 		}
 	};
 
