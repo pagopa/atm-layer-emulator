@@ -20,13 +20,47 @@ const ServiceAccessPage = () => {
 	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface } = useContext(Ctx);
 	const [loading, setLoading] = useState(false);
 	const [command, setCommand] = useState(responseProcess?.task?.command);
+	const [menuList, setMenuList]=useState();
+	const pageSize=4;
 	let bodyHtml :any ;
 	let timeout = responseProcess?.task?.timeout;
 	
 	if(responseProcess?.task?.template?.content){ 
 		bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);
+		
 	}
 
+	// funzione paginazione array
+	function paginate(array:Array<Element>, pageNumber:number) {
+		// human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+		return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+	};
+
+	// function convertToNodeList(arrayOfNodes:Array<any>){
+	// 	const fragment = document.createDocumentFragment();
+	// 	arrayOfNodes.forEach(function(item){
+	// 		fragment.appendChild(item.cloneNode(true));
+	// 	});
+	// 	return fragment.childNodes;
+	// };
+
+	function getPaginationElements(){
+		// const list=menuList?.querySelectorAll("li");
+		const menuList=document.querySelectorAll("#menu > li");
+		if(menuList?.length>pageSize){
+			// mi metto da parte la lista non paginata di li
+			// setMenuList(list); 
+			// trasformo la lista in array 
+			const paginationArray=paginate(Array.from(menuList), 1);
+			// aggiungo bottoni 
+			// bodyHtml?.querySelector("#menu")?.innerHTML = paginationArray;
+			// eslint-disable-next-line no-param-reassign
+			menuList.forEach(el => el.remove());
+			console.log(menuList, menuList?.length, paginationArray);
+			// menuList.appendchild(paginationArray as unknown as  NodeList);
+			// menuList.=paginationArray;
+		}
+	};
 
 	useEffect(() => {
 		if (!timeout || timeout === null){
@@ -34,7 +68,10 @@ const ServiceAccessPage = () => {
 		}
 		// const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		addButtonClickListener();
-		
+
+		if(document?.getElementById("menu")){
+			getPaginationElements();
+		}
 		// const command = responseProcess?.task.command;
 		// if (command !== undefined && command !== null) {
 		// 	executeCommand(command, next, responseProcess);
