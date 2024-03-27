@@ -1,6 +1,6 @@
 @import "./root.css";
 
-#touch {
+body #touch {
     width: 800px;
     height: 600px;
     border: 2px solid var(--divider);
@@ -17,7 +17,12 @@
 	border: none;
 	padding: 15px 40px;
 	text-decoration: none;
-	display: inline-flex;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 140px;
+    min-height: 60px;
+	min-width: 105px;
 	font-size: 16px;
 	margin: 10px;
 	float: right;
@@ -32,6 +37,15 @@
 	border: 2px solid;
 }
 
+#touch button.positive {
+	max-width: none;
+}
+
+#touch button.negative#confirm {
+	max-width: none;
+	max-height: 60px;
+}
+
 #touch #exit {
 	background-color: var(--background-paper);
 	color: var(--error-main);
@@ -42,7 +56,6 @@
 	position: absolute;
     top: 510px;
     left: 180px;
-    /* margin-top: 150px; */
 }
 
 #touch #back {
@@ -75,13 +88,11 @@
 	width: 150px;
 	height: 100px;
 	border-radius: 10px;
-	/* box-shadow: 5px 5px 10px 0px #8e8e8e; */
-	/* transition: all 0.5s; */
 	border: 1px solid var(--divider);
 	vertical-align: top;
 	background: url(./rightArrow.svg) no-repeat;
-    background-position-y: 85px;
-    background-position-x: 130px;
+	background-position-y: 90px;
+    background-position-x: 145px;
 }
 
 #touch li > span.small {
@@ -117,18 +128,7 @@
 	color: var(--primary-main);
 }
 
-/* #touch [data-fdk='S3'] {
-    position: absolute;
-    top: 400px;
-	margin-left: 10%;
-	min-height: 52px;
-} */
-
 #touch [data-fdk='S4'] {
-	/* position: absolute;
-	margin-top: 310px;
-    min-height: 52px; */
-
 	position: absolute;
     top: 510px;
     left: 16px;
@@ -142,13 +142,8 @@
 }
 
 #touch [data-fdk='S8'] {
-	/* margin-left: 32%;
-    margin-top: 310px;
-    min-height: 52px; */
-
 	position: absolute;
     top: 510px;
-    /* left: 650px; */
 	right: 16px;
 }
 
