@@ -159,5 +159,5 @@ body #touch {
 #touch #exit[data-fdk='S4']{
 	position: absolute;
     top: 530px;
-    left: 16px;
+    left: 8px;
 }
