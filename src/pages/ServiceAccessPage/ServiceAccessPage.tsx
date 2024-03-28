@@ -183,8 +183,14 @@ const ServiceAccessPage = () => {
 		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
 		headerRow.appendChild(descColumn);
 	}
-	
 	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
+
+	if (touchInterface){
+		const footerRow = document.createElement("div");
+		footerRow.classList.add("mui-row");
+		footerRow.id = "footerSection";
+		bodyHtml?.appendChild(footerRow);
+	}
 
 	const exitButton= bodyHtml?.querySelector("#exit");
 	if (!touchInterface && !exitButton?.hasAttribute("data-fdk")){

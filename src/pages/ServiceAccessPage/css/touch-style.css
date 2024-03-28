@@ -7,6 +7,14 @@ body #touch {
 	position:relative;
 }
 
+#touch #footerSection{
+	position: absolute;
+    top: 520px;
+    width: 100%;
+    border-top: 1.5px solid var(--divider);
+    margin-left: 0px;
+}
+
 #touch #exit span {
     vertical-align: middle;
 }
@@ -70,7 +78,7 @@ body #touch {
 	list-style-type: none;
 	padding-left: 10px;
 	overflow: auto;
-	max-height: 290px;
+	max-height: 320px;
 }
 
 #touch li {
