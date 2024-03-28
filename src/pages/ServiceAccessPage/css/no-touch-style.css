@@ -122,7 +122,6 @@
 #no-touch [data-fdk='S7'] {
     left: 446px;
     top: 400px;
-    padding-right: 3px;
     background: url(./rightArrow.svg) no-repeat;
     background-position: right;
     justify-content: flex-end;
@@ -132,7 +131,16 @@
 #no-touch [data-fdk='S8'] {
     left: 446px;
     top: 510px;
-    padding-right: 3px;
+    background: url(./rightArrow.svg) no-repeat;
+    background-position: right;
+    justify-content: flex-end;
+    background-position-x: 303px;
+}
+
+#no-touch #exit[data-fdk='S8'] {
+    position: absolute;
+    left: 446px;
+    top: 510px;
     background: url(./rightArrow.svg) no-repeat;
     background-position: right;
     justify-content: flex-end;

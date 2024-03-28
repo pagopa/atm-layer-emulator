@@ -186,9 +186,9 @@ const ServiceAccessPage = () => {
 	
 	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
 
-	if (!touchInterface && bodyHtml?.querySelector("#back")){
-		const exitButton= bodyHtml?.querySelector("#exit");
-		exitButton.remove();
+	const exitButton= bodyHtml?.querySelector("#exit");
+	if (!touchInterface && !exitButton?.hasAttribute("data-fdk")){
+		exitButton?.remove();
 	}
 
 	const buttonsArray = responseProcess?.task?.buttons;

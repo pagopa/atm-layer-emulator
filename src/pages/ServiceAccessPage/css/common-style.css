@@ -53,7 +53,9 @@ h3 {
     padding-right: 20px;
 }
 
-
+strong {
+    padding-left: 20px;
+}
 
 button:not([data-fdk], #home-button, #confirm-button) {
     position: absolute;
@@ -181,10 +183,10 @@ td {
 
 p.left {
     margin: 10px;
-    margin-left: 27px;
+    margin-left: 20px;
     width: 330px;
     background-color: var(--info-extraLight);
-    border-radius: 16px;
+    border-radius: 6px;
     display: flex;
     text-align: justify;
     padding: 15px;
