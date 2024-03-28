@@ -65,9 +65,14 @@ button:not([data-fdk], #home-button, #confirm-button) {
 .central {
     margin:auto;
     display: block;
-    top: calc(50% - 130px);
+    top: 60px;
     position: relative;
     text-align: center;
+}
+
+img.central:has(+ h2){
+    min-height: 6%;
+    top: 170px;
 }
 
 .central~h2 {
