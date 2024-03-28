@@ -93,9 +93,9 @@ body {
 }
 
 input {
-    width: 40%;
+    width: 35%;
+    height: 60%;
     padding: 12px 20px;
-    margin: auto;
     box-sizing: border-box;
     border: 1px solid var(--divider);
     border-radius: 4px;
@@ -103,17 +103,20 @@ input {
     border-color: var(--divider);
 }
 
-input[type="text"]:focus{
+input:focus{
     border: 1px solid var(--primary-main);
+    outline: none;
 }
 
 
 label {
-    display: block;
     text-overflow: ellipsis;
-    text-align: center;
-    margin-right: auto;
-    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    position: relative;
+    top: 20%;
 }
 
 span.small {
