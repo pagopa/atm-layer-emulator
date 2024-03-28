@@ -161,3 +161,11 @@ body #touch {
     top: 530px;
     left: 8px;
 }
+
+#touch #nextLiButton{
+    left: 600px;
+}
+
+#touch #prevLiButton{
+    left: 400px;
+}

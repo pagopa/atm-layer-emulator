@@ -375,3 +375,11 @@ td.right {
     font-size: x-large;
     text-align: center;
 }
+
+#no-touch #nextLiButton{
+    left: 600px;
+}
+
+#no-touch #prevLiButton{
+    left: 400px;
+}

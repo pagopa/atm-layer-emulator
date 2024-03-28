@@ -67,6 +67,11 @@ const ServiceAccessPage = () => {
 			for (let i = 0; i < paginationArray.length; ++i) {
 				frag.appendChild(paginationArray[i]);
 			}
+
+			// inserisco i <li> della pagina corrente nel menu
+			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
+
+			
 			
 		
 				
@@ -84,7 +89,9 @@ const ServiceAccessPage = () => {
 			timeout = 30;
 		}
 		// const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
+		setPageIndex(1);
 		addButtonClickListener();
+		addListButtonClickListener();
 
 		if(document?.getElementById("menu")){
 			getPaginationElements();
@@ -217,6 +224,29 @@ const ServiceAccessPage = () => {
 		});
 	};
 
+
+	const handleNextLiButtonClick = (event: MouseEvent) => {
+		const button = event.currentTarget as HTMLButtonElement;
+		if (button) {
+			setPageIndex(pageIndex+1);			
+		}
+	};
+
+	const handlePrevLiButtonClick = (event: MouseEvent) => {
+		const button = event.currentTarget as HTMLButtonElement;
+		if (button) {
+			setPageIndex(pageIndex-1);			
+		}
+	};
+
+	const addListButtonClickListener = () => {
+		const nextLiButtonElement = document?.getElementById("nextLiButton");
+		nextLiButtonElement?.addEventListener("click", handleNextLiButtonClick);
+
+		const prevLiButtonElement = document?.getElementById("prevLiButton");
+		prevLiButtonElement?.addEventListener("click", handlePrevLiButtonClick);
+	};
+
 	
 	
 	const headerRow = document.createElement("div");
@@ -239,6 +269,19 @@ const ServiceAccessPage = () => {
 	}
 	
 	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
+
+	if(responseProcess?.task?.template?.type === "MENU"){
+		const nextLiButton = document.createElement("button");
+		nextLiButton.id="nextLiButton";
+		nextLiButton.innerHTML = "iniziative successive";
+		bodyHtml?.appendChild(nextLiButton);
+
+		const prevtLiButton = document.createElement("button");
+		prevtLiButton.id="prevLiButton";
+		prevtLiButton.innerHTML = "iniziative precedenti";
+		bodyHtml?.appendChild(prevtLiButton);
+	}
+	
 
 	if (!touchInterface && bodyHtml?.querySelector("#back")){
 		const exitButton= bodyHtml?.querySelector("#exit");
