@@ -32,7 +32,7 @@ const ServiceAccessPage = () => {
 		if (!timeout || timeout === null){
 			timeout = 30;
 		}
-		// const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
+		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		addButtonClickListener();
 		
 		// const command = responseProcess?.task.command;
@@ -42,7 +42,7 @@ const ServiceAccessPage = () => {
 		
 		return () => {
 			removeButtonClickListener();
-			// clearTimeout(nextTimeout);
+			clearTimeout(nextTimeout);
 		};
 	}, [responseProcess]);
 
@@ -183,12 +183,18 @@ const ServiceAccessPage = () => {
 		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
 		headerRow.appendChild(descColumn);
 	}
-	
 	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
 
-	if (!touchInterface && bodyHtml?.querySelector("#back")){
-		const exitButton= bodyHtml?.querySelector("#exit");
-		exitButton.remove();
+	if (touchInterface){
+		const footerRow = document.createElement("div");
+		footerRow.classList.add("mui-row");
+		footerRow.id = "footerSection";
+		bodyHtml?.appendChild(footerRow);
+	}
+
+	const exitButton= bodyHtml?.querySelector("#exit");
+	if (!touchInterface && !exitButton?.hasAttribute("data-fdk")){
+		exitButton?.remove();
 	}
 
 	const buttonsArray = responseProcess?.task?.buttons;

@@ -53,7 +53,9 @@ h3 {
     padding-right: 20px;
 }
 
-
+strong {
+    padding-left: 20px;
+}
 
 button:not([data-fdk], #home-button, #confirm-button) {
     position: absolute;
@@ -65,9 +67,14 @@ button:not([data-fdk], #home-button, #confirm-button) {
 .central {
     margin:auto;
     display: block;
-    top: calc(50% - 130px);
+    top: 60px;
     position: relative;
     text-align: center;
+}
+
+img.central:has(+ h2){
+    min-height: 6%;
+    top: 170px;
 }
 
 .central~h2 {
@@ -88,27 +95,30 @@ body {
 }
 
 input {
-    width: 40%;
+    width: 35%;
+    height: 60%;
     padding: 12px 20px;
-    margin: auto;
     box-sizing: border-box;
     border: 1px solid var(--divider);
-    border-radius: 4px;
+    border-radius: 6px;
     background-color: var(--background-paper);
     border-color: var(--divider);
 }
 
-input[type="text"]:focus{
-    border: 1px solid var(--primary-main);
+input:focus{
+    border: 2px solid var(--primary-main);
+    outline: none;
 }
 
 
 label {
-    display: block;
     text-overflow: ellipsis;
-    text-align: center;
-    margin-right: auto;
-    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    position: relative;
+    top: 20%;
 }
 
 span.small {
@@ -173,10 +183,10 @@ td {
 
 p.left {
     margin: 10px;
-    margin-left: 27px;
+    margin-left: 20px;
     width: 330px;
     background-color: var(--info-extraLight);
-    border-radius: 16px;
+    border-radius: 6px;
     display: flex;
     text-align: justify;
     padding: 15px;
@@ -235,4 +245,8 @@ tfoot > tr > td {
 
 td > img {
     margin-right: 10px;
+}
+
+#home-button{
+    display:none;
 }
