@@ -25,7 +25,7 @@
     background-color: #ffffff;
     width: 340px;
     height: 64px;
-    border-radius: 4px;
+    border-radius: 6px;
     padding: 12px 40px;
     text-align: center;
     text-decoration: none;
@@ -45,7 +45,7 @@
 #no-touch #exit {
     width: 340px;
     height: 64px;
-    border-radius: 4px;
+    border-radius: 6px;
     padding: 12px 40px;
     text-align: center;
     text-decoration: none;
@@ -142,7 +142,7 @@
 #no-touch li {
     width: 258px;
     height: 38px;
-    border-radius: 4px;
+    border-radius: 6px;
     background-color: #ffffff;
     border: none;
     padding: 12px 40px;
@@ -198,14 +198,6 @@
     display: block;
     float: right;
     margin-left: 10px;
-}
-
-#no-touch label {
-    display: block;
-    text-overflow: ellipsis;
-    text-align: center;
-    margin-right: auto;
-    margin-left: auto;
 }
 
 

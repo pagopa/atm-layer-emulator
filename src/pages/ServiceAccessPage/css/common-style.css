@@ -98,13 +98,13 @@ input {
     padding: 12px 20px;
     box-sizing: border-box;
     border: 1px solid var(--divider);
-    border-radius: 4px;
+    border-radius: 6px;
     background-color: var(--background-paper);
     border-color: var(--divider);
 }
 
 input:focus{
-    border: 1px solid var(--primary-main);
+    border: 2px solid var(--primary-main);
     outline: none;
 }
 
