@@ -134,11 +134,17 @@ body #touch {
     left: 16px;
 }
 
+#touch [data-fdk="S3"] {
+	position: absolute;
+	top: 400px;
+	/* left: 0px; */
+	
+}
 
 #touch [data-fdk='S7'] {
     position: absolute;
     top: 400px;
-	right:16px;
+	/* right:16px; */
 }
 
 #touch [data-fdk='S8'] {
@@ -162,10 +168,13 @@ body #touch {
     left: 8px;
 }
 
-#touch #nextLiButton{
-    left: 600px;
+#touch #prevLiButton{
+    /* left: 400px; */
+	left: 10px;
 }
 
-#touch #prevLiButton{
-    left: 400px;
+#touch #nextLiButton{
+    /* left: 600px; */
+	right: 20px;
 }
+
