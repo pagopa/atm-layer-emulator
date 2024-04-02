@@ -23,7 +23,6 @@ const ServiceAccessPage = () => {
 	const [menuList, setMenuList]=useState<any | NodeList >();
 	const [pageIndex, setPageIndex]=useState(1);
 	const pageSize=4;
-	const [paginateFlag, setPaginateFlag] = useState(false);
 	let bodyHtml :any ;
 	let timeout = responseProcess?.task?.timeout;
 	
@@ -31,54 +30,32 @@ const ServiceAccessPage = () => {
 		bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);
 	}
 
-	useEffect(() => {
-		// console.log("menuList", menuList);
-	}, [menuList]);
+	// useEffect(() => {
+	// 	console.log("paginateFlag", paginateFlag);
+	// }, [paginateFlag]);
 
 	// funzione paginazione array
 	function paginate( arr: Array<Element>, pageNumber:number) {
-		// human-readable page numbers usually start with 1, so we reduce 1 in the first argument
 		const array= menuList? Array.from(menuList) :arr;
 		return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize) as Array<Node>;
 	};
 
-	// function convertToNodeList(arrayOfNodes:Array<any>){
-	// 	const fragment = document.createDocumentFragment();
-	// 	arrayOfNodes.forEach(function(item){
-	// 		fragment.appendChild(item.cloneNode(true));
-	// 	});
-	// 	return fragment.childNodes;
-	// };
-
 	function getPaginationElements(menu:HTMLElement){
-		// const list=menuList?.querySelectorAll("li");
 		const listItems=document.querySelectorAll("#menu > li");
-		// const listItems=document.querySelectorAll("#menu > li") as any as Array<HTMLElement>;
 		if(listItems?.length>pageSize){
-			// mi metto da parte la lista non paginata di li
 			setMenuList(listItems); 
-			setPaginateFlag(true);
 			const paginationArray=paginate(Array.from(listItems), pageIndex);
-			// aggiungo bottoni 
-			// bodyHtml?.querySelector("#menu")?.innerHTML = paginationArray;
-			// eslint-disable-next-line no-param-reassign
 			listItems.forEach(el => el.remove());
-			// menuList.appendchild(paginationArray as unknown as  NodeList);
-			// menuList.=paginationArray;
 			const frag = document.createDocumentFragment();
 			for (let i = 0; i < paginationArray.length; ++i) {
 				frag.appendChild(paginationArray[i]);
 			}
 
 			// inserisco i <li> della pagina corrente nel menu
-			bodyHtml?.appendChild(menu.appendChild(frag));
+			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
 
-	
-			
 			console.log(listItems, listItems, paginationArray);
 
-		}else{
-			setPaginateFlag(false);
 		}
 	};
 
@@ -270,11 +247,14 @@ const ServiceAccessPage = () => {
 	
 	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
 	// pagino solo se il layout è touch e se la lista è maggiore del pageSize
+	const listLength = bodyHtml?.querySelectorAll("#menu > li")?.length;
+	const paginateFlag = listLength>pageSize;
+	console.log("page",paginateFlag);
 	if(responseProcess?.task?.template?.type === "MENU" && touchInterface && paginateFlag){
 		const nextLiButton = document.createElement("button");
-		nextLiButton.setAttribute("data-fdk","S7");
 		nextLiButton.id="nextLiButton";
 		nextLiButton.innerHTML = "Iniziative successive";
+		nextLiButton.setAttribute("data-fdk","S7");
 		bodyHtml?.appendChild(nextLiButton);
 
 		const prevtLiButton = document.createElement("button");
