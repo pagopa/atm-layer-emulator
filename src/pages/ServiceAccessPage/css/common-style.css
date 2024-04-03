@@ -1,5 +1,10 @@
 @import "./root.css";
 
+#command {
+    width: 800px;
+    border: 1px solid var(--divider);
+}
+
 #title_page {
     color: white;
     padding: 10;

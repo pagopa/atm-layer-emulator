@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { Box } from "@mui/material";
 import { generatePath } from "react-router-dom";
+import React from "react";
 import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
 import { TASK_NEXT } from "../../commons/endpoints";
@@ -11,6 +12,7 @@ import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./css/style-page.css";
 import { executeCommand } from "../../commons/utilsFunctions";
 import { Loading } from "../../components/Commons/Loading";
+import { AUTHORIZE, SCAN_BILL_DATA } from "../../commons/constants";
 
 
 
@@ -284,14 +286,23 @@ const ServiceAccessPage = () => {
 
 
 	return (
-		<Box id={touchInterface ? "touch" : "no-touch"} m={2}>
-			{loading ? 
-				<Loading  marginTop={"20%"} message="Operazione in corso, si prega di attendere" />
+		<React.Fragment>
+			<Box id={touchInterface ? "touch" : "no-touch"} m={2}>
+				{loading ? 
+					<Loading  marginTop={"20%"} message="Operazione in corso, si prega di attendere" />
 			 : 
-				bodyHtml && parse(bodyHtml?.innerHTML)
-			}
+					bodyHtml && parse(bodyHtml?.innerHTML)
+				}
 			
-		</Box>
+			</Box>
+			{command === AUTHORIZE || command === SCAN_BILL_DATA ?
+				(<Box id="command">
+					Eccoci
+				</Box>) 
+				:
+				null
+			}
+		</React.Fragment>
 	);
 };
 
