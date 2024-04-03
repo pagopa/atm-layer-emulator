@@ -20,6 +20,9 @@ const ServiceAccessPage = () => {
 	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface } = useContext(Ctx);
 	const [loading, setLoading] = useState(false);
 	const [command, setCommand] = useState(responseProcess?.task?.command);
+	const [menuList, setMenuList]=useState<any | NodeList >();
+	const [pageIndex, setPageIndex]=useState(1);
+	const pageSize=4;
 	let bodyHtml :any ;
 	let timeout = responseProcess?.task?.timeout;
 	
@@ -27,14 +30,49 @@ const ServiceAccessPage = () => {
 		bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);
 	}
 
+	// useEffect(() => {
+	// 	console.log("paginateFlag", paginateFlag);
+	// }, [paginateFlag]);
+
+	// funzione paginazione array
+	function paginate( arr: Array<Element>, pageNumber:number) {
+		const array= menuList? Array.from(menuList) :arr;
+		return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize) as Array<Node>;
+	};
+
+	function getPaginationElements(menu:HTMLElement){
+		const listItems=document.querySelectorAll("#menu > li");
+		if(listItems?.length>pageSize){
+			setMenuList(listItems); 
+			const paginationArray=paginate(Array.from(listItems), pageIndex);
+			listItems.forEach(el => el.remove());
+			const frag = document.createDocumentFragment();
+			for (let i = 0; i < paginationArray.length; ++i) {
+				frag.appendChild(paginationArray[i]);
+			}
+
+			// inserisco i <li> della pagina corrente nel menu
+			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
+
+			console.log(listItems, listItems, paginationArray);
+
+		}
+	};
 
 	useEffect(() => {
 		if (!timeout || timeout === null){
 			timeout = 30;
 		}
-		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
+		// const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
+		setPageIndex(1);
 		addButtonClickListener();
-		
+		addListButtonClickListener();
+
+		const menu=document?.getElementById("menu");
+		// pagino solo se il layout è touch
+		if(menu && touchInterface){
+			getPaginationElements(menu);
+		}
 		// const command = responseProcess?.task.command;
 		// if (command !== undefined && command !== null) {
 		// 	executeCommand(command, next, responseProcess);
@@ -42,7 +80,7 @@ const ServiceAccessPage = () => {
 		
 		return () => {
 			removeButtonClickListener();
-			clearTimeout(nextTimeout);
+			// clearTimeout(nextTimeout);
 		};
 	}, [responseProcess]);
 
@@ -163,6 +201,29 @@ const ServiceAccessPage = () => {
 		});
 	};
 
+
+	const handleNextLiButtonClick = (event: MouseEvent) => {
+		const button = event.currentTarget as HTMLButtonElement;
+		if (button) {
+			setPageIndex(pageIndex+1);			
+		}
+	};
+
+	const handlePrevLiButtonClick = (event: MouseEvent) => {
+		const button = event.currentTarget as HTMLButtonElement;
+		if (button) {
+			setPageIndex(pageIndex-1);			
+		}
+	};
+
+	const addListButtonClickListener = () => {
+		const nextLiButtonElement = document?.getElementById("nextLiButton");
+		nextLiButtonElement?.addEventListener("click", handleNextLiButtonClick);
+
+		const prevLiButtonElement = document?.getElementById("prevLiButton");
+		prevLiButtonElement?.addEventListener("click", handlePrevLiButtonClick);
+	};
+
 	
 	
 	const headerRow = document.createElement("div");
@@ -183,18 +244,30 @@ const ServiceAccessPage = () => {
 		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
 		headerRow.appendChild(descColumn);
 	}
+	
 	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
+	// pagino solo se il layout è touch e se la lista è maggiore del pageSize
+	const listLength = bodyHtml?.querySelectorAll("#menu > li")?.length;
+	const paginateFlag = listLength>pageSize;
+	console.log("page",paginateFlag);
+	if(responseProcess?.task?.template?.type === "MENU" && touchInterface && paginateFlag){
+		const nextLiButton = document.createElement("button");
+		nextLiButton.id="nextLiButton";
+		nextLiButton.innerHTML = "Iniziative successive";
+		nextLiButton.setAttribute("data-fdk","S7");
+		bodyHtml?.appendChild(nextLiButton);
 
-	if (touchInterface){
-		const footerRow = document.createElement("div");
-		footerRow.classList.add("mui-row");
-		footerRow.id = "footerSection";
-		bodyHtml?.appendChild(footerRow);
+		const prevtLiButton = document.createElement("button");
+		prevtLiButton.id="prevLiButton";
+		prevtLiButton.innerHTML = "Iniziative precedenti";
+		prevtLiButton.setAttribute("data-fdk","S3");
+		bodyHtml?.appendChild(prevtLiButton);
 	}
+	
 
-	const exitButton= bodyHtml?.querySelector("#exit");
-	if (!touchInterface && !exitButton?.hasAttribute("data-fdk")){
-		exitButton?.remove();
+	if (!touchInterface && bodyHtml?.querySelector("#back")){
+		const exitButton= bodyHtml?.querySelector("#exit");
+		exitButton.remove();
 	}
 
 	const buttonsArray = responseProcess?.task?.buttons;
