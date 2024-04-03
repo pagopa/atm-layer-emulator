@@ -100,28 +100,58 @@
 
 #no-touch [data-fdk='S3'] {
     position: absolute;
-    top: 400px;
-    left: 36px;
+    top: 420px;
+    left: 26px;
     right: auto;
+    background: url(./leftArrow.svg) no-repeat;
+    background-position-y: center;
+    background-position-x: 10px;
 }
 
 #no-touch [data-fdk='S2'] {
     position: absolute;
     top: 330px;
-    left: 36px;
+    left: 26px;
     right: auto;
+    background: url(./leftArrow.svg) no-repeat;
+    background-position-y: center;
+    background-position-x: 10px;
 }
 
 #no-touch [data-fdk='S1'] {
     position: absolute;
-    top: 270px;
-    left: 36px;
+    top: 240px;
+    left: 26px;
     right: auto;
+    background: url(./leftArrow.svg) no-repeat;
+    background-position-y: center;
+    background-position-x: 10px;
+}
+
+#no-touch [data-fdk='S5'] {
+    position: absolute;
+    left: 446px;
+    top: 240px;
+    background: url(./rightArrow.svg) no-repeat;
+    background-position: right;
+    justify-content: flex-end;
+    background-position-x: 303px;
+}
+
+#no-touch [data-fdk='S6'] {
+    position: absolute;
+    left: 446px;
+    top: 330px;
+    background: url(./rightArrow.svg) no-repeat;
+    background-position: right;
+    justify-content: flex-end;
+    background-position-x: 303px;
 }
 
 #no-touch [data-fdk='S7'] {
+    position: absolute;
     left: 446px;
-    top: 400px;
+    top: 420px;
     background: url(./rightArrow.svg) no-repeat;
     background-position: right;
     justify-content: flex-end;
@@ -129,6 +159,7 @@
 }
 
 #no-touch [data-fdk='S8'] {
+    position: absolute;
     left: 446px;
     top: 510px;
     background: url(./rightArrow.svg) no-repeat;
@@ -161,7 +192,7 @@
     justify-content: space-between;
     font-size: 16px;
     margin: 10px;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     float: right;
     font-weight: 600;
     cursor: pointer;
@@ -262,10 +293,10 @@
     filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg);
 }
 
-#no-touch #nextLiButton{
-    left: 600px;
+#no-touch #prevLiButton.hidden {
+	display: none;
 }
 
-#no-touch #prevLiButton{
-    left: 400px;
+#no-touch #nextLiButton.hidden {
+	display: none;
 }

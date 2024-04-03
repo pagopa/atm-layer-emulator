@@ -51,6 +51,12 @@ const ServiceAccessPage = () => {
 
 			// inserisco i <li> della pagina corrente nel menu
 			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
+			if(!touchInterface){
+				const displayedItems=document.querySelectorAll("#menu > li");
+				const liPositions = ["S1","S2","S5","S6"];
+				displayedItems.forEach((item, i) => item.setAttribute("data-fdk",liPositions[i]));
+			}
+			
 
 			// hiding prevLiButton from page 1
 			if (pageIndex === 1){
@@ -76,7 +82,8 @@ const ServiceAccessPage = () => {
 
 		const menu=document?.getElementById("menu");
 		// pagino solo se il layout è touch
-		if(menu && touchInterface){
+		// if(menu && touchInterface){
+		if(menu){
 			getPaginationElements(menu);
 		}
 		
@@ -251,7 +258,8 @@ const ServiceAccessPage = () => {
 	const listLength = bodyHtml?.querySelectorAll("#menu > li")?.length;
 	const paginateFlag = listLength>pageSize;
 	console.log("page",paginateFlag);
-	if(responseProcess?.task?.template?.type === "MENU" && touchInterface && paginateFlag){
+	// if(responseProcess?.task?.template?.type === "MENU" && touchInterface && paginateFlag){
+	if(responseProcess?.task?.template?.type === "MENU" && paginateFlag){
 		const nextLiButton = document.createElement("button");
 		nextLiButton.id="nextLiButton";
 		nextLiButton.innerHTML = "Iniziative successive";
