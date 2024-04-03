@@ -67,7 +67,6 @@ const ServiceAccessPage = () => {
 			if (paginationArray.length < 4 || (pageIndex === listItems.length/pageSize && menuList.length%pageSize===0)){
 				document?.getElementById("nextLiButton")?.classList.add("hidden");
 			}
-
 		} else {
 			const liPositions = ["S1","S2","S3","S5","S6","S7"];
 			listItems.forEach((item, i) => item.setAttribute("data-fdk",liPositions[i]));
