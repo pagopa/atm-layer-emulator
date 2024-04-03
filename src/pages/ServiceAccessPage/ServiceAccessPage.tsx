@@ -32,10 +32,6 @@ const ServiceAccessPage = () => {
 		bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);
 	}
 
-	// useEffect(() => {
-	// 	console.log("paginateFlag", paginateFlag);
-	// }, [paginateFlag]);
-
 	// funzione paginazione array
 	function paginate( arr: Array<Element>, pageNumber:number) {
 		const array= menuList? Array.from(menuList) :arr;
@@ -56,7 +52,15 @@ const ServiceAccessPage = () => {
 			// inserisco i <li> della pagina corrente nel menu
 			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
 
-			console.log(listItems, listItems, paginationArray);
+			// hiding prevLiButton from page 1
+			if (pageIndex === 1){
+				document?.getElementById("prevLiButton")?.classList.add("hidden");
+			}
+
+			// hiding nextLiButton from the last page
+			if (paginationArray.length < 4 || (pageIndex === listItems.length/pageSize && menuList.length%pageSize===0)){
+				document?.getElementById("nextLiButton")?.classList.add("hidden");
+			}
 
 		}
 	};
@@ -75,10 +79,6 @@ const ServiceAccessPage = () => {
 		if(menu && touchInterface){
 			getPaginationElements(menu);
 		}
-		// const command = responseProcess?.task.command;
-		// if (command !== undefined && command !== null) {
-		// 	executeCommand(command, next, responseProcess);
-		// }
 		
 		return () => {
 			removeButtonClickListener();
@@ -137,7 +137,6 @@ const ServiceAccessPage = () => {
 	});
 
 	const next = async (params: any, panInfo?:any) => {
-		// setCommand("");
 		setLoading(true);
 		try {
 			const response = await fetchRequest({
