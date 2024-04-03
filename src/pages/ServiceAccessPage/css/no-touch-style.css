@@ -146,7 +146,7 @@
     max-height: 260px;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 }
 
 
