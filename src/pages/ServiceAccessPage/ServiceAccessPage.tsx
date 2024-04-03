@@ -22,27 +22,27 @@ const ServiceAccessPage = () => {
 	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface } = useContext(Ctx);
 	const [loading, setLoading] = useState(false);
 	const [command, setCommand] = useState(responseProcess?.task?.command);
-	const [menuList, setMenuList]=useState<any | NodeList >();
-	const [pageIndex, setPageIndex]=useState(1);
-	const pageSize=4;
-	let bodyHtml :any ;
+	const [menuList, setMenuList] = useState<any | NodeList>();
+	const [pageIndex, setPageIndex] = useState(1);
+	const pageSize = 4;
+	let bodyHtml: any;
 	let timeout = responseProcess?.task?.timeout;
-	
-	if(responseProcess?.task?.template?.content){ 
-		bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);
+
+	if (responseProcess?.task?.template?.content) {
+		bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
 	}
 
 	// funzione paginazione array
-	function paginate( arr: Array<Element>, pageNumber:number) {
-		const array= menuList? Array.from(menuList) :arr;
+	function paginate(arr: Array<Element>, pageNumber: number) {
+		const array = menuList ? Array.from(menuList) : arr;
 		return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize) as Array<Node>;
 	};
 
-	function getPaginationElements(menu:HTMLElement){
-		const listItems=document.querySelectorAll("#menu > li");
-		if(listItems?.length>pageSize){
-			setMenuList(listItems); 
-			const paginationArray=paginate(Array.from(listItems), pageIndex);
+	function getPaginationElements(menu: HTMLElement) {
+		const listItems = document.querySelectorAll("#menu > li");
+		if (listItems?.length > pageSize) {
+			setMenuList(listItems);
+			const paginationArray = paginate(Array.from(listItems), pageIndex);
 			listItems.forEach(el => el.remove());
 			const frag = document.createDocumentFragment();
 			for (let i = 0; i < paginationArray.length; ++i) {
@@ -53,12 +53,12 @@ const ServiceAccessPage = () => {
 			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
 
 			// hiding prevLiButton from page 1
-			if (pageIndex === 1){
+			if (pageIndex === 1) {
 				document?.getElementById("prevLiButton")?.classList.add("hidden");
 			}
 
 			// hiding nextLiButton from the last page
-			if (paginationArray.length < 4 || (pageIndex === listItems.length/pageSize && menuList.length%pageSize===0)){
+			if (paginationArray.length < 4 || (pageIndex === listItems.length / pageSize && menuList.length % pageSize === 0)) {
 				document?.getElementById("nextLiButton")?.classList.add("hidden");
 			}
 
@@ -66,7 +66,7 @@ const ServiceAccessPage = () => {
 	};
 
 	useEffect(() => {
-		if (!timeout || timeout === null){
+		if (!timeout || timeout === null) {
 			timeout = 30;
 		}
 		// const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
@@ -74,12 +74,12 @@ const ServiceAccessPage = () => {
 		addButtonClickListener();
 		addListButtonClickListener();
 
-		const menu=document?.getElementById("menu");
+		const menu = document?.getElementById("menu");
 		// pagino solo se il layout è touch
-		if(menu && touchInterface){
+		if (menu && touchInterface) {
 			getPaginationElements(menu);
 		}
-		
+
 		return () => {
 			removeButtonClickListener();
 			// clearTimeout(nextTimeout);
@@ -87,8 +87,8 @@ const ServiceAccessPage = () => {
 	}, [responseProcess]);
 
 	useEffect(() => {
-		if(command && command!==""){
-			executeCommand(command, next, responseProcess);
+		if (command && command !== "") {
+			executeCommand(command, setCommand, next, responseProcess);
 		}
 	}, [command]);
 
@@ -102,11 +102,11 @@ const ServiceAccessPage = () => {
 						"VISA"
 					],
 					"bankName": "ISYBANK"
-				},{
+				}, {
 					"pan": "8234567891234565",
 					"circuits": [
 						"BANCOMAT",
-						"VISA"			
+						"VISA"
 					],
 					"bankName": "INTESA"
 				}
@@ -136,7 +136,7 @@ const ServiceAccessPage = () => {
 		taskId: responseProcess?.task?.id,
 	});
 
-	const next = async (params: any, panInfo?:any) => {
+	const next = async (params: any, panInfo?: any) => {
 		setLoading(true);
 		try {
 			const response = await fetchRequest({
@@ -148,7 +148,7 @@ const ServiceAccessPage = () => {
 			})();
 
 			if (response?.success) {
-				
+
 				if (response?.valuesObj?.task?.command) {
 					setCommand(response?.valuesObj?.task?.command);
 				}
@@ -165,7 +165,7 @@ const ServiceAccessPage = () => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
 			const dataString = button.getAttribute("data");
-			if(dataString){
+			if (dataString) {
 				const data = dataString ? JSON.parse(dataString) : {};
 				const params: any = { ...data };
 				const inputElements = document?.querySelectorAll("input");
@@ -174,9 +174,9 @@ const ServiceAccessPage = () => {
 				});
 				void next(params);
 			} else {
-				void next({selected: button.id, continue: true});
+				void next({ selected: button.id, continue: true });
 			}
-			
+
 		}
 	};
 
@@ -206,14 +206,14 @@ const ServiceAccessPage = () => {
 	const handleNextLiButtonClick = (event: MouseEvent) => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
-			setPageIndex(pageIndex+1);			
+			setPageIndex(pageIndex + 1);
 		}
 	};
 
 	const handlePrevLiButtonClick = (event: MouseEvent) => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
-			setPageIndex(pageIndex-1);			
+			setPageIndex(pageIndex - 1);
 		}
 	};
 
@@ -225,8 +225,8 @@ const ServiceAccessPage = () => {
 		prevLiButtonElement?.addEventListener("click", handlePrevLiButtonClick);
 	};
 
-	
-	
+
+
 	const headerRow = document.createElement("div");
 	headerRow.classList.add("mui-row");
 	headerRow.id = "headerSection";
@@ -245,29 +245,29 @@ const ServiceAccessPage = () => {
 		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
 		headerRow.appendChild(descColumn);
 	}
-	
+
 	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
 	// pagino solo se il layout è touch e se la lista è maggiore del pageSize
 	const listLength = bodyHtml?.querySelectorAll("#menu > li")?.length;
-	const paginateFlag = listLength>pageSize;
-	console.log("page",paginateFlag);
-	if(responseProcess?.task?.template?.type === "MENU" && touchInterface && paginateFlag){
+	const paginateFlag = listLength > pageSize;
+	console.log("page", paginateFlag);
+	if (responseProcess?.task?.template?.type === "MENU" && touchInterface && paginateFlag) {
 		const nextLiButton = document.createElement("button");
-		nextLiButton.id="nextLiButton";
+		nextLiButton.id = "nextLiButton";
 		nextLiButton.innerHTML = "Iniziative successive";
-		nextLiButton.setAttribute("data-fdk","S7");
+		nextLiButton.setAttribute("data-fdk", "S7");
 		bodyHtml?.appendChild(nextLiButton);
 
 		const prevtLiButton = document.createElement("button");
-		prevtLiButton.id="prevLiButton";
+		prevtLiButton.id = "prevLiButton";
 		prevtLiButton.innerHTML = "Iniziative precedenti";
-		prevtLiButton.setAttribute("data-fdk","S3");
+		prevtLiButton.setAttribute("data-fdk", "S3");
 		bodyHtml?.appendChild(prevtLiButton);
 	}
-	
 
-	if (!touchInterface && bodyHtml?.querySelector("#back")){
-		const exitButton= bodyHtml?.querySelector("#exit");
+
+	if (!touchInterface && bodyHtml?.querySelector("#back")) {
+		const exitButton = bodyHtml?.querySelector("#exit");
 		exitButton.remove();
 	}
 
@@ -279,7 +279,7 @@ const ServiceAccessPage = () => {
 			if (data) {
 				renderedButton.setAttribute("data", JSON.stringify(data));
 			}
-			
+
 		}
 	});
 
@@ -287,19 +287,15 @@ const ServiceAccessPage = () => {
 	return (
 		<React.Fragment>
 			<Box id={touchInterface ? "touch" : "no-touch"} m={2}>
-				{loading ? 
-					<Loading  marginTop={"20%"} message="Operazione in corso, si prega di attendere" />
-			 : 
+				{loading ?
+					<Loading marginTop={"20%"} message="Operazione in corso, si prega di attendere" />
+					:
 					bodyHtml && parse(bodyHtml?.innerHTML)
 				}
-			
+
 			</Box>
-			{command === AUTHORIZE || command === SCAN_BILL_DATA ?
-				(<Box id="command">
-					Eccoci
-				</Box>) 
-				:
-				null
+			{command === AUTHORIZE || command === SCAN_BILL_DATA ? 
+				(<Box id="command" />) : null
 			}
 		</React.Fragment>
 	);

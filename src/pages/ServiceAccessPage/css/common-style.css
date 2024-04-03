@@ -3,6 +3,7 @@
 #command {
     width: 800px;
     border: 1px solid var(--divider);
+    margin: 16px;
 }
 
 #title_page {
@@ -62,7 +63,7 @@ strong {
     padding-left: 20px;
 }
 
-button:not([data-fdk], #home-button, #confirm-button) {
+button:not([data-fdk], #home-button, #confirm-button, #command-submit-btn ) {
     position: absolute;
     right: 260px;
     left: auto;
@@ -254,4 +255,24 @@ td > img {
 
 #home-button{
     display:none;
+}
+
+#command button {
+	border-radius: 10px;
+	background-color: var(--primary-main);
+	border: 2px solid var(--primary-main);;
+	padding: 10px 40px;
+	text-decoration: none;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 140px;
+    min-height: 45px;
+	min-width: 105px;
+	font-size: 16px;
+	margin: 10px;
+	float: right;
+	color: var(--background-paper);
+	font-weight: 600;
+	cursor: pointer;
 }
