@@ -43,7 +43,7 @@ const ServiceAccessPage = () => {
 				positionPaginatedButtons();
 			}	
 		} else {
-			positionUnpaginatedButtons();
+			positionUnpaginatedButtons(touchInterface);
 		}
 	};
 

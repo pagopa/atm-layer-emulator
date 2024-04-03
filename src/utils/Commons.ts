@@ -64,10 +64,12 @@ export function positionPaginatedButtons () {
 };
 
 
-export function positionUnpaginatedButtons () {
-	const listItems=document.querySelectorAll("#menu > li");
-	const liPositions = ["S1","S2","S3","S5","S6","S7"];
-	listItems.forEach((item, i) => item.setAttribute("data-fdk",liPositions[i]));
+export function positionUnpaginatedButtons (touchInterface:boolean) {
+	if (!touchInterface){
+		const listItems=document.querySelectorAll("#menu > li");
+		const liPositions = ["S1","S2","S3","S5","S6","S7"];
+		listItems.forEach((item, i) => item.setAttribute("data-fdk",liPositions[i]));
+	}
 };
 
 
