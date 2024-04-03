@@ -187,9 +187,11 @@ td {
 }
 
 p.left {
+    position:absolute;
+    top:400px;
     margin: 10px;
     margin-left: 20px;
-    width: 330px;
+    width: 305px;
     background-color: var(--info-extraLight);
     border-radius: 6px;
     display: flex;
