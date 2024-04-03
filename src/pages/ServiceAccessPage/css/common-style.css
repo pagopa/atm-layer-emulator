@@ -6,6 +6,52 @@
     margin: 16px;
 }
 
+#command-buttons-div {
+    display: flex;
+	justify-content: space-evenly;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.command-button {
+    border-radius: 10px;
+	padding: 10px 40px;
+	text-decoration: none;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 140px;
+    min-height: 45px;
+	min-width: 105px;
+	font-size: 16px;
+	margin: 10px;
+	float: right;
+	color: var(--background-paper);
+	font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+#authorize-button {
+    background-color: var(--success-main);
+    border: solid 2px var(--success-main);
+}
+
+#doubtful-button {
+    background-color: var(--warning-main);
+    border: solid 2px var(--warning-main);
+}
+
+#cancel-button {
+    background-color: var(--error-main);
+    border: solid 2px var(--error-main);
+}
+
+#text-authorize {
+    margin-top: 10px;
+    text-align: center;
+}
+
 #title_page {
     color: white;
     padding: 10;
@@ -63,7 +109,7 @@ strong {
     padding-left: 20px;
 }
 
-button:not([data-fdk], #home-button, #confirm-button, #command-submit-btn ) {
+button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn) {
     position: absolute;
     right: 260px;
     left: auto;
@@ -259,7 +305,7 @@ td > img {
     display:none;
 }
 
-#command button {
+#command #command-submit-btn {
 	border-radius: 10px;
 	background-color: var(--primary-main);
 	border: 2px solid var(--primary-main);;

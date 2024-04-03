@@ -58,16 +58,49 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 
 		break;
 	case AUTHORIZE:
-		console.log("authorize", responseProcess?.task?.data?.totalAmount);
-		if (!confirm("Autorizzare il pagamento di " + (responseProcess?.task?.data?.totalAmount / 100) + " ? ")) {
-			if (confirm("Esito Dubbio? ")) {
-				void next({ "authResult": "KO_DUBBIO" });
+		const totalAmount = responseProcess?.task?.data?.totalAmount;
+
+		const renderAuthorizeForm = () => {
+			const authorizeBox = document.getElementById("command");
+	
+			if(authorizeBox){	
+				const authorizeButton = document.createElement("button");
+				const doubtfulButton = document.createElement("button");
+				const cancelButton = document.createElement("button");
+				const text = document.createElement("h2");
+	
+				authorizeButton.setAttribute("id", "authorize-button");
+				doubtfulButton.setAttribute("id", "doubtful-button");
+				cancelButton.setAttribute("id", "cancel-button");
+				text.setAttribute("id", "text-authorize");
+				authorizeButton.className = "command-button";
+				doubtfulButton.className = "command-button";
+				cancelButton.className = "command-button";
+	
+				text.textContent = `Seleziona l'esito da simulare per il pagamento di ${responseProcess?.task?.data?.totalAmount/100}`;
+		
+				authorizeButton.textContent = "Autorizzare";
+				doubtfulButton.textContent = "Esito Dubbio";
+				cancelButton.textContent = "Autorizzazione negata";
+		
+				authorizeButton.addEventListener("click", () => next({ "result" : "OK", "continue" : true }));
+				doubtfulButton.addEventListener("click", () => next({ "result" : "KO_DUBBIO", "continue" : true }));
+				cancelButton.addEventListener("click", () => next({ "result" : "KO"}));
+	
+				const buttonsDiv = document.createElement("div");
+				buttonsDiv.setAttribute("id", "command-buttons-div");
+	
+				buttonsDiv.appendChild(cancelButton);
+				buttonsDiv.appendChild(doubtfulButton);
+				buttonsDiv.appendChild(authorizeButton);
+	
+				authorizeBox.appendChild(text);
+				authorizeBox.appendChild(buttonsDiv);
 			} else {
-				void next({ "result": "KO" });
+				console.error("Impossibile trovare l'elemento con l'ID specificato.");
 			}
-		} else {
-			void next({ "result": "OK", "continue": true });
-		}
+		};
+		renderAuthorizeForm();
 		break;
 	case PRINT_RECEIPT:
 		const receipt = responseProcess.task.receiptTemplate;

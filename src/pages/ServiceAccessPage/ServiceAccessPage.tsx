@@ -242,7 +242,7 @@ const ServiceAccessPage = () => {
 
 			</Box>
 			{command === AUTHORIZE || command === SCAN_BILL_DATA ? 
-				(<Box id="command" />) : null
+				(<Box id="command" m={2}/>) : null
 			}
 		</React.Fragment>
 	);

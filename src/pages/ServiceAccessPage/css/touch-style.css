@@ -3,7 +3,7 @@
 body #touch {
     width: 800px;
     height: 600px;
-    border: 2px solid var(--divider);
+    border: 1px solid var(--divider);
 	position:relative;
 }
 

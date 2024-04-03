@@ -1,6 +1,4 @@
 import { Box, Grid } from "@mui/material";
-// import HomeCardComponent from "../components/CardComponents/HomeCardComponent";
-// import { homePageCard } from "../utils/homePageCard";
 import { HomePageTitle } from "../components/TitleComponents/HomePageTitle";
 import FormEmulatorParameters from "../components/FormComponents/FormEmulatorParameters";
 import BoxPageLayout from "./Layout/BoxPageLayout";

@@ -11,3 +11,7 @@
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 } */
+
+/* body:not(.home, #touch, #no-touch) {
+  background-color: #e1e1e1;
+} */
