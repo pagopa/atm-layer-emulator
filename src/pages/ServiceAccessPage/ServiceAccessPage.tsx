@@ -53,8 +53,8 @@ const ServiceAccessPage = () => {
 			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
 			if(!touchInterface){
 				const displayedItems=document.querySelectorAll("#menu > li");
-				const liPositions = ["S1","S2","S5","S6"];
-				displayedItems.forEach((item, i) => item.setAttribute("data-fdk",liPositions[i]));
+				const paginatedLiPositions = ["S1","S2","S5","S6"];
+				displayedItems.forEach((item, i) => item.setAttribute("data-fdk",paginatedLiPositions[i]));
 			}
 			
 
@@ -68,6 +68,9 @@ const ServiceAccessPage = () => {
 				document?.getElementById("nextLiButton")?.classList.add("hidden");
 			}
 
+		} else {
+			const liPositions = ["S1","S2","S3","S5","S6","S7"];
+			listItems.forEach((item, i) => item.setAttribute("data-fdk",liPositions[i]));
 		}
 	};
 
