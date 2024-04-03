@@ -212,6 +212,13 @@ const ServiceAccessPage = () => {
 		bodyHtml?.appendChild(createPrevLiButton());
 	}
 
+	if (touchInterface){
+		const footerRow = document.createElement("div");
+		footerRow.classList.add("mui-row");
+		footerRow.id = "footerSection";
+		bodyHtml?.appendChild(footerRow);
+	}
+
 
 	if (!touchInterface && bodyHtml?.querySelector("#back")) {
 		const exitButton = bodyHtml?.querySelector("#exit");
