@@ -13,6 +13,7 @@ import "./css/style-page.css";
 import { executeCommand } from "../../commons/utilsFunctions";
 import { Loading } from "../../components/Commons/Loading";
 import { AUTHORIZE, SCAN_BILL_DATA } from "../../commons/constants";
+import { addHeaderRow, createNextLiButton, createPrevLiButton, getPaginationFragment, positionPaginatedButtons, positionUnpaginatedButtons } from "../../utils/Commons";
 
 
 
@@ -32,44 +33,17 @@ const ServiceAccessPage = () => {
 		bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);
 	}
 
-	// funzione paginazione array
-	function paginate( arr: Array<Element>, pageNumber:number) {
-		const array= menuList? Array.from(menuList) :arr;
-		return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize) as Array<Node>;
-	};
-
 	function getPaginationElements(menu:HTMLElement){
 		const listItems=document.querySelectorAll("#menu > li");
 		if(listItems?.length>pageSize){
 			setMenuList(listItems); 
-			const paginationArray=paginate(Array.from(listItems), pageIndex);
-			listItems.forEach(el => el.remove());
-			const frag = document.createDocumentFragment();
-			for (let i = 0; i < paginationArray.length; ++i) {
-				frag.appendChild(paginationArray[i]);
-			}
-
-			// inserisco i <li> della pagina corrente nel menu
+			const frag = getPaginationFragment(Array.from(listItems),menu,pageIndex,pageSize);
 			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
 			if(!touchInterface){
-				const displayedItems=document.querySelectorAll("#menu > li");
-				const paginatedLiPositions = ["S1","S2","S5","S6"];
-				displayedItems.forEach((item, i) => item.setAttribute("data-fdk",paginatedLiPositions[i]));
-			}
-			
-
-			// hiding prevLiButton from page 1
-			if (pageIndex === 1){
-				document?.getElementById("prevLiButton")?.classList.add("hidden");
-			}
-
-			// hiding nextLiButton from the last page
-			if (paginationArray.length < 4 || (pageIndex === listItems.length/pageSize && menuList.length%pageSize===0)){
-				document?.getElementById("nextLiButton")?.classList.add("hidden");
-			}
+				positionPaginatedButtons();
+			}	
 		} else {
-			const liPositions = ["S1","S2","S3","S5","S6","S7"];
-			listItems.forEach((item, i) => item.setAttribute("data-fdk",liPositions[i]));
+			positionUnpaginatedButtons();
 		}
 	};
 
@@ -77,21 +51,18 @@ const ServiceAccessPage = () => {
 		if (!timeout || timeout === null){
 			timeout = 30;
 		}
-		// const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
+		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		setPageIndex(1);
 		addButtonClickListener();
-		addListButtonClickListener();
 
 		const menu=document?.getElementById("menu");
-		// pagino solo se il layout è touch
-		// if(menu && touchInterface){
 		if(menu){
 			getPaginationElements(menu);
 		}
 		
 		return () => {
 			removeButtonClickListener();
-			// clearTimeout(nextTimeout);
+			clearTimeout(nextTimeout);
 		};
 	}, [responseProcess]);
 
@@ -189,29 +160,6 @@ const ServiceAccessPage = () => {
 		}
 	};
 
-	const addButtonClickListener = () => {
-		const buttons = document?.querySelectorAll("button");
-		buttons?.forEach(button => {
-			button.addEventListener("click", handleClick);
-		});
-		const listButtons = document?.querySelectorAll("li");
-		listButtons?.forEach(listButton => {
-			listButton.addEventListener("click", handleClick);
-		});
-	};
-
-	const removeButtonClickListener = () => {
-		const buttons = document?.querySelectorAll("button");
-		buttons?.forEach(button => {
-			button.removeEventListener("click", handleClick);
-		});
-		const listButtons = document?.querySelectorAll("li");
-		listButtons?.forEach(listButton => {
-			listButton.removeEventListener("click", handleClick);
-		});
-	};
-
-
 	const handleNextLiButtonClick = (event: MouseEvent) => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
@@ -226,7 +174,15 @@ const ServiceAccessPage = () => {
 		}
 	};
 
-	const addListButtonClickListener = () => {
+	const addButtonClickListener = () => {
+		const buttons = document?.querySelectorAll("button");
+		buttons?.forEach(button => {
+			button.addEventListener("click", handleClick);
+		});
+		const listButtons = document?.querySelectorAll("li");
+		listButtons?.forEach(listButton => {
+			listButton.addEventListener("click", handleClick);
+		});
 		const nextLiButtonElement = document?.getElementById("nextLiButton");
 		nextLiButtonElement?.addEventListener("click", handleNextLiButtonClick);
 
@@ -234,45 +190,26 @@ const ServiceAccessPage = () => {
 		prevLiButtonElement?.addEventListener("click", handlePrevLiButtonClick);
 	};
 
-	
-	
-	const headerRow = document.createElement("div");
-	headerRow.classList.add("mui-row");
-	headerRow.id = "headerSection";
-	const logoElement = bodyHtml?.querySelector("#logo");
-	if (logoElement) {
-		const logoColumn = document.createElement("div");
-		logoColumn.classList.add("mui-col-md-6");
-		logoColumn.appendChild(logoElement);
-		headerRow.appendChild(logoColumn);
-	}
-	const descElement = bodyHtml?.querySelector("h1");
-	if (descElement) {
-		const descColumn = document.createElement("div");
-		descColumn.classList.add("mui-col-md-6");
-		descColumn.appendChild(descElement);
-		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
-		headerRow.appendChild(descColumn);
-	}
-	
-	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
-	// pagino solo se il layout è touch e se la lista è maggiore del pageSize
+	const removeButtonClickListener = () => {
+		const buttons = document?.querySelectorAll("button");
+		buttons?.forEach(button => {
+			button.removeEventListener("click", handleClick);
+		});
+		const listButtons = document?.querySelectorAll("li");
+		listButtons?.forEach(listButton => {
+			listButton.removeEventListener("click", handleClick);
+		});
+	};
+
+	bodyHtml = addHeaderRow(bodyHtml);
+
+	// pagino solo se la lista è maggiore del pageSize
 	const listLength = bodyHtml?.querySelectorAll("#menu > li")?.length;
 	const paginateFlag = listLength>pageSize;
 	console.log("page",paginateFlag);
-	// if(responseProcess?.task?.template?.type === "MENU" && touchInterface && paginateFlag){
 	if(responseProcess?.task?.template?.type === "MENU" && paginateFlag){
-		const nextLiButton = document.createElement("button");
-		nextLiButton.id="nextLiButton";
-		nextLiButton.innerHTML = "Iniziative successive";
-		nextLiButton.setAttribute("data-fdk","S7");
-		bodyHtml?.appendChild(nextLiButton);
-
-		const prevtLiButton = document.createElement("button");
-		prevtLiButton.id="prevLiButton";
-		prevtLiButton.innerHTML = "Iniziative precedenti";
-		prevtLiButton.setAttribute("data-fdk","S3");
-		bodyHtml?.appendChild(prevtLiButton);
+		bodyHtml?.appendChild(createNextLiButton());
+		bodyHtml?.appendChild(createPrevLiButton());
 	}
 	
 
