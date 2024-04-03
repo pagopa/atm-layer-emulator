@@ -136,6 +136,12 @@ body #touch {
 	color: var(--primary-main);
 }
 
+#touch [data-fdk='S3'] {
+	position: absolute;
+    top: 400px;
+    left: 16px;
+}
+
 #touch [data-fdk='S4'] {
 	position: absolute;
     top: 530px;
@@ -176,13 +182,8 @@ body #touch {
 	left: auto;
 	right: 16px;
 }
-#touch #prevLiButton{
-    /* left: 400px; */
-	left: 10px;
-}
 
-#touch #nextLiButton{
-    /* left: 600px; */
-	right: 20px;
+#touch .hidden {
+	display: none;
 }
 
