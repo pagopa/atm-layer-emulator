@@ -4,6 +4,7 @@
     width: 800px;
     height: 600px;
     border: 1px solid var(--divider);
+    background-color: #ffffff;
 }
 
 #no-touch #subtitle {

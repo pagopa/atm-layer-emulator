@@ -5,6 +5,7 @@ body #touch {
     height: 600px;
     border: 1px solid var(--divider);
 	position:relative;
+	background-color: #ffffff;
 }
 
 #touch #footerSection{

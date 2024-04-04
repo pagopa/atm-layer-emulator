@@ -83,9 +83,9 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 				doubtfulButton.textContent = "Esito Dubbio";
 				cancelButton.textContent = "Autorizzazione negata";
 		
-				authorizeButton.addEventListener("click", () => next({ "result" : "OK", "continue" : true }));
-				doubtfulButton.addEventListener("click", () => next({ "result" : "KO_DUBBIO", "continue" : true }));
-				cancelButton.addEventListener("click", () => next({ "result" : "KO"}));
+				authorizeButton.addEventListener("click", () => {next({ "result" : "OK", "continue" : true }); setCommand("");});
+				doubtfulButton.addEventListener("click", () => {next({ "result" : "KO_DUBBIO", "continue" : true }); setCommand("");});
+				cancelButton.addEventListener("click", () => {next({ "result" : "KO"}); setCommand("");});
 	
 				const buttonsDiv = document.createElement("div");
 				buttonsDiv.setAttribute("id", "command-buttons-div");
