@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FormControlLabel, Grid, Switch, TextField, Typography } from "@mui/material";
+import { FormControlLabel, FormGroup, Grid, Switch, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Ctx } from "../../DataContext";
 import { ParametersDto } from "../model/ParametersModel";
@@ -27,10 +27,10 @@ export const FormEmulatorParameters = () => {
 		printer: "OK",
 		scanner: "OK",
 	};
-	
+
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
-	const { abortController, setResponseProcess,setTransactionData, touchInterface, setTouchInterface, debugOn } = useContext(Ctx);
+	const { abortController, setResponseProcess, setTransactionData, touchInterface, setTouchInterface, debugOn } = useContext(Ctx);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -41,21 +41,21 @@ export const FormEmulatorParameters = () => {
 		const target = e.target as HTMLInputElement;
 		const { name, value, checked } = target;
 		resetErrors(errors, setErrors, name);
-		
-		if (name === "printer" || name === "scanner" || name==="touch") {
+
+		if (name === "printer" || name === "scanner" || name === "touch") {
 			setFormData((prevFormData: any) => ({ ...prevFormData, [name]: checked ? "OK" : "KO" }));
 
 			if (name === "touch") {
 				setTouchInterface(checked);
 			}
-		}else{
+		} else {
 			setFormData((prevFormData: any) => ({
 				...prevFormData,
 				[name]: value
 			}));
 		}
 
-		
+
 	};
 
 	const validateForm = () => {
@@ -127,137 +127,202 @@ export const FormEmulatorParameters = () => {
 			handleSubmit={handleSubmit}
 			loadingButton={loadingButton}
 		>
-			<Grid xs={12} item my={1}>
-				<TextField
-					fullWidth
-					id="acquirerId"
-					name="acquirerId"
-					label={"ID Banca"}
-					placeholder={"06789"}
-					size="small"
-					onChange={handleChange}
-					error={Boolean(errors.acquirerId)}
-					helperText={errors.acquirerId}
-					inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
-					defaultValue={initialValues.acquirerId}
-				/>
-			</Grid>
-			<Grid xs={12} item my={1}>
-				<TextField
-					fullWidth
-					id="branchId"
-					name="branchId"
-					label={"ID Filiale"}
-					placeholder={"12345"}
-					size="small"
-					onChange={handleChange}
-					error={Boolean(errors.branchId)}
-					helperText={errors.branchId}
-					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
-					defaultValue={initialValues.branchId}
-				/>
-			</Grid>
-			<Grid xs={12} item my={1}>
-				<TextField
-					fullWidth
-					id="code"
-					name="code"
-					label={"Codice"}
-					placeholder={"0001"}
-					size="small"
-					onChange={handleChange}
-					error={Boolean(errors.code)}
-					helperText={errors.code}
-					inputProps={{ maxLength: CODE_LEGTH }}
-					defaultValue={initialValues.code}
-				/>
-			</Grid>
-			<Grid xs={12} item my={1}>
-				<TextField
-					fullWidth
-					id="terminalId"
-					name="terminalId"
-					label={"ID Terminale"}
-					placeholder={"64874412"}
-					size="small"
-					onChange={handleChange}
-					error={Boolean(errors.terminalId)}
-					helperText={errors.terminalId}
-					inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
-					defaultValue={initialValues.terminalId}
-				/>
-			</Grid>
-			<Grid xs={12} item my={1}>
-				<TextField
-					fullWidth
-					id="fiscalCode"
-					name="fiscalCode"
-					label={"Codice Fiscale"}
-					placeholder={"RSSMRA74D22A001Q"}
-					size="small"
-					onChange={handleChange}
-					error={Boolean(errors.fiscalCode)}
-					helperText={errors.fiscalCode}
-					inputProps={{ maxLength: FISCAL_CODE_LENGTH }}
-					defaultValue={initialValues.fiscalCode}
-				/>
-			</Grid>
-			<Grid xs={12} md={4} item my={1} >
-				<FormControlLabel
-					id="printer"
-					value="OK"
-					control={
-						<Switch
-							checked={formData?.printer==="OK"?true:false}
-							onChange={handleChange}
-							name="printer"
-						/>
-					}
-					label={
-						<Typography>
-							Stampante
-						</Typography>
-					}
-					labelPlacement="start"
-				/>
-			</Grid>
-			<Grid xs={12} md={4} item my={1} >
-				<FormControlLabel
-					id="scanner"
-					value="OK"
-					control={
-						<Switch
-							checked={formData?.scanner==="OK"?true:false}
-							onChange={handleChange}
-							name="scanner"
-						/>
-					}
-					label={
-						<Typography>
-							Scanner
-						</Typography>
-					}
-					labelPlacement="start"
-				/>
-			</Grid>
-			<Grid xs={12} sm={4} item my={1} className="touch-selector">
-				<FormControlLabel
-					id="touchLayout"
-					value="touch"
-					control={
-						<Switch
-							checked={touchInterface}
-							onChange={handleChange}
-							name="touch"
-						/>
-					}
-					label={
-						<Typography>
-							ATM Touch
-						</Typography>
-					}
-					labelPlacement="start"
-				/>
+			<Grid container xs={12} display={"flex"}>
+				<Grid xs={6} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="acquirerId"
+						name="acquirerId"
+						label={"ID Banca"}
+						placeholder={"06789"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.acquirerId)}
+						helperText={errors.acquirerId}
+						inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
+						defaultValue={initialValues.acquirerId}
+					/>
+				</Grid>
+				<Grid xs={6} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="branchId"
+						name="branchId"
+						label={"ID Filiale"}
+						placeholder={"12345"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.branchId)}
+						helperText={errors.branchId}
+						inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
+						defaultValue={initialValues.branchId}
+					/>
+				</Grid>
+				<Grid xs={6} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="code"
+						name="code"
+						label={"Codice"}
+						placeholder={"0001"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.code)}
+						helperText={errors.code}
+						inputProps={{ maxLength: CODE_LEGTH }}
+						defaultValue={initialValues.code}
+					/>
+				</Grid>
+				<Grid xs={6} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="terminalId"
+						name="terminalId"
+						label={"ID Terminale"}
+						placeholder={"64874412"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.terminalId)}
+						helperText={errors.terminalId}
+						inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
+						defaultValue={initialValues.terminalId}
+					/>
+				</Grid>
+				<Grid xs={6} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="fiscalCode"
+						name="fiscalCode"
+						label={"Codice Fiscale"}
+						placeholder={"RSSMRA74D22A001Q"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.fiscalCode)}
+						helperText={errors.fiscalCode}
+						inputProps={{ maxLength: FISCAL_CODE_LENGTH }}
+						defaultValue={initialValues.fiscalCode}
+					/>
+				</Grid>
+				<Grid xs={6} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="acquirerId"
+						name="acquirerId"
+						label={"ID Banca"}
+						placeholder={"06789"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.acquirerId)}
+						helperText={errors.acquirerId}
+						inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
+						defaultValue={initialValues.acquirerId}
+					/>
+				</Grid>
+				<Grid xs={6} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="branchId"
+						name="branchId"
+						label={"ID Filiale"}
+						placeholder={"12345"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.branchId)}
+						helperText={errors.branchId}
+						inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
+						defaultValue={initialValues.branchId}
+					/>
+				</Grid>
+				<Grid xs={6} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="code"
+						name="code"
+						label={"Codice"}
+						placeholder={"0001"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.code)}
+						helperText={errors.code}
+						inputProps={{ maxLength: CODE_LEGTH }}
+						defaultValue={initialValues.code}
+					/>
+				</Grid>
+				<Grid xs={6} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="terminalId"
+						name="terminalId"
+						label={"ID Terminale"}
+						placeholder={"64874412"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.terminalId)}
+						helperText={errors.terminalId}
+						inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
+						defaultValue={initialValues.terminalId}
+					/>
+				</Grid>
+				<Grid xs={6} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="fiscalCode"
+						name="fiscalCode"
+						label={"Codice Fiscale"}
+						placeholder={"RSSMRA74D22A001Q"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.fiscalCode)}
+						helperText={errors.fiscalCode}
+						inputProps={{ maxLength: FISCAL_CODE_LENGTH }}
+						defaultValue={initialValues.fiscalCode}
+					/>
+				</Grid>
+				<Grid container xs={12} display="flex" flexDirection={"row"} justifyContent={"space-between"}>
+					<FormControlLabel
+						id="printer"
+						value="OK"
+						control={
+							<Switch
+								checked={formData?.printer === "OK" ? true : false}
+								onChange={handleChange}
+								name="printer"
+							/>
+						}
+						label="Stampante"
+						labelPlacement="start"
+						sx={{ ml: 1 }}
+					/>
+					<FormControlLabel
+						id="scanner"
+						value="OK"
+						control={
+							<Switch
+								checked={formData?.scanner === "OK" ? true : false}
+								onChange={handleChange}
+								name="scanner"
+
+							/>
+						}
+						label="Scanner"
+						labelPlacement="start"
+						sx={{ ml: 1 }}
+					/>
+					<FormControlLabel
+						id="touchLayout"
+						value="touch"
+						control={
+							<Switch
+								checked={touchInterface}
+								onChange={handleChange}
+								name="touch"
+							/>
+						}
+						label="ATM Touch"
+						labelPlacement="start"
+						sx={{ ml: 1, mr: 0 }}
+					/>
+				</Grid>
 			</Grid>
 		</FormTemplate>
 	);

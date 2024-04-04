@@ -4,6 +4,7 @@
     width: 800px;
     border: 1px solid var(--divider);
     margin: 16px;
+    background-color: #FFFFFF;
 }
 
 #command-buttons-div {
