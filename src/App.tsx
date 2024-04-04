@@ -12,21 +12,22 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import LoginPageCallback from "./pages/LoginPageCallback";
 import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
+import PrivateRoute from "./components/NavigationComponents/PrivateRoute";
 
 
 
 const LocalRoutes = () => (
 	<Routes>
-
-		<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
-		<Route path={routes.SERVICE_ACCESS} element={<ServiceAccessPage />} />
-		<Route
-			path={routes.ERROR_PAGE}
-			element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>}
-		/>
-		<Route path={routes.LOGIN} element={<PageLayout><LoginPage /></PageLayout>} />
-		<Route path={routes.LOGIN_BACK} element={<PageLayout><LoginPageCallback /></PageLayout>} />
-
+		<Route element={<PrivateRoute />}>
+			<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
+			<Route path={routes.SERVICE_ACCESS} element={<ServiceAccessPage />} />
+			<Route
+				path={routes.ERROR_PAGE}
+				element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>}
+			/>
+			<Route path={routes.LOGIN} element={<PageLayout><LoginPage /></PageLayout>} />
+			<Route path={routes.LOGIN_BACK} element={<PageLayout><LoginPageCallback /></PageLayout>} />
+		</Route>
 	</Routes>
 );
 
@@ -55,7 +56,6 @@ function App() {
 	function setTokenExpired() {
 		sessionStorage.removeItem("jwt_emulator");
 		setLogged(false);
-		// navigate(ROUTES.LOGIN);
 	}
 
 	function clearStorage() {

@@ -62,6 +62,7 @@ const LoginPage = () => {
 							title="Accedi"
 							fullWidth
 							data-testid="accedi-button-test"
+							id="login-button"
 						>
 							Accedi
 						</Button>
