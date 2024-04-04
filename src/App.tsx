@@ -20,7 +20,7 @@ const LocalRoutes = () => (
 	<Routes>
 		<Route element={<PrivateRoute />}>
 			<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
-			<Route path={routes.SERVICE_ACCESS} element={<ServiceAccessPage />} />
+			<Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} />
 			<Route
 				path={routes.ERROR_PAGE}
 				element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>}

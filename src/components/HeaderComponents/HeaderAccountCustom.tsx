@@ -53,7 +53,7 @@ export const HeaderAccountCustom = ({
 				borderBottom: 1,
 				borderColor: "divider",
 				backgroundColor: "background.paper",
-				minHeight: "40px",
+				minHeight: "70px",
 			}}
 		>
 			<Container maxWidth={false}>
