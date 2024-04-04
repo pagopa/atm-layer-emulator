@@ -60,7 +60,7 @@ body #touch {
 	border: 2px solid;
 	background: url(./exit.svg) no-repeat;
 	background-position-y: center;
-    max-width: 138px;
+    max-width: max-content;
 	position: absolute;
     top: 530px;
     left: 180px;
