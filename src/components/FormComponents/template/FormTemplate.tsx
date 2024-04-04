@@ -27,13 +27,7 @@ export default function FormTemplate({ handleSubmit, children, loadingButton }: 
 		<Box sx={{ maxWidth: window.innerWidth > theme.breakpoints.values.md ? "60%" : "100%" }}>
 			<Box p={3} my={3} mx={"auto"} sx={inputGroupStyle}  >
 				<Grid container >
-					<Grid item xs={12}>
-						<Box display="flex" mb={2}>
-							<Typography variant="body1" fontWeight="600">
-								{"Compilare tutti i campi per iniziare la simulazione"}
-							</Typography>
-						</Box>
-					</Grid>
+					
 
 					{children}
 				</Grid>

@@ -7,3 +7,22 @@ export type ParametersDto = {
     printer: string;
     scanner: string;
 };
+
+export type PanInfoDto = {
+   panInfo: Array<PanDto>; 
+};
+
+export type PanDto = {
+    pan: string;
+    circuits: Array<string>;
+    bankName: string;
+};
+
+export type IbanListDto = {
+    IBANlist: Array<IbanDto>; 
+ };
+ 
+export type IbanDto = {
+     IBAN: string;
+     bankName: string;
+ };

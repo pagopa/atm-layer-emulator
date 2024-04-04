@@ -13,6 +13,7 @@ import HomePage from "./pages/HomePage";
 import LoginPageCallback from "./pages/LoginPageCallback";
 import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
 import PrivateRoute from "./components/NavigationComponents/PrivateRoute";
+import { IbanListDto, PanInfoDto } from "./components/model/ParametersModel";
 
 
 
@@ -45,6 +46,8 @@ function App() {
 	const [transactionData, setTransactionData] = useState ({});
 	const abortController = new AbortController();
 	const [touchInterface, setTouchInterface] = useState(true);
+	const [panInfo, setPanInfo] = useState<PanInfoDto>({panInfo: []});
+	const [ibanList, setIbanList] = useState<IbanListDto>({IBANlist: []});
 
 	function clearAll() {
 		if (sessionStorage.getItem("jwt_emulator")) {
@@ -86,7 +89,11 @@ function App() {
 		transactionData,
 		setTransactionData,
 		touchInterface,
-		setTouchInterface
+		setTouchInterface,
+		panInfo,
+		setPanInfo,
+		ibanList,
+		setIbanList
 	};
 
 	useEffect(() => {

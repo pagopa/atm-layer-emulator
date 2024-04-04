@@ -20,7 +20,7 @@ import { addHeaderRow, createNextLiButton, createPrevLiButton, getPaginationFrag
 
 const ServiceAccessPage = () => {
 
-	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface } = useContext(Ctx);
+	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList } = useContext(Ctx);
 	const [loading, setLoading] = useState(false);
 	const [command, setCommand] = useState(responseProcess?.task?.command);
 	const [menuList, setMenuList] = useState<any | NodeList>();
@@ -68,29 +68,30 @@ const ServiceAccessPage = () => {
 
 	useEffect(() => {
 		if (command && command !== "") {
-			executeCommand(command, setCommand, next, responseProcess);
+			executeCommand(command, setCommand, next, responseProcess, ibanList);
 		}
 	}, [command]);
 
 	const date = new Date().toISOString().slice(0, -5);
 	const postData = (params: any) => ({
 		data: {
-			"panInfo": [
-				{
-					"pan": "1234567891234567",
-					"circuits": [
-						"VISA"
-					],
-					"bankName": "ISYBANK"
-				}, {
-					"pan": "8234567891234565",
-					"circuits": [
-						"BANCOMAT",
-						"VISA"
-					],
-					"bankName": "INTESA"
-				}
-			],
+			// "panInfo": [
+			// 	{
+			// 		"pan": "1234567891234567",
+			// 		"circuits": [
+			// 			"VISA"
+			// 		],
+			// 		"bankName": "ISYBANK"
+			// 	}, {
+			// 		"pan": "8234567891234565",
+			// 		"circuits": [
+			// 			"BANCOMAT",
+			// 			"VISA"
+			// 		],
+			// 		"bankName": "INTESA"
+			// 	}
+			// ],
+			...panInfo,
 			...params
 		},
 		device: {
