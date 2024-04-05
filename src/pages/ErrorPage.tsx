@@ -2,7 +2,11 @@ import { Box, Typography } from "@mui/material";
 import ReportIcon from "@mui/icons-material/Report";
 import BoxPageLayout from "./Layout/BoxPageLayout";
 
-const ErrorPage = () => (
+type Props = {
+    title: string;
+};
+
+const ErrorPage = ({title}:Props) => (
 	<BoxPageLayout >
 		<Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} height={"80vh"}> 
 			<Box >
@@ -10,7 +14,7 @@ const ErrorPage = () => (
 			</Box>
 			<Box>
 				<Typography variant="h6">
-                    404 - Qualcosa è andato storto
+					{title}
 				</Typography>
 			</Box>
 		</Box>

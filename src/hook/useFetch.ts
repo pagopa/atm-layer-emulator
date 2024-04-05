@@ -69,7 +69,7 @@ export default function useFetch(endPoint?: string | undefined) {
 				};
 
 		const maxRetries = 2;
-		const retryDelay = 1000;
+		const retryDelay = 0;
 		let retryCount = 0;
 		try {
 

@@ -14,6 +14,7 @@ import LoginPageCallback from "./pages/LoginPageCallback";
 import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
 import PrivateRoute from "./components/NavigationComponents/PrivateRoute";
 import { IbanListDto, PanInfoDto } from "./components/model/ParametersModel";
+import ErrorPage from "./pages/ErrorPage";
 
 
 
@@ -22,7 +23,7 @@ const LocalRoutes = () => (
 		<Route element={<PrivateRoute />}>
 			<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
 			<Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} />
-			<Route path={routes.TIMEOUT_PAGE} element={<PageLayout><CommonErrorPage title={"Camunda impiega troppo tempo per processare"} icon={undefined} /></PageLayout>} />
+			<Route path={routes.TIMEOUT_PAGE} element={<PageLayout><ErrorPage title="Il processo ha impiegato troppo tempo per rispondere" /></PageLayout>} />
 			<Route path={routes.ERROR_PAGE} element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>} />
 		</Route>
 		<Route path={routes.LOGIN} element={<PageLayout><LoginPage /></PageLayout>} />
