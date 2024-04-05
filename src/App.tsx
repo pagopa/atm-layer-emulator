@@ -22,13 +22,11 @@ const LocalRoutes = () => (
 		<Route element={<PrivateRoute />}>
 			<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
 			<Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} />
-			<Route
-				path={routes.ERROR_PAGE}
-				element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>}
-			/>
-			<Route path={routes.LOGIN} element={<PageLayout><LoginPage /></PageLayout>} />
-			<Route path={routes.LOGIN_BACK} element={<PageLayout><LoginPageCallback /></PageLayout>} />
+			<Route path={routes.TIMEOUT_PAGE} element={<PageLayout><CommonErrorPage title={"Camunda impiega troppo tempo per processare"} icon={undefined} /></PageLayout>} />
+			<Route path={routes.ERROR_PAGE} element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>} />
 		</Route>
+		<Route path={routes.LOGIN} element={<PageLayout><LoginPage /></PageLayout>} />
+		<Route path={routes.LOGIN_BACK} element={<PageLayout><LoginPageCallback /></PageLayout>} />
 	</Routes>
 );
 

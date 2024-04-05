@@ -7,7 +7,8 @@ const ROUTES = {
 	TEST: "/test",
 	LOGIN: "/login",
 	LOGIN_BACK:"/login/callback",
-	SERVICE_ACCESS: "/service-access"
+	SERVICE_ACCESS: "/service-access",
+	TIMEOUT_PAGE: "/unresponsive"
 };
 
 export default ROUTES;
