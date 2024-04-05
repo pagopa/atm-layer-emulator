@@ -1,5 +1,6 @@
-/* eslint-disable functional/immutable-data */
 import { IbanListDto } from "../components/model/ParametersModel";
+import { PanInfoDto } from "./../components/model/ParametersModel";
+/* eslint-disable functional/immutable-data */
 import { AUTHORIZE, END, GET_IBAN, GET_PAN, PRINT_RECEIPT, NEXT, SCAN_BILL_DATA } from "./constants";
 
 
@@ -8,7 +9,7 @@ export function click(): void {
 	console.log("quick click");
 }
 
-export function executeCommand(driver: string, setCommand: any, next: any, responseProcess: any, ibanList?:IbanListDto) {
+export function executeCommand(driver: string, setCommand: any, next: any, responseProcess: any, ibanList?:IbanListDto, panInfo?:PanInfoDto) {
 
 	switch (driver) {
 	case SCAN_BILL_DATA:
@@ -138,7 +139,7 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 		void next({ "result": "OK", "IBANlist": JSON.stringify(ibanList)});
 		break;
 	case GET_PAN:
-		void next({ "result": "OK" });
+		void next({ "result": "OK", ...panInfo});
 		break;
 	default: return "";
 	};

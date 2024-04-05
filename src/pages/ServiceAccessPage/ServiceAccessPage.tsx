@@ -68,30 +68,13 @@ const ServiceAccessPage = () => {
 
 	useEffect(() => {
 		if (command && command !== "") {
-			executeCommand(command, setCommand, next, responseProcess, ibanList);
+			executeCommand(command, setCommand, next, responseProcess, ibanList, panInfo);
 		}
 	}, [command]);
 
 	const date = new Date().toISOString().slice(0, -5);
 	const postData = (params: any) => ({
 		data: {
-			// "panInfo": [
-			// 	{
-			// 		"pan": "1234567891234567",
-			// 		"circuits": [
-			// 			"VISA"
-			// 		],
-			// 		"bankName": "ISYBANK"
-			// 	}, {
-			// 		"pan": "8234567891234565",
-			// 		"circuits": [
-			// 			"BANCOMAT",
-			// 			"VISA"
-			// 		],
-			// 		"bankName": "INTESA"
-			// 	}
-			// ],
-			...panInfo,
 			...params
 		},
 		device: {
@@ -117,7 +100,7 @@ const ServiceAccessPage = () => {
 		taskId: responseProcess?.task?.id,
 	});
 
-	const next = async (params: any, panInfo?: any) => {
+	const next = async (params: any) => {
 		setLoading(true);
 		try {
 			const response = await fetchRequest({
