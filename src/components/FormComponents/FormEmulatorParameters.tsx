@@ -1,12 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
 	Box,
+	Checkbox,
+	ClickAwayListener,
 	FormControl,
 	FormControlLabel,
 	FormGroup,
 	Grid,
 	InputLabel,
+	ListItemText,
 	MenuItem,
+	OutlinedInput,
 	Select,
 	SelectChangeEvent,
 	Switch,
@@ -14,6 +18,7 @@ import {
 	Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
 import { Ctx } from "../../DataContext";
 import { IbanDto, IbanListDto, PanDto, PanInfoDto, ParametersDto } from "../model/ParametersModel";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
@@ -36,7 +41,7 @@ export const FormEmulatorParameters = () => {
 
 	const panInfoFirstCard: PanDto = {
 		pan: "1234567891234567",
-		circuits: ["VISA"],
+		circuits: ["VISA", "BANCOMAT", "MASTERCARD"],
 		bankName: "ISYBANK"
 	};
 
@@ -71,6 +76,7 @@ export const FormEmulatorParameters = () => {
 
 	const [formData, setFormData] = useState(initialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
+
 	const {
 		abortController,
 		setResponseProcess,
@@ -79,15 +85,18 @@ export const FormEmulatorParameters = () => {
 		setTouchInterface,
 		debugOn,
 		setPanInfo,
+		panInfo,
 		setIbanList
 	} = useContext(Ctx);
+	const panInfoArray = panInfo as PanInfoDto;
+	const [firstCardCircuits, setFirstCardCircuits] = useState<Array<string>>(panInfoFirstCard.circuits);
+	const [open, setOpen] = useState(false);
 	const navigate = useNavigate();
 
-	const circuits = [
-		{ id: 0, value: "", label: "No circuito"},
-		{ id: 1, value: "BANCOMAT", label: "Bancomat" },
-		{ id: 2, value: "MASTERCARD", label: "Mastercard" },
-		{ id: 3, value: "VISA", label: "Visa" },
+	const availableCircuits = [
+		{ id: 0, value: "BANCOMAT", label: "Bancomat", icon: "https://d2xduy7tbgu2d3.cloudfront.net/files/ICON/BANCOMAT.svg" },
+		{ id: 1, value: "MASTERCARD", label: "Mastercard", icon: <CreditCardIcon fontSize="small" /> },
+		{ id: 2, value: "VISA", label: "Visa", icon: "https://d2xduy7tbgu2d3.cloudfront.net/files/ICON/VISA.svg" },
 	];
 
 	useEffect(() => {
@@ -95,7 +104,7 @@ export const FormEmulatorParameters = () => {
 	}, []);
 
 	const handleChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		const target = e.target as HTMLInputElement;
 		const { name, value, checked } = target;
@@ -113,6 +122,13 @@ export const FormEmulatorParameters = () => {
 				[name]: value,
 			}));
 		}
+	};
+
+	const handleChangeMultiSelectFirstCard = (event: SelectChangeEvent<Array<string>>) => {
+		const {
+			target: { value },
+		} = event;
+		setFirstCardCircuits(typeof value === "string" ? value.split(",") : value,);
 	};
 
 	const validateForm = () => {
@@ -199,7 +215,7 @@ export const FormEmulatorParameters = () => {
 						{"Compilare tutti i campi per iniziare la simulazione"}
 					</Typography>
 				</Grid>
-				<Grid xs={6} item my={1} px={1}>
+				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
 						id="acquirerId"
@@ -214,7 +230,7 @@ export const FormEmulatorParameters = () => {
 						defaultValue={initialValues.acquirerId}
 					/>
 				</Grid>
-				<Grid xs={6} item my={1} px={1}>
+				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
 						id="branchId"
@@ -229,7 +245,7 @@ export const FormEmulatorParameters = () => {
 						defaultValue={initialValues.branchId}
 					/>
 				</Grid>
-				<Grid xs={6} item my={1} px={1}>
+				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
 						id="code"
@@ -244,7 +260,7 @@ export const FormEmulatorParameters = () => {
 						defaultValue={initialValues.code}
 					/>
 				</Grid>
-				<Grid xs={6} item my={1} px={1}>
+				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
 						id="terminalId"
@@ -259,7 +275,7 @@ export const FormEmulatorParameters = () => {
 						defaultValue={initialValues.terminalId}
 					/>
 				</Grid>
-				<Grid xs={6} item my={1} px={1}>
+				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
 						id="fiscalCode"
@@ -279,7 +295,7 @@ export const FormEmulatorParameters = () => {
 						{"Inserire i dati bancari"}
 					</Typography>
 				</Grid>
-				<Grid xs={6} item my={1} px={1}>
+				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
 						id="iban1"
@@ -294,7 +310,7 @@ export const FormEmulatorParameters = () => {
 						defaultValue={firstIban.IBAN}
 					/>
 				</Grid>
-				<Grid xs={6} item my={1} px={1}>
+				{/* <Grid xs={6} item my={1} px={1}>
 					<TextField
 						fullWidth
 						id="bankNameIBAN1"
@@ -308,8 +324,8 @@ export const FormEmulatorParameters = () => {
 						// inputProps={{ maxLength: FISCAL_CODE_LENGTH }}
 						defaultValue={firstIban.bankName}
 					/>
-				</Grid>
-				<Grid xs={6} item my={1} px={1}>
+				</Grid> */}
+				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
 						id="pan1"
@@ -324,29 +340,35 @@ export const FormEmulatorParameters = () => {
 						defaultValue={panInfoFirstCard.pan}
 					/>
 				</Grid>
-				<Grid xs={6} item my={1} px={1}>
-					<FormControl fullWidth>
-						<InputLabel>
-							Circuito di pagamento primo PAN
-						</InputLabel>
+				<Grid xs={4} item my={1} px={1}>
+					<FormControl focused={open} fullWidth>
+						<InputLabel sx={{ marginTop: "-8px" }}>Tag</InputLabel>
 						<Select
-							fullWidth
-							id="circuit1"
-							name="circuit1"
 							size="small"
-							onChange={handleChange}
-							error={Boolean(errors.code)}
-							defaultValue={panInfoFirstCard.circuits[0]}
+							labelId="demo-multiple-checkbox-label"
+							id="demo-multiple-checkbox"
+							multiple
+							value={firstCardCircuits}
+							onChange={handleChangeMultiSelectFirstCard}
+							input={<OutlinedInput label="Tag" />}
+							renderValue={(selected) => selected.join(", ")}
+							defaultValue={firstCardCircuits}
+							onOpen={() => setOpen(true)}
+							onClose={() => setOpen(false)}
+							open={open}
 						>
-							{circuits.map((item) => (
-								<MenuItem key={item.id} value={item.value}>
-									{item.label}
+							{availableCircuits.map((circuit, i) => (
+								<MenuItem key={circuit.id} value={circuit.value}>
+									<Checkbox checked={firstCardCircuits.includes(availableCircuits[i].value)} />
+									{/* {circuit.icon} */}
+									<ListItemText primary={circuit.label} />
 								</MenuItem>
 							))}
 						</Select>
 					</FormControl>
+
 				</Grid>
-				<Grid xs={6} item my={1} px={1}>
+				{/* <Grid xs={6} item my={1} px={1}>
 					<TextField
 						fullWidth
 						id="bankNamePAN1"
@@ -360,8 +382,8 @@ export const FormEmulatorParameters = () => {
 						// inputProps={{ maxLength: FISCAL_CODE_LENGTH }}
 						defaultValue={panInfoFirstCard.bankName}
 					/>
-				</Grid>
-			
+				</Grid> */}
+
 				<Grid
 					container
 					xs={12}

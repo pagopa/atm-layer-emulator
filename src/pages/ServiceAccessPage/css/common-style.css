@@ -147,7 +147,7 @@ body {
     font-family: var(--font-family);
 }
 
-input {
+input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#iban1,#pan1) {
     width: 35%;
     height: 60%;
     padding: 12px 20px;
@@ -158,7 +158,7 @@ input {
     border-color: var(--divider);
 }
 
-input:focus{
+input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#iban1,#pan1):focus{
     border: 2px solid var(--primary-main);
     outline: none;
 }
