@@ -53,6 +53,7 @@ const ServiceAccessPage = () => {
 		}
 		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		setPageIndex(1);
+		setMenuList({});
 		addButtonClickListener();
 
 		const menu=document?.getElementById("menu");
@@ -71,6 +72,17 @@ const ServiceAccessPage = () => {
 			executeCommand(command, setCommand, next, responseProcess, ibanList, panInfo);
 		}
 	}, [command]);
+
+	useEffect(() => {
+		const menu=document?.getElementById("menu");
+		if(menu){
+			const frag = getPaginationFragment(Array.from(menuList),menu,pageIndex,pageSize);
+			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
+			if(!touchInterface){
+				positionPaginatedButtons();
+			}	
+		}
+	}, [pageIndex]);
 
 	const date = new Date().toISOString().slice(0, -5);
 	const postData = (params: any) => ({
@@ -147,16 +159,14 @@ const ServiceAccessPage = () => {
 	const handleNextLiButtonClick = (event: MouseEvent) => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
-			setPageIndex(pageIndex + 1);
-			void next({});
+			setPageIndex(pageIndex => pageIndex + 1);
 		}
 	};
 
 	const handlePrevLiButtonClick = (event: MouseEvent) => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
-			setPageIndex(pageIndex - 1);
-			void next({});
+			setPageIndex(pageIndex => pageIndex - 1);
 		}
 	};
 
