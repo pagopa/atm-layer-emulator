@@ -292,7 +292,7 @@ export const FormEmulatorParameters = () => {
 				</Grid>
 				<Grid item xs={12} ml={1} my={2} display={"flex"} justifyContent={"center"}>
 					<Typography variant="body1" fontWeight="600">
-						{"Inserire i dati bancari"}
+						{"Inserire primi metodi di pagamento"}
 					</Typography>
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
@@ -342,7 +342,7 @@ export const FormEmulatorParameters = () => {
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
 					<FormControl focused={open} fullWidth>
-						<InputLabel sx={{ marginTop: "-8px" }}>Tag</InputLabel>
+						<InputLabel id="circuits-label">Circuits</InputLabel>
 						<Select
 							size="small"
 							labelId="demo-multiple-checkbox-label"
@@ -350,7 +350,8 @@ export const FormEmulatorParameters = () => {
 							multiple
 							value={firstCardCircuits}
 							onChange={handleChangeMultiSelectFirstCard}
-							input={<OutlinedInput label="Tag" />}
+							// input={<OutlinedInput label="Circuits" />}
+							label="Circuits"
 							renderValue={(selected) => selected.join(", ")}
 							defaultValue={firstCardCircuits}
 							onOpen={() => setOpen(true)}
@@ -359,14 +360,11 @@ export const FormEmulatorParameters = () => {
 						>
 							{availableCircuits.map((circuit, i) => (
 								<MenuItem key={circuit.id} value={circuit.value}>
-									<Checkbox checked={firstCardCircuits.includes(availableCircuits[i].value)} />
-									{/* {circuit.icon} */}
 									<ListItemText primary={circuit.label} />
 								</MenuItem>
 							))}
 						</Select>
 					</FormControl>
-
 				</Grid>
 				{/* <Grid xs={6} item my={1} px={1}>
 					<TextField
@@ -386,6 +384,7 @@ export const FormEmulatorParameters = () => {
 
 				<Grid
 					container
+					item
 					xs={12}
 					display="flex"
 					flexDirection={"row"}
