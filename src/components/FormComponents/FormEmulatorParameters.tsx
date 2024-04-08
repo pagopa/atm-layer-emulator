@@ -9,6 +9,7 @@ import {
 	ListItemAvatar,
 	ListItemText,
 	MenuItem,
+	OutlinedInput,
 	Select,
 	SelectChangeEvent,
 	Switch,
@@ -236,6 +237,7 @@ export const FormEmulatorParameters = () => {
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
+						required
 						fullWidth
 						id="acquirerId"
 						name="acquirerId"
@@ -251,6 +253,7 @@ export const FormEmulatorParameters = () => {
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
+						required
 						fullWidth
 						id="branchId"
 						name="branchId"
@@ -266,6 +269,7 @@ export const FormEmulatorParameters = () => {
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
+						required
 						fullWidth
 						id="code"
 						name="code"
@@ -281,6 +285,7 @@ export const FormEmulatorParameters = () => {
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
+						required
 						fullWidth
 						id="terminalId"
 						name="terminalId"
@@ -296,6 +301,7 @@ export const FormEmulatorParameters = () => {
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
+						required
 						fullWidth
 						id="fiscalCode"
 						name="fiscalCode"
@@ -316,6 +322,7 @@ export const FormEmulatorParameters = () => {
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
+						required
 						fullWidth
 						id="pan1"
 						name="pan1"
@@ -347,6 +354,7 @@ export const FormEmulatorParameters = () => {
 					<FormControl focused={openFirstCard} fullWidth>
 						<InputLabel id="circuits-label">Circuiti</InputLabel>
 						<Select
+							required
 							size="small"
 							labelId="multiple-checkbox-label-first"
 							id="multiple-checkbox-first-card"

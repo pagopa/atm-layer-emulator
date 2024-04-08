@@ -148,6 +148,7 @@ const ServiceAccessPage = () => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
 			setPageIndex(pageIndex + 1);
+			void next({});
 		}
 	};
 
@@ -155,6 +156,7 @@ const ServiceAccessPage = () => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
 			setPageIndex(pageIndex - 1);
+			void next({});
 		}
 	};
 
@@ -168,9 +170,11 @@ const ServiceAccessPage = () => {
 			listButton.addEventListener("click", handleClick);
 		});
 		const nextLiButtonElement = document?.getElementById("nextLiButton");
+		nextLiButtonElement?.removeEventListener("click", handleClick);
 		nextLiButtonElement?.addEventListener("click", handleNextLiButtonClick);
 
 		const prevLiButtonElement = document?.getElementById("prevLiButton");
+		prevLiButtonElement?.removeEventListener("click", handleClick);
 		prevLiButtonElement?.addEventListener("click", handlePrevLiButtonClick);
 	};
 
