@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
 	Avatar,
+	Button,
 	FormControl,
 	FormControlLabel,
 	Grid,
@@ -43,9 +44,9 @@ export const FormEmulatorParameters = () => {
 	};
 
 	const panInfoSecondCard: PanDto = {
-		pan: "8234567891234565",
-		circuits: ["BANCOMAT", "VISA"],
-		bankName: "INTESA"
+		pan: "",
+		circuits: [],
+		bankName: ""
 	};
 
 	const panInfoCards: PanInfoDto = {
@@ -55,6 +56,11 @@ export const FormEmulatorParameters = () => {
 	const firstIban: IbanDto = {
 		IBAN: "IT12A1234512345123456789012",
 		bankName: "INTESA"
+	};
+
+	const secondIban: IbanDto = {
+		IBAN: "",
+		bankName: ""
 	};
 
 	const IbanList: IbanListDto = {
@@ -90,6 +96,7 @@ export const FormEmulatorParameters = () => {
 	const [secondCardCircuits, setSecondCardCircuits] = useState<Array<string>>(panInfoSecondCard.circuits);
 	const [openFirstCard, setOpenFirstCard] = useState(false);
 	const [openSecondCard, setOpenSecondCard] = useState(false);
+	const [optionalPaymentMethod, setOptionalPaymentMethod] = useState(false);
 	const navigate = useNavigate();
 
 	const availableCircuits = [
@@ -97,6 +104,19 @@ export const FormEmulatorParameters = () => {
 		{ id: 1, value: "MASTERCARD", label: "Mastercard", icon: <CreditCardIcon fontSize="small" /> },
 		{ id: 2, value: "VISA", label: "Visa", icon: "https://d2xduy7tbgu2d3.cloudfront.net/files/ICON/VISA.svg" },
 	];
+
+	const multiSelectMenuItems = () => availableCircuits.map((circuit) => (
+		<MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
+			<ListItemAvatar>
+				<Avatar alt={circuit.label} src={typeof circuit.icon === "string" ? circuit.icon : undefined} variant="rounded">
+					{typeof circuit.icon !== "string" ? circuit.icon : null}
+				</Avatar>
+			</ListItemAvatar>
+			<ListItemText primary={circuit.label} />
+		</MenuItem>
+	));
+
+	const setVisible = () => setOptionalPaymentMethod(!optionalPaymentMethod);
 
 	useEffect(() => {
 		validateForm();
@@ -291,36 +311,35 @@ export const FormEmulatorParameters = () => {
 				</Grid>
 				<Grid item xs={12} ml={1} my={2} display={"flex"} justifyContent={"center"}>
 					<Typography variant="body1" fontWeight="600">
-						{"Inserire primi metodi di pagamento"}
+						{"Inserire i metodi di pagamento principali"}
 					</Typography>
-				</Grid>
-				<Grid xs={4} item my={1} px={1}>
-					<TextField
-						fullWidth
-						id="iban1"
-						name="iban1"
-						label={"Primo IBAN"}
-						placeholder={"06789"}
-						size="small"
-						onChange={handleChange}
-						error={Boolean(errors.iban1)}
-						helperText={errors.iban1}
-						// inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
-						defaultValue={firstIban.IBAN}
-					/>
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
 						id="pan1"
 						name="pan1"
-						label={"Primo PAN"}
+						label={"PAN"}
 						placeholder={"1234567891234567"}
 						size="small"
 						onChange={handleChange}
 						error={Boolean(errors.pan1)}
 						helperText={errors.pan1}
 						inputProps={{ maxLength: PAN_MAX_LENGHT }}
+						defaultValue={panInfoFirstCard.pan}
+					/>
+				</Grid>
+				<Grid xs={4} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="bankPan1"
+						name="bankPan1"
+						label={"Banca PAN"}
+						placeholder={"es: ISYBANK"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.pan1)}
+						helperText={errors.pan1}
 						defaultValue={panInfoFirstCard.pan}
 					/>
 				</Grid>
@@ -342,35 +361,21 @@ export const FormEmulatorParameters = () => {
 							onClose={() => setOpenFirstCard(false)}
 							open={openFirstCard}
 						>
-							{availableCircuits.map((circuit, i) => (
-								<MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
-									<ListItemAvatar>
-										<Avatar alt={circuit.label} src={typeof circuit.icon === "string" ? circuit.icon : undefined}>
-											{typeof circuit.icon !== "string" ? circuit.icon : null}
-										</Avatar>
-									</ListItemAvatar>
-									<ListItemText primary={circuit.label} />
-								</MenuItem>
-							))}
+							{multiSelectMenuItems()}
 						</Select>
 					</FormControl>
-				</Grid>
-				<Grid item xs={12} ml={1} my={2} display={"flex"} justifyContent={"center"}>
-					<Typography variant="body1" fontWeight="600">
-						{"Inserire secondi metodi di pagamento"}
-					</Typography>
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
 						id="iban1"
 						name="iban1"
-						label={"Secondo IBAN"}
-						placeholder={"06789"}
+						label={"IBAN"}
+						placeholder={"IBAN"}
 						size="small"
 						onChange={handleChange}
-						error={Boolean(errors.iban1)}
-						helperText={errors.iban1}
+						// error={Boolean(errors.iban1)}
+						// helperText={errors.iban1}
 						// inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
 						defaultValue={firstIban.IBAN}
 					/>
@@ -378,49 +383,112 @@ export const FormEmulatorParameters = () => {
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
-						id="pan1"
-						name="pan1"
-						label={"Secondo PAN"}
-						placeholder={"1234567891234567"}
+						id="banca-iban1"
+						name="banca-iban1"
+						label={"Banca IBAN"}
+						placeholder={"es: ISYBANK"}
 						size="small"
 						onChange={handleChange}
-						error={Boolean(errors.pan1)}
-						helperText={errors.pan1}
-						inputProps={{ maxLength: PAN_MAX_LENGHT }}
-						defaultValue={panInfoFirstCard.pan}
+						// error={Boolean(errors.iban1)}
+						// helperText={errors.iban1}
+						// inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
+						defaultValue={firstIban.IBAN}
 					/>
 				</Grid>
-				<Grid xs={4} item my={1} px={1}>
-					<FormControl focused={openSecondCard} fullWidth>
-						<InputLabel id="circuits-label">Circuiti</InputLabel>
-						<Select
-							size="small"
-							labelId="multiple-checkbox-label-second"
-							id="multiple-checkbox-first-second"
-							name="multiple-checkbox-first-second"
-							multiple
-							value={secondCardCircuits}
-							onChange={(e) => handleChangeMultiSelectCard(e, setSecondCardCircuits)}
-							label="Circuiti"
-							renderValue={(selected) => selected.join(", ")}
-							defaultValue={secondCardCircuits}
-							onOpen={() => setOpenSecondCard(true)}
-							onClose={() => setOpenSecondCard(false)}
-							open={openSecondCard}
-						>
-							{availableCircuits.map((circuit, i) => (
-								<MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
-									<ListItemAvatar>
-										<Avatar alt={circuit.label} src={typeof circuit.icon === "string" ? circuit.icon : undefined}>
-											{typeof circuit.icon !== "string" ? circuit.icon : null}
-										</Avatar>
-									</ListItemAvatar>
-									<ListItemText primary={circuit.label} />
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
+
+				<Grid container item xs={12} ml={1} my={2} display={"flex"} justifyContent={"flex-start"}>
+					<Button id="visible-section-btn" variant="text" onClick={setVisible}>{
+						optionalPaymentMethod ? "Rimuovi metodi di pagamento" : "Aggiungi metodi di pagamento"
+					}</Button>
 				</Grid>
+
+				{
+					optionalPaymentMethod && (
+						<>
+							<Grid xs={4} item my={1} px={1}>
+								<TextField
+									fullWidth
+									id="pan2"
+									name="pan2"
+									label={"PAN"}
+									placeholder={"1234567891234567"}
+									size="small"
+									onChange={handleChange}
+									error={Boolean(errors.pan1)}
+									helperText={errors.pan1}
+									inputProps={{ maxLength: PAN_MAX_LENGHT }}
+									defaultValue={panInfoSecondCard.pan}
+								/>
+							</Grid>
+							<Grid xs={4} item my={1} px={1}>
+								<TextField
+									fullWidth
+									id="bankPan2"
+									name="bankPan2"
+									label={"Banca PAN"}
+									placeholder={"es: ISYBANK"}
+									size="small"
+									onChange={handleChange}
+									error={Boolean(errors.pan1)}
+									helperText={errors.pan1}
+									defaultValue={panInfoSecondCard.pan}
+								/>
+							</Grid>
+							<Grid xs={4} item my={1} px={1}>
+								<FormControl focused={openSecondCard} fullWidth>
+									<InputLabel id="circuits-label">Circuiti</InputLabel>
+									<Select
+										size="small"
+										labelId="multiple-checkbox-label-first"
+										id="multiple-checkbox-first-card"
+										name="multiple-checkbox-first-card"
+										multiple
+										value={secondCardCircuits}
+										onChange={(e) => handleChangeMultiSelectCard(e, setSecondCardCircuits)}
+										label="Circuiti"
+										renderValue={(selected) => selected.join(", ")}
+										defaultValue={secondCardCircuits}
+										onOpen={() => setOpenSecondCard(true)}
+										onClose={() => setOpenSecondCard(false)}	
+										open={openSecondCard}
+									>
+										{multiSelectMenuItems()}
+									</Select>
+								</FormControl>
+							</Grid>
+							<Grid xs={4} item my={1} px={1}>
+								<TextField
+									fullWidth
+									id="iban2"
+									name="iban2"
+									label={"IBAN"}
+									placeholder={"IBAN"}
+									size="small"
+									onChange={handleChange}
+									// error={Boolean(errors.iban1)}
+									// helperText={errors.iban1}
+									// inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
+									defaultValue={secondIban.IBAN}
+								/>
+							</Grid>
+							<Grid xs={4} item my={1} px={1}>
+								<TextField
+									fullWidth
+									id="banca-iban2"
+									name="banca-iban2"
+									label={"Banca IBAN"}
+									placeholder={"es: ISYBANK"}
+									size="small"
+									onChange={handleChange}
+									// error={Boolean(errors.iban1)}
+									// helperText={errors.iban1}
+									// inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
+									defaultValue={secondIban.bankName}
+								/>
+							</Grid>
+						</>
+					)
+				}
 
 				<Grid
 					container
@@ -468,7 +536,7 @@ export const FormEmulatorParameters = () => {
 					/>
 				</Grid>
 			</Grid>
-		</FormTemplate>
+		</FormTemplate >
 	);
 };
 

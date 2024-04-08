@@ -110,7 +110,7 @@ strong {
     padding-left: 20px;
 }
 
-button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn, #login-button, #logout-button) {
+button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn, #login-button, #logout-button, #visible-section-btn) {
     position: absolute;
     right: 260px;
     left: auto;
@@ -147,7 +147,7 @@ body {
     font-family: var(--font-family);
 }
 
-input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#iban1,#pan1) {
+input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan1,#bankPan1,#iban1,#banca-iban1,#pan2,#bankPan2,#iban2,#banca-iban2) {
     width: 35%;
     height: 60%;
     padding: 12px 20px;
@@ -158,7 +158,7 @@ input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#iban1,#pan1) {
     border-color: var(--divider);
 }
 
-input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#iban1,#pan1):focus{
+input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan1,#bankPan1,#iban1,#banca-iban1,#pan2,#bankPan2,#iban2,#banca-iban2):focus{
     border: 2px solid var(--primary-main);
     outline: none;
 }
