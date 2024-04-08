@@ -1,16 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
-	Box,
-	Checkbox,
-	ClickAwayListener,
+	Avatar,
 	FormControl,
 	FormControlLabel,
-	FormGroup,
 	Grid,
 	InputLabel,
+	ListItemAvatar,
 	ListItemText,
 	MenuItem,
-	OutlinedInput,
 	Select,
 	SelectChangeEvent,
 	Switch,
@@ -90,7 +87,9 @@ export const FormEmulatorParameters = () => {
 	} = useContext(Ctx);
 	const panInfoArray = panInfo as PanInfoDto;
 	const [firstCardCircuits, setFirstCardCircuits] = useState<Array<string>>(panInfoFirstCard.circuits);
-	const [open, setOpen] = useState(false);
+	const [secondCardCircuits, setSecondCardCircuits] = useState<Array<string>>(panInfoSecondCard.circuits);
+	const [openFirstCard, setOpenFirstCard] = useState(false);
+	const [openSecondCard, setOpenSecondCard] = useState(false);
 	const navigate = useNavigate();
 
 	const availableCircuits = [
@@ -124,11 +123,11 @@ export const FormEmulatorParameters = () => {
 		}
 	};
 
-	const handleChangeMultiSelectFirstCard = (event: SelectChangeEvent<Array<string>>) => {
+	const handleChangeMultiSelectCard = (event: SelectChangeEvent<Array<string>>, setCardCircuits: React.Dispatch<React.SetStateAction<Array<string>>>) => {
 		const {
 			target: { value },
 		} = event;
-		setFirstCardCircuits(typeof value === "string" ? value.split(",") : value,);
+		setCardCircuits(typeof value === "string" ? value.split(",") : value,);
 	};
 
 	const validateForm = () => {
@@ -310,21 +309,6 @@ export const FormEmulatorParameters = () => {
 						defaultValue={firstIban.IBAN}
 					/>
 				</Grid>
-				{/* <Grid xs={6} item my={1} px={1}>
-					<TextField
-						fullWidth
-						id="bankNameIBAN1"
-						name="bankNameIBAN1"
-						label={"Prima Banca Associata IBAN"}
-						placeholder={"ISYBANK"}
-						size="small"
-						onChange={handleChange}
-						error={Boolean(errors.bankNameIBAN1)}
-						helperText={errors.bankNameIBAN1}
-						// inputProps={{ maxLength: FISCAL_CODE_LENGTH }}
-						defaultValue={firstIban.bankName}
-					/>
-				</Grid> */}
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
@@ -341,46 +325,102 @@ export const FormEmulatorParameters = () => {
 					/>
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
-					<FormControl focused={open} fullWidth>
-						<InputLabel id="circuits-label">Circuits</InputLabel>
+					<FormControl focused={openFirstCard} fullWidth>
+						<InputLabel id="circuits-label">Circuiti</InputLabel>
 						<Select
 							size="small"
-							labelId="demo-multiple-checkbox-label"
-							id="demo-multiple-checkbox"
+							labelId="multiple-checkbox-label-first"
+							id="multiple-checkbox-first-card"
+							name="multiple-checkbox-first-card"
 							multiple
 							value={firstCardCircuits}
-							onChange={handleChangeMultiSelectFirstCard}
-							// input={<OutlinedInput label="Circuits" />}
-							label="Circuits"
+							onChange={(e) => handleChangeMultiSelectCard(e, setFirstCardCircuits)}
+							label="Circuiti"
 							renderValue={(selected) => selected.join(", ")}
 							defaultValue={firstCardCircuits}
-							onOpen={() => setOpen(true)}
-							onClose={() => setOpen(false)}
-							open={open}
+							onOpen={() => setOpenFirstCard(true)}
+							onClose={() => setOpenFirstCard(false)}
+							open={openFirstCard}
 						>
 							{availableCircuits.map((circuit, i) => (
-								<MenuItem key={circuit.id} value={circuit.value}>
+								<MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
+									<ListItemAvatar>
+										<Avatar alt={circuit.label} src={typeof circuit.icon === "string" ? circuit.icon : undefined}>
+											{typeof circuit.icon !== "string" ? circuit.icon : null}
+										</Avatar>
+									</ListItemAvatar>
 									<ListItemText primary={circuit.label} />
 								</MenuItem>
 							))}
 						</Select>
 					</FormControl>
 				</Grid>
-				{/* <Grid xs={6} item my={1} px={1}>
+				<Grid item xs={12} ml={1} my={2} display={"flex"} justifyContent={"center"}>
+					<Typography variant="body1" fontWeight="600">
+						{"Inserire secondi metodi di pagamento"}
+					</Typography>
+				</Grid>
+				<Grid xs={4} item my={1} px={1}>
 					<TextField
 						fullWidth
-						id="bankNamePAN1"
-						name="bankNamePAN1"
-						label={"Prima Banca associata PAN"}
-						placeholder={"ISYBANK"}
+						id="iban1"
+						name="iban1"
+						label={"Secondo IBAN"}
+						placeholder={"06789"}
 						size="small"
 						onChange={handleChange}
-						error={Boolean(errors.bankNamePAN1)}
-						helperText={errors.bankNamePAN1}
-						// inputProps={{ maxLength: FISCAL_CODE_LENGTH }}
-						defaultValue={panInfoFirstCard.bankName}
+						error={Boolean(errors.iban1)}
+						helperText={errors.iban1}
+						// inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
+						defaultValue={firstIban.IBAN}
 					/>
-				</Grid> */}
+				</Grid>
+				<Grid xs={4} item my={1} px={1}>
+					<TextField
+						fullWidth
+						id="pan1"
+						name="pan1"
+						label={"Secondo PAN"}
+						placeholder={"1234567891234567"}
+						size="small"
+						onChange={handleChange}
+						error={Boolean(errors.pan1)}
+						helperText={errors.pan1}
+						inputProps={{ maxLength: PAN_MAX_LENGHT }}
+						defaultValue={panInfoFirstCard.pan}
+					/>
+				</Grid>
+				<Grid xs={4} item my={1} px={1}>
+					<FormControl focused={openSecondCard} fullWidth>
+						<InputLabel id="circuits-label">Circuiti</InputLabel>
+						<Select
+							size="small"
+							labelId="multiple-checkbox-label-second"
+							id="multiple-checkbox-first-second"
+							name="multiple-checkbox-first-second"
+							multiple
+							value={secondCardCircuits}
+							onChange={(e) => handleChangeMultiSelectCard(e, setSecondCardCircuits)}
+							label="Circuiti"
+							renderValue={(selected) => selected.join(", ")}
+							defaultValue={secondCardCircuits}
+							onOpen={() => setOpenSecondCard(true)}
+							onClose={() => setOpenSecondCard(false)}
+							open={openSecondCard}
+						>
+							{availableCircuits.map((circuit, i) => (
+								<MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
+									<ListItemAvatar>
+										<Avatar alt={circuit.label} src={typeof circuit.icon === "string" ? circuit.icon : undefined}>
+											{typeof circuit.icon !== "string" ? circuit.icon : null}
+										</Avatar>
+									</ListItemAvatar>
+									<ListItemText primary={circuit.label} />
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</Grid>
 
 				<Grid
 					container
