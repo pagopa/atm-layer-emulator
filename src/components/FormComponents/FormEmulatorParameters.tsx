@@ -25,9 +25,9 @@ import { resetErrors } from "../Commons/Commons";
 import { TASK_MAIN } from "../../commons/endpoints";
 import {
 	ACQUIRER_ID_LENGTH,
-	CODE_LEGTH,
+	CODE_LENGTH,
 	FISCAL_CODE_LENGTH,
-	PAN_MAX_LENGHT,
+	PAN_MAX_LENGTH,
 	TERMINAL_BRANCH_LENGTH,
 } from "../../commons/constants";
 import checks from "../../utils/checks";
@@ -279,7 +279,7 @@ export const FormEmulatorParameters = () => {
 						onChange={handleChange}
 						error={Boolean(errors.code)}
 						helperText={errors.code}
-						inputProps={{ maxLength: CODE_LEGTH }}
+						inputProps={{ maxLength: CODE_LENGTH }}
 						defaultValue={initialValues.code}
 					/>
 				</Grid>
@@ -332,7 +332,7 @@ export const FormEmulatorParameters = () => {
 						onChange={handleChange}
 						error={Boolean(errors.pan1)}
 						helperText={errors.pan1}
-						inputProps={{ maxLength: PAN_MAX_LENGHT }}
+						inputProps={{ maxLength: PAN_MAX_LENGTH }}
 						defaultValue={panInfoFirstCard.pan}
 					/>
 				</Grid>
@@ -424,7 +424,7 @@ export const FormEmulatorParameters = () => {
 									onChange={handleChange}
 									error={Boolean(errors.pan1)}
 									helperText={errors.pan1}
-									inputProps={{ maxLength: PAN_MAX_LENGHT }}
+									inputProps={{ maxLength: PAN_MAX_LENGTH }}
 									defaultValue={panInfoSecondCard.pan}
 								/>
 							</Grid>
