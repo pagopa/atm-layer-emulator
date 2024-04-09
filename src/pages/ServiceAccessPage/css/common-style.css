@@ -328,3 +328,10 @@ td > img {
 	font-weight: 600;
 	cursor: pointer;
 }
+
+#circuits-label.MuiInputLabel-root{
+    top: -8px;
+}
+#circuits-label.MuiInputLabel-root.Mui-focused{
+    top: 0px;
+}
