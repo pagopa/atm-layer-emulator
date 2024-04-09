@@ -28,6 +28,7 @@ import {
 	ACQUIRER_ID_LENGTH,
 	CODE_LENGTH,
 	FISCAL_CODE_LENGTH,
+	IBAN_MAX_LENGTH,
 	PAN_MAX_LENGTH,
 	TERMINAL_BRANCH_LENGTH,
 } from "../../commons/constants";
@@ -41,7 +42,7 @@ export const FormEmulatorParameters = () => {
 
 	const panInfoFirstCard: PanDto = {
 		pan: "1234567891234567",
-		circuits: ["VISA", "BANCOMAT", "MASTERCARD"],
+		circuits: ["VISA", "BANCOMAT"],
 		bankName: "ISYBANK"
 	};
 
@@ -196,7 +197,7 @@ export const FormEmulatorParameters = () => {
 		const updatedFormDataPanInfoCards = { ...formDataPanInfoCards };
 		const formattedValue = Array.isArray(value) ? value : [value];
 
-		if (name === "multiple-checkbox-first-card" || name === "multiple-checkbox-second-card") {
+		if (name === "multiple-checkbox-card") {
 			// eslint-disable-next-line functional/immutable-data
 			updatedFormDataPanInfoCards.panInfo[cardIndex] = {
 				...updatedFormDataPanInfoCards.panInfo[cardIndex],
@@ -219,12 +220,13 @@ export const FormEmulatorParameters = () => {
 					: "Codice fiscale non valido"
 				: "Campo obbligatorio",
 		};
-
+	
 		setErrors(newErrors);
-
+	
 		// Determines whether all the members of the array satisfy the conditions "!error".
 		return Object.values(newErrors).every((error) => !error);
 	};
+	
 
 	const validatePanInfoForm = () => {
 		const newPanInfoErrors: Array<any> = [];
@@ -232,7 +234,7 @@ export const FormEmulatorParameters = () => {
 		formDataPanInfoCards.panInfo.forEach((card: PanDto, index: number) => {
 			const cardErrors = {
 				pan: panIsValid(card.pan) ? "" : "Campo obbligatorio",
-				circuits: card.circuits.length > 0 ? "" : "Campo obbligatorio",
+				circuits: card.circuits.length > 0 && card.circuits.length <= 2? "" : "Seleziona un massimo di due circuiti",
 				bankName: card.bankName.length > 0 ? "" : "Campo obbligatorio"
 			};
 
@@ -246,6 +248,8 @@ export const FormEmulatorParameters = () => {
 			Object.values(errors).every((error) => !error)
 		);
 	};
+	
+	
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -395,9 +399,9 @@ export const FormEmulatorParameters = () => {
 
 				{
 					formDataPanInfoCards.panInfo.map((card: PanDto, index: number) => (
-						<>
+						<React.Fragment key={index}>
 							{index === 0 && ( // Mostra il titolo solo per il primo oggetto dell'array
-								<Grid item xs={12} ml={1} my={2} display={"flex"} justifyContent={"center"}>
+								<Grid item xs={12} ml={1} my={2} display={"flex"} justifyContent={"center"} key={`grid${index}`}>
 									<Typography variant="body1" fontWeight="600">
 										{"Inserire i metodi di pagamento principali"}
 									</Typography>
@@ -406,8 +410,10 @@ export const FormEmulatorParameters = () => {
 
 							<Grid xs={4} item my={1} px={1}>
 								<TextField
+									required
+									key={`pan${index}`}
 									fullWidth
-									id="pan2"
+									id="pan"
 									name={"pan"}
 									label={"PAN"}
 									placeholder={"1234567891234567"}
@@ -421,9 +427,11 @@ export const FormEmulatorParameters = () => {
 							</Grid>
 							<Grid xs={4} item my={1} px={1}>
 								<TextField
+									required
+									key={`bankPan${index}`}
 									fullWidth
-									id="bankPan2"
-									name={"bankName"}
+									id="bankPan"
+									name="bankName"
 									label={"Banca PAN"}
 									placeholder={"es: ISYBANK"}
 									size="small"
@@ -437,10 +445,11 @@ export const FormEmulatorParameters = () => {
 								<FormControl focused={index === 0 ? openFirstCard : openSecondCard} error={Boolean(panInfoErrors[index].circuits)} fullWidth>
 									<InputLabel id="circuits-label">Circuiti</InputLabel>
 									<Select
+										required
 										size="small"
-										labelId="multiple-checkbox-label-second"
-										id="multiple-checkbox-second-card"
-										name="multiple-checkbox-second-card"
+										labelId="multiple-checkbox-label"
+										id="multiple-checkbox-card"
+										name="multiple-checkbox-card"
 										multiple
 										value={card?.circuits ?? []}
 										onChange={(e) => handleChangeMultiSelectCard(e, index)}
@@ -457,8 +466,10 @@ export const FormEmulatorParameters = () => {
 							</Grid>
 							<Grid xs={4} item my={1} px={1}>
 								<TextField
+									required
+									key={`iban${index}`}
 									fullWidth
-									id="iban2"
+									id="iban"
 									name="iban"
 									label={"IBAN"}
 									placeholder={"IBAN"}
@@ -469,8 +480,10 @@ export const FormEmulatorParameters = () => {
 							</Grid>
 							<Grid xs={4} item my={1} px={1}>
 								<TextField
+									required
+									key={`bankName${index}`}
 									fullWidth
-									id="banca-iban2"
+									id="banca-iban"
 									name="bankName"
 									label={"Banca IBAN"}
 									placeholder={"es: ISYBANK"}
@@ -489,7 +502,7 @@ export const FormEmulatorParameters = () => {
 								</Button>
 							</Grid>)
 							}
-						</>
+						</React.Fragment>
 					))
 				}
 
