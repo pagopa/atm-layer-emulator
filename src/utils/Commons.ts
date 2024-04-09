@@ -82,6 +82,7 @@ export function createNextLiButton () {
 	nextLiButton.id="nextLiButton";
 	nextLiButton.innerHTML = "Iniziative successive";
 	nextLiButton.setAttribute("data-fdk","S7");
+	nextLiButton.setAttribute("data-testid","nextLiTestButton");
 	return nextLiButton;
 }
 
@@ -90,6 +91,7 @@ export function createPrevLiButton () {
 	prevtLiButton.id="prevLiButton";
 	prevtLiButton.innerHTML = "Iniziative precedenti";
 	prevtLiButton.setAttribute("data-fdk","S3");
+	prevtLiButton.setAttribute("data-testid","prevLiTestButton");
 	return prevtLiButton;
 }
 
