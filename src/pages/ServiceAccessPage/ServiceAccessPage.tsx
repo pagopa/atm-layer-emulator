@@ -75,7 +75,7 @@ const ServiceAccessPage = () => {
 
 	useEffect(() => {
 		const menu=document?.getElementById("menu");
-		if(menu){
+		if(menu && menuList){
 			const frag = getPaginationFragment(Array.from(menuList),menu,pageIndex,pageSize);
 			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
 			if(!touchInterface){
@@ -143,9 +143,9 @@ const ServiceAccessPage = () => {
 	}
 
 
-	if (!touchInterface && bodyHtml?.querySelector("#back")) {
-		const exitButton = bodyHtml?.querySelector("#exit");
-		exitButton.remove();
+	const exitButton= bodyHtml?.querySelector("#exit");
+	if (!touchInterface && !exitButton?.hasAttribute("data-fdk")){
+		exitButton?.remove();
 	}
 
 	const buttonsArray = responseProcess?.task?.buttons;
