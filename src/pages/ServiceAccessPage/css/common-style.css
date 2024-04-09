@@ -151,7 +151,7 @@ body {
     font-family: var(--font-family);
 }
 
-input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan1,#bankPan1,#iban1,#banca-iban1,#pan2,#bankPan2,#iban2,#banca-iban2) {
+input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #iban,#banca-iban) {
     width: 35%;
     height: 60%;
     padding: 12px 20px;
@@ -162,7 +162,7 @@ input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan1,#bankPan1,#i
     border-color: var(--divider);
 }
 
-input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan1,#bankPan1,#iban1,#banca-iban1,#pan2,#bankPan2,#iban2,#banca-iban2):focus{
+input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #iban,#banca-iban):focus{
     border: 2px solid var(--primary-main);
     outline: none;
 }
