@@ -11,6 +11,7 @@ import {
 	ListItemAvatar,
 	ListItemText,
 	MenuItem,
+	OutlinedInput,
 	Select,
 	SelectChangeEvent,
 	Switch,
@@ -62,7 +63,7 @@ export const FormEmulatorParameters = () => {
 		bankName: ""
 	};
 
-	const IbanList: IbanListDto = {
+	const IbanListInitialValues: IbanListDto = {
 		IBANlist: [firstIban]
 	};
 
@@ -86,10 +87,17 @@ export const FormEmulatorParameters = () => {
 		bankName: ""
 	};
 
+	const ibanListInitialErrors = {
+		IBAN: "",
+		bankName: ""
+	};
+
 	const [formData, setFormData] = useState(initialValues);
 	const [formDataPanInfoCards, setFormDataPanInfoCards] = useState(panInfoInitialValues);
+	const [formDataIbanList, setFormDataIbanList] = useState(IbanListInitialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
 	const [panInfoErrors, setPanInfoErrors] = useState<Array<any>>([panInfoInitialErrors]);
+	const [ibanListErrors, setIbanListErrors] = useState<Array<any>>([ibanListInitialErrors]);
 
 	const {
 		abortController,
@@ -127,7 +135,10 @@ export const FormEmulatorParameters = () => {
 		newPanInfoCard.panInfo.push(panInfoSecondCard);
 		panInfoErrors.push(panInfoInitialErrors);
 		setFormDataPanInfoCards(newPanInfoCard);
-		console.log("Add method", formDataPanInfoCards.panInfo.length);
+		const newIbanList = { ...formDataIbanList };
+		newIbanList.IBANlist.push(secondIban);
+		ibanListErrors.push(ibanListInitialErrors);
+		setFormDataIbanList(newIbanList);
 	};
 
 	const removeAdditionalPaymentMethod = () => {
@@ -135,11 +146,14 @@ export const FormEmulatorParameters = () => {
 		newPanInfoCard.panInfo.splice(1);
 		panInfoErrors.splice(1);
 		setFormDataPanInfoCards(newPanInfoCard);
-		console.log("remove method", formDataPanInfoCards.panInfo.length);
+		const newIbanList = { ...formDataIbanList };
+		newIbanList.IBANlist.splice(1);
+		ibanListErrors.splice(1);
+		setFormDataIbanList(newIbanList);
 	};
 
 	const optionalPaymentMethodManagment = () => {
-		if (formDataPanInfoCards.panInfo.length === 1) {
+		if (formDataPanInfoCards.panInfo.length === 1 && formDataIbanList.IBANlist.length ===1) {
 			addOptionalPaymentMethod();
 		} else {
 			removeAdditionalPaymentMethod();
@@ -149,6 +163,7 @@ export const FormEmulatorParameters = () => {
 	useEffect(() => {
 		validateForm();
 		validatePanInfoForm();
+		validateIbanForm();
 	}, []);
 
 	const handleChange = (
@@ -157,10 +172,10 @@ export const FormEmulatorParameters = () => {
 		const target = e.target as HTMLInputElement;
 		const { name, value, checked } = target;
 		resetErrors(errors, setErrors, name);
-
+	
 		if (name === "printer" || name === "scanner" || name === "touch") {
 			setFormData((prevFormData: any) => ({ ...prevFormData, [name]: checked ? "OK" : "KO" }));
-
+	
 			if (name === "touch") {
 				setTouchInterface(checked);
 			}
@@ -174,7 +189,7 @@ export const FormEmulatorParameters = () => {
 
 	const handleChangePanInfoCards = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-		index: number // Indice dell'oggetto nell'array panInfo
+		index: number
 	) => {
 		const target = e.target as HTMLInputElement;
 		const { name, value } = target;
@@ -185,6 +200,23 @@ export const FormEmulatorParameters = () => {
 			...prevFormDataPanInfoCards,
 			panInfo: prevFormDataPanInfoCards.panInfo.map((card: any, i: number) =>
 				i === index ? { ...card, [name]: value } : card
+			),
+		}));
+	};
+
+	const handleChangeIbanList = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+		index: number
+	) => {
+		const target = e.target as HTMLInputElement;
+		const { name, value } = target;
+	
+		resetErrors(ibanListErrors, setIbanListErrors, name);
+	
+		setFormDataIbanList((prevFormDataIbanList: any) => ({
+			...prevFormDataIbanList,
+			IBANlist: prevFormDataIbanList.IBANlist.map((iban: IbanDto, i: number) =>
+				i === index ? { ...iban, [name]: value } : iban
 			),
 		}));
 	};
@@ -222,29 +254,46 @@ export const FormEmulatorParameters = () => {
 		};
 	
 		setErrors(newErrors);
-	
-		// Determines whether all the members of the array satisfy the conditions "!error".
+
 		return Object.values(newErrors).every((error) => !error);
 	};
 	
 
 	const validatePanInfoForm = () => {
 		const newPanInfoErrors: Array<any> = [];
-
+	
 		formDataPanInfoCards.panInfo.forEach((card: PanDto, index: number) => {
 			const cardErrors = {
-				pan: panIsValid(card.pan) ? "" : "Campo obbligatorio",
-				circuits: card.circuits.length > 0 && card.circuits.length <= 2? "" : "Seleziona un massimo di due circuiti",
-				bankName: card.bankName.length > 0 ? "" : "Campo obbligatorio"
+				pan: card.pan.trim() ? (panIsValid(card.pan) ? "" : "PAN non valido") : "Campo obbligatorio",
+				circuits: card.circuits.length > 0 && card.circuits.length <= 2 ? "" : "Seleziona un massimo di due circuiti",
+				bankName: card.bankName.trim() ? "" : "Campo obbligatorio"
 			};
-
+	
 			newPanInfoErrors.push(cardErrors);
 		});
-
+	
 		setPanInfoErrors(newPanInfoErrors);
-
-		// Verifica se tutti gli errori sono vuoti
+	
 		return newPanInfoErrors.every((errors) =>
+			Object.values(errors).every((error) => !error)
+		);
+	};
+	
+	const validateIbanForm = () => {
+		const newIbanListErrors: Array<any> = [];
+	
+		formDataIbanList.IBANlist.forEach((iban: IbanDto, index: number) => {
+			const ibanErrors = {
+				IBAN: iban.IBAN.trim() ? (ibanIsValid(iban.IBAN) ? "" : "IBAN non valido") : "Campo obbligatorio",
+				bankName: iban.bankName.trim() ? "" : "Campo obbligatorio"
+			};
+	
+			newIbanListErrors.push(ibanErrors);
+		});
+	
+		setIbanListErrors(newIbanListErrors);
+	
+		return newIbanListErrors.every((errors) =>
 			Object.values(errors).every((error) => !error)
 		);
 	};
@@ -254,7 +303,7 @@ export const FormEmulatorParameters = () => {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		if (validateForm() && validatePanInfoForm()) {
+		if (validateForm() && validatePanInfoForm() && validateIbanForm()) {
 			const date = new Date().toISOString().slice(0, -5);
 			const postData = {
 				data: {
@@ -298,7 +347,7 @@ export const FormEmulatorParameters = () => {
 					setResponseProcess(response?.valuesObj);
 					setTransactionData(formData);
 					setPanInfo(formDataPanInfoCards);
-					setIbanList(IbanList);
+					setIbanList(formDataIbanList);
 					navigate(ROUTES.SERVICE_ACCESS);
 				}
 			} catch (error) {
@@ -433,7 +482,7 @@ export const FormEmulatorParameters = () => {
 									id="bankPan"
 									name="bankName"
 									label={"Banca PAN"}
-									placeholder={"es: ISYBANK"}
+									placeholder={"ISYBANK"}
 									size="small"
 									value={card?.bankName}
 									onChange={(e) => handleChangePanInfoCards(e, index)}
@@ -447,13 +496,13 @@ export const FormEmulatorParameters = () => {
 									<Select
 										required
 										size="small"
-										labelId="multiple-checkbox-label"
+										labelId="circuits-label"
 										id="multiple-checkbox-card"
 										name="multiple-checkbox-card"
 										multiple
 										value={card?.circuits ?? []}
 										onChange={(e) => handleChangeMultiSelectCard(e, index)}
-										label="Circuiti"
+										input={<OutlinedInput label="Name" />}
 										renderValue={(selected) => selected.join(", ")}
 										onOpen={() => index === 0 ? setOpenFirstCard(true) : setOpenSecondCard(true)}
 										onClose={() => index === 0 ? setOpenFirstCard(false) : setOpenSecondCard(false)}
@@ -469,13 +518,16 @@ export const FormEmulatorParameters = () => {
 									required
 									key={`iban${index}`}
 									fullWidth
-									id="iban"
-									name="iban"
+									id="IBAN"
+									name="IBAN"
 									label={"IBAN"}
 									placeholder={"IBAN"}
 									size="small"
-									onChange={handleChange}
-									defaultValue={firstIban.IBAN}
+									value={formDataIbanList?.IBANlist[index]?.IBAN}
+									onChange={(e) => handleChangeIbanList(e, index)}
+									inputProps={{ maxLength: IBAN_MAX_LENGTH }}
+									error={Boolean(ibanListErrors[index].IBAN)}
+									helperText={ibanListErrors[index]?.IBAN}
 								/>
 							</Grid>
 							<Grid xs={4} item my={1} px={1}>
@@ -488,8 +540,10 @@ export const FormEmulatorParameters = () => {
 									label={"Banca IBAN"}
 									placeholder={"es: ISYBANK"}
 									size="small"
-									onChange={handleChange}
-									defaultValue={firstIban.bankName}
+									value={formDataIbanList?.IBANlist[index]?.bankName}
+									onChange={(e) => handleChangeIbanList(e, index)}
+									error={Boolean(ibanListErrors[index].bankName)}
+									helperText={ibanListErrors[index]?.bankName}
 								/>
 							</Grid>
 							{index === 0 && (<Grid container item xs={12} ml={1} my={2} display={"flex"} justifyContent={"flex-start"} key={`button${index}`}>
