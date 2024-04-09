@@ -9,7 +9,6 @@ import {
 	ListItemAvatar,
 	ListItemText,
 	MenuItem,
-	OutlinedInput,
 	Select,
 	SelectChangeEvent,
 	Switch,
@@ -50,10 +49,6 @@ export const FormEmulatorParameters = () => {
 		bankName: ""
 	};
 
-	const panInfoCards: PanInfoDto = {
-		panInfo: [panInfoFirstCard, panInfoSecondCard]
-	};
-
 	const firstIban: IbanDto = {
 		IBAN: "IT12A1234512345123456789012",
 		bankName: "INTESA"
@@ -78,8 +73,14 @@ export const FormEmulatorParameters = () => {
 		scanner: "OK",
 	};
 
+	const panInfoInitialValues: PanInfoDto = {
+		panInfo: [panInfoFirstCard]
+	};
+
 	const [formData, setFormData] = useState(initialValues);
+	const [formDataPanInfoCards, setFormDataPanInfoCards] = useState(panInfoInitialValues);
 	const [errors, setErrors] = useState<any>(initialValues);
+	const [panInfoErrors, setPanInfoErrors] = useState<any>(panInfoInitialValues.panInfo[0]);
 
 	const {
 		abortController,
@@ -89,15 +90,12 @@ export const FormEmulatorParameters = () => {
 		setTouchInterface,
 		debugOn,
 		setPanInfo,
-		panInfo,
 		setIbanList
 	} = useContext(Ctx);
-	const panInfoArray = panInfo as PanInfoDto;
-	const [firstCardCircuits, setFirstCardCircuits] = useState<Array<string>>(panInfoFirstCard.circuits);
-	const [secondCardCircuits, setSecondCardCircuits] = useState<Array<string>>(panInfoSecondCard.circuits);
 	const [openFirstCard, setOpenFirstCard] = useState(false);
 	const [openSecondCard, setOpenSecondCard] = useState(false);
-	const [optionalPaymentMethod, setOptionalPaymentMethod] = useState(false);
+
+
 	const navigate = useNavigate();
 
 	const availableCircuits = [
@@ -117,10 +115,33 @@ export const FormEmulatorParameters = () => {
 		</MenuItem>
 	));
 
-	const setVisible = () => setOptionalPaymentMethod(!optionalPaymentMethod);
+	const addOptionalPaymentMethod = () => {
+		const newPanInfoCard = { ...formDataPanInfoCards };
+		// eslint-disable-next-line functional/immutable-data
+		newPanInfoCard.panInfo.push(panInfoSecondCard);
+		setFormDataPanInfoCards(newPanInfoCard);
+		console.log("Add method", formDataPanInfoCards.panInfo.length);
+	};
+
+	const removeAdditionalPaymentMethod = () => {
+		const newPanInfoCard = { ...formDataPanInfoCards };
+		// eslint-disable-next-line functional/immutable-data
+		newPanInfoCard.panInfo.splice(1);
+		setFormDataPanInfoCards(newPanInfoCard);
+		console.log("remove method", formDataPanInfoCards.panInfo.length);
+	};
+
+	const optionalPaymentMethodManagment = () => {
+		if (formDataPanInfoCards.panInfo.length === 1) {
+			addOptionalPaymentMethod();
+		} else {
+			removeAdditionalPaymentMethod();
+		}
+	};
 
 	useEffect(() => {
 		validateForm();
+		// validatePanInfoForm();
 	}, []);
 
 	const handleChange = (
@@ -144,11 +165,40 @@ export const FormEmulatorParameters = () => {
 		}
 	};
 
-	const handleChangeMultiSelectCard = (event: SelectChangeEvent<Array<string>>, setCardCircuits: React.Dispatch<React.SetStateAction<Array<string>>>) => {
+	const handleChangePanInfoCards = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+		index: number // Indice dell'oggetto nell'array panInfo
+	) => {
+		const target = e.target as HTMLInputElement;
+		const { name, value } = target;
+	
+		resetErrors(panInfoErrors, setPanInfoErrors, name);
+	
+		setFormDataPanInfoCards((prevFormDataPanInfoCards: any) => ({
+			...prevFormDataPanInfoCards,
+			panInfo: prevFormDataPanInfoCards.panInfo.map((card: any, i: number) =>
+				i === index ? { ...card, [name]: value } : card
+			),
+		}));
+	};
+
+	const handleChangeMultiSelectCard = (event: SelectChangeEvent<Array<string>>, cardIndex: number) => {
 		const {
-			target: { value },
+			target: { value, name },
 		} = event;
-		setCardCircuits(typeof value === "string" ? value.split(",") : value,);
+
+		const updatedFormDataPanInfoCards = { ...formDataPanInfoCards };
+		const formattedValue = Array.isArray(value) ? value : [value];
+
+		if (name === "multiple-checkbox-first-card" || name === "multiple-checkbox-second-card") {
+			// eslint-disable-next-line functional/immutable-data
+			updatedFormDataPanInfoCards.panInfo[cardIndex] = {
+				...updatedFormDataPanInfoCards.panInfo[cardIndex],
+				circuits: formattedValue,
+			};
+		}
+
+		setFormDataPanInfoCards(updatedFormDataPanInfoCards);
 	};
 
 	const validateForm = () => {
@@ -170,10 +220,24 @@ export const FormEmulatorParameters = () => {
 		return Object.values(newErrors).every((error) => !error);
 	};
 
+	const validatePanInfoForm = () => {
+
+		const newPanInfoErrors = {
+			pan: formDataPanInfoCards.panInfo[0].pan.length > 0 ? "" : "Campo obbligatorio",
+			circuits: formDataPanInfoCards.panInfo[0].circuits.length > 0 ? "" : "Campo obbligatorio",
+			bankName: formDataPanInfoCards.panInfo[0].bankName.length > 0 ? "" : "Campo obbligatorio"
+		};
+
+		setPanInfoErrors(newPanInfoErrors);
+
+		// Determines whether all the members of the array satisfy the conditions "!error".
+		return Object.values(newPanInfoErrors).every((error) => !error);
+	};
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		if (validateForm()) {
+		if (validateForm() && validatePanInfoForm()) {
 			const date = new Date().toISOString().slice(0, -5);
 			const postData = {
 				data: {
@@ -216,7 +280,7 @@ export const FormEmulatorParameters = () => {
 				if (response?.success) {
 					setResponseProcess(response?.valuesObj);
 					setTransactionData(formData);
-					setPanInfo(panInfoCards);
+					setPanInfo(formDataPanInfoCards);
 					setIbanList(IbanList);
 					navigate(ROUTES.SERVICE_ACCESS);
 				}
@@ -315,150 +379,59 @@ export const FormEmulatorParameters = () => {
 						defaultValue={initialValues.fiscalCode}
 					/>
 				</Grid>
-				<Grid item xs={12} ml={1} my={2} display={"flex"} justifyContent={"center"}>
-					<Typography variant="body1" fontWeight="600">
-						{"Inserire i metodi di pagamento principali"}
-					</Typography>
-				</Grid>
-				<Grid xs={4} item my={1} px={1}>
-					<TextField
-						required
-						fullWidth
-						id="pan1"
-						name="pan1"
-						label={"PAN"}
-						placeholder={"1234567891234567"}
-						size="small"
-						onChange={handleChange}
-						error={Boolean(errors.pan1)}
-						helperText={errors.pan1}
-						inputProps={{ maxLength: PAN_MAX_LENGHT }}
-						defaultValue={panInfoFirstCard.pan}
-					/>
-				</Grid>
-				<Grid xs={4} item my={1} px={1}>
-					<TextField
-						fullWidth
-						id="bankPan1"
-						name="bankPan1"
-						label={"Banca PAN"}
-						placeholder={"es: ISYBANK"}
-						size="small"
-						onChange={handleChange}
-						error={Boolean(errors.pan1)}
-						helperText={errors.pan1}
-						defaultValue={panInfoFirstCard.pan}
-					/>
-				</Grid>
-				<Grid xs={4} item my={1} px={1}>
-					<FormControl focused={openFirstCard} fullWidth>
-						<InputLabel id="circuits-label">Circuiti</InputLabel>
-						<Select
-							required
-							size="small"
-							labelId="multiple-checkbox-label-first"
-							id="multiple-checkbox-first-card"
-							name="multiple-checkbox-first-card"
-							multiple
-							value={firstCardCircuits}
-							onChange={(e) => handleChangeMultiSelectCard(e, setFirstCardCircuits)}
-							label="Circuiti"
-							renderValue={(selected) => selected.join(", ")}
-							defaultValue={firstCardCircuits}
-							onOpen={() => setOpenFirstCard(true)}
-							onClose={() => setOpenFirstCard(false)}
-							open={openFirstCard}
-						>
-							{multiSelectMenuItems()}
-						</Select>
-					</FormControl>
-				</Grid>
-				<Grid xs={4} item my={1} px={1}>
-					<TextField
-						fullWidth
-						id="iban1"
-						name="iban1"
-						label={"IBAN"}
-						placeholder={"IBAN"}
-						size="small"
-						onChange={handleChange}
-						// error={Boolean(errors.iban1)}
-						// helperText={errors.iban1}
-						// inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
-						defaultValue={firstIban.IBAN}
-					/>
-				</Grid>
-				<Grid xs={4} item my={1} px={1}>
-					<TextField
-						fullWidth
-						id="banca-iban1"
-						name="banca-iban1"
-						label={"Banca IBAN"}
-						placeholder={"es: ISYBANK"}
-						size="small"
-						onChange={handleChange}
-						// error={Boolean(errors.iban1)}
-						// helperText={errors.iban1}
-						// inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
-						defaultValue={firstIban.IBAN}
-					/>
-				</Grid>
-
-				<Grid container item xs={12} ml={1} my={2} display={"flex"} justifyContent={"flex-start"}>
-					<Button id="visible-section-btn" variant="text" onClick={setVisible}>{
-						optionalPaymentMethod ? "Rimuovi metodi di pagamento" : "Aggiungi metodi di pagamento"
-					}</Button>
-				</Grid>
 
 				{
-					optionalPaymentMethod && (
+					formDataPanInfoCards.panInfo.map((card: PanDto, index: number) => (
 						<>
+							{index === 0 && ( // Mostra il titolo solo per il primo oggetto dell'array
+								<Grid item xs={12} ml={1} my={2} display={"flex"} justifyContent={"center"}>
+									<Typography variant="body1" fontWeight="600">
+										{"Inserire i metodi di pagamento principali"}
+									</Typography>
+								</Grid>
+							)}
+
 							<Grid xs={4} item my={1} px={1}>
 								<TextField
 									fullWidth
 									id="pan2"
-									name="pan2"
+									name={"pan"}
 									label={"PAN"}
 									placeholder={"1234567891234567"}
 									size="small"
-									onChange={handleChange}
-									error={Boolean(errors.pan1)}
-									helperText={errors.pan1}
+									value={card?.pan}
+									onChange={(e) => handleChangePanInfoCards(e, index)}
 									inputProps={{ maxLength: PAN_MAX_LENGHT }}
-									defaultValue={panInfoSecondCard.pan}
 								/>
 							</Grid>
 							<Grid xs={4} item my={1} px={1}>
 								<TextField
 									fullWidth
 									id="bankPan2"
-									name="bankPan2"
+									name={"bankName"}
 									label={"Banca PAN"}
 									placeholder={"es: ISYBANK"}
 									size="small"
-									onChange={handleChange}
-									error={Boolean(errors.pan1)}
-									helperText={errors.pan1}
-									defaultValue={panInfoSecondCard.pan}
+									value={card?.bankName}
+									onChange={(e) => handleChangePanInfoCards(e, index)}
 								/>
 							</Grid>
 							<Grid xs={4} item my={1} px={1}>
-								<FormControl focused={openSecondCard} fullWidth>
+								<FormControl focused={index === 0 ? openFirstCard : openSecondCard} fullWidth>
 									<InputLabel id="circuits-label">Circuiti</InputLabel>
 									<Select
 										size="small"
-										labelId="multiple-checkbox-label-first"
-										id="multiple-checkbox-first-card"
-										name="multiple-checkbox-first-card"
+										labelId="multiple-checkbox-label-second"
+										id="multiple-checkbox-second-card"
+										name="multiple-checkbox-second-card"
 										multiple
-										value={secondCardCircuits}
-										onChange={(e) => handleChangeMultiSelectCard(e, setSecondCardCircuits)}
+										value={card?.circuits ?? []}
+										onChange={(e) => handleChangeMultiSelectCard(e, index)}
 										label="Circuiti"
 										renderValue={(selected) => selected.join(", ")}
-										defaultValue={secondCardCircuits}
-										onOpen={() => setOpenSecondCard(true)}
-										onClose={() => setOpenSecondCard(false)}	
-										open={openSecondCard}
+										onOpen={() => index === 0 ? setOpenFirstCard(true) : setOpenSecondCard(true)}
+										onClose={() => index === 0 ? setOpenFirstCard(false) : setOpenSecondCard(false)}
+										open={index === 0 ? openFirstCard : openSecondCard}
 									>
 										{multiSelectMenuItems()}
 									</Select>
@@ -468,14 +441,11 @@ export const FormEmulatorParameters = () => {
 								<TextField
 									fullWidth
 									id="iban2"
-									name="iban2"
+									name="iban"
 									label={"IBAN"}
 									placeholder={"IBAN"}
 									size="small"
-									onChange={handleChange}
-									// error={Boolean(errors.iban1)}
-									// helperText={errors.iban1}
-									// inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
+									onChange={(e) => handleChangePanInfoCards(e, index)}
 									defaultValue={secondIban.IBAN}
 								/>
 							</Grid>
@@ -483,19 +453,26 @@ export const FormEmulatorParameters = () => {
 								<TextField
 									fullWidth
 									id="banca-iban2"
-									name="banca-iban2"
+									name="bankName"
 									label={"Banca IBAN"}
 									placeholder={"es: ISYBANK"}
 									size="small"
-									onChange={handleChange}
-									// error={Boolean(errors.iban1)}
-									// helperText={errors.iban1}
-									// inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
+									onChange={(e) => handleChangePanInfoCards(e, index)}
 									defaultValue={secondIban.bankName}
 								/>
 							</Grid>
+							{index === 0 && (<Grid container item xs={12} ml={1} my={2} display={"flex"} justifyContent={"flex-start"}>
+								<Button id="visible-section-btn" variant="text" onClick={() => {
+									optionalPaymentMethodManagment();
+								}}>
+									{
+										formDataPanInfoCards.panInfo.length === 1 ? "Aggiungi metodi di pagamento" : "Rimuovi metodi di pagamento"
+									}
+								</Button>
+							</Grid>)
+							}
 						</>
-					)
+					))
 				}
 
 				<Grid
