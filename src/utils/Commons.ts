@@ -48,10 +48,14 @@ export function getPaginationFragment(listItems: Array<Element>,menu:HTMLElement
 	// hiding prevLiButton from page 1
 	if (pageIndex === 1){
 		document?.getElementById("prevLiButton")?.classList.add("hidden");
+	} else {
+		document?.getElementById("prevLiButton")?.classList.remove("hidden");
 	}
 	// hiding nextLiButton from the last page
 	if (paginationArray.length < 4 || (pageIndex === listItems.length/pageSize && listItems.length%pageSize===0)){
 		document?.getElementById("nextLiButton")?.classList.add("hidden");
+	} else {
+		document?.getElementById("nextLiButton")?.classList.remove("hidden");
 	}
 	return frag;
 };

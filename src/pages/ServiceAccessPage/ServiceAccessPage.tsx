@@ -14,8 +14,8 @@ import { executeCommand } from "../../commons/utilsFunctions";
 import { Loading } from "../../components/Commons/Loading";
 import { AUTHORIZE, SCAN_BILL_DATA } from "../../commons/constants";
 import { addHeaderRow, createNextLiButton, createPrevLiButton, getPaginationFragment, positionPaginatedButtons, positionUnpaginatedButtons } from "../../utils/Commons";
-
-
+import { addButtonClickListener, removeButtonClickListener } from "../../utils/HandleClicks";
+import { postData } from "../../utils/PostData";
 
 
 const ServiceAccessPage = () => {
@@ -53,7 +53,8 @@ const ServiceAccessPage = () => {
 		}
 		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		setPageIndex(1);
-		addButtonClickListener();
+		setMenuList({});
+		addButtonClickListener(next, handleNextLiButtonClick, handlePrevLiButtonClick);
 
 		const menu=document?.getElementById("menu");
 		if(menu){
@@ -61,7 +62,7 @@ const ServiceAccessPage = () => {
 		}
 
 		return () => {
-			removeButtonClickListener();
+			removeButtonClickListener(next);
 			clearTimeout(nextTimeout);
 		};
 	}, [responseProcess]);
@@ -72,33 +73,16 @@ const ServiceAccessPage = () => {
 		}
 	}, [command]);
 
-	const date = new Date().toISOString().slice(0, -5);
-	const postData = (params: any) => ({
-		data: {
-			...params
-		},
-		device: {
-			bankId: transactionData.acquirerId,
-			branchId: transactionData.branchId,
-			channel: "ATM",
-			code: transactionData.code,
-			opTimestamp: date,
-			peripherals: [
-				{
-					id: "PRINTER",
-					name: "Receipt printer",
-					status: transactionData.printer
-				},
-				{
-					id: "SCANNER",
-					name: "Scanner",
-					status: transactionData.scanner
-				}
-			],
-			terminalId: transactionData.terminalId,
-		},
-		taskId: responseProcess?.task?.id,
-	});
+	useEffect(() => {
+		const menu=document?.getElementById("menu");
+		if(menu){
+			const frag = getPaginationFragment(Array.from(menuList),menu,pageIndex,pageSize);
+			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
+			if(!touchInterface){
+				positionPaginatedButtons();
+			}	
+		}
+	}, [pageIndex]);
 
 	const next = async (params: any) => {
 		setLoading(true);
@@ -107,7 +91,7 @@ const ServiceAccessPage = () => {
 				urlEndpoint: generatePath(TASK_NEXT, { transactionId: responseProcess?.transactionId }),
 				method: "POST",
 				abortController,
-				body: postData(params),
+				body: postData(params,responseProcess,transactionData),
 				headers: { "Content-Type": "application/json" }
 			})();
 
@@ -125,69 +109,20 @@ const ServiceAccessPage = () => {
 		}
 	};
 
-	const handleClick = (event: MouseEvent) => {
-		const button = event.currentTarget as HTMLButtonElement;
-		if (button) {
-			const dataString = button.getAttribute("data");
-			if (dataString) {
-				const data = dataString ? JSON.parse(dataString) : {};
-				const params: any = { ...data };
-				const inputElements = document?.querySelectorAll("input");
-				inputElements.forEach((input: any) => {
-					params[input.id] = input.value;
-				});
-				void next(params);
-			} else {
-				void next({ selected: button.id, continue: true });
-			}
-
-		}
-	};
-
 	const handleNextLiButtonClick = (event: MouseEvent) => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
-			setPageIndex(pageIndex + 1);
-			void next({});
+			setPageIndex(pageIndex => pageIndex + 1);
 		}
 	};
 
 	const handlePrevLiButtonClick = (event: MouseEvent) => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
-			setPageIndex(pageIndex - 1);
-			void next({});
+			setPageIndex(pageIndex => pageIndex - 1);
 		}
 	};
 
-	const addButtonClickListener = () => {
-		const buttons = document?.querySelectorAll("button");
-		buttons?.forEach(button => {
-			button.addEventListener("click", handleClick);
-		});
-		const listButtons = document?.querySelectorAll("li");
-		listButtons?.forEach(listButton => {
-			listButton.addEventListener("click", handleClick);
-		});
-		const nextLiButtonElement = document?.getElementById("nextLiButton");
-		nextLiButtonElement?.removeEventListener("click", handleClick);
-		nextLiButtonElement?.addEventListener("click", handleNextLiButtonClick);
-
-		const prevLiButtonElement = document?.getElementById("prevLiButton");
-		prevLiButtonElement?.removeEventListener("click", handleClick);
-		prevLiButtonElement?.addEventListener("click", handlePrevLiButtonClick);
-	};
-
-	const removeButtonClickListener = () => {
-		const buttons = document?.querySelectorAll("button");
-		buttons?.forEach(button => {
-			button.removeEventListener("click", handleClick);
-		});
-		const listButtons = document?.querySelectorAll("li");
-		listButtons?.forEach(listButton => {
-			listButton.removeEventListener("click", handleClick);
-		});
-	};
 
 	bodyHtml = addHeaderRow(bodyHtml);
 
