@@ -261,40 +261,40 @@ export const FormEmulatorParameters = () => {
 
 	const validatePanInfoForm = () => {
 		const newPanInfoErrors: Array<any> = [];
-	
+	  
 		formDataPanInfoCards.panInfo.forEach((card: PanDto, index: number) => {
-			const cardErrors = {
-				pan: card.pan.trim() ? (panIsValid(card.pan) ? "" : "PAN non valido") : "Campo obbligatorio",
-				circuits: card.circuits.length > 0 && card.circuits.length <= 2 ? "" : "Seleziona un massimo di due circuiti",
-				bankName: card.bankName.trim() ? "" : "Campo obbligatorio"
-			};
-	
-			newPanInfoErrors.push(cardErrors);
+		  const cardErrors = {
+				pan: (index === 1 && card.pan === "") ? "" : (card.pan.trim() ? (panIsValid(card.pan) ? "" : "PAN non valido") : "Campo obbligatorio"),
+				circuits: (index === 1 && card.circuits.length === 0) ? "" : (card.circuits.length > 0 && card.circuits.length <= 2 ? "" : "Seleziona un massimo di due circuiti"),
+				bankName: (index === 1 && card.bankName === "") ? "" : (card.bankName.trim() ? "" : "Campo obbligatorio")
+		  };
+	  
+		  newPanInfoErrors.push(cardErrors);
 		});
-	
+	  
 		setPanInfoErrors(newPanInfoErrors);
-	
+	  
 		return newPanInfoErrors.every((errors) =>
-			Object.values(errors).every((error) => !error)
+		  Object.values(errors).every((error) => !error)
 		);
 	};
-	
+	  
 	const validateIbanForm = () => {
 		const newIbanListErrors: Array<any> = [];
-	
+	  
 		formDataIbanList.IBANlist.forEach((iban: IbanDto, index: number) => {
-			const ibanErrors = {
-				IBAN: iban.IBAN.trim() ? (ibanIsValid(iban.IBAN) ? "" : "IBAN non valido") : "Campo obbligatorio",
-				bankName: iban.bankName.trim() ? "" : "Campo obbligatorio"
-			};
-	
-			newIbanListErrors.push(ibanErrors);
+		  const ibanErrors = {
+				IBAN: (index === 1 && iban.IBAN === "") ? "" : (iban.IBAN.trim() ? (ibanIsValid(iban.IBAN) ? "" : "IBAN non valido") : "Campo obbligatorio"),
+				bankName: (index === 1 && iban.bankName === "") ? "" : (iban.bankName.trim() ? "" : "Campo obbligatorio")
+		  };
+	  
+		  newIbanListErrors.push(ibanErrors);
 		});
-	
+	  
 		setIbanListErrors(newIbanListErrors);
-	
+	  
 		return newIbanListErrors.every((errors) =>
-			Object.values(errors).every((error) => !error)
+		  Object.values(errors).every((error) => !error)
 		);
 	};
 	
