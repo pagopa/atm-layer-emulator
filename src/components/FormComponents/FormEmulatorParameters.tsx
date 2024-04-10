@@ -115,16 +115,22 @@ export const FormEmulatorParameters = () => {
 
 	const availableCircuits = [
 		{ id: 0, value: "BANCOMAT", label: "Bancomat", icon: "https://d2xduy7tbgu2d3.cloudfront.net/files/ICON/BANCOMAT.svg" },
-		{ id: 1, value: "MASTERCARD", label: "Mastercard", icon: <CreditCardIcon fontSize="small" /> },
+		{ id: 1, value: "MASTERCARD", label: "Mastercard" },
 		{ id: 2, value: "VISA", label: "Visa", icon: "https://d2xduy7tbgu2d3.cloudfront.net/files/ICON/VISA.svg" },
 	];
 
 	const multiSelectMenuItems = () => availableCircuits.map((circuit) => (
 		<MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
 			<ListItemAvatar>
-				<Avatar alt={circuit.label} src={typeof circuit.icon === "string" ? circuit.icon : undefined} variant="rounded">
-					{typeof circuit.icon !== "string" ? circuit.icon : null}
-				</Avatar>
+				{circuit?.icon ?
+					<Avatar alt={circuit.label} src={circuit.icon} variant="rounded">
+						{circuit.icon }
+					</Avatar>
+					:
+					<Avatar alt={circuit.label} variant="rounded" sx={{height:"25px"}} >
+						<CreditCardIcon fontSize="small" />
+					</Avatar>
+				}	
 			</ListItemAvatar>
 			<ListItemText primary={circuit.label} />
 		</MenuItem>
