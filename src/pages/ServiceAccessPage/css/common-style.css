@@ -1,10 +1,15 @@
 @import "./root.css";
 
 #command {
-    width: 800px;
+    flex: 0 0 550px;
     border: 1px solid var(--divider);
     margin: 16px;
     background-color: #FFFFFF;
+    height: max-content;
+}
+
+#command input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IBAN ,#banca-iban){
+    width:60%;
 }
 
 #command-buttons-div {
