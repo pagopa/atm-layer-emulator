@@ -27,12 +27,18 @@ const checks = () => {
 		return panRegex.test(value);
 	};
 
+	const isValidInputValue = (value:string, pattern:string) => {
+		const regex = new RegExp(pattern);
+		return (regex.test(value));
+	};
+
 	return{
 		isInvalidField,
 		// isValidFiscalCode
 		cfIsValid,
 		ibanIsValid,
-		panIsValid
+		panIsValid,
+		isValidInputValue
 	};
 };
 export default checks;

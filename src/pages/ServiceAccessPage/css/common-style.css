@@ -167,6 +167,14 @@ input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IB
     outline: none;
 }
 
+input.warning:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IBAN ,#banca-iban) {
+    border-color: var(--error-main);
+}
+
+input.warning::placeholder {
+    color: var(--error-main);
+  }
+
 label {
     text-overflow: ellipsis;
     display: flex;

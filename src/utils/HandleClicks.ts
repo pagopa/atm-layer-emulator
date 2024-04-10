@@ -1,3 +1,6 @@
+import checks from "./checks";
+
+const { isValidInputValue } = checks();
 
 export 	const handleClickFunction = (event: MouseEvent, next:any) => {
 	const button = event.currentTarget as HTMLButtonElement;
@@ -8,10 +11,22 @@ export 	const handleClickFunction = (event: MouseEvent, next:any) => {
 			const params: any = { ...data };
 			const inputElements = document?.querySelectorAll("input");
 			inputElements.forEach((input: any) => {
+				// if (input.value === undefined || input.value ===""){
+				if (input.pattern && !isValidInputValue(input.value, input.pattern)){
+					input.classList.add("warning");
+					// eslint-disable-next-line functional/immutable-data
+					input.value ="";
+					input.setAttribute("placeholder", "Campo non valido");
+				} else {
+					input.classList.remove("warning");
+					input.removeAttribute("placeholder");
+				}
 				// eslint-disable-next-line functional/immutable-data
 				params[input.id] = input.value;
 			});
-			void next(params);
+			if (!document?.querySelector(".warning")){
+				void next(params);
+			}
 		} else {
 			void next({ selected: button.id, continue: true });
 		}
