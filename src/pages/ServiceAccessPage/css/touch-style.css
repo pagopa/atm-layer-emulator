@@ -78,7 +78,7 @@ body #touch {
 #touch ul {
 	list-style-type: none;
 	padding-left: 10px;
-	overflow: auto;
+	/* overflow: auto; */
 	max-height: 320px;
 }
 

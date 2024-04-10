@@ -52,7 +52,7 @@ const LoginPage = () => {
 						<Typography variant="h1" sx={{textAlign: "center", paddingRight: 0}}>Accedi alla console</Typography>
 					</Box>
 					<Box mb={4} display={"flex"} justifyContent={"center"}>
-						<Typography variant="h6">Lo spazio dedicato alla gestione dei processi ATM Layer</Typography>
+						<Typography variant="h6" sx={{textAlign: "center", paddingRight: 0}}>Lo spazio dedicato alla gestione dei processi ATM Layer</Typography>
 					</Box>
 					<Box px={6} py={3}>
 						<Button
