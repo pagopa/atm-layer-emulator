@@ -302,3 +302,7 @@
 #no-touch #nextLiButton.hidden {
 	display: none;
 }
+
+#no-touch p.left {
+    top : 470px;
+}
