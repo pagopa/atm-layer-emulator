@@ -31,7 +31,7 @@ const ServiceAccessPage = () => {
 
 	if (responseProcess?.task?.template?.content) {
 		bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
-	} else {
+	} else if (!responseProcess?.task?.template?.content && responseProcess?.task?.command) {
 		bodyHtml = decodeRenderHtml("PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSIgPz4KPCFET0NUWVBFIGh0bWwgUFVCTElDICItLy9XM0MvL0RURCBYSFRNTCAxLjAgVHJhbnNpdGlvbmFsLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL1RSL3hodG1sMS9EVEQveGh0bWwxLXRyYW5zaXRpb25hbC5kdGQiPgo8aHRtbCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCI+Cgo8Ym9keT4KIAkKCTxpbWcgaWQ9ImxvZ28iIHNyYz0iaHR0cHM6Ly9kMnhkdXk3dGJndTJkMy5jbG91ZGZyb250Lm5ldC9maWxlcy9JQ09OL2RlZmF1bHRfbG9nby5zdmciLz4KCTxoMT5TZXJ2aXppIGRpIHB1YmJsaWNhIHV0aWxpdCZhZ3JhdmU7PC9oMT4JCgkKCTxpbWcgaWQ9ImNvbmNlcHQiIGNsYXNzPSJjZW50cmFsIiBzcmM9Imh0dHBzOi8vZDJ4ZHV5N3RiZ3UyZDMuY2xvdWRmcm9udC5uZXQvZmlsZXMvSUNPTi9pbmZvLnN2ZyIgLz4KCQoJPGgyPkVzZWd1aXJlIGlsIGNvbWFuZG8gcGVyIHByb2NlZGVyZTwvaDI+CgkKCTwvYm9keT4KCQo8L2h0bWw+");
 	}
 
