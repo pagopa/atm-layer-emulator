@@ -51,7 +51,7 @@ const ServiceAccessPage = () => {
 		if (!timeout || timeout === null) {
 			timeout = 30;
 		}
-		// const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
+		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
 		setPageIndex(1);
 		setMenuList({});
 		addButtonClickListener(next, handleNextLiButtonClick, handlePrevLiButtonClick);
@@ -63,7 +63,7 @@ const ServiceAccessPage = () => {
 
 		return () => {
 			removeButtonClickListener(next);
-			// clearTimeout(nextTimeout);
+			clearTimeout(nextTimeout);
 		};
 	}, [responseProcess]);
 

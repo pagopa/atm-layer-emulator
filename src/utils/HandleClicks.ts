@@ -24,7 +24,7 @@ export 	const handleClickFunction = (event: MouseEvent, next:any) => {
 				// eslint-disable-next-line functional/immutable-data
 				params[input.id] = input.value;
 			});
-			if (!document?.querySelector(".warning")){
+			if (!document?.querySelector(".warning") || button.id==="exit" || button.id ==="back"){
 				void next(params);
 			}
 		} else {
