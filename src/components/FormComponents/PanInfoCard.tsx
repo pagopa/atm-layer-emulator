@@ -15,24 +15,37 @@ import { PAN_MAX_LENGTH } from "../../commons/constants";
 import { PanDto, PanInfoDto } from "../model/ParametersModel";
 
 type Props = {
-    card: PanDto;
-    index: number;
-    panInfoErrors: any;
-    multiSelectMenuItems: any;
-    openFirstCard: boolean;
-    openSecondCard: boolean;
-    setOpenFirstCard: (value: React.SetStateAction<boolean>) => void;
-    setOpenSecondCard: (value: React.SetStateAction<boolean>) => void;
-    handleChangePanInfoCards: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => void;
-    handleChangeMultiSelectCard: (event: SelectChangeEvent<Array<string>>, cardIndex: number) => void;
-    formDataPanInfoCards: PanInfoDto;
-    optionalPaymentMethodPanManagment: () => void;
+	card: PanDto;
+	index: number;
+	panInfoErrors: any;
+	multiSelectMenuItems: any;
+	openFirstCard: boolean;
+	openSecondCard: boolean;
+	setOpenFirstCard: (value: React.SetStateAction<boolean>) => void;
+	setOpenSecondCard: (value: React.SetStateAction<boolean>) => void;
+	handleChangePanInfoCards: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => void;
+	handleChangeMultiSelectCard: (event: SelectChangeEvent<Array<string>>, cardIndex: number) => void;
+	formDataPanInfoCards: PanInfoDto;
+	optionalPaymentMethodPanManagment: () => void;
 };
 
-const PanInfoCard = ({ card, index, panInfoErrors, multiSelectMenuItems, openFirstCard, openSecondCard, setOpenFirstCard, setOpenSecondCard, handleChangePanInfoCards, handleChangeMultiSelectCard, formDataPanInfoCards, optionalPaymentMethodPanManagment }:Props) => (
+const PanInfoCard = ({
+	card,
+	index,
+	panInfoErrors,
+	multiSelectMenuItems,
+	openFirstCard,
+	openSecondCard,
+	setOpenFirstCard,
+	setOpenSecondCard,
+	handleChangePanInfoCards,
+	handleChangeMultiSelectCard,
+	formDataPanInfoCards,
+	optionalPaymentMethodPanManagment
+}: Props) => (
 	<React.Fragment>
 		{index === 0 && (
-			<Grid item xs={12} ml={1} my={2} display={"flex"} justifyContent={"center"} key={`grid${index}`}>
+			<Grid item xs={12} ml={1} my={1} display={"flex"} justifyContent={"center"} key={`grid${index}`}>
 				<Typography variant="body1" fontWeight="600">
 					{index === 0 ? "Inserire i dati del pan principali" : "Indrire i dati del pan opzionali"}
 				</Typography>
@@ -96,9 +109,9 @@ const PanInfoCard = ({ card, index, panInfoErrors, multiSelectMenuItems, openFir
 		</Grid>
 
 		{index === 0 && (
-			<Grid container item xs={12} ml={1} my={2} display={"flex"} justifyContent={"flex-start"} key={`button${index}`}>
+			<Grid container item xs={12} ml={1} my={1} display={"flex"} justifyContent={"flex-start"} key={`button${index}`}>
 				<Grid item xs={6}>
-					<Button id="visible-section-btn" variant="text" onClick={() => {
+					<Button size={"small"} id="visible-section-btn" variant="text" onClick={() => {
 						optionalPaymentMethodPanManagment();
 					}}>
 						{

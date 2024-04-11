@@ -1,21 +1,28 @@
 import React from "react";
-import { Grid, TextField, Typography, Button, SelectChangeEvent } from "@mui/material";
+import { Grid, TextField, Typography, Button } from "@mui/material";
 import { IbanDto, IbanListDto } from "../model/ParametersModel";
 import { IBAN_MAX_LENGTH } from "../../commons/constants";
 
 type Props = {
-    iban: IbanDto;
-    index: number;
-    ibanListErrors: any;
-    handleChangeIbanList: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => void;
-    formDataIbanList: IbanListDto;
-    optionalPaymentMethodIbanManagment: () => void;
+	iban: IbanDto;
+	index: number;
+	ibanListErrors: any;
+	handleChangeIbanList: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => void;
+	formDataIbanList: IbanListDto;
+	optionalPaymentMethodIbanManagment: () => void;
 };
 
-const IbanInfoCard = ({ iban, index, ibanListErrors, handleChangeIbanList, formDataIbanList, optionalPaymentMethodIbanManagment }:Props) => (
+const IbanInfoCard = ({
+	iban,
+	index,
+	ibanListErrors,
+	handleChangeIbanList,
+	formDataIbanList,
+	optionalPaymentMethodIbanManagment
+}: Props) => (
 	<React.Fragment key={`ibanFragmnet${index}`}>
 		{index === 0 && (
-			<Grid item xs={12} ml={1} my={2} display={"flex"} justifyContent={"center"} key={`grid${index}`}>
+			<Grid item xs={12} ml={1} my={1} display={"flex"} justifyContent={"center"} key={`grid${index}`}>
 				<Typography variant="body1" fontWeight="600">
 					{index === 0 ? "Inserire i dati dell'Iban principali" : "Indrire i dati dell'Iban opzionali"}
 				</Typography>
@@ -55,8 +62,8 @@ const IbanInfoCard = ({ iban, index, ibanListErrors, handleChangeIbanList, formD
 			/>
 		</Grid>
 
-		{index === 0 && (<Grid container item xs={12} ml={1} my={2} display={"flex"} justifyContent={"flex-start"} key={`buttonIban${index}`}>
-			<Button id="visible-section-btn" variant="text" onClick={() => {
+		{index === 0 && (<Grid container item xs={12} ml={1} my={1} display={"flex"} justifyContent={"flex-start"} key={`buttonIban${index}`}>
+			<Button size={"small"} id="visible-section-btn" variant="text" onClick={() => {
 				optionalPaymentMethodIbanManagment();
 			}}>
 				{
