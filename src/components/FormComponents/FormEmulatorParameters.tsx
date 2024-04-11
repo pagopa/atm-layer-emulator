@@ -122,7 +122,7 @@ export const FormEmulatorParameters = () => {
 					</Avatar>
 				}
 			</ListItemAvatar>
-			<ListItemText primary={circuit.label} data-testid={`circuits-select-${circuit.label}`}/>
+			<ListItemText primary={circuit.label} data-testid={`circuits-select-${circuit.label}`} />
 		</MenuItem>
 	));
 
@@ -176,26 +176,28 @@ export const FormEmulatorParameters = () => {
 		validateIbanForm();
 	}, []);
 
-	const { handleChange,
+	const {
+		handleChange,
 		handleChangePanInfoCards,
 		handleChangeIbanList,
 		handleChangeMultiSelectCard,
 		validateForm,
 		validatePanInfoForm,
-		validateIbanForm } = formFunctions(setFormData,
-		setFormDataPanInfoCards,
-		setFormDataIbanList,
-		setErrors,
-		setPanInfoErrors,
-		setIbanListErrors,
-		setTouchInterface,
-		errors, 
-		formData, 
-		formDataPanInfoCards,
-		formDataIbanList,
-		panInfoErrors,
-		ibanListErrors
-	);
+		validateIbanForm }
+		= formFunctions(setFormData,
+			setFormDataPanInfoCards,
+			setFormDataIbanList,
+			setErrors,
+			setPanInfoErrors,
+			setIbanListErrors,
+			setTouchInterface,
+			errors,
+			formData,
+			formDataPanInfoCards,
+			formDataIbanList,
+			panInfoErrors,
+			ibanListErrors
+		);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -274,8 +276,9 @@ export const FormEmulatorParameters = () => {
 						onChange={handleChange}
 						error={Boolean(errors.acquirerId)}
 						helperText={errors.acquirerId}
-						inputProps={{ maxLength: ACQUIRER_ID_LENGTH }}
+						inputProps={{ maxLength: ACQUIRER_ID_LENGTH, "data-testId": "acquirerId-test" }}
 						defaultValue={initialValues.acquirerId}
+
 					/>
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
@@ -393,6 +396,7 @@ export const FormEmulatorParameters = () => {
 								checked={formData?.printer === "OK" ? true : false}
 								onChange={handleChange}
 								name="printer"
+								data-testId="printer-test"
 							/>
 						}
 						label="Stampante"
@@ -416,7 +420,12 @@ export const FormEmulatorParameters = () => {
 					<FormControlLabel
 						id="touchLayout"
 						value="touch"
-						control={<Switch checked={touchInterface} onChange={handleChange} name="touch" />}
+						control={<Switch
+							checked={touchInterface}
+							onChange={handleChange}
+							name="touch"
+							data-testId="touch-test"
+						/>}
 						label="ATM Touch"
 						labelPlacement="start"
 						sx={{ ml: 1, mr: 0 }}

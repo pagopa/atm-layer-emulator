@@ -40,7 +40,7 @@ const IbanInfoCard = ({
 				size="small"
 				value={iban?.IBAN}
 				onChange={(e) => handleChangeIbanList(e, index)}
-				inputProps={{ maxLength: IBAN_MAX_LENGTH }}
+				inputProps={{ maxLength: IBAN_MAX_LENGTH, "data-testId":"iban-test" }}
 				error={Boolean(ibanListErrors[index].IBAN)}
 				helperText={ibanListErrors[index]?.IBAN}
 			/>
