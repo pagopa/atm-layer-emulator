@@ -38,7 +38,7 @@ function paginate( array: Array<Element>, pageNumber:number, pageSize:number) {
 	return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize) as Array<Node>;
 };
 
-export function getPaginationFragment(listItems: Array<Element>,menu:HTMLElement, pageIndex:number, pageSize:number){
+export function getPaginationFragment(listItems: Array<Element>, pageIndex:number, pageSize:number){
 	const paginationArray=paginate(Array.from(listItems), pageIndex, pageSize);
 	listItems.forEach(el => el.remove());
 	const frag = document.createDocumentFragment();

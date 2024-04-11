@@ -35,11 +35,11 @@ const ServiceAccessPage = () => {
 		bodyHtml = decodeRenderHtml("PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSIgPz4KPCFET0NUWVBFIGh0bWwgUFVCTElDICItLy9XM0MvL0RURCBYSFRNTCAxLjAgVHJhbnNpdGlvbmFsLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL1RSL3hodG1sMS9EVEQveGh0bWwxLXRyYW5zaXRpb25hbC5kdGQiPgo8aHRtbCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCI+Cgo8Ym9keT4KIAkKCTxpbWcgaWQ9ImxvZ28iIHNyYz0iaHR0cHM6Ly9kMnhkdXk3dGJndTJkMy5jbG91ZGZyb250Lm5ldC9maWxlcy9JQ09OL2RlZmF1bHRfbG9nby5zdmciLz4KCTxoMT5TZXJ2aXppIGRpIHB1YmJsaWNhIHV0aWxpdCZhZ3JhdmU7PC9oMT4JCgkKCTxpbWcgaWQ9ImNvbmNlcHQiIGNsYXNzPSJjZW50cmFsIiBzcmM9Imh0dHBzOi8vZDJ4ZHV5N3RiZ3UyZDMuY2xvdWRmcm9udC5uZXQvZmlsZXMvSUNPTi9pbmZvLnN2ZyIgLz4KCQoJPGgyPkVzZWd1aXJlIGlsIGNvbWFuZG8gcGVyIHByb2NlZGVyZTwvaDI+CgkKCTwvYm9keT4KCQo8L2h0bWw+");
 	}
 
-	function getPaginationElements(menu:HTMLElement){
+	function getPaginationElements(){
 		const listItems=document.querySelectorAll("#menu > li");
 		if(listItems?.length>pageSize){
 			setMenuList(listItems); 
-			const frag = getPaginationFragment(Array.from(listItems),menu,pageIndex,pageSize);
+			const frag = getPaginationFragment(Array.from(listItems),pageIndex,pageSize);
 			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
 			if(!touchInterface){
 				positionPaginatedButtons();
@@ -60,7 +60,7 @@ const ServiceAccessPage = () => {
 
 		const menu=document?.getElementById("menu");
 		if(menu){
-			getPaginationElements(menu);
+			getPaginationElements();
 		}
 
 		return () => {
@@ -78,7 +78,7 @@ const ServiceAccessPage = () => {
 	useEffect(() => {
 		const menu=document?.getElementById("menu");
 		if(menu && menuList){
-			const frag = getPaginationFragment(Array.from(menuList),menu,pageIndex,pageSize);
+			const frag = getPaginationFragment(Array.from(menuList),pageIndex,pageSize);
 			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
 			if(!touchInterface){
 				positionPaginatedButtons();
@@ -128,7 +128,6 @@ const ServiceAccessPage = () => {
 	// pagino solo se la lista è maggiore del pageSize
 	const listLength = bodyHtml?.querySelectorAll("#menu > li")?.length;
 	const paginateFlag = listLength>pageSize;
-	console.log("page",paginateFlag);
 	if(responseProcess?.task?.template?.type === "MENU" && paginateFlag){
 		bodyHtml?.appendChild(createNextLiButton());
 		bodyHtml?.appendChild(createPrevLiButton());
