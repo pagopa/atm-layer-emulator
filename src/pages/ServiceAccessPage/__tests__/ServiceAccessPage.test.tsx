@@ -263,7 +263,7 @@ describe("Service Access Page Tests", () => {
         expect(global.fetch).toHaveBeenCalled();
     });
 
-    test("test with timeout null and useEffect PRINT_RECEIPT command", () => {
+    test("test with timeout null and useEffect PRINT_RECEIPT command", async () => {
         const responseProcess = getTestResponse(null, "PRINT_RECEIPT", undefined);
         const touchInterface = true;
         render(
@@ -273,6 +273,7 @@ describe("Service Access Page Tests", () => {
                 </BrowserRouter>
             </Ctx.Provider>
         );
+        await new Promise(res => setTimeout(res, 3000));
     });
 
     test("test with timeout null and useEffect SCAN_BIIL_DATA command", () => {
