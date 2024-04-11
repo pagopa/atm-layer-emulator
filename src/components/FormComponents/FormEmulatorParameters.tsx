@@ -23,7 +23,6 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import { Ctx } from "../../DataContext";
 import { IbanDto, IbanListDto, PanDto, PanInfoDto, ParametersDto } from "../model/ParametersModel";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
-import { resetErrors } from "../Commons/Commons";
 import { TASK_MAIN } from "../../commons/endpoints";
 import {
 	ACQUIRER_ID_LENGTH,

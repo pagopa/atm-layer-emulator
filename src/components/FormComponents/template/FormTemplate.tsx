@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Grid, Typography, Box, useTheme, Button } from "@mui/material";
-import { Loading } from "../../Commons/Loading";
+import { Loading } from "../../../utils/Commons/Loading";
 import { Ctx } from "../../../DataContext";
 
 type Props = {

@@ -11,7 +11,7 @@ import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./css/style-page.css";
 import { executeCommand } from "../../commons/utilsFunctions";
-import { Loading } from "../../components/Commons/Loading";
+import { Loading } from "../../utils/Commons/Loading";
 import { AUTHORIZE, COMMAND_INFO_TEMPLATE, SCAN_BILL_DATA } from "../../commons/constants";
 import { addHeaderRow, createNextLiButton, createPrevLiButton, getPaginationFragment, positionPaginatedButtons, positionUnpaginatedButtons } from "../../utils/Commons";
 import { addButtonClickListener, removeButtonClickListener } from "../../utils/HandleClicks";
