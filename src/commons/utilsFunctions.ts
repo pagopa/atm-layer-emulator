@@ -1,7 +1,7 @@
 import { IbanListDto } from "../components/model/ParametersModel";
 import { PanInfoDto } from "./../components/model/ParametersModel";
 /* eslint-disable functional/immutable-data */
-import { AUTHORIZE, END, GET_IBAN, GET_PAN, PRINT_RECEIPT, NEXT, SCAN_BILL_DATA } from "./constants";
+import { AUTHORIZE, END, GET_IBAN, GET_PAN, PRINT_RECEIPT, NEXT, SCAN_BILL_DATA, DEFAULT_SCAN_CODE, ESITO_OK, ESITO_KO, ESITO_DUBBIO } from "./constants";
 
 
 /* eslint-disable functional/no-let */
@@ -37,7 +37,7 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 			textColumn.setAttribute("style", "display: flex; justify-content: center; align-items: center; padding: 16px;");
 
 			const inputElement = document.createElement("input");
-			inputElement.defaultValue = "UEFHT1BBfDAwMnwwMTIzNDU2Nzg5MDEyMzQ1Njd8MDAwMDAwMDAyMDF8MTAwMDA";
+			inputElement.defaultValue = DEFAULT_SCAN_CODE;
 			inputElement.setAttribute("id", "textarea");
 			inputElement.setAttribute("type", "text");
 			textColumn.appendChild(inputElement);
@@ -85,9 +85,9 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 				doubtfulButton.textContent = "Esito Dubbio";
 				cancelButton.textContent = "Autorizzazione negata";
 		
-				authorizeButton.addEventListener("click", () => {next({ "result" : "OK", "continue" : true }); setCommand("");});
-				doubtfulButton.addEventListener("click", () => {next({ "result" : "KO_DUBBIO", "continue" : true }); setCommand("");});
-				cancelButton.addEventListener("click", () => {next({ "result" : "KO"}); setCommand("");});
+				authorizeButton.addEventListener("click", () => {next({ "result" : ESITO_OK, "continue" : true }); setCommand("");});
+				doubtfulButton.addEventListener("click", () => {next({ "result" : ESITO_DUBBIO, "continue" : true }); setCommand("");});
+				cancelButton.addEventListener("click", () => {next({ "result" : ESITO_KO}); setCommand("");});
 	
 				const buttonsDiv = document.createElement("div");
 				buttonsDiv.setAttribute("id", "command-buttons-div");

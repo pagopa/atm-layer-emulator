@@ -12,3 +12,8 @@ export const GET_PAN = "GET_PAN";
 export const NEXT = "NEXT";
 export const PAN_MAX_LENGTH = 16;
 export const IBAN_MAX_LENGTH = 27;
+export const DEFAULT_SCAN_CODE = "UEFHT1BBfDAwMnwwMTIzNDU2Nzg5MDEyMzQ1Njd8MDAwMDAwMDAyMDF8MTAwMDA";
+export const ESITO_OK = "OK";
+export const ESITO_DUBBIO = "KO_DUBBIO";
+export const ESITO_KO = "KO";
+
