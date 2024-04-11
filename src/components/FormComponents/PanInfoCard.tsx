@@ -101,6 +101,7 @@ const PanInfoCard = ({
 					onOpen={() => index === 0 ? setOpenFirstCard(true) : setOpenSecondCard(true)}
 					onClose={() => index === 0 ? setOpenFirstCard(false) : setOpenSecondCard(false)}
 					open={index === 0 ? openFirstCard : openSecondCard}
+					data-testid={`circuits-select-${index}`}
 				>
 					{multiSelectMenuItems()}
 				</Select>

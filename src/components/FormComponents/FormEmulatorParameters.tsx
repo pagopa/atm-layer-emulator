@@ -122,7 +122,7 @@ export const FormEmulatorParameters = () => {
 					</Avatar>
 				}
 			</ListItemAvatar>
-			<ListItemText primary={circuit.label} />
+			<ListItemText primary={circuit.label} data-testid={`circuits-select-${circuit.label}`}/>
 		</MenuItem>
 	));
 
