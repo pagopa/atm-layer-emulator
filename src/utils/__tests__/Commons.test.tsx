@@ -32,10 +32,22 @@ describe("Commons Tests", () => {
         };
     
         act(() => {
-          resetErrors(errors, setErrors, "fieldNonEsistente");
+          resetErrors(errors, setErrors, "field3");
         });
     
         expect(mockErrors).toEqual(errors);
       });
+
+      test("should reset all errors of the fields", () => {
+        const errors = { field1: "Error 1", field2: "Error 2" };
+        let updatedErrors: any = {};
+        const setErrors = jest.fn((func: any) => {
+            updatedErrors = func(updatedErrors);
+        });
+
+        act(() => {
+            resetErrors(errors, setErrors);
+        });
+    });
 
 });

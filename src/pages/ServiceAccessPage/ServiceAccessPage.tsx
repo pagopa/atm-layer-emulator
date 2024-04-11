@@ -128,7 +128,6 @@ const ServiceAccessPage = () => {
 	// pagino solo se la lista è maggiore del pageSize
 	const listLength = bodyHtml?.querySelectorAll("#menu > li")?.length;
 	const paginateFlag = listLength>pageSize;
-	console.log("page",paginateFlag);
 	if(responseProcess?.task?.template?.type === "MENU" && paginateFlag){
 		bodyHtml?.appendChild(createNextLiButton());
 		bodyHtml?.appendChild(createPrevLiButton());

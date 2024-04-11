@@ -3,68 +3,83 @@ import { BrowserRouter } from "react-router-dom";
 import ServiceAccessPage from "../ServiceAccessPage";
 import { fireEvent, render, screen } from "@testing-library/react";
 
+beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => { });
+    jest.spyOn(console, "warn").mockImplementation(() => { });
+});
+
 describe("Service Access Page Tests", () => {
 
     const originalFetch = global.fetch;
-    
+
     const abortController = jest.fn();
     const setResponseProcess = jest.fn();
     const transactionData = jest.fn();
-    const panInfo = {panInfo: [
-		{
-			pan: "1234567891234567",
-			circuits: [
-				"VISA"
-			],
-			bankName: "ISYBANK"
-		},{
-			pan: "8234567891234565",
-			circuits: [
-				"BANCOMAT",
-				"VISA"			
-			],
-			bankName: "INTESA"
-		}
-    ]};
-    const ibanList = {IBANlist:[
-        {IBAN:"IT12A1234512345123456789012",
-        bankName: "INTESA"},
-        {IBAN:"IT12A1234512345123456789018",
-        bankName: "POSTE"}
-    ]};
+    const panInfo = {
+        panInfo: [
+            {
+                pan: "1234567891234567",
+                circuits: [
+                    "VISA"
+                ],
+                bankName: "ISYBANK"
+            }, {
+                pan: "8234567891234565",
+                circuits: [
+                    "BANCOMAT",
+                    "VISA"
+                ],
+                bankName: "INTESA"
+            }
+        ]
+    };
+    const ibanList = {
+        IBANlist: [
+            {
+                IBAN: "IT12A1234512345123456789012",
+                bankName: "INTESA"
+            },
+            {
+                IBAN: "IT12A1234512345123456789018",
+                bankName: "POSTE"
+            }
+        ]
+    };
+    const content = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSIgPz4NCjwhRE9DVFlQRSBodG1sIFBVQkxJQyAiLS8vVzNDLy9EVEQgWEhUTUwgMS4wIFRyYW5zaXRpb25hbC8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9UUi94aHRtbDEvRFREL3hodG1sMS10cmFuc2l0aW9uYWwuZHRkIj4NCjxodG1sIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj4NCjxoZWFkPjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iY3NzL2VtdWxhdG9yZS5jc3MiIC8+PC9oZWFkPg0KPGJvZHk+DQoJDQoJDQoJDQoJPGltZyBpZD0ibG9nbyIgc3JjPSJodHRwczovL2QyeGR1eTd0Ymd1MmQzLmNsb3VkZnJvbnQubmV0L2ZpbGVzL0lDT04vZGVmYXVsdF9sb2dvLnN2ZyIvPg0KCTxoMT5TZXJ2aXppIGRpIHB1YmJsaWNhIHV0aWxpdCZhZ3JhdmU7PC9oMT4JDQoJPGgyPkluc2VyaXNjaSBpbCBjb2RpY2UgYXZ2aXNvPC9oMj4NCgk8aDM+SGEgMTggY2lmcmUsIGxvIHRyb3ZpIHZpY2lubyBhbCBjb2RpY2UgUVIuPC9oMz4NCgkNCgk8bGFiZWwgY2xhc3M9ImxhcmdlIj5Db2RpY2UgQXZ2aXNvDQogICAgICA8aW5wdXQgdHlwZT0idGV4dCIgaWQ9ImNvZGljZUF2dmlzbyIgdmFsdWU9IiIgcGF0dGVybj0iXlxkezE4fSQiICAvPg0KCSA8L2xhYmVsPg0KCQ0KCTxidXR0b24gY2xhc3M9Im5lZ2F0aXZlIiBkYXRhLWZkaz0iUzQiIGlkPSJleGl0Ij4NCiAgICAgIDxzcGFuPkVzY2k8L3NwYW4+DQogICAgPC9idXR0b24+DQoJDQoJPGJ1dHRvbiBjbGFzcz0icG9zaXRpdmUiIGRhdGEtZmRrPSJTOCIgaWQ9ImNvbmZpcm0iPg0KICAgICAgPHNwYW4+Q29uZmVybWE8L3NwYW4+DQogICAgPC9idXR0b24+CQ0KCQ0KCQ0KCTwvYm9keT4NCgkNCjwvaHRtbD4=";
 
-    function getTestResponse() {
+    function getTestResponse(timeout: number | null, command?: string, content?: string) {
         return {
             outcome: {
-            description: "The operation completed successfully",
-            result: "OK"
+                description: "The operation completed successfully",
+                result: "OK"
             },
             task: {
-            buttons: [
-            {
-            data: {
-            continue: true,
-            functionId: "SPONTANEOUS_PAYMENT"
-            },
-            id: "pagamentoAviso"
-            }
-            ],
-            id: "be7f70a2-8ebd-11ee-9b34-eaafaf73ed90",
-            onError: {
-            errorCode: "31",
-            errorDescription: "error on menu.html"
-            },
-            onTimeout: {
-            errorCode: "27",
-            errorDescription: "timeout on menu.html"
-            },
-            template: {
-                content: "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSIgPz4NCjwhRE9DVFlQRSBodG1sIFBVQkxJQyAiLS8vVzNDLy9EVEQgWEhUTUwgMS4wIFRyYW5zaXRpb25hbC8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9UUi94aHRtbDEvRFREL3hodG1sMS10cmFuc2l0aW9uYWwuZHRkIj4NCjxodG1sIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj4NCjxoZWFkPjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iY3NzL2VtdWxhdG9yZS5jc3MiIC8+PC9oZWFkPg0KPGJvZHk+DQoJDQoJDQoJDQoJPGltZyBpZD0ibG9nbyIgc3JjPSJodHRwczovL2QyeGR1eTd0Ymd1MmQzLmNsb3VkZnJvbnQubmV0L2ZpbGVzL0lDT04vZGVmYXVsdF9sb2dvLnN2ZyIvPg0KCTxoMT5TZXJ2aXppIGRpIHB1YmJsaWNhIHV0aWxpdCZhZ3JhdmU7PC9oMT4JDQoJPGgyPkluc2VyaXNjaSBpbCBjb2RpY2UgYXZ2aXNvPC9oMj4NCgk8aDM+SGEgMTggY2lmcmUsIGxvIHRyb3ZpIHZpY2lubyBhbCBjb2RpY2UgUVIuPC9oMz4NCgkNCgk8bGFiZWwgY2xhc3M9ImxhcmdlIj5Db2RpY2UgQXZ2aXNvDQogICAgICA8aW5wdXQgdHlwZT0idGV4dCIgaWQ9ImNvZGljZUF2dmlzbyIgdmFsdWU9IiIgcGF0dGVybj0iXlxkezE4fSQiICAvPg0KCSA8L2xhYmVsPg0KCQ0KCTxidXR0b24gY2xhc3M9Im5lZ2F0aXZlIiBkYXRhLWZkaz0iUzQiIGlkPSJleGl0Ij4NCiAgICAgIDxzcGFuPkVzY2k8L3NwYW4+DQogICAgPC9idXR0b24+DQoJDQoJPGJ1dHRvbiBjbGFzcz0icG9zaXRpdmUiIGRhdGEtZmRrPSJTOCIgaWQ9ImNvbmZpcm0iPg0KICAgICAgPHNwYW4+Q29uZmVybWE8L3NwYW4+DQogICAgPC9idXR0b24+CQ0KCQ0KCQ0KCTwvYm9keT4NCgkNCjwvaHRtbD4="
-            },
-            timeout: 150
+                buttons: [
+                    {
+                        data: {
+                            continue: true,
+                            functionId: "SPONTANEOUS_PAYMENT"
+                        },
+                        id: "pagamentoAviso"
+                    }
+                ],
+                id: "be7f70a2-8ebd-11ee-9b34-eaafaf73ed90",
+                onError: {
+                    errorCode: "31",
+                    errorDescription: "error on menu.html"
+                },
+                onTimeout: {
+                    errorCode: "27",
+                    errorDescription: "timeout on menu.html"
+                },
+                template: {
+                    content
+                },
+                timeout: timeout,
+                command
             },
             transactionId: "06789-12345-0001-64874412-1698769800000-e0f9b7bd-6"
-           };
+        };
     }
 
     function getMenuTestResponseShort() {
@@ -177,13 +192,13 @@ describe("Service Access Page Tests", () => {
     });
 
     test("renders not-menu touchInterface", () => {
-        const responseProcess = getTestResponse();
+        const responseProcess = getTestResponse(150, undefined, content);
         const touchInterface = true;
         render(
             <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
-			<BrowserRouter>
-				<ServiceAccessPage />
-			</BrowserRouter>   
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
             </Ctx.Provider>
         );
         expect(screen.getByText("Conferma")).toBeInTheDocument();
@@ -191,12 +206,12 @@ describe("Service Access Page Tests", () => {
 
     test("renders menu no-touchInterface no-pagination", () => {
         const responseProcess = getMenuTestResponseShort();
-           const touchInterface = false;
+        const touchInterface = false;
         render(
             <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
-			<BrowserRouter>
-				<ServiceAccessPage />
-			</BrowserRouter>   
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
             </Ctx.Provider>
         );
         expect(screen.getByText("A quale servizio vuoi accedere?")).toBeInTheDocument();
@@ -204,12 +219,12 @@ describe("Service Access Page Tests", () => {
 
     test("renders menu touchInterface with pagination", () => {
         const responseProcess = getMenuTestResponseLong();
-           const touchInterface = false;
+        const touchInterface = false;
         render(
             <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
-			<BrowserRouter>
-				<ServiceAccessPage />
-			</BrowserRouter>   
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
             </Ctx.Provider>
         );
         const nextLiElement = screen.getByTestId("nextLiTestButton");
@@ -231,17 +246,15 @@ describe("Service Access Page Tests", () => {
             json: () => Promise.resolve({
                 status: 200,
                 success: true,
-                valuesObj: {task:{
-                    command:"TEST_COMMAND"
-                }},
+                valuesObj: getTestResponse(150, undefined, "TEST_CONTENT")
             }),
         });
 
         render(
             <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
-			<BrowserRouter>
-				<ServiceAccessPage />
-			</BrowserRouter>   
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
             </Ctx.Provider>
         );
         const exitButton = screen.getByText("Esci");
@@ -249,4 +262,15 @@ describe("Service Access Page Tests", () => {
         expect(global.fetch).toHaveBeenCalled();
     });
 
+    test("test with timeout null and useEffect command condition", () => {
+        const responseProcess = getTestResponse(null, "PRINT_RECEIPT", undefined);
+        const touchInterface = true;
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+    });
 });

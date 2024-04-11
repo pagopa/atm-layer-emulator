@@ -111,7 +111,7 @@ const PanInfoCard = ({
 		{index === 0 && (
 			<Grid container item xs={12} ml={1} my={1} display={"flex"} justifyContent={"flex-start"} key={`button${index}`}>
 				<Grid item xs={6}>
-					<Button size={"small"} id="visible-section-btn" variant="text" onClick={() => {
+					<Button size={"small"} id="visible-section-btn" data-testid="visible-section-btn-test" variant="text" onClick={() => {
 						optionalPaymentMethodPanManagment();
 					}}>
 						{

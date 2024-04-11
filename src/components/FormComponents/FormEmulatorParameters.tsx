@@ -2,18 +2,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
 	Avatar,
-	Button,
-	FormControl,
 	FormControlLabel,
-	FormHelperText,
 	Grid,
-	InputLabel,
 	ListItemAvatar,
 	ListItemText,
 	MenuItem,
-	OutlinedInput,
-	Select,
-	SelectChangeEvent,
 	Switch,
 	TextField,
 	Typography,
@@ -23,17 +16,13 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import { Ctx } from "../../DataContext";
 import { IbanDto, IbanListDto, PanDto, PanInfoDto, ParametersDto } from "../model/ParametersModel";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
-import { resetErrors } from "../Commons/Commons";
 import { TASK_MAIN } from "../../commons/endpoints";
 import {
 	ACQUIRER_ID_LENGTH,
 	CODE_LENGTH,
 	FISCAL_CODE_LENGTH,
-	IBAN_MAX_LENGTH,
-	PAN_MAX_LENGTH,
 	TERMINAL_BRANCH_LENGTH,
 } from "../../commons/constants";
-import checks from "../../utils/checks";
 import ROUTES from "../../routes";
 import FormTemplate from "./template/FormTemplate";
 import PanInfoCard from "./PanInfoCard";
@@ -42,7 +31,6 @@ import formFunctions from "./FormFunctions";
 
 export const FormEmulatorParameters = () => {
 	const [loadingButton, setLoadingButton] = useState(false);
-	const { cfIsValid, ibanIsValid, panIsValid } = checks();
 
 	const panInfoFirstCard: PanDto = {
 		pan: "1234567891234567",
@@ -108,7 +96,6 @@ export const FormEmulatorParameters = () => {
 		setTransactionData,
 		touchInterface,
 		setTouchInterface,
-		debugOn,
 		setPanInfo,
 		setIbanList
 	} = useContext(Ctx);
@@ -188,138 +175,6 @@ export const FormEmulatorParameters = () => {
 		validatePanInfoForm();
 		validateIbanForm();
 	}, []);
-
-	// const handleChange = (
-	// 	e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	// ) => {
-	// 	const target = e.target as HTMLInputElement;
-	// 	const { name, value, checked } = target;
-	// 	resetErrors(errors, setErrors, name);
-
-	// 	if (name === "printer" || name === "scanner" || name === "touch") {
-	// 		setFormData((prevFormData: any) => ({ ...prevFormData, [name]: checked ? "OK" : "KO" }));
-
-	// 		if (name === "touch") {
-	// 			setTouchInterface(checked);
-	// 		}
-	// 	} else {
-	// 		setFormData((prevFormData: any) => ({
-	// 			...prevFormData,
-	// 			[name]: value,
-	// 		}));
-	// 	}
-	// };
-
-	// const handleChangePanInfoCards = (
-	// 	e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-	// 	index: number
-	// ) => {
-	// 	const target = e.target as HTMLInputElement;
-	// 	const { name, value } = target;
-
-	// 	resetErrors(panInfoErrors, setPanInfoErrors, name);
-
-	// 	setFormDataPanInfoCards((prevFormDataPanInfoCards: any) => ({
-	// 		...prevFormDataPanInfoCards,
-	// 		panInfo: prevFormDataPanInfoCards.panInfo.map((card: any, i: number) =>
-	// 			i === index ? { ...card, [name]: value } : card
-	// 		),
-	// 	}));
-	// };
-
-	// const handleChangeIbanList = (
-	// 	e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-	// 	index: number
-	// ) => {
-	// 	const target = e.target as HTMLInputElement;
-	// 	const { name, value } = target;
-
-	// 	resetErrors(ibanListErrors, setIbanListErrors, name);
-
-	// 	setFormDataIbanList((prevFormDataIbanList: any) => ({
-	// 		...prevFormDataIbanList,
-	// 		IBANlist: prevFormDataIbanList.IBANlist.map((iban: IbanDto, i: number) =>
-	// 			i === index ? { ...iban, [name]: value } : iban
-	// 		),
-	// 	}));
-	// };
-
-	// const handleChangeMultiSelectCard = (event: SelectChangeEvent<Array<string>>, cardIndex: number) => {
-	// 	const {
-	// 		target: { value, name },
-	// 	} = event;
-
-	// 	const updatedFormDataPanInfoCards = { ...formDataPanInfoCards };
-	// 	const formattedValue = Array.isArray(value) ? value : [value];
-
-	// 	if (name === "multiple-checkbox-card") {
-	// 		// eslint-disable-next-line functional/immutable-data
-	// 		updatedFormDataPanInfoCards.panInfo[cardIndex] = {
-	// 			...updatedFormDataPanInfoCards.panInfo[cardIndex],
-	// 			circuits: formattedValue,
-	// 		};
-	// 	}
-
-	// 	setFormDataPanInfoCards(updatedFormDataPanInfoCards);
-	// };
-
-	// const validateForm = () => {
-	// 	const newErrors = {
-	// 		acquirerId: formData.acquirerId ? "" : "Campo obbligatorio",
-	// 		branchId: formData.branchId ? "" : "Campo obbligatorio",
-	// 		code: formData.code ? "" : "Campo obbligatorio",
-	// 		terminalId: formData.terminalId ? "" : "Campo obbligatorio",
-	// 		fiscalCode: formData.fiscalCode
-	// 			? cfIsValid(formData.fiscalCode)
-	// 				? ""
-	// 				: "Codice fiscale non valido"
-	// 			: "Campo obbligatorio",
-	// 	};
-
-	// 	setErrors(newErrors);
-
-	// 	return Object.values(newErrors).every((error) => !error);
-	// };
-
-
-	// const validatePanInfoForm = () => {
-	// 	const newPanInfoErrors: Array<any> = [];
-
-	// 	formDataPanInfoCards.panInfo.forEach((card: PanDto, index: number) => {
-	// 		const cardErrors = {
-	// 			pan: card.pan.trim() ? (panIsValid(card.pan) ? "" : "PAN non valido") : "Campo obbligatorio",
-	// 			circuits: card.circuits.length > 0 ? "" : "Seleziona almeno un circuito",
-	// 			bankName: card.bankName.trim() ? "" : "Campo obbligatorio"
-	// 		};
-
-	// 		newPanInfoErrors.push(cardErrors);
-	// 	});
-
-	// 	setPanInfoErrors(newPanInfoErrors);
-
-	// 	return newPanInfoErrors.every((errors) =>
-	// 		Object.values(errors).every((error) => !error)
-	// 	);
-	// };
-
-	// const validateIbanForm = () => {
-	// 	const newIbanListErrors: Array<any> = [];
-
-	// 	formDataIbanList.IBANlist.forEach((iban: IbanDto, index: number) => {
-	// 		const ibanErrors = {
-	// 			IBAN: iban.IBAN.trim() ? (ibanIsValid(iban.IBAN) ? "" : "IBAN non valido") : "Campo obbligatorio",
-	// 			bankName: iban.bankName.trim() ? "" : "Campo obbligatorio"
-	// 		};
-
-	// 		newIbanListErrors.push(ibanErrors);
-	// 	});
-
-	// 	setIbanListErrors(newIbanListErrors);
-
-	// 	return newIbanListErrors.every((errors) =>
-	// 		Object.values(errors).every((error) => !error)
-	// 	);
-	// };
 
 	const { handleChange,
 		handleChangePanInfoCards,
