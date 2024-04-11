@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Box, useTheme, Button } from "@mui/material";
-import { Loading } from "../../Commons/Loading";
+import { Loading } from "../../../utils/Commons/Loading";
 
 type Props = {
 	handleSubmit: (e: React.FormEvent) => void;

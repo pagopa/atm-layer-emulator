@@ -3,7 +3,7 @@
 import { SelectChangeEvent } from "@mui/material";
 import { IbanDto, PanDto } from "../model/ParametersModel";
 import checks from "../../utils/checks";
-import { resetErrors } from "../Commons/Commons";
+import { resetErrors } from "../../utils/Commons";
 
 const formFunctions = (
 	setFormData: React.Dispatch<React.SetStateAction<any>>,

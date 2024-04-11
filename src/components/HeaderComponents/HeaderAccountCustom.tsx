@@ -6,7 +6,7 @@ import { Ctx } from "../../DataContext";
 import { RootLinkType } from "../model/UserModel";
 import { USER_EMAIL } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
-import IconBox from "../Commons/IconBox";
+import IconBox from "../../utils/Commons/IconBox";
 import ROUTES from "../../routes";
 
 type HeaderAccountProps = {

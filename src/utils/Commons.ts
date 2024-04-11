@@ -38,8 +38,8 @@ function paginate(array: Array<Element>, pageNumber: number, pageSize: number) {
 	return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize) as Array<Node>;
 };
 
-export function getPaginationFragment(listItems: Array<Element>, menu: HTMLElement, pageIndex: number, pageSize: number) {
-	const paginationArray = paginate(Array.from(listItems), pageIndex, pageSize);
+export function getPaginationFragment(listItems: Array<Element>, pageIndex:number, pageSize:number){
+	const paginationArray=paginate(Array.from(listItems), pageIndex, pageSize);
 	listItems.forEach(el => el.remove());
 	const frag = document.createDocumentFragment();
 	for (let i = 0; i < paginationArray.length; ++i) {
@@ -112,7 +112,6 @@ export function addHeaderRow(bodyHtml: HTMLBodyElement) {
 		const descColumn = document.createElement("div");
 		descColumn.classList.add("mui-col-md-6");
 		descColumn.appendChild(descElement);
-		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
 		headerRow.appendChild(descColumn);
 	}
 	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
