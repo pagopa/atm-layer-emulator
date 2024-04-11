@@ -287,7 +287,7 @@ export const FormEmulatorParameters = () => {
 		formDataPanInfoCards.panInfo.forEach((card: PanDto, index: number) => {
 			const cardErrors = {
 				pan: card.pan.trim() ? (panIsValid(card.pan) ? "" : "PAN non valido") : "Campo obbligatorio",
-				circuits: card.circuits.length > 0 && card.circuits.length <= 2 ? "" : "Seleziona un massimo di due circuiti",
+				circuits: card.circuits.length > 0 ? "" : "Seleziona almeno un circuito",
 				bankName: card.bankName.trim() ? "" : "Campo obbligatorio"
 			};
 

@@ -24,7 +24,7 @@ export default function PageLayout({ children }: Prop) {
 					<Box gridArea="header" sx={{ position: "sticky", top: 0, zIndex: "100" }}>
 						<HeaderApp />
 					</Box>
-					<Box sx={{ maxHeight: "calc(100vh - 110px)", overflowX: "auto", width: "100%", display: "flex" }}>
+					<Box sx={{ maxHeight: "calc(100vh - 110px)", width: "100%", display: "flex" }}>
 						{children}
 					</Box>
 				</Box>
