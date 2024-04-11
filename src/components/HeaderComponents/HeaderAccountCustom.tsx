@@ -68,8 +68,6 @@ export const HeaderAccountCustom = ({
 							{rootLink?.element}
 						</Box>
 						<Box pl={2} className="home" aria-label={"buttonHome"} display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"flex-start"}>
-							{/* <Button variant="text" size="medium" >Text</Button> */}
-							{/* <ActionIcon icon={"Launch"} color={theme.palette.text.primary} pad={1.5} size={"1em"}  /> */}
 							<Button
 								variant="text"
 								size="large"

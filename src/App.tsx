@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Route, Routes } from "react-router-dom";
 import { themeApp } from "./assets/jss/themeApp";
 import { Ctx } from "./DataContext.js";
-import { CommonErrorPage } from "./pages/ErrorPage/CommonErrorPage";
+import { CommonErrorPage } from "./pages/ErrorPages/CommonErrorPage";
 import routes from "./routes";
 import PageLayout from "./pages/Layout/PageLayout";
 import { JwtUser } from "./components/model/UserModel";
@@ -14,7 +14,7 @@ import LoginPageCallback from "./pages/LoginPageCallback";
 import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
 import PrivateRoute from "./components/NavigationComponents/PrivateRoute";
 import { IbanListDto, PanInfoDto } from "./components/model/ParametersModel";
-import ErrorPage from "./pages/ErrorPage";
+import ErrorPage from "./pages/ErrorPages/ErrorPage";
 
 
 
