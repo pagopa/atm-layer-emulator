@@ -1,7 +1,7 @@
 import { Ctx } from "../../../DataContext";
 import { BrowserRouter } from "react-router-dom";
 import ServiceAccessPage from "../ServiceAccessPage";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => { });
@@ -76,7 +76,8 @@ describe("Service Access Page Tests", () => {
                     content
                 },
                 timeout: timeout,
-                command
+                command: command,
+                receiptTemplate: "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPg0KCTxib2R5Pg0KCQk8cD4NCgkJCTxzcGFuIGNsYXNzPSJjZW50ZXIgYm9sZCI+UmljZXZ1dGEgZGkgcGFnYW1ldG8gcGFnb1BBPC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4+PC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4gY2xhc3M9ImxlZnQiPkVudGUgY3JlZGl0b3JlOjwvc3Bhbj4NCgkJPC9wPg0KCQk8cD4NCgkJCTxzcGFuIGNsYXNzPSJsZWZ0IGJvbGQiPmNvbXBhbnlOYW1lPC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4+PC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4gY2xhc3M9ImxlZnQiPkNvZGljZSBGaXNjYWxlIEVudGUgQ3JlZGl0b3JlOjwvc3Bhbj4NCgkJPC9wPg0KCQk8cD4NCgkJCTxzcGFuIGNsYXNzPSJsZWZ0IGJvbGQiPjAwMDAwMDAwMjAxPC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4+PC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4gY2xhc3M9ImxlZnQiPkNvZGljZSBhdnZpc286PC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4gY2xhc3M9ImxlZnQgYm9sZCI+MDEyMzQ1Njc4OTAxMjM0NTY3PC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4+PC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4gY2xhc3M9ImxlZnQiPk9nZ2V0dG8gZGVsIHBhZ2FtZW50bzo8L3NwYW4+DQoJCTwvcD4NCgkJPHA+DQoJCQk8c3BhbiBjbGFzcz0ibGVmdCBib2xkIj5QYWdhbWVudG8gZGkgVGVzdDwvc3Bhbj4NCgkJPC9wPg0KCQk8cD4NCgkJCTxzcGFuPjwvc3Bhbj4NCgkJPC9wPg0KCQk8cD4NCgkJCTxzcGFuIGNsYXNzPSJsZWZ0Ij5JbXBvcnRvOjwvc3Bhbj4NCgkJPC9wPg0KCQk8cD4NCgkJCTxzcGFuIGNsYXNzPSJsZWZ0IGJvbGQiPjEwMCwwMCAmIzgzNjQ7PC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4gY2xhc3M9ImNlbnRlciI+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX188L3NwYW4+DQoJCTwvcD4NCgkJPHA+DQoJCQk8c3BhbiBjbGFzcz0ibGVmdCI+Q29tbWlzc2lvbmU6PC9zcGFuPg0KCQkJPHNwYW4gY2xhc3M9InJpZ2h0IGJvbGQiPjAsNTAgJiM4MzY0Ozwvc3Bhbj4NCgkJPC9wPg0KCQk8cD4NCgkJCTxzcGFuIGNsYXNzPSJsZWZ0IGJvbGQiPlRvdGFsZTo8L3NwYW4+DQoJCQk8c3BhbiBjbGFzcz0icmlnaHQgYm9sZCI+MTAwLDUwICYjODM2NDs8L3NwYW4+DQoJCTwvcD4NCgkJPHA+DQoJCQk8c3BhbiBjbGFzcz0iY2VudGVyIj5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXzwvc3Bhbj4NCgkJPC9wPg0KCQk8cD4NCgkJCTxzcGFuPjwvc3Bhbj4NCgkJPC9wPg0KCQk8cD4NCgkJCTxzcGFuIGNsYXNzPSJjZW50ZXIiPlBhZ2FtZW50byBnZXN0aXRvIGRhOjwvc3Bhbj4NCgkJPC9wPg0KCQk8cD4NCgkJCTxzcGFuIGNsYXNzPSJjZW50ZXIiPk5leGkgUGF5bWVudHMgUy5wLkEuPC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4gY2xhc3M9ImNlbnRlciI+Q29yc28gU2VtcGlvbmUsIDU1ICZtaWRkb3Q7IDIwMTQ5LCBNaWxhbm88L3NwYW4+DQoJCTwvcD4NCgkJPHA+DQoJCQk8c3Bhbj48L3NwYW4+DQoJCTwvcD4NCgkJPHA+DQoJCQk8c3BhbiBjbGFzcz0iY2VudGVyIj5SaWNldnV0YSB0cmFzbWVzc2EgZGE6PC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4gY2xhc3M9ImNlbnRlciI+UGFnb1BBIFMucC5BLjwvc3Bhbj4NCgkJPC9wPg0KCQk8cD4NCgkJCTxzcGFuIGNsYXNzPSJjZW50ZXIiPlBpYXp6YSBDb2xvbm5hLCAzNzAgJm1pZGRvdDsgMDAxODcsIFJvbWEgPC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4gY2xhc3M9ImNlbnRlciI+SUQgVHJhbnNhemlvbmU6PC9zcGFuPg0KCQk8L3A+DQoJCTxwPg0KCQkJPHNwYW4gY2xhc3M9ImNlbnRlciI+N0wxMXNqd2pKWmtTNE45ckJmeWZxRmNqckpaSTN6eGc8L3NwYW4+DQoJCTwvcD4NCgk8L2JvZHk+DQo8L2h0bWw+"
             },
             transactionId: "06789-12345-0001-64874412-1698769800000-e0f9b7bd-6"
         };
@@ -262,8 +263,89 @@ describe("Service Access Page Tests", () => {
         expect(global.fetch).toHaveBeenCalled();
     });
 
-    test("test with timeout null and useEffect command condition", () => {
+    test("test with timeout null and useEffect PRINT_RECEIPT command", () => {
         const responseProcess = getTestResponse(null, "PRINT_RECEIPT", undefined);
+        const touchInterface = true;
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+    });
+
+    test("test with timeout null and useEffect SCAN_BIIL_DATA command", () => {
+        const responseProcess = getTestResponse(null, "SCAN_BIIL_DATA", undefined);
+        const touchInterface = true;
+        global.fetch = jest.fn();
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+        const inputButton = screen.getByText("Conferma");
+        fireEvent.click(inputButton);
+        expect(global.fetch).toHaveBeenCalled();
+    });
+
+    test("test with timeout null and useEffect AUTHORIZE command", () => {
+        const responseProcess = getTestResponse(null, "AUTHORIZE", undefined);
+        const touchInterface = true;
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+        expect(screen.getByText("Seleziona l'esito da simulare per il pagamento", { exact: false })).toBeInTheDocument();
+        expect(screen.getByText("Autorizzare")).toBeInTheDocument();
+        expect(screen.getByText("Esito Dubbio")).toBeInTheDocument();
+        expect(screen.getByText("Autorizzazione negata")).toBeInTheDocument();
+    });
+
+    test("test with timeout null and useEffect END command", async () => {
+        const responseProcess = getTestResponse(null, "END", undefined);
+        const touchInterface = true;
+        global.fetch = jest.fn();
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+    });
+
+    test("test with timeout null and useEffect NEXT command", () => {
+        const responseProcess = getTestResponse(null, "NEXT", undefined);
+        const touchInterface = true;
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+    });
+
+    test("test with timeout null and useEffect GET_IBAN command", () => {
+        const responseProcess = getTestResponse(null, "GET_IBAN", undefined);
+        const touchInterface = true;
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+    });
+
+    test("test with timeout null and useEffect GET_PAN command", () => {
+        const responseProcess = getTestResponse(null, "GET_PAN", undefined);
         const touchInterface = true;
         render(
             <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
