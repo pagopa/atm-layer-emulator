@@ -112,7 +112,6 @@ export function addHeaderRow (bodyHtml : HTMLBodyElement) {
 		const descColumn = document.createElement("div");
 		descColumn.classList.add("mui-col-md-6");
 		descColumn.appendChild(descElement);
-		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
 		headerRow.appendChild(descColumn);
 	}
 	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);

@@ -348,3 +348,9 @@ td > img {
 #circuits-label.MuiInputLabel-root.Mui-focused{
     top: 0px;
 }
+
+.mui-col-md-12.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

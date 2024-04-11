@@ -26,15 +26,13 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 			tableRow.classList.add("mui-row");
 
 			const titleColumn = document.createElement("div");
-			titleColumn.classList.add("mui-col-md-12");
-			titleColumn.setAttribute("style", "display: flex; justify-content: center; align-items: center");
+			titleColumn.classList.add("mui-col-md-12", "center");
 			const title = document.createElement("h2");
 			title.innerHTML = "Inserisci codice scansionato:";
 			titleColumn.appendChild(title);
 
 			const textColumn = document.createElement("div");
-			textColumn.classList.add("mui-col-md-12");
-			textColumn.setAttribute("style", "display: flex; justify-content: center; align-items: center; padding: 16px;");
+			textColumn.classList.add("mui-col-md-12", "center");
 
 			const inputElement = document.createElement("input");
 			inputElement.defaultValue = DEFAULT_SCAN_CODE;
@@ -43,8 +41,7 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 			textColumn.appendChild(inputElement);
 
 			const buttonColumn = document.createElement("div");
-			buttonColumn.classList.add("mui-col-md-12");
-			buttonColumn.setAttribute("style", "display: flex; justify-content: flex-end; align-items: center;");
+			buttonColumn.classList.add("mui-col-md-12", "center");
 
 			const confirmButton = document.createElement("button");
 			confirmButton.id = "command-submit-btn";
