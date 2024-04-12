@@ -63,7 +63,7 @@ const PanInfoCard = ({
 				size="small"
 				value={card?.pan}
 				onChange={(e) => handleChangePanInfoCards(e, index)}
-				inputProps={{ maxLength: PAN_MAX_LENGTH, "data-testId" : "pan-test"}}
+				inputProps={{ maxLength: PAN_MAX_LENGTH, "data-testid" : "pan-test"}}
 				error={Boolean(panInfoErrors[index].pan)}
 				helperText={panInfoErrors[index].pan}
 			/>
@@ -101,7 +101,7 @@ const PanInfoCard = ({
 					onOpen={() => index === 0 ? setOpenFirstCard(true) : setOpenSecondCard(true)}
 					onClose={() => index === 0 ? setOpenFirstCard(false) : setOpenSecondCard(false)}
 					open={index === 0 ? openFirstCard : openSecondCard}
-					inputProps={{ "data-testId" : `circuits-select-${index}` }}
+					inputProps={{ "data-testid" : `circuits-select-${index}` }}
 				>
 					{multiSelectMenuItems()}
 				</Select>

@@ -26,7 +26,7 @@ describe("PanInfoCard Test", () => {
   const multiSelectMenuItems = jest.fn().mockImplementation(() => (
     availableCircuits.map((circuit) => (
       <MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
-        <ListItemText primary={circuit.label} data-testId={circuit.label} />
+        <ListItemText primary={circuit.label} data-testid={circuit.label} />
       </MenuItem>
     ))
   ));
