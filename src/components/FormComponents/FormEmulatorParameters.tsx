@@ -276,7 +276,7 @@ export const FormEmulatorParameters = () => {
 						onChange={handleChange}
 						error={Boolean(errors.acquirerId)}
 						helperText={errors.acquirerId}
-						inputProps={{ maxLength: ACQUIRER_ID_LENGTH, "data-testId": "acquirerId-test" }}
+						inputProps={{ maxLength: ACQUIRER_ID_LENGTH, "data-testid": "acquirerId-test" }}
 						defaultValue={initialValues.acquirerId}
 
 					/>
@@ -396,7 +396,7 @@ export const FormEmulatorParameters = () => {
 								checked={formData?.printer === "OK" ? true : false}
 								onChange={handleChange}
 								name="printer"
-								data-testId="printer-test"
+								data-testid="printer-test"
 							/>
 						}
 						label="Stampante"
@@ -424,7 +424,7 @@ export const FormEmulatorParameters = () => {
 							checked={touchInterface}
 							onChange={handleChange}
 							name="touch"
-							data-testId="touch-test"
+							data-testid="touch-test"
 						/>}
 						label="ATM Touch"
 						labelPlacement="start"
