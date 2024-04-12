@@ -23,7 +23,7 @@ export const HeaderAccountCustom = ({
 
 	const { userEmail, setUserEmail, abortController } = useContext(Ctx);
 
-	const token = sessionStorage.getItem("jwt_console");
+	const token = sessionStorage.getItem("jwt_emulator");
 	const navigate = useNavigate();
 	const theme = useTheme();
 

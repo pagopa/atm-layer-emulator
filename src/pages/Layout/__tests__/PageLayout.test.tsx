@@ -35,7 +35,7 @@ describe("PageLayout test", () => {
 	test("Test render PageLayout component with loading true and no userEmail with token", () => {
 		const userEmail = { email: undefined };
 		const setUserEmail = jest.fn();
-		sessionStorage.setItem("jwt_console", "token");
+		sessionStorage.setItem("jwt_emulator", "token");
 		global.fetch = jest.fn().mockResolvedValue({
             json: () => Promise.resolve({
                 status: 200,

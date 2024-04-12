@@ -22,7 +22,7 @@ export default function useFetch(endPoint?: string | undefined) {
 		
 
 		let headerRequest = {
-			// "Authorization": token ? token : "",
+			"Authorization": token ? token : "",
 			"Accept": "application/json",
 		};
 

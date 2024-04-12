@@ -354,3 +354,8 @@ td > img {
     justify-content: center;
     align-items: center;
 }
+
+.disabled {
+    opacity: 0.33;
+    pointer-events: none;
+}
