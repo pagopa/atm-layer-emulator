@@ -16,6 +16,7 @@ import { AUTHORIZE, COMMAND_INFO_TEMPLATE, SCAN_BILL_DATA } from "../../commons/
 import { addHeaderRow, createNextLiButton, createPrevLiButton, getPaginationFragment, positionPaginatedButtons, positionUnpaginatedButtons } from "../../utils/Commons";
 import { addButtonClickListener, removeButtonClickListener } from "../../utils/HandleClicks";
 import { postData } from "../../utils/PostData";
+import { validateInputFields } from "../../utils/HandleInputs";
 
 
 const ServiceAccessPage = () => {
@@ -57,6 +58,7 @@ const ServiceAccessPage = () => {
 		setPageIndex(1);
 		setMenuList({});
 		addButtonClickListener(next, handleNextLiButtonClick, handlePrevLiButtonClick);
+		validateInputFields();
 
 		const menu=document?.getElementById("menu");
 		if(menu){

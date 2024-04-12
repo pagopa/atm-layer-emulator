@@ -24,12 +24,14 @@ import {
 	TERMINAL_BRANCH_LENGTH,
 } from "../../commons/constants";
 import ROUTES from "../../routes";
+import { getCompletePathImage } from "../../utils/Commons";
 import FormTemplate from "./template/FormTemplate";
 import PanInfoCard from "./PanInfoCard";
 import IbanInfoCard from "./IbanInfo";
 import formFunctions from "./FormFunctions";
 
 export const FormEmulatorParameters = () => {
+	const iconBaseUrl = process.env.REACT_APP_CDN_BASEURL;
 	const [loadingButton, setLoadingButton] = useState(false);
 
 	const panInfoFirstCard: PanDto = {
@@ -104,25 +106,19 @@ export const FormEmulatorParameters = () => {
 	const navigate = useNavigate();
 
 	const availableCircuits = [
-		{ id: 0, value: "BANCOMAT", label: "Bancomat", icon: "https://d2xduy7tbgu2d3.cloudfront.net/files/ICON/BANCOMAT.svg" },
-		{ id: 1, value: "MASTERCARD", label: "Mastercard" },
-		{ id: 2, value: "VISA", label: "Visa", icon: "https://d2xduy7tbgu2d3.cloudfront.net/files/ICON/VISA.svg" },
+		{ id: 0, value: "BANCOMAT", label: "Bancomat", icon: getCompletePathImage("BANCOMAT.svg") },
+		{ id: 1, value: "MASTERCARD", label: "Mastercard", icon: getCompletePathImage("MASTERCARD.svg") },
+		{ id: 2, value: "VISA", label: "Visa", icon: getCompletePathImage("VISA.svg") },
 	];
 
 	const multiSelectMenuItems = () => availableCircuits.map((circuit) => (
-		<MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
+		<MenuItem key={circuit?.id} value={circuit?.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
 			<ListItemAvatar>
-				{circuit?.icon ?
-					<Avatar alt={circuit.label} src={circuit.icon} variant="rounded">
-						{circuit.icon}
-					</Avatar>
-					:
-					<Avatar alt={circuit.label} variant="rounded" sx={{ height: "25px" }} >
-						<CreditCardIcon fontSize="small" />
-					</Avatar>
-				}
+				<Avatar alt={circuit?.label} variant="rounded" sx={{ height: "25px" }} src={circuit?.icon}> 
+					<CreditCardIcon fontSize="small" />
+				</Avatar>
 			</ListItemAvatar>
-			<ListItemText primary={circuit.label} data-testid={`circuits-select-${circuit.label}`} />
+			<ListItemText primary={circuit?.label} data-testid={`circuits-select-${circuit?.label}`} />
 		</MenuItem>
 	));
 
@@ -276,7 +272,7 @@ export const FormEmulatorParameters = () => {
 						onChange={handleChange}
 						error={Boolean(errors.acquirerId)}
 						helperText={errors.acquirerId}
-						inputProps={{ maxLength: ACQUIRER_ID_LENGTH, "data-testId": "acquirerId-test" }}
+						inputProps={{ maxLength: ACQUIRER_ID_LENGTH, "data-testid": "acquirerId-test" }}
 						defaultValue={initialValues.acquirerId}
 
 					/>
@@ -396,7 +392,7 @@ export const FormEmulatorParameters = () => {
 								checked={formData?.printer === "OK" ? true : false}
 								onChange={handleChange}
 								name="printer"
-								data-testId="printer-test"
+								data-testid="printer-test"
 							/>
 						}
 						label="Stampante"
@@ -424,7 +420,7 @@ export const FormEmulatorParameters = () => {
 							checked={touchInterface}
 							onChange={handleChange}
 							name="touch"
-							data-testId="touch-test"
+							data-testid="touch-test"
 						/>}
 						label="ATM Touch"
 						labelPlacement="start"

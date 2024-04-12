@@ -61,22 +61,23 @@ describe("handleClickFunction", () => {
     expect(mockNext).not.toHaveBeenCalled();
   });
 
-  test("should handle invalid input values", () => {
-    document.body.innerHTML = `
-      <button id="testButton" data="{}"></button>
-      <input id="testInput" pattern="\\d+" value="invalid">
-    `;
-    const mockEvent = {
-      currentTarget: document.querySelector("#testButton"),
-    } as unknown as MouseEvent;
-    const mockNext = jest.fn();
-    handleClickFunction(mockEvent, mockNext);
-    const input = document.querySelector("#testInput") as HTMLInputElement;
-    expect(input.classList.contains("warning")).toBe(true);
-    expect(input.value).toBe("");
-    expect(input.getAttribute("placeholder")).toBe("Campo non valido");
-    expect(mockNext).not.toHaveBeenCalled();
-  });
+  // TO_REMOVE, function is now handled by HandleInputs.ts
+  // test("should handle invalid input values", () => {
+  //   document.body.innerHTML = `
+  //     <button id="testButton" data="{}"></button>
+  //     <input id="testInput" pattern="\\d+" value="invalid">
+  //   `;
+  //   const mockEvent = {
+  //     currentTarget: document.querySelector("#testButton"),
+  //   } as unknown as MouseEvent;
+  //   const mockNext = jest.fn();
+  //   handleClickFunction(mockEvent, mockNext);
+  //   const input = document.querySelector("#testInput") as HTMLInputElement;
+  //   expect(input.classList.contains("warning")).toBe(true);
+  //   expect(input.value).toBe("");
+  //   expect(input.getAttribute("placeholder")).toBe("Campo non valido");
+  //   expect(mockNext).not.toHaveBeenCalled();
+  // });
 
   test("should handle valid input values", () => {
     document.body.innerHTML = `
