@@ -3,12 +3,6 @@ import { PanInfoDto } from "./../components/model/ParametersModel";
 /* eslint-disable functional/immutable-data */
 import { AUTHORIZE, END, GET_IBAN, GET_PAN, PRINT_RECEIPT, NEXT, SCAN_BILL_DATA, DEFAULT_SCAN_CODE, ESITO_OK, ESITO_KO, ESITO_DUBBIO } from "./constants";
 
-
-/* eslint-disable functional/no-let */
-export function click(): void {
-	console.log("quick click");
-}
-
 export function executeCommand(driver: string, setCommand: any, next: any, responseProcess: any, ibanList?:IbanListDto, panInfo?:PanInfoDto) {
 
 	switch (driver) {
