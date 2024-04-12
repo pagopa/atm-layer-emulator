@@ -101,4 +101,21 @@ describe("Test FormEmulatorParameters component", () => {
 		const submitBtn = screen.getByText("Conferma");
 		fireEvent.click(submitBtn);
 	});
+
+	test("Test handleChangeMultiSelectCard and onClose", async () => {
+		renderApp();
+		const selectCIrcuit0 = screen.getByTestId("circuits-select-0") as HTMLSelectElement;
+		const circuits = screen.getByRole('combobox') as HTMLSelectElement;
+	
+		fireEvent.mouseDown(circuits);
+		fireEvent.click(screen.getByText("Mastercard"));
+		fireEvent.click(screen.getByText("Bancomat"));
+		expect(selectCIrcuit0.value).toBe("VISA,MASTERCARD");
+		fireEvent.mouseLeave(circuits);
+
+		const addPanBtn = screen.getByText("Aggiungi metodo di pagamento pan");
+		fireEvent.click(addPanBtn);
+
+		screen.debug(undefined, 99999);
+	});
 });

@@ -82,6 +82,7 @@ const PanInfoCard = ({
 				onChange={(e) => handleChangePanInfoCards(e, index)}
 				error={Boolean(panInfoErrors[index].bankName)}
 				helperText={panInfoErrors[index].bankName}
+				inputProps={{ "data-testid": "bankName-test" }}
 			/>
 		</Grid>
 		<Grid xs={4} item my={1} px={1}>
