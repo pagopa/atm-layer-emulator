@@ -112,13 +112,13 @@ export const FormEmulatorParameters = () => {
 	];
 
 	const multiSelectMenuItems = () => availableCircuits.map((circuit) => (
-		<MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
+		<MenuItem key={circuit?.id} value={circuit?.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
 			<ListItemAvatar>
-				<Avatar alt={circuit.label} variant="rounded" sx={{ height: "25px" }} > 
+				<Avatar alt={circuit?.label} variant="rounded" sx={{ height: "25px" }} src={circuit?.icon}> 
 					<CreditCardIcon fontSize="small" />
 				</Avatar>
 			</ListItemAvatar>
-			<ListItemText primary={circuit.label} data-testid={`circuits-select-${circuit.label}`} />
+			<ListItemText primary={circuit?.label} data-testid={`circuits-select-${circuit?.label}`} />
 		</MenuItem>
 	));
 
