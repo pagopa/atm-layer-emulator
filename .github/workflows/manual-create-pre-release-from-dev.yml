@@ -78,7 +78,7 @@ jobs:
           git pull
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          git add .env.development .env.test .env.production
+          git add .env.development .env.test
           git commit --allow-empty -m ".env.development updated with new version ${{ steps.semantic-release-dryrun.outputs.new_release_version }}"
           git push
 
