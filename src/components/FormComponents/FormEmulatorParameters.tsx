@@ -24,6 +24,7 @@ import {
 	TERMINAL_BRANCH_LENGTH,
 } from "../../commons/constants";
 import ROUTES from "../../routes";
+import { getCompletePathImage } from "../../utils/Commons";
 import FormTemplate from "./template/FormTemplate";
 import PanInfoCard from "./PanInfoCard";
 import IbanInfoCard from "./IbanInfo";
@@ -105,51 +106,21 @@ export const FormEmulatorParameters = () => {
 	const navigate = useNavigate();
 
 	const availableCircuits = [
-		{ id: 0, value: "BANCOMAT", label: "Bancomat", icon: `${iconBaseUrl}/files/ICON/BANCOMAT.svg` },
-		{ id: 1, value: "MASTERCARD", label: "Mastercard", icon: `${iconBaseUrl}/files/ICON/MASTERCARD.svg` },
-		{ id: 2, value: "VISA", label: "Visa", icon: `${iconBaseUrl}/files/ICON/VISA.svg` },
+		{ id: 0, value: "BANCOMAT", label: "Bancomat", icon: getCompletePathImage("BANCOMAT.svg") },
+		{ id: 1, value: "MASTERCARD", label: "Mastercard", icon: getCompletePathImage("MASTERCARD.svg") },
+		{ id: 2, value: "VISA", label: "Visa", icon: getCompletePathImage("VISA.svg") },
 	];
 
-	// const multiSelectMenuItems = () => availableCircuits.map((circuit) => (
-	// 	<MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
-	// 		<ListItemAvatar>
-	// 			{circuit?.icon ?
-	// 				<Avatar alt={circuit.label} src={circuit.icon} variant="rounded">
-	// 					{circuit.icon}
-	// 				</Avatar>
-	// 				:
-	// 				<Avatar alt={circuit.label} variant="rounded" sx={{ height: "25px" }} >
-	// 					<CreditCardIcon fontSize="small" />
-	// 				</Avatar>
-	// 			}
-	// 		</ListItemAvatar>
-	// 		<ListItemText primary={circuit.label} data-testid={`circuits-select-${circuit.label}`} />
-	// 	</MenuItem>
-	// ));
-
-	const multiSelectMenuItems = () => availableCircuits.map((circuit) => {
-		
-		const [hasImageError, setHasImageError] = useState(false);
-	
-		const handleError = () => {
-			setHasImageError(true);
-		};
-	
-		return (
-			<MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
-				<ListItemAvatar>
-					<Avatar alt={circuit.label} variant="rounded" sx={{ height: "25px" }}>
-						{!hasImageError && circuit?.icon ?
-							<img src={circuit.icon} onError={handleError} alt={circuit.label} />
-							:
-							<CreditCardIcon fontSize="small" />
-						}
-					</Avatar>
-				</ListItemAvatar>
-				<ListItemText primary={circuit.label} data-testid={`circuits-select-${circuit.label}`} />
-			</MenuItem>
-		);
-	});
+	const multiSelectMenuItems = () => availableCircuits.map((circuit) => (
+		<MenuItem key={circuit.id} value={circuit.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
+			<ListItemAvatar>
+				<Avatar alt={circuit.label} variant="rounded" sx={{ height: "25px" }} > 
+					<CreditCardIcon fontSize="small" />
+				</Avatar>
+			</ListItemAvatar>
+			<ListItemText primary={circuit.label} data-testid={`circuits-select-${circuit.label}`} />
+		</MenuItem>
+	));
 
 	const addOptionalPanPaymentMethod = () => {
 		const newPanInfoCard = { ...formDataPanInfoCards };
