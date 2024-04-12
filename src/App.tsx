@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Route, Routes } from "react-router-dom";
 import { themeApp } from "./assets/jss/themeApp";
 import { Ctx } from "./DataContext.js";
-import { CommonErrorPage } from "./pages/ErrorPage/CommonErrorPage";
+import { CommonErrorPage } from "./pages/ErrorPages/CommonErrorPage";
 import routes from "./routes";
 import PageLayout from "./pages/Layout/PageLayout";
 import { JwtUser } from "./components/model/UserModel";
@@ -12,21 +12,22 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import LoginPageCallback from "./pages/LoginPageCallback";
 import ServiceAccessPage from "./pages/ServiceAccessPage/ServiceAccessPage";
+import PrivateRoute from "./components/NavigationComponents/PrivateRoute";
+import { IbanListDto, PanInfoDto } from "./components/model/ParametersModel";
+import ErrorPage from "./pages/ErrorPages/ErrorPage";
 
 
 
 const LocalRoutes = () => (
 	<Routes>
-
-		<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
-		<Route path={routes.SERVICE_ACCESS} element={<ServiceAccessPage />} />
-		<Route
-			path={routes.ERROR_PAGE}
-			element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>}
-		/>
+		<Route element={<PrivateRoute />}>
+			<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
+			<Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} />
+			<Route path={routes.TIMEOUT_PAGE} element={<PageLayout><ErrorPage title="Il processo ha impiegato troppo tempo per rispondere" /></PageLayout>} />
+			<Route path={routes.ERROR_PAGE} element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>} />
+		</Route>
 		<Route path={routes.LOGIN} element={<PageLayout><LoginPage /></PageLayout>} />
 		<Route path={routes.LOGIN_BACK} element={<PageLayout><LoginPageCallback /></PageLayout>} />
-
 	</Routes>
 );
 
@@ -44,6 +45,8 @@ function App() {
 	const [transactionData, setTransactionData] = useState ({});
 	const abortController = new AbortController();
 	const [touchInterface, setTouchInterface] = useState(true);
+	const [panInfo, setPanInfo] = useState<PanInfoDto>({panInfo: []});
+	const [ibanList, setIbanList] = useState<IbanListDto>({IBANlist: []});
 
 	function clearAll() {
 		if (sessionStorage.getItem("jwt_emulator")) {
@@ -55,7 +58,6 @@ function App() {
 	function setTokenExpired() {
 		sessionStorage.removeItem("jwt_emulator");
 		setLogged(false);
-		// navigate(ROUTES.LOGIN);
 	}
 
 	function clearStorage() {
@@ -86,7 +88,11 @@ function App() {
 		transactionData,
 		setTransactionData,
 		touchInterface,
-		setTouchInterface
+		setTouchInterface,
+		panInfo,
+		setPanInfo,
+		ibanList,
+		setIbanList
 	};
 
 	useEffect(() => {

@@ -1,6 +1,5 @@
-import {Box, CircularProgress, Grid, Typography } from "@mui/material";
+import {Box, Grid, Typography } from "@mui/material";
 import { theme } from "@pagopa/mui-italia";
-import { getCompletePathImage } from "../../utils/Commons";
 
 type Props = {
     title: string;
@@ -10,11 +9,6 @@ type Props = {
 
 export const CommonErrorPage = ({ title, icon, children }: Props) => (
 	<>
-		{/* <Header 
-			bankTitle="Test" 
-			bankLogo={getCompletePathImage("icon-48x48.png")} 
-			serviceDescription="Servizi di pubblica utilità" 
-		/> */}
 		<Box 
 			height="90vh"
 			display="flex"

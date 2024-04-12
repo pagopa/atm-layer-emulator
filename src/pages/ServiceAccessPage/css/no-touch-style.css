@@ -1,9 +1,10 @@
 @import "./root.css";
 
 #no-touch {
-    width: 800px;
+    flex: 0 0 800px;
     height: 600px;
     border: 1px solid var(--divider);
+    background-color: #ffffff;
 }
 
 #no-touch #subtitle {
@@ -77,6 +78,7 @@
 
 
 #no-touch ul {
+    margin-left: 10px;
     list-style-type: none;
     padding-left: 0px;
     padding-top: 25px;
@@ -84,13 +86,13 @@
     max-height: 260px;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 }
 
 
 #no-touch [data-fdk='S4'] {
     position: absolute;
-    top: 510px;
+    top: 580px;
     left: 26px;
     padding-left: 3px;
     background: url(./leftArrow.svg) no-repeat;
@@ -100,26 +102,46 @@
 
 #no-touch [data-fdk='S3'] {
     position: absolute;
-    top: 400px;
-    left: 36px;
+    top: 490px;
+    left: 26px;
     right: auto;
+    background: url(./leftArrow.svg) no-repeat;
+    background-position-y: center;
+    background-position-x: 10px;
 }
 
 #no-touch [data-fdk='S2'] {
     position: absolute;
-    top: 330px;
-    left: 36px;
+    top: 400px;
+    left: 26px;
     right: auto;
+    background: url(./leftArrow.svg) no-repeat;
+    background-position-y: center;
+    background-position-x: 10px;
 }
 
 #no-touch [data-fdk='S1'] {
     position: absolute;
-    top: 270px;
-    left: 36px;
+    top: 310px;
+    left: 26px;
     right: auto;
+    background: url(./leftArrow.svg) no-repeat;
+    background-position-y: center;
+    background-position-x: 10px;
 }
 
-#no-touch [data-fdk='S7'] {
+#no-touch [data-fdk='S5'] {
+    position: absolute;
+    left: 446px;
+    top: 310px;
+    background: url(./rightArrow.svg) no-repeat;
+    background-position: right;
+    justify-content: flex-end;
+    background-position-x: 303px;
+}
+
+#no-touch [data-fdk='S6'] {
+    position: absolute;
     left: 446px;
     top: 400px;
     background: url(./rightArrow.svg) no-repeat;
@@ -128,9 +150,20 @@
     background-position-x: 303px;
 }
 
-#no-touch [data-fdk='S8'] {
+#no-touch [data-fdk='S7'] {
+    position: absolute;
     left: 446px;
-    top: 510px;
+    top: 490px;
+    background: url(./rightArrow.svg) no-repeat;
+    background-position: right;
+    justify-content: flex-end;
+    background-position-x: 303px;
+}
+
+#no-touch [data-fdk='S8'] {
+    position: absolute;
+    left: 446px;
+    top: 580px;
     background: url(./rightArrow.svg) no-repeat;
     background-position: right;
     justify-content: flex-end;
@@ -140,7 +173,7 @@
 #no-touch #exit[data-fdk='S8'] {
     position: absolute;
     left: 446px;
-    top: 510px;
+    top: 580px;
     background: url(./rightArrow.svg) no-repeat;
     background-position: right;
     justify-content: flex-end;
@@ -161,7 +194,7 @@
     justify-content: space-between;
     font-size: 16px;
     margin: 10px;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     float: right;
     font-weight: 600;
     cursor: pointer;
@@ -260,4 +293,16 @@
 
 #no-touch button.negative[data-fdk='S8']#confirm > img {
     filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg);
+}
+
+#no-touch #prevLiButton.hidden {
+	display: none;
+}
+
+#no-touch #nextLiButton.hidden {
+	display: none;
+}
+
+#no-touch p.left {
+    top : 470px;
 }

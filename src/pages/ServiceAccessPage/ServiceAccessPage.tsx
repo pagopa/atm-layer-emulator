@@ -4,115 +4,101 @@ import { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { Box } from "@mui/material";
 import { generatePath } from "react-router-dom";
+import React from "react";
 import { Ctx } from "../../DataContext";
 import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
 import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./css/style-page.css";
 import { executeCommand } from "../../commons/utilsFunctions";
-import { Loading } from "../../components/Commons/Loading";
-
-
+import { Loading } from "../../utils/Commons/Loading";
+import { AUTHORIZE, COMMAND_INFO_TEMPLATE, SCAN_BILL_DATA } from "../../commons/constants";
+import { addHeaderRow, createNextLiButton, createPrevLiButton, getPaginationFragment, positionPaginatedButtons, positionUnpaginatedButtons } from "../../utils/Commons";
+import { addButtonClickListener, removeButtonClickListener } from "../../utils/HandleClicks";
+import { postData } from "../../utils/PostData";
 
 
 const ServiceAccessPage = () => {
 
-	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface } = useContext(Ctx);
+	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList } = useContext(Ctx);
 	const [loading, setLoading] = useState(false);
 	const [command, setCommand] = useState(responseProcess?.task?.command);
-	let bodyHtml :any ;
+	const [menuList, setMenuList] = useState<any | NodeList>();
+	const [pageIndex, setPageIndex] = useState(1);
+	const pageSize = 4;
+	let bodyHtml: any;
 	let timeout = responseProcess?.task?.timeout;
-	
-	if(responseProcess?.task?.template?.content){ 
-		bodyHtml= decodeRenderHtml(responseProcess?.task?.template?.content);
+
+	if (responseProcess?.task?.template?.content) {
+		bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
+	} else if (!responseProcess?.task?.template?.content && (responseProcess?.task?.command === AUTHORIZE || responseProcess?.task?.command === SCAN_BILL_DATA)) {
+		bodyHtml = decodeRenderHtml(COMMAND_INFO_TEMPLATE);
 	}
 
+	function getPaginationElements(){
+		const listItems=document.querySelectorAll("#menu > li");
+		if(listItems?.length>pageSize){
+			setMenuList(listItems); 
+			const frag = getPaginationFragment(Array.from(listItems),pageIndex,pageSize);
+			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
+			if(!touchInterface){
+				positionPaginatedButtons();
+			}	
+		} else {
+			positionUnpaginatedButtons(touchInterface);
+		}
+	};
 
 	useEffect(() => {
-		if (!timeout || timeout === null){
+		if (!timeout || timeout === null) {
 			timeout = 30;
 		}
 		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
-		addButtonClickListener();
-		
-		// const command = responseProcess?.task.command;
-		// if (command !== undefined && command !== null) {
-		// 	executeCommand(command, next, responseProcess);
-		// }
-		
+		setPageIndex(1);
+		setMenuList({});
+		addButtonClickListener(next, handleNextLiButtonClick, handlePrevLiButtonClick);
+
+		const menu=document?.getElementById("menu");
+		if(menu){
+			getPaginationElements();
+		}
+
 		return () => {
-			removeButtonClickListener();
+			removeButtonClickListener(next);
 			clearTimeout(nextTimeout);
 		};
 	}, [responseProcess]);
 
 	useEffect(() => {
-		if(command && command!==""){
-			executeCommand(command, next, responseProcess);
+		if (command && command !== "") {
+			executeCommand(command, setCommand, next, responseProcess, ibanList, panInfo);
 		}
 	}, [command]);
 
-	const date = new Date().toISOString().slice(0, -5);
-	const postData = (params: any) => ({
-		data: {
-			"panInfo": [
-				{
-					"pan": "1234567891234567",
-					"circuits": [
-						"VISA"
-					],
-					"bankName": "ISYBANK"
-				},{
-					"pan": "8234567891234565",
-					"circuits": [
-						"BANCOMAT",
-						"VISA"			
-					],
-					"bankName": "INTESA"
-				}
-			],
-			...params
-		},
-		device: {
-			bankId: transactionData.acquirerId,
-			branchId: transactionData.branchId,
-			channel: "ATM",
-			code: transactionData.code,
-			opTimestamp: date,
-			peripherals: [
-				{
-					id: "PRINTER",
-					name: "Receipt printer",
-					status: transactionData.printer
-				},
-				{
-					id: "SCANNER",
-					name: "Scanner",
-					status: transactionData.scanner
-				}
-			],
-			terminalId: transactionData.terminalId,
-		},
-		taskId: responseProcess?.task?.id,
-	});
+	useEffect(() => {
+		const menu=document?.getElementById("menu");
+		if(menu && menuList){
+			const frag = getPaginationFragment(Array.from(menuList),pageIndex,pageSize);
+			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
+			if(!touchInterface){
+				positionPaginatedButtons();
+			}	
+		}
+	}, [pageIndex]);
 
-	const next = async (params: any, panInfo?:any) => {
-		// setCommand("");
+	const next = async (params: any) => {
 		setLoading(true);
 		try {
 			const response = await fetchRequest({
 				urlEndpoint: generatePath(TASK_NEXT, { transactionId: responseProcess?.transactionId }),
 				method: "POST",
 				abortController,
-				body: postData(params),
+				body: postData(params,responseProcess,transactionData),
 				headers: { "Content-Type": "application/json" }
 			})();
 
 			if (response?.success) {
-				
-				if (response?.valuesObj?.task?.command) {
-					setCommand(response?.valuesObj?.task?.command);
-				}
+				setCommand(response?.valuesObj?.task?.command);
 				setResponseProcess(response?.valuesObj);
 			}
 		} catch (error) {
@@ -122,68 +108,30 @@ const ServiceAccessPage = () => {
 		}
 	};
 
-	const handleClick = (event: MouseEvent) => {
+	const handleNextLiButtonClick = (event: MouseEvent) => {
 		const button = event.currentTarget as HTMLButtonElement;
 		if (button) {
-			const dataString = button.getAttribute("data");
-			if(dataString){
-				const data = dataString ? JSON.parse(dataString) : {};
-				const params: any = { ...data };
-				const inputElements = document?.querySelectorAll("input");
-				inputElements.forEach((input: any) => {
-					params[input.id] = input.value;
-				});
-				void next(params);
-			} else {
-				void next({selected: button.id, continue: true});
-			}
-			
+			setPageIndex(pageIndex => pageIndex + 1);
 		}
 	};
 
-	const addButtonClickListener = () => {
-		const buttons = document?.querySelectorAll("button");
-		buttons?.forEach(button => {
-			button.addEventListener("click", handleClick);
-		});
-		const listButtons = document?.querySelectorAll("li");
-		listButtons?.forEach(listButton => {
-			listButton.addEventListener("click", handleClick);
-		});
+	const handlePrevLiButtonClick = (event: MouseEvent) => {
+		const button = event.currentTarget as HTMLButtonElement;
+		if (button) {
+			setPageIndex(pageIndex => pageIndex - 1);
+		}
 	};
 
-	const removeButtonClickListener = () => {
-		const buttons = document?.querySelectorAll("button");
-		buttons?.forEach(button => {
-			button.removeEventListener("click", handleClick);
-		});
-		const listButtons = document?.querySelectorAll("li");
-		listButtons?.forEach(listButton => {
-			listButton.removeEventListener("click", handleClick);
-		});
-	};
 
-	
-	
-	const headerRow = document.createElement("div");
-	headerRow.classList.add("mui-row");
-	headerRow.id = "headerSection";
-	const logoElement = bodyHtml?.querySelector("#logo");
-	if (logoElement) {
-		const logoColumn = document.createElement("div");
-		logoColumn.classList.add("mui-col-md-6");
-		logoColumn.appendChild(logoElement);
-		headerRow.appendChild(logoColumn);
+	bodyHtml = addHeaderRow(bodyHtml);
+
+	// pagino solo se la lista è maggiore del pageSize
+	const listLength = bodyHtml?.querySelectorAll("#menu > li")?.length;
+	const paginateFlag = listLength>pageSize;
+	if(responseProcess?.task?.template?.type === "MENU" && paginateFlag){
+		bodyHtml?.appendChild(createNextLiButton());
+		bodyHtml?.appendChild(createPrevLiButton());
 	}
-	const descElement = bodyHtml?.querySelector("h1");
-	if (descElement) {
-		const descColumn = document.createElement("div");
-		descColumn.classList.add("mui-col-md-6");
-		descColumn.appendChild(descElement);
-		descColumn.setAttribute("style", "display: flex; justify-content: flex-end ");
-		headerRow.appendChild(descColumn);
-	}
-	bodyHtml?.insertBefore(headerRow, bodyHtml.firstChild);
 
 	if (touchInterface){
 		const footerRow = document.createElement("div");
@@ -191,6 +139,7 @@ const ServiceAccessPage = () => {
 		footerRow.id = "footerSection";
 		bodyHtml?.appendChild(footerRow);
 	}
+
 
 	const exitButton= bodyHtml?.querySelector("#exit");
 	if (!touchInterface && !exitButton?.hasAttribute("data-fdk")){
@@ -205,20 +154,25 @@ const ServiceAccessPage = () => {
 			if (data) {
 				renderedButton.setAttribute("data", JSON.stringify(data));
 			}
-			
+
 		}
 	});
 
 
 	return (
-		<Box id={touchInterface ? "touch" : "no-touch"} m={2}>
-			{loading ? 
-				<Loading  marginTop={"20%"} message="Operazione in corso, si prega di attendere" />
-			 : 
-				bodyHtml && parse(bodyHtml?.innerHTML)
+		<React.Fragment>
+			<Box id={touchInterface ? "touch" : "no-touch"} m={2}>
+				{loading ?
+					<Loading marginTop={"20%"} message="Operazione in corso, si prega di attendere" />
+					:
+					bodyHtml && parse(bodyHtml?.innerHTML)
+				}
+
+			</Box>
+			{command === AUTHORIZE || command === SCAN_BILL_DATA ? 
+				(<Box id="command" m={2}/>) : null
 			}
-			
-		</Box>
+		</React.Fragment>
 	);
 };
 

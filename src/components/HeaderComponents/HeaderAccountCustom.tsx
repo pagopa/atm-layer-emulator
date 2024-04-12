@@ -6,7 +6,7 @@ import { Ctx } from "../../DataContext";
 import { RootLinkType } from "../model/UserModel";
 import { USER_EMAIL } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
-import IconBox from "../Commons/IconBox";
+import IconBox from "../../utils/Commons/IconBox";
 import ROUTES from "../../routes";
 
 type HeaderAccountProps = {
@@ -53,7 +53,7 @@ export const HeaderAccountCustom = ({
 				borderBottom: 1,
 				borderColor: "divider",
 				backgroundColor: "background.paper",
-				minHeight: "40px",
+				minHeight: "70px",
 			}}
 		>
 			<Container maxWidth={false}>
@@ -68,8 +68,6 @@ export const HeaderAccountCustom = ({
 							{rootLink?.element}
 						</Box>
 						<Box pl={2} className="home" aria-label={"buttonHome"} display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"flex-start"}>
-							{/* <Button variant="text" size="medium" >Text</Button> */}
-							{/* <ActionIcon icon={"Launch"} color={theme.palette.text.primary} pad={1.5} size={"1em"}  /> */}
 							<Button
 								variant="text"
 								size="large"
@@ -115,7 +113,7 @@ export const HeaderAccountCustom = ({
 
 						{/* 2. Logged User */}
 						{loggedUser && (
-							<Button variant="outlined" onClick={onLogout} title="Esci" data-testid="exit-button-test">
+							<Button variant="outlined" onClick={onLogout} title="Esci" id="logout-button" data-testid="exit-button-test">
 								Esci
 							</Button>
 						)}

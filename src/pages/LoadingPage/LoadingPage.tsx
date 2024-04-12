@@ -3,11 +3,6 @@ import { theme } from "@pagopa/mui-italia";
 
 export const LoadingPage = () => (
 	<>
-		{/* <Header 
-			bankTitle="Test" 
-			bankLogo={getCompletePathImage("icon-48x48.png")} 
-			serviceDescription="Servizi di pubblica utilità" 
-		/> */}
 		<Box 
 			height="90vh"
 			display="flex"
@@ -25,6 +20,7 @@ export const LoadingPage = () => (
 								strokeDasharray: "238.76% 150%", // Set a custom strokeDasharray for 3/4 progress
 							},
 						}}
+						data-testid="circular-loader"
 					/>
 				</Grid>
 				<Grid item xs={12}>

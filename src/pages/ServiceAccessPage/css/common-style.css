@@ -1,5 +1,63 @@
 @import "./root.css";
 
+#command {
+    flex: 0 0 550px;
+    border: 1px solid var(--divider);
+    margin: 16px;
+    background-color: #FFFFFF;
+    height: max-content;
+}
+
+#command input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IBAN ,#banca-iban){
+    width:60%;
+}
+
+#command-buttons-div {
+    display: flex;
+	justify-content: space-evenly;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.command-button {
+    border-radius: 10px;
+	padding: 10px 40px;
+	text-decoration: none;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 140px;
+    min-height: 45px;
+	min-width: 105px;
+	font-size: 16px;
+	margin: 10px;
+	float: right;
+	color: var(--background-paper);
+	font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+#authorize-button {
+    background-color: var(--success-main);
+    border: solid 2px var(--success-main);
+}
+
+#doubtful-button {
+    background-color: var(--warning-main);
+    border: solid 2px var(--warning-main);
+}
+
+#cancel-button {
+    background-color: var(--error-main);
+    border: solid 2px var(--error-main);
+}
+
+#text-authorize {
+    margin-top: 10px;
+    text-align: center;
+}
+
 #title_page {
     color: white;
     padding: 10;
@@ -53,11 +111,15 @@ h3 {
     padding-right: 20px;
 }
 
+p{
+    margin-left: 20px;;
+}
+
 strong {
     padding-left: 20px;
 }
 
-button:not([data-fdk], #home-button, #confirm-button) {
+button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn, #login-button, #logout-button, #visible-section-btn) {
     position: absolute;
     right: 260px;
     left: auto;
@@ -94,7 +156,7 @@ body {
     font-family: var(--font-family);
 }
 
-input {
+input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IBAN ,#banca-iban) {
     width: 35%;
     height: 60%;
     padding: 12px 20px;
@@ -105,11 +167,18 @@ input {
     border-color: var(--divider);
 }
 
-input:focus{
+input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IBAN,#banca-iban):focus{
     border: 2px solid var(--primary-main);
     outline: none;
 }
 
+input.warning:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IBAN ,#banca-iban) {
+    border-color: var(--error-main);
+}
+
+input.warning::placeholder {
+    color: var(--error-main);
+  }
 
 label {
     text-overflow: ellipsis;
@@ -182,9 +251,11 @@ td {
 }
 
 p.left {
+    position:absolute;
+    top:400px;
     margin: 10px;
     margin-left: 20px;
-    width: 330px;
+    width: 305px;
     background-color: var(--info-extraLight);
     border-radius: 6px;
     display: flex;
@@ -249,4 +320,37 @@ td > img {
 
 #home-button{
     display:none;
+}
+
+#command #command-submit-btn {
+	border-radius: 10px;
+	background-color: var(--primary-main);
+	border: 2px solid var(--primary-main);;
+	padding: 10px 40px;
+	text-decoration: none;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 140px;
+    min-height: 45px;
+	min-width: 105px;
+	font-size: 16px;
+	margin: 10px;
+	float: right;
+	color: var(--background-paper);
+	font-weight: 600;
+	cursor: pointer;
+}
+
+#circuits-label.MuiInputLabel-root{
+    top: -8px;
+}
+#circuits-label.MuiInputLabel-root.Mui-focused{
+    top: 0px;
+}
+
+.mui-col-md-12.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

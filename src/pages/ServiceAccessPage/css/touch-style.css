@@ -1,10 +1,11 @@
 @import "./root.css";
 
 body #touch {
-    width: 800px;
+	flex: 0 0 800px;
     height: 600px;
-    border: 2px solid var(--divider);
+    border: 1px solid var(--divider);
 	position:relative;
+	background-color: #ffffff;
 }
 
 #touch #footerSection{
@@ -60,7 +61,7 @@ body #touch {
 	border: 2px solid;
 	background: url(./exit.svg) no-repeat;
 	background-position-y: center;
-    max-width: 138px;
+    max-width: max-content;
 	position: absolute;
     top: 530px;
     left: 180px;
@@ -77,7 +78,7 @@ body #touch {
 #touch ul {
 	list-style-type: none;
 	padding-left: 10px;
-	overflow: auto;
+	/* overflow: auto; */
 	max-height: 320px;
 }
 
@@ -136,6 +137,12 @@ body #touch {
 	color: var(--primary-main);
 }
 
+#touch [data-fdk='S3'] {
+	position: absolute;
+    top: 400px;
+    left: 16px;
+}
+
 #touch [data-fdk='S4'] {
 	position: absolute;
     top: 530px;
@@ -176,3 +183,8 @@ body #touch {
 	left: auto;
 	right: 16px;
 }
+
+#touch .hidden {
+	display: none;
+}
+

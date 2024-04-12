@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Box } from "@mui/material";
 import { Ctx } from "../../DataContext";
 import { HeaderApp } from "../../components/HeaderComponents/HeaderApp";
-// import { Header } from "../../components/HeaderComponents/Header";
-// import CustomAppBar from "../../components/Menu/CustomAppBar";
 
 
 type Prop = {
@@ -11,7 +9,6 @@ type Prop = {
 };
 
 export default function PageLayout({ children }: Prop) {
-	const { logged } = useContext(Ctx);
 
 	return (
 		<Ctx.Consumer>
@@ -24,7 +21,7 @@ export default function PageLayout({ children }: Prop) {
 					<Box gridArea="header" sx={{ position: "sticky", top: 0, zIndex: "100" }}>
 						<HeaderApp />
 					</Box>
-					<Box sx={{ maxHeight: "calc(100vh - 110px)", overflowY: "auto", width: "100%" }}>
+					<Box sx={{ maxHeight: "calc(100vh - 110px)", width: "100%", display: "flex" }}>
 						{children}
 					</Box>
 				</Box>

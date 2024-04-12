@@ -17,10 +17,28 @@ const checks = () => {
 		return cfRegex.test(value);
 	};
 
+	const ibanIsValid = (value: string) => {
+		const ibanRegex = /^IT[A-Z0-9]{25}$/;
+		return ibanRegex.test(value);
+	};
+
+	const panIsValid = (value: string) => {
+		const panRegex = /^[0-9]{16}$/;
+		return panRegex.test(value);
+	};
+
+	const isValidInputValue = (value:string, pattern:string) => {
+		const regex = new RegExp(pattern);
+		return (regex.test(value));
+	};
+
 	return{
 		isInvalidField,
 		// isValidFiscalCode
-		cfIsValid
+		cfIsValid,
+		ibanIsValid,
+		panIsValid,
+		isValidInputValue
 	};
 };
 export default checks;

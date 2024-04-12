@@ -45,7 +45,6 @@
     "build": "react-scripts build",
     "build:dev": "env-cmd -f .env.development react-scripts build",
     "build:uat": "env-cmd -f .env.test react-scripts build",
-    "build:prod": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "test:last-commit-coverage": "react-scripts test -i --coverage",
     "test:coverage": "react-scripts test --coverage",
