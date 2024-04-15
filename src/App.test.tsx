@@ -7,7 +7,7 @@ describe ("App Tests", () => {
 
 		sessionStorage.setItem("tempLog", "fakeToken");
 		sessionStorage.setItem("jwt_emulator", "fakeToken");
-		sessionStorage.setItem("debugOn", "debugOn");
+		sessionStorage.setItem("debugOn", "true");
 	
 		render(
 			<BrowserRouter>
@@ -20,7 +20,7 @@ describe ("App Tests", () => {
 	
 		sessionStorage.setItem("tempLog", "fakeToken");
 		sessionStorage.setItem("jwt_emulator", "fakeToken");
-		sessionStorage.setItem("debugOn", "debugOn");
+		sessionStorage.setItem("debugOn", "false");
 		localStorage.setItem("jwt_console", "prova");
 		localStorage.setItem("debugOn", "prova");
 	
