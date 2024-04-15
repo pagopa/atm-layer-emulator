@@ -31,9 +31,9 @@ const LocalRoutes = () => (
 	</Routes>
 );
 
+  
 function App() {
 	const RELEASE_VERSION = process.env.REACT_APP_VERSION;
-
 	const [warningCodeValue, setWarningCodeValue] = useState("");
 	const [loading, setLoading] = useState(false);
 	const temp = sessionStorage.getItem("tempLog");
@@ -94,7 +94,7 @@ function App() {
 		ibanList,
 		setIbanList
 	};
-
+  
 	useEffect(() => {
 		if (debugOn) {
 			console.log("ATM-LAYER-EMULATOR-RELEASE VERSION:", RELEASE_VERSION);
@@ -115,5 +115,5 @@ function App() {
 		</ThemeProvider>
 	);
 }
-
+  
 export default App;
