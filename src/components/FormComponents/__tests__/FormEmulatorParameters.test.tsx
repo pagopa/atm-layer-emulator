@@ -121,15 +121,12 @@ describe("Test FormEmulatorParameters component", () => {
 	test("validating form fields", () => {
 		renderApp();
 
-		// Simula il cambiamento di un campo del modulo
 		const acquirerIdInput = screen.getByLabelText("ID Banca *");
 		fireEvent.change(acquirerIdInput, { target: { value: "" } });
 
-		// Simula la sottomissione del modulo
 		const submitButton = screen.getByRole("button", { name: "Conferma" });
 		fireEvent.click(submitButton);
 
-		// Verifica che il messaggio di errore sia stato visualizzato correttamente
 		const errorMessage = screen.getByText("Campo obbligatorio");
 		expect(errorMessage).toBeInTheDocument();
 	});
