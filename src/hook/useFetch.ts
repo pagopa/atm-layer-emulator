@@ -6,7 +6,7 @@ export default function useFetch(endPoint?: string | undefined) {
 
 	const SERVER_API_ORIGIN = endPoint&& endPoint!=="" ? endPoint : process.env.REACT_APP_BACKEND_URL;
 	const CODE_SUCCESS = [200, 201, 202, 203] ;
-	const token = localStorage.getItem("jwt_emulator");
+	const token = sessionStorage.getItem("jwt_emulator");
 
 	const fetchFromServer = async ({
 		urlEndpoint,
@@ -22,12 +22,9 @@ export default function useFetch(endPoint?: string | undefined) {
 		
 
 		let headerRequest = {
-			"Accept": "application/json"
+			"Authorization": token ? token : "",
+			"Accept": "application/json",
 		};
-		if (token) {
-			const auth={"Authorization": token};
-			headerRequest = {...headerRequest, ...auth};
-		}
 
 		if (headers) {
 			headerRequest = {
@@ -71,36 +68,50 @@ export default function useFetch(endPoint?: string | undefined) {
 					// referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
 				};
 
-
+		const maxRetries = 2;
+		const retryDelay = 0;
+		let retryCount = 0;
 		try {
-			response = await fetch(
-				SERVER_API_ORIGIN + urlEndpoint,
-				options
-			).catch((e) => {
-				console.error(e);
-			});
-			status = response?.status;
-			// TOKEN SCADUTO
-			if (!response) {
-				// window.location.reload();
-				data = {
-					valuesObj: { message: "Errore durante la chiamata all'api", status },
-					success: false,
-				};
-			}
-			if (status === 401) {
-				window.location.assign(process.env.REACT_APP_HOME_PATH+ROUTES.LOGIN);
-				return;
-			}
-			if (status === 204) {
-				data = { valuesObj: { message: "Dati vuoti" }, status, success: true }; // valuesObj conterrà il messaggio di errore
-			} else if (status && !(CODE_SUCCESS.includes(status)) && status !== 206) {
-				const errorResponse = await response?.json();
-				data = { valuesObj: errorResponse, status, success: false }; // valuesObj conterrà il messaggio di errore
-			} else {
-				data = await response?.json(); // parses JSON response into native JavaScript objects
-				data = { valuesObj: data, status, success: true }; // CODE_SUCCESS 200/206
 
+			while (retryCount <= maxRetries) {
+				response = await fetch(
+					SERVER_API_ORIGIN + urlEndpoint,
+					options
+				).catch((e) => {
+					console.error(e);
+				});
+				status = response?.status;
+				// TOKEN SCADUTO
+				if (!response) {
+				// window.location.reload();
+					data = {
+						valuesObj: { message: "Errore durante la chiamata all'api", status },
+						success: false,
+					};
+					break;
+				}
+				if (status === 401) {
+					window.location.assign(process.env.REACT_APP_HOME_PATH+ROUTES.LOGIN);
+					return;
+				}
+				if (status === 204) {
+					data = { valuesObj: { message: "Dati vuoti" }, status, success: true }; // valuesObj conterrà il messaggio di errore
+					break;
+				} else if (status && !(CODE_SUCCESS.includes(status)) && status !== 206) {
+					const errorResponse = await response?.json();
+					data = { valuesObj: errorResponse, status, success: false }; // valuesObj conterrà il messaggio di errore
+					break;
+				} else if (status === 202){
+					if (retryCount === maxRetries) {
+						window.location.assign(process.env.REACT_APP_HOME_PATH+ROUTES.TIMEOUT_PAGE);
+					}
+					retryCount++;
+					data= await new Promise((resolve) => setTimeout(resolve, retryDelay));
+				}else {
+					data = await response?.json(); // parses JSON response into native JavaScript objects
+					data = { valuesObj: data, status, success: true }; // CODE_SUCCESS 200/206
+					break;
+				}
 			}
 		} catch (error) {
 			data = {

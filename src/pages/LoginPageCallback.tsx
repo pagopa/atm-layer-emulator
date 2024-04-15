@@ -3,43 +3,28 @@ import { useNavigate } from "react-router-dom";
 import { Ctx } from "../DataContext";
 import routes from "../routes";
 // import { Loading } from "../components/Commons/Loading";
-import { fetchRequest } from "../hook/fetch/fetchRequest";
-import { USER_EMAIL } from "../commons/endpoints";
+import { Loading } from "../utils/Commons/Loading";
 
 
 const LoginPageCallback = () => {
-	const { setLogged, abortController, setUserEmail } = useContext(Ctx);
+	const { setLogged } = useContext(Ctx);
 	const navigate = useNavigate();
 
-	const getTokenEmail = async (token: string) => {
-		try {
-			const response = await fetchRequest({ urlEndpoint: USER_EMAIL, method: "GET", abortController })();
-
-			if (response?.success) {
-				setUserEmail(response?.valuesObj.email);
-			} else {
-				setUserEmail("Benvenuto utente");
-			}
-		} catch (error) {
-			console.error("ERROR", error);
-		}
-	};
 
 	useEffect(() => {
-		const token=window?.location?.hash?.split("&")[1]?.split("=")[1];
-		if(token) {
+		const token = window?.location?.hash?.split("&")[1]?.split("=")[1];
+		if (token) {
 			setLogged(true);
-			void getTokenEmail(token);
-			sessionStorage.setItem("jwt", token);
+			sessionStorage.setItem("jwt_emulator", token);
 			navigate(routes.HOME);
-		}else{
+		} else {
 			navigate(routes.LOGIN);
 		}
 	}, []);
 
-	// return(
-	// 	<Loading/>
-	// );
+	return(
+		<Loading />
+	);
 };
 
 export default LoginPageCallback;
