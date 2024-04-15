@@ -2,6 +2,7 @@ import { Ctx } from "../../../DataContext";
 import { BrowserRouter } from "react-router-dom";
 import ServiceAccessPage from "../ServiceAccessPage";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { executeCommand } from "../../../commons/utilsFunctions";
 
 beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => { });
@@ -356,4 +357,21 @@ describe("Service Access Page Tests", () => {
             </Ctx.Provider>
         );
     });
+
+    test('returns empty string for unhandled driver', () => {
+        // Setup
+        const unhandledDriver = 'UNHANDLED_DRIVER';
+        const setCommand = jest.fn();
+        const next = jest.fn();
+        const responseProcess = {}; // Puoi passare un oggetto vuoto per questo test
+    
+        // Action
+        const result = executeCommand(unhandledDriver, setCommand, next, responseProcess);
+    
+        // Assertion
+        expect(result).toBe(''); // Verifica che la funzione restituisca una stringa vuota
+        // Verifica che le funzioni setCommand e next non siano state chiamate
+        expect(setCommand).not.toHaveBeenCalled();
+        expect(next).not.toHaveBeenCalled();
+      });
 });
