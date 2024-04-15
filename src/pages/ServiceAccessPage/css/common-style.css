@@ -112,7 +112,7 @@ h3 {
 }
 
 p{
-    margin-left: 20px;;
+    margin-left: 20px;
 }
 
 strong {
@@ -325,7 +325,7 @@ td > img {
 #command #command-submit-btn {
 	border-radius: 10px;
 	background-color: var(--primary-main);
-	border: 2px solid var(--primary-main);;
+	border: 2px solid var(--primary-main);
 	padding: 10px 40px;
 	text-decoration: none;
 	display: flex;
