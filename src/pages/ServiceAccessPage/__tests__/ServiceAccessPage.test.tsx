@@ -358,19 +358,13 @@ describe("Service Access Page Tests", () => {
         );
     });
 
-    test('returns empty string for unhandled driver', () => {
-        // Setup
-        const unhandledDriver = 'UNHANDLED_DRIVER';
+    test("test with UNKNOWN command", () => {
+        const unhandledDriver = "UNHANDLED_DRIVER";
         const setCommand = jest.fn();
         const next = jest.fn();
-        const responseProcess = {}; // Puoi passare un oggetto vuoto per questo test
-    
-        // Action
+        const responseProcess = {}; 
         const result = executeCommand(unhandledDriver, setCommand, next, responseProcess);
-    
-        // Assertion
-        expect(result).toBe(''); // Verifica che la funzione restituisca una stringa vuota
-        // Verifica che le funzioni setCommand e next non siano state chiamate
+        expect(result).toBe("");
         expect(setCommand).not.toHaveBeenCalled();
         expect(next).not.toHaveBeenCalled();
       });
