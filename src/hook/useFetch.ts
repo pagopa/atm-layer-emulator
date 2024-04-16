@@ -97,6 +97,9 @@ export default function useFetch(endPoint?: string | undefined) {
 				if (status === 204) {
 					data = { valuesObj: { message: "Dati vuoti" }, status, success: true }; // valuesObj conterrà il messaggio di errore
 					break;
+				} else if (status === 418){
+					window.location.assign(process.env.REACT_APP_HOME_PATH+ROUTES.NO_ASSOCIATION);
+					break;
 				} else if (status && !(CODE_SUCCESS.includes(status)) && status !== 206) {
 					const errorResponse = await response?.json();
 					data = { valuesObj: errorResponse, status, success: false }; // valuesObj conterrà il messaggio di errore
@@ -107,7 +110,7 @@ export default function useFetch(endPoint?: string | undefined) {
 					}
 					retryCount++;
 					data= await new Promise((resolve) => setTimeout(resolve, retryDelay));
-				}else {
+				} else {
 					data = await response?.json(); // parses JSON response into native JavaScript objects
 					data = { valuesObj: data, status, success: true }; // CODE_SUCCESS 200/206
 					break;
