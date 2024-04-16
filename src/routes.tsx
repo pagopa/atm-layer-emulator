@@ -8,7 +8,8 @@ const ROUTES = {
 	LOGIN: "/login",
 	LOGIN_BACK:"/login/callback",
 	SERVICE_ACCESS: "/service-access",
-	TIMEOUT_PAGE: "/unresponsive"
+	TIMEOUT_PAGE: "/unresponsive",
+	NO_ASSOCIATION: "/no-association"
 };
 
 export default ROUTES;

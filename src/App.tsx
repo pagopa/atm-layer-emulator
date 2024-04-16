@@ -24,6 +24,7 @@ const LocalRoutes = () => (
 			<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
 			<Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} />
 			<Route path={routes.TIMEOUT_PAGE} element={<PageLayout><ErrorPage title="Il processo ha impiegato troppo tempo per rispondere" /></PageLayout>} />
+			<Route path={routes.NO_ASSOCIATION} element={<PageLayout><ErrorPage title="Non sono stati trovati processi associati al terminale selezionato" /></PageLayout>} />
 			<Route path={routes.ERROR_PAGE} element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>} />
 		</Route>
 		<Route path={routes.LOGIN} element={<PageLayout><LoginPage /></PageLayout>} />
