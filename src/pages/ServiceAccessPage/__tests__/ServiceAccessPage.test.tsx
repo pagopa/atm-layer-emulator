@@ -3,6 +3,7 @@ import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import ServiceAccessPage from "../ServiceAccessPage";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { executeCommand } from "../../../commons/utilsFunctions";
+import { createElement } from "react";
 
 beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => { });
@@ -283,7 +284,10 @@ describe("Service Access Page Tests", () => {
         await waitFor(() => expect(global.fetch).toHaveBeenCalled());
     });
 
-    test("calling next 401", async () => {
+    test("calling next 401 should redirect to login page", async () => {
+        Object.defineProperty(window, 'location', {
+            value: { assign: jest.fn() }
+        });
         const responseProcess = getMenuTestResponseShort();
         const touchInterface = true;
         global.fetch = jest.fn().mockResolvedValueOnce({
@@ -299,11 +303,10 @@ describe("Service Access Page Tests", () => {
         );
         const idPayButton = screen.getByText("Gestisci le iniziative ID Pay");
         fireEvent.click(idPayButton);
-        await waitFor(() => expect(global.fetch).toHaveBeenCalled());
-        // expect(window.location.pathname).toBe("/login")
+        await waitFor(() => expect(window.location.assign).toBeCalledWith("/emulator/login"));
     });
 
-    test("calling next 202", async () => {
+    test("calling next 202, should retry up to 3 times", async () => {
         const responseProcess = getMenuTestResponseShort();
         const touchInterface = true;
         global.fetch = jest.fn().mockResolvedValue({
@@ -355,7 +358,7 @@ describe("Service Access Page Tests", () => {
                 </BrowserRouter>
             </Ctx.Provider>
         );
-        await new Promise(res => setTimeout(res, 3000));
+        await new Promise(res => setTimeout(res, 4000));
     });
 
     test("test with timeout null and useEffect SCAN_BIIL_DATA command", () => {
