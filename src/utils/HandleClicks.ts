@@ -27,8 +27,8 @@ export 	const addButtonClickListener = (next:any, handleNextLiButtonClick:any, h
 		handleClickFunction(event, next);
 	};
     
-	const buttons = document?.querySelectorAll("button");
-	buttons?.forEach(button => {
+	const buttons = document?.querySelectorAll("button:not(#btn-keypad)");
+	buttons?.forEach((button: any) => {
 		button.addEventListener("click", handleClick);
 	});
 	const listButtons = document?.querySelectorAll("li");
@@ -37,6 +37,7 @@ export 	const addButtonClickListener = (next:any, handleNextLiButtonClick:any, h
 	});
 	const nextLiButtonElement = document?.getElementById("nextLiButton");
 	nextLiButtonElement?.removeEventListener("click", handleClick);
+	
 	nextLiButtonElement?.addEventListener("click", handleNextLiButtonClick);
 
 	const prevLiButtonElement = document?.getElementById("prevLiButton");

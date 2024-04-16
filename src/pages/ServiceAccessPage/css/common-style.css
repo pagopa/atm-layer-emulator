@@ -119,7 +119,7 @@ strong {
     padding-left: 20px;
 }
 
-button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn, #login-button, #logout-button, #visible-section-btn) {
+button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn, #login-button, #logout-button, #visible-section-btn, #btn-keypad) {
     position: absolute;
     right: 260px;
     left: auto;
