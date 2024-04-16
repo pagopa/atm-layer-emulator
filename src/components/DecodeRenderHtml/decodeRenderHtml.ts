@@ -1,6 +1,6 @@
 import { base64_decode } from "../../commons/decode";
 
-const getTemplate = (template: any) => {
+export const getTemplate = (template: any) => {
 	const parser = new DOMParser();
 	const parsedHtml = parser.parseFromString(template, "text/html");
 	const body = parsedHtml.getElementsByTagName("body")[0];
