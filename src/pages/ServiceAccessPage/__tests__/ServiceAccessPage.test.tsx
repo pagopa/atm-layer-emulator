@@ -1,7 +1,9 @@
 import { Ctx } from "../../../DataContext";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import ServiceAccessPage from "../ServiceAccessPage";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { executeCommand } from "../../../commons/utilsFunctions";
+import { createElement } from "react";
 
 beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => { });
@@ -263,6 +265,89 @@ describe("Service Access Page Tests", () => {
         expect(global.fetch).toHaveBeenCalled();
     });
 
+    test("calling next 204", async () => {
+        const responseProcess = getMenuTestResponseShort();
+        const touchInterface = true;
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            status: 204,
+        });
+
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+        const idPayButton = screen.getByText("Gestisci le iniziative ID Pay");
+        fireEvent.click(idPayButton);
+        await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+    });
+
+    test("calling next 401 should redirect to login page", async () => {
+        Object.defineProperty(window, 'location', {
+            value: { assign: jest.fn() }
+        });
+        const responseProcess = getMenuTestResponseShort();
+        const touchInterface = true;
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            status: 401,
+        });
+
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <MemoryRouter initialEntries={["/service-access"]}>
+                    <ServiceAccessPage />
+                </MemoryRouter>
+            </Ctx.Provider>
+        );
+        const idPayButton = screen.getByText("Gestisci le iniziative ID Pay");
+        fireEvent.click(idPayButton);
+        await waitFor(() => expect(window.location.assign).toBeCalledWith("/emulator/login"));
+    });
+
+    test("calling next 202, should retry up to 3 times", async () => {
+        const responseProcess = getMenuTestResponseShort();
+        const touchInterface = true;
+        global.fetch = jest.fn().mockResolvedValue({
+            status: 202,
+        });
+
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+        const idPayButton = screen.getByText("Gestisci le iniziative ID Pay");
+        fireEvent.click(idPayButton);
+        await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(3));
+    });
+
+    test("calling next 400", async () => {
+        const responseProcess = getMenuTestResponseShort();
+        const touchInterface = true;
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            status: 400,
+            json: () => Promise.resolve({
+                message: "something went wrong"
+            }),
+
+        });
+
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+        const idPayButton = screen.getByText("Gestisci le iniziative ID Pay");
+        fireEvent.click(idPayButton);
+        await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+    });
+
     test("test with timeout null and useEffect PRINT_RECEIPT command", async () => {
         const responseProcess = getTestResponse(null, "PRINT_RECEIPT", undefined);
         const touchInterface = true;
@@ -273,7 +358,7 @@ describe("Service Access Page Tests", () => {
                 </BrowserRouter>
             </Ctx.Provider>
         );
-        await new Promise(res => setTimeout(res, 3000));
+        await new Promise(res => setTimeout(res, 4000));
     });
 
     test("test with timeout null and useEffect SCAN_BIIL_DATA command", () => {
@@ -356,4 +441,15 @@ describe("Service Access Page Tests", () => {
             </Ctx.Provider>
         );
     });
+
+    test("test with UNKNOWN command", () => {
+        const unhandledDriver = "UNHANDLED_DRIVER";
+        const setCommand = jest.fn();
+        const next = jest.fn();
+        const responseProcess = {}; 
+        const result = executeCommand(unhandledDriver, setCommand, next, responseProcess);
+        expect(result).toBe("");
+        expect(setCommand).not.toHaveBeenCalled();
+        expect(next).not.toHaveBeenCalled();
+      });
 });

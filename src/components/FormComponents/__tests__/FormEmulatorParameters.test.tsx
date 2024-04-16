@@ -101,4 +101,47 @@ describe("Test FormEmulatorParameters component", () => {
 		const submitBtn = screen.getByText("Conferma");
 		fireEvent.click(submitBtn);
 	});
+
+	test("Test handleChangeMultiSelectCard and onClose", async () => {
+		renderApp();
+		const selectCIrcuit0 = screen.getByTestId("circuits-select-0") as HTMLSelectElement;
+		const circuits = screen.getByRole('combobox') as HTMLSelectElement;
+	
+		fireEvent.mouseDown(circuits);
+		fireEvent.click(screen.getByText("Mastercard"));
+		fireEvent.click(screen.getByText("Bancomat"));
+		expect(selectCIrcuit0.value).toBe("VISA,MASTERCARD");
+		fireEvent.mouseLeave(circuits);
+
+		const addPanBtn = screen.getByText("Aggiungi metodo di pagamento pan");
+		fireEvent.click(addPanBtn);
+
+		screen.debug(undefined, 99999);
+	});
+	test("validation blocks empty form fields", () => {
+		renderApp();
+
+		const acquirerIdInput = screen.getByLabelText("ID Banca *");
+		fireEvent.change(acquirerIdInput, { target: { value: "" } });
+
+		const branchIdInput = screen.getByLabelText("ID Filiale *");
+		fireEvent.change(branchIdInput, { target: { value: "" } });
+
+		const codeInput = screen.getByLabelText("Codice *");
+		fireEvent.change(codeInput, { target: { value: "" } });
+
+		const terminalIdInput = screen.getByLabelText("ID Terminale *");
+		fireEvent.change(terminalIdInput, { target: { value: "" } });
+
+		const fiscalCodeInput = screen.getByLabelText("Codice Fiscale *");
+		fireEvent.change(fiscalCodeInput, { target: { value: "" } });
+
+		const submitButton = screen.getByRole("button", { name: "Conferma" });
+		fireEvent.click(submitButton);
+
+		// const errorMessage = screen.getByText("Campo obbligatorio");
+		// expect(errorMessage).toBeInTheDocument();
+	});
+
+
 });

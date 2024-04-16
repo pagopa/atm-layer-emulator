@@ -62,5 +62,6 @@ describe("Test FormFunctions component", () => {
         const circuits = screen.getByRole('combobox') as HTMLSelectElement;
         fireEvent.mouseDown(circuits);
         fireEvent.click(screen.getByText("Mastercard"));
+        fireEvent.mouseLeave(circuits);
     });
 });
