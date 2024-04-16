@@ -20,7 +20,7 @@ describe("Login Page Tests", () => {
             </BrowserRouter>
           </Ctx.Provider>
         );
-        expect(screen.getByText("Accedi alla console")).toBeInTheDocument();
+        expect(screen.getByText("Accedi all'emulator")).toBeInTheDocument();
         expect(screen.getByText("Accedi")).toBeInTheDocument();
         const accessButton = screen.getByTestId("accedi-button-test");
         fireEvent.click(accessButton);
