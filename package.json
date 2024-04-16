@@ -36,6 +36,8 @@
     "source-map-explorer": "^2.5.3",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
+    "jest-sonar-reporter": "^2.0.0",
+    "jest": "^26.5.3",
     "jest-junit": "^12.0.0"
   },
   "scripts": {
@@ -46,9 +48,9 @@
     "build:dev": "env-cmd -f .env.development react-scripts build",
     "build:uat": "env-cmd -f .env.test react-scripts build",
     "test": "react-scripts test",
-    "test:last-commit-coverage": "react-scripts test -i --coverage",
-    "test:coverage": "react-scripts test --coverage",
-    "test:full-coverage": "react-scripts test --coverage --watchAll=false",
+    "test:last-commit-coverage": "react-scripts test -i --coverage --reporters=jest-junit --testResultsProcessor jest-sonar-reporter",
+    "test:coverage": "react-scripts test --coverage --reporters=jest-junit --testResultsProcessor jest-sonar-reporter",
+    "test:full-coverage": "react-scripts test --coverage --watchAll=false --reporters=jest-junit --testResultsProcessor jest-sonar-reporter",
     "eject": "react-scripts eject",
     "lint-autofix": "eslint /src -c .eslintrc.js --ext .js,.ts,.tsx --fix",
     "lint": "eslint /src -c .eslintrc.js --ext .js,.ts,.tsx ",
@@ -90,5 +92,14 @@
     "prettier": "^3.0.3",
     "prettier-eslint": "^16.1.2",
     "react-router-dom": "^6.20.1"
+  },
+  "jest-junit": {
+    "outputDirectory": "reports",
+    "outputName": "jest-junit.xml",
+    "ancestorSeparator": " > ",
+    "uniqueOutputName": "false",
+    "suiteNameTemplate": "{filepath}",
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}"
   }
 }
