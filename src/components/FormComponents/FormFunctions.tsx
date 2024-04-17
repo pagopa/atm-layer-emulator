@@ -138,21 +138,27 @@ const formFunctions = (
 
 	const validateIbanForm = () => {
 		const newIbanListErrors: Array<any> = [];
+		return formDataIbanList.IBANlist.every((iban: IbanDto) => {
+			if(Object.values(iban).some((ibanValue: any) => ibanValue.length > 0)) {
+				console.log("iban", iban);
+				const ibanErrors = {
+					IBAN: iban.IBAN.trim() ? (ibanIsValid(iban.IBAN) ? "" : "IBAN non valido") : "Campo obbligatorio",
+					bankName: iban.bankName.trim() ? "" : "Campo obbligatorio"
+				};
 
-		formDataIbanList.IBANlist.forEach((iban: IbanDto, index: number) => {
-			const ibanErrors = {
-				IBAN: iban.IBAN.trim() ? (ibanIsValid(iban.IBAN) ? "" : "IBAN non valido") : "Campo obbligatorio",
-				bankName: iban.bankName.trim() ? "" : "Campo obbligatorio"
-			};
+				newIbanListErrors.push(ibanErrors);
+				setIbanListErrors(newIbanListErrors);
 
-			newIbanListErrors.push(ibanErrors);
+				console.log("newIbanListErrors", newIbanListErrors);
+
+				return newIbanListErrors.every((errors) =>
+					Object.values(errors).every((error) => !error)
+				);
+			} else {
+				return true;
+			}
+	
 		});
-
-		setIbanListErrors(newIbanListErrors);
-
-		return newIbanListErrors.every((errors) =>
-			Object.values(errors).every((error) => !error)
-		);
 	};
 
 	return {
