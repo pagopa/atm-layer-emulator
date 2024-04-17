@@ -133,7 +133,7 @@ describe("Test FormEmulatorParameters component", () => {
 		const terminalIdInput = screen.getByLabelText("ID Terminale *");
 		fireEvent.change(terminalIdInput, { target: { value: "" } });
 
-		const fiscalCodeInput = screen.getByLabelText("Codice Fiscale *");
+		const fiscalCodeInput = screen.getByLabelText("Codice Fiscale");
 		fireEvent.change(fiscalCodeInput, { target: { value: "" } });
 
 		const submitButton = screen.getByRole("button", { name: "Conferma" });
