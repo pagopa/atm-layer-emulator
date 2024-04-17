@@ -328,7 +328,6 @@ export const FormEmulatorParameters = () => {
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
-						required
 						fullWidth
 						id="fiscalCode"
 						name="fiscalCode"

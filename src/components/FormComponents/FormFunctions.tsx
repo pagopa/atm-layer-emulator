@@ -102,11 +102,7 @@ const formFunctions = (
 			branchId: formData.branchId ? "" : "Campo obbligatorio",
 			code: formData.code ? "" : "Campo obbligatorio",
 			terminalId: formData.terminalId ? "" : "Campo obbligatorio",
-			fiscalCode: formData.fiscalCode
-				? cfIsValid(formData.fiscalCode)
-					? ""
-					: "Codice fiscale non valido"
-				: "Campo obbligatorio",
+			fiscalCode: formData.fiscalCode ? cfIsValid(formData.fiscalCode) ? "" : "Codice fiscale non valido" : ""
 		};
 
 		setErrors(newErrors);
