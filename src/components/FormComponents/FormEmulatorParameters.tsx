@@ -19,9 +19,10 @@ import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import { TASK_MAIN } from "../../commons/endpoints";
 import {
 	ACQUIRER_ID_LENGTH,
+	BRANCH_LENGTH,
 	CODE_LENGTH,
 	FISCAL_CODE_LENGTH,
-	TERMINAL_BRANCH_LENGTH,
+	TERMINAL_LENGTH,
 } from "../../commons/constants";
 import ROUTES from "../../routes";
 import { getCompletePathImage } from "../../utils/Commons";
@@ -289,7 +290,7 @@ export const FormEmulatorParameters = () => {
 						onChange={handleChange}
 						error={Boolean(errors.branchId)}
 						helperText={errors.branchId}
-						inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
+						inputProps={{ maxLength: BRANCH_LENGTH }}
 						defaultValue={initialValues.branchId}
 					/>
 				</Grid>
@@ -321,7 +322,7 @@ export const FormEmulatorParameters = () => {
 						onChange={handleChange}
 						error={Boolean(errors.terminalId)}
 						helperText={errors.terminalId}
-						inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
+						inputProps={{ maxLength: TERMINAL_LENGTH }}
 						defaultValue={initialValues.terminalId}
 					/>
 				</Grid>

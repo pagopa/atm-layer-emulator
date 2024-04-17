@@ -1,6 +1,7 @@
 export const MAX_LENGHT_LARGE = 30 ;
 export const ACQUIRER_ID_LENGTH = 11;
-export const TERMINAL_BRANCH_LENGTH = 8;
+export const BRANCH_LENGTH = 8;
+export const TERMINAL_LENGTH = 32;
 export const FISCAL_CODE_LENGTH = 16;
 export const CODE_LENGTH = 4;
 export const SCAN_BILL_DATA = "SCAN_BIIL_DATA";
