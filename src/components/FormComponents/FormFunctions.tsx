@@ -13,13 +13,13 @@ const formFunctions = (
 	setPanInfoErrors: React.Dispatch<React.SetStateAction<any>>,
 	setIbanListErrors: React.Dispatch<React.SetStateAction<any>>,
 	setTouchInterface: any,
-	errors: any, 
-	formData: any, 
+	errors: any,
+	formData: any,
 	formDataPanInfoCards: any,
 	formDataIbanList: any,
 	panInfoErrors: Array<any>,
 	ibanListErrors: Array<any>
-) => { 
+) => {
 	const { cfIsValid, ibanIsValid, panIsValid } = checks();
 
 	const handleChange = (
@@ -86,7 +86,7 @@ const formFunctions = (
 		const formattedValue = Array.isArray(value) ? value : [value];
 
 		if (name === "multiple-checkbox-card") {
-		// eslint-disable-next-line functional/immutable-data
+			// eslint-disable-next-line functional/immutable-data
 			updatedFormDataPanInfoCards.panInfo[cardIndex] = {
 				...updatedFormDataPanInfoCards.panInfo[cardIndex],
 				circuits: formattedValue,
@@ -110,25 +110,30 @@ const formFunctions = (
 		return Object.values(newErrors).every((error) => !error);
 	};
 
-
 	const validatePanInfoForm = () => {
 		const newPanInfoErrors: Array<any> = [];
+		return formDataPanInfoCards.panInfo.every((panCard: any) => {
+			if (Object.values(panCard).some((panCardvalue: any) => panCardvalue.length > 0)) {
 
-		formDataPanInfoCards.panInfo.forEach((card: PanDto, index: number) => {
-			const cardErrors = {
-				pan: card.pan.trim() ? (panIsValid(card.pan) ? "" : "PAN non valido") : "Campo obbligatorio",
-				circuits: card.circuits.length > 0 ? "" : "Seleziona almeno un circuito",
-				bankName: card.bankName.trim() ? "" : "Campo obbligatorio"
-			};
+				console.log("panCard", panCard);
+				const cardErrors = {
+					pan: panCard.pan.trim() ? (panIsValid(panCard.pan) ? "" : "PAN non valido") : "Campo obbligatorio",
+					circuits: panCard.circuits.length > 0 ? "" : "Seleziona almeno un circuito",
+					bankName: panCard.bankName.trim() ? "" : "Campo obbligatorio"
+				};
 
-			newPanInfoErrors.push(cardErrors);
+				newPanInfoErrors.push(cardErrors);
+				setPanInfoErrors(newPanInfoErrors);
+
+				console.log("newPanInfoErrors", newPanInfoErrors);
+
+				return newPanInfoErrors.every((errors) =>
+					Object.values(errors).every((error) => !error)
+				);
+			} else {
+				return true;
+			}
 		});
-
-		setPanInfoErrors(newPanInfoErrors);
-
-		return newPanInfoErrors.every((errors) =>
-			Object.values(errors).every((error) => !error)
-		);
 	};
 
 	const validateIbanForm = () => {

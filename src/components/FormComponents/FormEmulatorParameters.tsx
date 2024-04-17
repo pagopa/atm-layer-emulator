@@ -36,9 +36,9 @@ export const FormEmulatorParameters = () => {
 	const [loadingButton, setLoadingButton] = useState(false);
 
 	const panInfoFirstCard: PanDto = {
-		pan: "1234567891234567",
-		circuits: ["VISA", "BANCOMAT"],
-		bankName: "ISYBANK"
+		pan: "",
+		circuits: [],
+		bankName: ""
 	};
 
 	const panInfoSecondCard: PanDto = {
@@ -100,6 +100,7 @@ export const FormEmulatorParameters = () => {
 		touchInterface,
 		setTouchInterface,
 		setPanInfo,
+		panInfo,
 		setIbanList
 	} = useContext(Ctx);
 	const [openFirstCard, setOpenFirstCard] = useState(false);
@@ -115,7 +116,7 @@ export const FormEmulatorParameters = () => {
 	const multiSelectMenuItems = () => availableCircuits.map((circuit) => (
 		<MenuItem key={circuit?.id} value={circuit?.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
 			<ListItemAvatar>
-				<Avatar alt={circuit?.label} variant="rounded" sx={{ height: "25px" }} src={circuit?.icon}> 
+				<Avatar alt={circuit?.label} variant="rounded" sx={{ height: "25px" }} src={circuit?.icon}>
 					<CreditCardIcon fontSize="small" />
 				</Avatar>
 			</ListItemAvatar>
@@ -165,6 +166,16 @@ export const FormEmulatorParameters = () => {
 		} else {
 			removeAdditionalIbanPaymentMethod();
 		}
+	};
+
+	const setPanInfoValues = () => {
+		formDataPanInfoCards.panInfo.every((panInfoObject) => {
+			if (Object.values(panInfoObject).some((panCardvalue: any) => panCardvalue.length > 0)) {
+				return setPanInfo(formDataPanInfoCards);
+			} else {
+				return setPanInfo(undefined);
+			}
+		});
 	};
 
 	useEffect(() => {
@@ -242,7 +253,7 @@ export const FormEmulatorParameters = () => {
 				if (response?.success) {
 					setResponseProcess(response?.valuesObj);
 					setTransactionData(formData);
-					setPanInfo(formDataPanInfoCards);
+					setPanInfoValues();
 					setIbanList(formDataIbanList);
 					navigate(ROUTES.SERVICE_ACCESS);
 				}

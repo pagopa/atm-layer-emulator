@@ -46,7 +46,7 @@ function App() {
 	const [transactionData, setTransactionData] = useState ({});
 	const abortController = new AbortController();
 	const [touchInterface, setTouchInterface] = useState(true);
-	const [panInfo, setPanInfo] = useState<PanInfoDto>({panInfo: []});
+	const [panInfo, setPanInfo] = useState<PanInfoDto | undefined>();
 	const [ibanList, setIbanList] = useState<IbanListDto>({IBANlist: []});
 
 	function clearAll() {
