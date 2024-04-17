@@ -13,7 +13,6 @@ const ErrorPage = ({title}:Props) => {
 	const navigate = useNavigate();
 	const theme = useTheme();
 
-	console.log(useTheme);
 	return (
 		<BoxPageLayout >
 			<Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} height={"50vh"}> 
