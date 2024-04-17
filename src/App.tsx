@@ -47,7 +47,7 @@ function App() {
 	const abortController = new AbortController();
 	const [touchInterface, setTouchInterface] = useState(true);
 	const [panInfo, setPanInfo] = useState<PanInfoDto | undefined>();
-	const [ibanList, setIbanList] = useState<IbanListDto>({IBANlist: []});
+	const [ibanList, setIbanList] = useState<IbanListDto | undefined>();
 
 	function clearAll() {
 		if (sessionStorage.getItem("jwt_emulator")) {

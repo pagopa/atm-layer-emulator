@@ -32,7 +32,6 @@ import IbanInfoCard from "./IbanInfo";
 import formFunctions from "./FormFunctions";
 
 export const FormEmulatorParameters = () => {
-	const iconBaseUrl = process.env.REACT_APP_CDN_BASEURL;
 	const [loadingButton, setLoadingButton] = useState(false);
 
 	const panInfoFirstCard: PanDto = {
@@ -48,8 +47,8 @@ export const FormEmulatorParameters = () => {
 	};
 
 	const firstIban: IbanDto = {
-		IBAN: "IT12A1234512345123456789012",
-		bankName: "INTESA"
+		IBAN: "",
+		bankName: ""
 	};
 
 	const secondIban: IbanDto = {
@@ -100,7 +99,6 @@ export const FormEmulatorParameters = () => {
 		touchInterface,
 		setTouchInterface,
 		setPanInfo,
-		panInfo,
 		setIbanList
 	} = useContext(Ctx);
 	const [openFirstCard, setOpenFirstCard] = useState(false);
@@ -172,6 +170,16 @@ export const FormEmulatorParameters = () => {
 		formDataPanInfoCards.panInfo.every((panInfoObject) => {
 			if (Object.values(panInfoObject).some((panCardvalue: any) => panCardvalue.length > 0)) {
 				return setPanInfo(formDataPanInfoCards);
+			} else {
+				return setPanInfo(undefined);
+			}
+		});
+	};
+
+	const setIbanListValues = () => {
+		formDataIbanList.IBANlist.every((ibanObject) => {
+			if (Object.values(ibanObject).some((ibanValue: any) => ibanValue.length > 0)) {
+				return setPanInfo(formDataIbanList);
 			} else {
 				return setPanInfo(undefined);
 			}
@@ -254,7 +262,7 @@ export const FormEmulatorParameters = () => {
 					setResponseProcess(response?.valuesObj);
 					setTransactionData(formData);
 					setPanInfoValues();
-					setIbanList(formDataIbanList);
+					setIbanListValues();
 					navigate(ROUTES.SERVICE_ACCESS);
 				}
 			} catch (error) {
