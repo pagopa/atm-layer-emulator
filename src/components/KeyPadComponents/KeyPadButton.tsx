@@ -1,7 +1,5 @@
 import { Button, Grid, Typography } from "@mui/material";
-import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
-import BackspaceIcon from "@mui/icons-material/Backspace";
-import CheckIcon from "@mui/icons-material/Check";
+import KeyPadButtonIcon from "./KeyPadButtonIcon";
 
 type Props = {
     content: string;
@@ -11,46 +9,25 @@ type Props = {
 };
 
 const KeyPadButton = ( {content, handleAdd, handleRemove,  next} : Props) => {
+	function handleClick(content:string){
+		switch (content){
+		case "Canc":
+			void next({continue:false});
+			break;
+		case "Enter":
+			void next({continue:true});
+			break;
+		case "Clear":
+			handleRemove(content);
+			break;
+		default:
+			handleAdd(content);
+			break;
+		}
+	}
+
+
 	switch (content) {
-	case "Canc":
-		return (
-			<Button variant="contained" sx={{ backgroundColor: "#dddddd", border: "2px solid black", padding: "8px" }} size="large" id="btn-keypad" fullWidth onClick={() => next({ continue: false })}>
-				<Grid container item padding={"8px"} display={"flex"} flexDirection={"row"}>
-					<Grid item xs={12} display={"flex"} justifyContent={"flex-start"}>
-						<Typography color={"black"} fontSize={"16px"} sx={{ pt: 2 }}>Canc</Typography>
-					</Grid>
-					<Grid item xs={12} display={"flex"} justifyContent={"center"}>
-						<DisabledByDefaultIcon color="error" sx={{ pb: 2 }} />
-					</Grid>
-				</Grid>
-			</Button>
-		);
-	case "Enter":
-		return (
-			<Button variant="contained" sx={{ backgroundColor: "#dddddd", border: "2px solid black", padding: "8px" }} size="large" id="btn-keypad" fullWidth onClick={() => next({ continue: true })}>
-				<Grid container item padding={"8px"} display={"flex"} flexDirection={"row"}>
-					<Grid item xs={12} display={"flex"} justifyContent={"flex-start"}>
-						<Typography color={"black"} fontSize={"16px"} sx={{ pt: 2 }}>Enter</Typography>
-					</Grid>
-					<Grid item xs={12} display={"flex"} justifyContent={"center"}>
-						<CheckIcon color="success" sx={{ pb: 2 }} />
-					</Grid>
-				</Grid>
-			</Button>
-		);
-	case "Clear":
-		return (
-			<Button variant="contained" sx={{ backgroundColor: "#dddddd", border: "2px solid black", padding: "8px" }} size="large" id="btn-keypad" fullWidth onClick={() => handleRemove()}>
-				<Grid container item padding={"8px"} display={"flex"} flexDirection={"row"}>
-					<Grid item xs={12} display={"flex"} justifyContent={"flex-start"}>
-						<Typography color={"black"} fontSize={"16px"} sx={{ pt: 2 }}>Clear</Typography>
-					</Grid>
-					<Grid item xs={12} display={"flex"} justifyContent={"center"}>
-						<BackspaceIcon color="warning" sx={{ pb: 2 }} />
-					</Grid>
-				</Grid>
-			</Button>
-		);
 	case "":
 		return (
 			<Grid item xs={3}>
@@ -61,12 +38,13 @@ const KeyPadButton = ( {content, handleAdd, handleRemove,  next} : Props) => {
 		);
 	default:
 		return (
-			<Button variant="contained" sx={{ backgroundColor: "#dddddd", border: "2px solid black", padding: "8px" }} size="large" id="btn-keypad" fullWidth onClick={() => handleAdd(content)}>
+			<Button variant="contained" sx={{ backgroundColor: "#dddddd", border: "2px solid black", padding: "8px" }} size="large" id="btn-keypad" fullWidth onClick={() => handleClick(content)}>
 				<Grid container padding={"8px"}>
 					<Grid item xs={12} display={"flex"} flexDirection={"row"} justifyContent={"center"}>
 						<Typography color={"black"} fontSize={"25px"} fontWeight={"bold"}>{content}</Typography>
 					</Grid>
 				</Grid>
+				<KeyPadButtonIcon buttonContent={content} />
 			</Button>
 		);
 	};
