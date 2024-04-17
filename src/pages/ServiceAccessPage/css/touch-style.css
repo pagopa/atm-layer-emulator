@@ -23,7 +23,7 @@ body #touch {
 #touch button {
 	border-radius: 10px;
 	background-color: var(--primary-main);
-	border: 2px solid var(--primary-main);;
+	border: 2px solid var(--primary-main);
 	padding: 10px 40px;
 	text-decoration: none;
 	display: flex;
@@ -78,7 +78,6 @@ body #touch {
 #touch ul {
 	list-style-type: none;
 	padding-left: 10px;
-	/* overflow: auto; */
 	max-height: 320px;
 }
 

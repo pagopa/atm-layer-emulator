@@ -112,14 +112,14 @@ h3 {
 }
 
 p{
-    margin-left: 20px;;
+    margin-left: 20px;
 }
 
 strong {
     padding-left: 20px;
 }
 
-button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn, #login-button, #logout-button, #visible-section-btn, #btn-keypad, #canc-keypad, #enter-keypad, #clear-keypad) {
+button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn, #login-button, #logout-button, #visible-section-btn, #home-button-error-page, #btn-keypad, #canc-keypad, #enter-keypad, #clear-keypad) {
     position: absolute;
     right: 260px;
     left: auto;
@@ -325,7 +325,7 @@ td > img {
 #command #command-submit-btn {
 	border-radius: 10px;
 	background-color: var(--primary-main);
-	border: 2px solid var(--primary-main);;
+	border: 2px solid var(--primary-main);
 	padding: 10px 40px;
 	text-decoration: none;
 	display: flex;

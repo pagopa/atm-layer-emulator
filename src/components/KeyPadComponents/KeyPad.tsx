@@ -23,7 +23,7 @@ const KeyPad = ({ next }: Props) => {
 
 
 	return (
-		<Grid container id="keyPad" padding={2} width="380px" display={"flex"} flexDirection={"row"} sx={{ backgroundColor: "#cccccc", border:"2px solid black"}}>
+		<Grid container id="keyPad" data-testid="testKeyPad" padding={2} width="380px" display={"flex"} flexDirection={"row"} sx={{ backgroundColor: "#cccccc", border:"2px solid black"}}>
 			<KeyPadRow rowContent={["1","2","3","Canc"]} handleAdd={handleAddKeyPadValue} handleRemove={handleRemoveKeyPadValue} next={next} />
 			<KeyPadRow rowContent={["4","5","6","Clear"]} handleAdd={handleAddKeyPadValue} handleRemove={handleRemoveKeyPadValue} next={next} />
 			<KeyPadRow rowContent={["7","8","9","Enter"]} handleAdd={handleAddKeyPadValue} handleRemove={handleRemoveKeyPadValue} next={next} />

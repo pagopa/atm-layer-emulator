@@ -6,18 +6,19 @@ import { Box, Grid, Typography } from "@mui/material";
 import { generatePath } from "react-router-dom";
 import React from "react";
 import { Ctx } from "../../DataContext";
-import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
+import { decodeRenderHtml, getTemplate } from "../../components/DecodeRenderHtml/decodeRenderHtml";
 import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./css/style-page.css";
 import { executeCommand } from "../../commons/utilsFunctions";
 import { Loading } from "../../utils/Commons/Loading";
-import { AUTHORIZE, COMMAND_INFO_TEMPLATE, SCAN_BILL_DATA } from "../../commons/constants";
+import { AUTHORIZE, SCAN_BILL_DATA } from "../../commons/constants";
 import { addHeaderRow, createNextLiButton, createPrevLiButton, getPaginationFragment, positionPaginatedButtons, positionUnpaginatedButtons } from "../../utils/Commons";
 import { addButtonClickListener, removeButtonClickListener } from "../../utils/HandleClicks";
 import { postData } from "../../utils/PostData";
 import { validateInputFields } from "../../utils/HandleInputs";
 import KeyPad from "../../components/KeyPadComponents/KeyPad";
+import { infoCommandTemp } from "../../utils/infoCommandTemplate";
 
 
 const ServiceAccessPage = () => {
@@ -34,7 +35,7 @@ const ServiceAccessPage = () => {
 	if (responseProcess?.task?.template?.content) {
 		bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
 	} else if (!responseProcess?.task?.template?.content && (responseProcess?.task?.command === AUTHORIZE || responseProcess?.task?.command === SCAN_BILL_DATA)) {
-		bodyHtml = decodeRenderHtml(COMMAND_INFO_TEMPLATE);
+		bodyHtml = getTemplate(infoCommandTemp);
 	}
 
 	function getPaginationElements() {
