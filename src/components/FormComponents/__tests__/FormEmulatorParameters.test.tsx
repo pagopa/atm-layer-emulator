@@ -124,12 +124,80 @@ describe("Test FormEmulatorParameters component", () => {
 		fireEvent.click(submitBtn);
 	});
 
-	test("Test add and remove new iban payment method", () => {
+	test("Test add and remove new IBAN payment method positive case", () => {
+		global.fetch = jest.fn().mockResolvedValueOnce({
+			json: () => Promise.resolve({
+				status: 200,
+				success: true,
+				valuesObj: {
+					data: {
+						continue: true
+					},
+					device: {
+						bankId: "06789",
+						branchId: "12345",
+						channel: "ATM",
+						code: "0001",
+						opTimestamp: "2024-04-11T09:05:27",
+						peripherals: [
+							{
+								id: "PRINTER",
+								name: "Receipt printer",
+								status: "OK"
+							},
+							{
+								id: "SCANNER",
+								name: "Scanner",
+								status: "OK"
+							}
+						],
+						terminalId: "64874412"
+					},
+					fiscalCode: "SNNCNA88S04A567U"
+				},
+			}),
+		});
+		
 		renderApp();
-		const addIbanBtn = screen.getByText("Aggiungi metodo di pagamento Iban") as HTMLButtonElement;
-		fireEvent.click(addIbanBtn);
-		const removeIbanBtn = screen.getByText("Rimuovi metodo di pagamento Iban") as HTMLButtonElement;
-		fireEvent.click(removeIbanBtn);
+		const iban = screen.getByTestId("iban-test") as HTMLInputElement;
+		const bankName = screen.getByTestId("bankNameIban-test") as HTMLInputElement;
+		const submitBtn = screen.getByText("Conferma");
+
+		expect(iban.value).toBe("");
+		fireEvent.change(iban, { target: { value: "IT12A1234512345123456789012" } });
+		expect(iban.value).toBe("IT12A1234512345123456789012")
+
+		expect(bankName.value).toBe("");
+		fireEvent.change(bankName, { target: { value: "BANK" } });
+		expect(bankName.value).toBe("BANK")
+
+		const addPanBtn = screen.getByText("Aggiungi metodo di pagamento Iban");
+		fireEvent.click(addPanBtn);
+
+		const removePanBtn = screen.getByText("Rimuovi metodo di pagamento Iban") as HTMLButtonElement;
+		fireEvent.click(removePanBtn);
+
+		fireEvent.click(submitBtn);
+	});
+
+	test("Test add and remove new IBAN payment method negative case", () => {
+		renderApp();
+		const iban = screen.getByTestId("iban-test") as HTMLInputElement;
+		const bankName = screen.getByTestId("bankNameIban-test") as HTMLInputElement;
+		const submitBtn = screen.getByText("Conferma");
+
+		fireEvent.change(iban, { target: { value: "IT12A1234512345123456789012" } });
+		expect(iban.value).toBe("IT12A1234512345123456789012");
+
+		fireEvent.click(submitBtn);
+
+		fireEvent.change(iban, { target: { value: "" } });
+		expect(iban.value).toBe("");
+
+		fireEvent.change(bankName, { target: { value: "BANK" } });
+		expect(bankName.value).toBe("BANK")
+
+		fireEvent.click(submitBtn);
 	});
 
 	test("Test submit of form emulator", () => {

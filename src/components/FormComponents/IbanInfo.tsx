@@ -57,6 +57,7 @@ const IbanInfoCard = ({
 				onChange={(e) => handleChangeIbanList(e, index)}
 				error={Boolean(ibanListErrors[index]?.bankName)}
 				helperText={ibanListErrors[index]?.bankName}
+				inputProps={{ "data-testid": "bankNameIban-test" }}
 			/>
 		</Grid>
 
