@@ -112,28 +112,28 @@ const formFunctions = (
 
 	const validatePanInfoForm = () => {
 		const newPanInfoErrors: Array<any> = [];
-		return formDataPanInfoCards.panInfo.every((panCard: any) => {
+		// eslint-disable-next-line functional/no-let
+		let isFormValid = true;
+	
+		formDataPanInfoCards.panInfo.forEach((panCard: any) => {
 			if (Object.values(panCard).some((panCardvalue: any) => panCardvalue.length > 0)) {
-
 				console.log("panCard", panCard);
 				const cardErrors = {
 					pan: panCard.pan.trim() ? (panIsValid(panCard.pan) ? "" : "PAN non valido") : "Campo obbligatorio",
 					circuits: panCard.circuits.length > 0 ? "" : "Seleziona almeno un circuito",
 					bankName: panCard.bankName.trim() ? "" : "Campo obbligatorio"
 				};
-
+	
 				newPanInfoErrors.push(cardErrors);
-				setPanInfoErrors(newPanInfoErrors);
-
-				console.log("newPanInfoErrors", newPanInfoErrors);
-
-				return newPanInfoErrors.every((errors) =>
-					Object.values(errors).every((error) => !error)
-				);
-			} else {
-				return true;
+	
+				if (!Object.values(cardErrors).every((error) => !error)) {
+					isFormValid = false;
+				}
 			}
 		});
+	
+		setPanInfoErrors(newPanInfoErrors);
+		return isFormValid;
 	};
 
 	const validateIbanForm = () => {
