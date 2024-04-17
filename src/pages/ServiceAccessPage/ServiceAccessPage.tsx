@@ -177,7 +177,7 @@ const ServiceAccessPage = () => {
 
 				{responseProcess?.task?.template?.type === "FORM" &&
 					(
-						<Box display={"flex"} flexDirection="row" justifyContent={"center"} alignItems={"center"}>
+						<Box id="keyPadContainer" >
 							<KeyPad next={next} />
 						</Box>
 					)

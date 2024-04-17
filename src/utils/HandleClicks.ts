@@ -27,7 +27,7 @@ export 	const addButtonClickListener = (next:any, handleNextLiButtonClick:any, h
 		handleClickFunction(event, next);
 	};
     
-	const buttons = document?.querySelectorAll("button:not(#btn-keypad)");
+	const buttons = document?.querySelectorAll("button:not(#btn-keypad,#canc-keypad, #enter-keypad, #clear-keypad)");
 	buttons?.forEach((button: any) => {
 		button.addEventListener("click", handleClick);
 	});

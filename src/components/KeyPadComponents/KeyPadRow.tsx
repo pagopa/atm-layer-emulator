@@ -9,9 +9,9 @@ type Props = {
 };
 
 const KeyPadRow = ({rowContent, handleAdd, handleRemove, next} : Props) => (
-	<Grid container item paddingTop={1} paddingBottom={1}>
+	<Grid container item paddingTop={1} paddingBottom={1} spacing={2}>
 		{rowContent.map((button,i) => 
-			<Grid key={i} item xs={3} paddingRight={2} >
+			<Grid key={i} item xs={3} >
 				<KeyPadButton content={button} handleAdd={handleAdd} handleRemove={handleRemove} next={next}/>
 			</Grid>)}
 	</Grid>

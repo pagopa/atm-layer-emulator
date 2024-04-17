@@ -1,8 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
-import BackspaceIcon from "@mui/icons-material/Backspace";
-import CheckIcon from "@mui/icons-material/Check";
-import { useEffect, useState } from "react";
+import { Grid } from "@mui/material";
 import KeyPadRow from "./KeyPadRow";
 
 type Props = {
