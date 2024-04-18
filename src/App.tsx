@@ -37,10 +37,9 @@ function App() {
 	const RELEASE_VERSION = process.env.REACT_APP_VERSION;
 	const [warningCodeValue, setWarningCodeValue] = useState("");
 	const [loading, setLoading] = useState(false);
-	const temp = sessionStorage.getItem("tempLog");
 	const jwt = sessionStorage.getItem("jwt_emulator");
 	const debugOn = sessionStorage.getItem("debugOn");
-	const [logged, setLogged] = useState(temp || jwt ? true : false);
+	const [logged, setLogged] = useState(jwt ? true : false);
 	const [userEmail, setUserEmail] = useState<JwtUser>({ email: undefined });
 	const [responseProcess, setResponseProcess] = useState({});
 	const [transactionData, setTransactionData] = useState ({});
