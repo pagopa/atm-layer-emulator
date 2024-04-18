@@ -138,7 +138,9 @@ const formFunctions = (
 
 	const validateIbanForm = () => {
 		const newIbanListErrors: Array<any> = [];
-		return formDataIbanList.IBANlist.every((iban: IbanDto) => {
+		// eslint-disable-next-line functional/no-let
+		let isFormValid = true;
+		formDataIbanList.IBANlist.forEach((iban: any) => {
 			if(Object.values(iban).some((ibanValue: any) => ibanValue.length > 0)) {
 				console.log("iban", iban);
 				const ibanErrors = {
@@ -147,18 +149,14 @@ const formFunctions = (
 				};
 
 				newIbanListErrors.push(ibanErrors);
-				setIbanListErrors(newIbanListErrors);
-
-				console.log("newIbanListErrors", newIbanListErrors);
-
-				return newIbanListErrors.every((errors) =>
-					Object.values(errors).every((error) => !error)
-				);
-			} else {
-				return true;
-			}
-	
+				if(!Object.values(ibanErrors).every((error) => !error)) {
+					isFormValid = false;
+				}
+			} 
 		});
+
+		setIbanListErrors(newIbanListErrors);
+		return isFormValid;
 	};
 
 	return {
