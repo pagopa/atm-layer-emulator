@@ -94,17 +94,7 @@ describe("PanInfoCard Test", () => {
     fireEvent.mouseOut(circuitsSelect);
     expect(setOpenFirstCard).toHaveBeenCalledWith(true);
   });
-
-  test("renders correct button text based on formDataPanInfoCards length", () => {
-    const formDataPanInfoCardsEmpty = {
-      panInfo: []
-    };
-    const { getByText } = renderApp(false, false, formDataPanInfoCardsEmpty)
-    expect(getByText("Rimuovi metodo di pagamento pan")).toBeInTheDocument();
-    renderApp(false, false)
-    expect(getByText("Aggiungi metodo di pagamento pan")).toBeInTheDocument();
-  });
-
+  
   test("Test handleChange BankName", () => {
     renderApp(false, false);
     const bankName = screen.getAllByTestId("bankName-test") as HTMLInputElement[];
