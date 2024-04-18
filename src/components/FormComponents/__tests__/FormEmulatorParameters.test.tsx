@@ -41,20 +41,163 @@ describe("Test FormEmulatorParameters component", () => {
 		</Ctx.Provider>
 	);
 
-	test("Test add and remove new pan payment method", () => {
+	test("Test add and remove new pan payment method positive case", () => {
+		global.fetch = jest.fn().mockResolvedValueOnce({
+			json: () => Promise.resolve({
+				status: 200,
+				success: true,
+				valuesObj: {
+					data: {
+						continue: true
+					},
+					device: {
+						bankId: "06789",
+						branchId: "12345",
+						channel: "ATM",
+						code: "0001",
+						opTimestamp: "2024-04-11T09:05:27",
+						peripherals: [
+							{
+								id: "PRINTER",
+								name: "Receipt printer",
+								status: "OK"
+							},
+							{
+								id: "SCANNER",
+								name: "Scanner",
+								status: "OK"
+							}
+						],
+						terminalId: "64874412"
+					},
+					fiscalCode: "SNNCNA88S04A567U"
+				},
+			}),
+		});
+		
 		renderApp();
-		const addPanBtn = screen.getByText("Aggiungi metodo di pagamento pan") as HTMLButtonElement;
+		const pan = screen.getByTestId("pan-test") as HTMLInputElement;
+		const bankName = screen.getByTestId("bankName-test") as HTMLInputElement;
+		const selectCircuits = screen.getByTestId("circuits-select-0") as HTMLSelectElement;
+		const circuits = screen.getByRole('combobox') as HTMLSelectElement;
+		const submitBtn = screen.getByText("Conferma");
+
+		expect(pan.value).toBe("");
+		fireEvent.change(pan, { target: { value: "1234567890123456" } });
+		expect(pan.value).toBe("1234567890123456")
+
+		expect(bankName.value).toBe("");
+		fireEvent.change(bankName, { target: { value: "BANK" } });
+		expect(bankName.value).toBe("BANK")
+
+		fireEvent.mouseDown(circuits);
+		fireEvent.click(screen.getByText("Mastercard"));
+		expect(selectCircuits.value).toBe("MASTERCARD");
+		fireEvent.mouseLeave(circuits);
+
+		const addPanBtn = screen.getByText("Aggiungi metodo di pagamento pan");
 		fireEvent.click(addPanBtn);
+
 		const removePanBtn = screen.getByText("Rimuovi metodo di pagamento pan") as HTMLButtonElement;
 		fireEvent.click(removePanBtn);
+
+		fireEvent.click(submitBtn);
 	});
 
-	test("Test add and remove new iban payment method", () => {
+	test("Test add and remove new pan payment method negative case", () => {
 		renderApp();
-		const addIbanBtn = screen.getByText("Aggiungi metodo di pagamento Iban") as HTMLButtonElement;
-		fireEvent.click(addIbanBtn);
-		const removeIbanBtn = screen.getByText("Rimuovi metodo di pagamento Iban") as HTMLButtonElement;
-		fireEvent.click(removeIbanBtn);
+		const pan = screen.getByTestId("pan-test") as HTMLInputElement;
+		const bankName = screen.getByTestId("bankName-test") as HTMLInputElement;
+		const submitBtn = screen.getByText("Conferma");
+
+		fireEvent.change(pan, { target: { value: "123456789012345" } });
+		expect(pan.value).toBe("123456789012345");
+
+		fireEvent.click(submitBtn);
+
+		fireEvent.change(pan, { target: { value: "" } });
+		expect(pan.value).toBe("");
+
+		fireEvent.change(bankName, { target: { value: "BANK" } });
+		expect(bankName.value).toBe("BANK")
+
+		fireEvent.click(submitBtn);
+	});
+
+	test("Test add and remove new IBAN payment method positive case", () => {
+		global.fetch = jest.fn().mockResolvedValueOnce({
+			json: () => Promise.resolve({
+				status: 200,
+				success: true,
+				valuesObj: {
+					data: {
+						continue: true
+					},
+					device: {
+						bankId: "06789",
+						branchId: "12345",
+						channel: "ATM",
+						code: "0001",
+						opTimestamp: "2024-04-11T09:05:27",
+						peripherals: [
+							{
+								id: "PRINTER",
+								name: "Receipt printer",
+								status: "OK"
+							},
+							{
+								id: "SCANNER",
+								name: "Scanner",
+								status: "OK"
+							}
+						],
+						terminalId: "64874412"
+					},
+					fiscalCode: "SNNCNA88S04A567U"
+				},
+			}),
+		});
+		
+		renderApp();
+		const iban = screen.getByTestId("iban-test") as HTMLInputElement;
+		const bankName = screen.getByTestId("bankNameIban-test") as HTMLInputElement;
+		const submitBtn = screen.getByText("Conferma");
+
+		expect(iban.value).toBe("");
+		fireEvent.change(iban, { target: { value: "IT12A1234512345123456789012" } });
+		expect(iban.value).toBe("IT12A1234512345123456789012")
+
+		expect(bankName.value).toBe("");
+		fireEvent.change(bankName, { target: { value: "BANK" } });
+		expect(bankName.value).toBe("BANK")
+
+		const addPanBtn = screen.getByText("Aggiungi metodo di pagamento Iban");
+		fireEvent.click(addPanBtn);
+
+		const removePanBtn = screen.getByText("Rimuovi metodo di pagamento Iban") as HTMLButtonElement;
+		fireEvent.click(removePanBtn);
+
+		fireEvent.click(submitBtn);
+	});
+
+	test("Test add and remove new IBAN payment method negative case", () => {
+		renderApp();
+		const iban = screen.getByTestId("iban-test") as HTMLInputElement;
+		const bankName = screen.getByTestId("bankNameIban-test") as HTMLInputElement;
+		const submitBtn = screen.getByText("Conferma");
+
+		fireEvent.change(iban, { target: { value: "IT12A1234512345123456789012" } });
+		expect(iban.value).toBe("IT12A1234512345123456789012");
+
+		fireEvent.click(submitBtn);
+
+		fireEvent.change(iban, { target: { value: "" } });
+		expect(iban.value).toBe("");
+
+		fireEvent.change(bankName, { target: { value: "BANK" } });
+		expect(bankName.value).toBe("BANK")
+
+		fireEvent.click(submitBtn);
 	});
 
 	test("Test submit of form emulator", () => {
@@ -102,22 +245,6 @@ describe("Test FormEmulatorParameters component", () => {
 		fireEvent.click(submitBtn);
 	});
 
-	test("Test handleChangeMultiSelectCard and onClose", async () => {
-		renderApp();
-		const selectCIrcuit0 = screen.getByTestId("circuits-select-0") as HTMLSelectElement;
-		const circuits = screen.getByRole('combobox') as HTMLSelectElement;
-	
-		fireEvent.mouseDown(circuits);
-		fireEvent.click(screen.getByText("Mastercard"));
-		fireEvent.click(screen.getByText("Bancomat"));
-		expect(selectCIrcuit0.value).toBe("VISA,MASTERCARD");
-		fireEvent.mouseLeave(circuits);
-
-		const addPanBtn = screen.getByText("Aggiungi metodo di pagamento pan");
-		fireEvent.click(addPanBtn);
-
-		screen.debug(undefined, 99999);
-	});
 	test("validation blocks empty form fields", () => {
 		renderApp();
 
@@ -133,7 +260,7 @@ describe("Test FormEmulatorParameters component", () => {
 		const terminalIdInput = screen.getByLabelText("ID Terminale *");
 		fireEvent.change(terminalIdInput, { target: { value: "" } });
 
-		const fiscalCodeInput = screen.getByLabelText("Codice Fiscale *");
+		const fiscalCodeInput = screen.getByLabelText("Codice Fiscale");
 		fireEvent.change(fiscalCodeInput, { target: { value: "" } });
 
 		const submitButton = screen.getByRole("button", { name: "Conferma" });
