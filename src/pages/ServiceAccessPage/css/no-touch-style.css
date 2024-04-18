@@ -229,8 +229,8 @@
 }
 
 
-#no-touch li>span.small {
-    color: rgba(236, 236, 236, 1);
+#no-touch li > span.small {
+	color: var(--primary-main);
 }
 
 
