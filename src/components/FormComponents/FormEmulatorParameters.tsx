@@ -167,21 +167,21 @@ export const FormEmulatorParameters = () => {
 	};
 
 	const setPanInfoValues = () => {
-		formDataPanInfoCards.panInfo.every((panInfoObject) => {
+		formDataPanInfoCards.panInfo.forEach((panInfoObject) => {
 			if (Object.values(panInfoObject).some((panCardvalue: any) => panCardvalue.length > 0)) {
-				return setPanInfo(formDataPanInfoCards);
+				setPanInfo(formDataPanInfoCards);
 			} else {
-				return setPanInfo(undefined);
+				setPanInfo({panInfo: formDataPanInfoCards.panInfo.slice(0, -1)});
 			}
 		});
 	};
 
 	const setIbanListValues = () => {
-		formDataIbanList.IBANlist.every((ibanObject) => {
+		formDataIbanList.IBANlist.forEach((ibanObject) => {
 			if (Object.values(ibanObject).some((ibanValue: any) => ibanValue.length > 0)) {
-				return setPanInfo(formDataIbanList);
+				setIbanList(formDataIbanList);
 			} else {
-				return setPanInfo(undefined);
+				setIbanList({IBANlist: formDataIbanList.IBANlist.slice(0, -1)});
 			}
 		});
 	};
