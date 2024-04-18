@@ -5,7 +5,6 @@ import App from "./App";
 describe ("App Tests", () => {
 	test("Test App without jwt in sessionStorage", () => {
 
-		sessionStorage.setItem("tempLog", "fakeToken");
 		sessionStorage.setItem("jwt_emulator", "fakeToken");
 		sessionStorage.setItem("debugOn", "true");
 	
@@ -18,7 +17,6 @@ describe ("App Tests", () => {
 	
 	test("Test App with jwt in sessionStorage", () => {
 	
-		sessionStorage.setItem("tempLog", "fakeToken");
 		sessionStorage.setItem("jwt_emulator", "fakeToken");
 		sessionStorage.setItem("debugOn", "false");
 		localStorage.setItem("jwt_console", "prova");
