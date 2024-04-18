@@ -173,17 +173,15 @@ const ServiceAccessPage = () => {
 				}
 
 			</Box>
-			<Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" maxHeight="600px">
-				{command === AUTHORIZE || command === SCAN_BILL_DATA ? (<Box id="command" m={2} />) : null}
+			{command === AUTHORIZE || command === SCAN_BILL_DATA ? (<Box id="command" m={2} />) : null}
 
-				{responseProcess?.task?.template?.type === "FORM" &&
+			{responseProcess?.task?.template?.type === "FORM" &&
 					(
 						<Box id="keyPadContainer" >
 							<KeyPad next={next} />
 						</Box>
 					)
-				}
-			</Box>
+			}
 
 		</React.Fragment>
 	);
