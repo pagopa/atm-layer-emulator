@@ -28,8 +28,8 @@ export 	const addButtonClickListener = (next:any, handleNextLiButtonClick:any, h
 	};
     
 	// const buttons = document?.querySelectorAll("button");
-	const buttons = document?.querySelectorAll("button[id]") as NodeListOf<HTMLButtonElement>;
-	buttons?.forEach(button => {
+	const buttons = document?.querySelectorAll("button[id]:not(#btn-keypad,#canc-keypad, #enter-keypad, #clear-keypad)") as NodeListOf<HTMLButtonElement>;
+	buttons?.forEach((button: any) => {
 		button.addEventListener("click", handleClick);
 	});
 	// const listButtons = document?.querySelectorAll("li");
@@ -39,6 +39,7 @@ export 	const addButtonClickListener = (next:any, handleNextLiButtonClick:any, h
 	});
 	const nextLiButtonElement = document?.getElementById("nextLiButton");
 	nextLiButtonElement?.removeEventListener("click", handleClick);
+	
 	nextLiButtonElement?.addEventListener("click", handleNextLiButtonClick);
 
 	const prevLiButtonElement = document?.getElementById("prevLiButton");
