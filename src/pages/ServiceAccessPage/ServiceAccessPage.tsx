@@ -2,21 +2,23 @@
 /* eslint-disable functional/immutable-data */
 import { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
-import { Box } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { generatePath } from "react-router-dom";
 import React from "react";
 import { Ctx } from "../../DataContext";
-import { decodeRenderHtml } from "../../components/DecodeRenderHtml/decodeRenderHtml";
+import { decodeRenderHtml, getTemplate } from "../../components/DecodeRenderHtml/decodeRenderHtml";
 import { TASK_NEXT } from "../../commons/endpoints";
 import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./css/style-page.css";
 import { executeCommand } from "../../commons/utilsFunctions";
 import { Loading } from "../../utils/Commons/Loading";
-import { AUTHORIZE, COMMAND_INFO_TEMPLATE, SCAN_BILL_DATA } from "../../commons/constants";
+import { AUTHORIZE, SCAN_BILL_DATA } from "../../commons/constants";
 import { addHeaderRow, createNextLiButton, createPrevLiButton, getPaginationFragment, positionPaginatedButtons, positionUnpaginatedButtons } from "../../utils/Commons";
 import { addButtonClickListener, removeButtonClickListener } from "../../utils/HandleClicks";
 import { postData } from "../../utils/PostData";
 import { validateInputFields } from "../../utils/HandleInputs";
+import KeyPad from "../../components/KeyPadComponents/KeyPad";
+import { infoCommandTemp } from "../../utils/infoCommandTemplate";
 
 
 const ServiceAccessPage = () => {
@@ -33,18 +35,18 @@ const ServiceAccessPage = () => {
 	if (responseProcess?.task?.template?.content) {
 		bodyHtml = decodeRenderHtml(responseProcess?.task?.template?.content);
 	} else if (!responseProcess?.task?.template?.content && (responseProcess?.task?.command === AUTHORIZE || responseProcess?.task?.command === SCAN_BILL_DATA)) {
-		bodyHtml = decodeRenderHtml(COMMAND_INFO_TEMPLATE);
+		bodyHtml = getTemplate(infoCommandTemp);
 	}
 
-	function getPaginationElements(){
-		const listItems=document.querySelectorAll("#menu > li");
-		if(listItems?.length>pageSize){
-			setMenuList(listItems); 
-			const frag = getPaginationFragment(Array.from(listItems),pageIndex,pageSize);
+	function getPaginationElements() {
+		const listItems = document.querySelectorAll("#menu > li");
+		if (listItems?.length > pageSize) {
+			setMenuList(listItems);
+			const frag = getPaginationFragment(Array.from(listItems), pageIndex, pageSize);
 			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
-			if(!touchInterface){
+			if (!touchInterface) {
 				positionPaginatedButtons();
-			}	
+			}
 		} else {
 			positionUnpaginatedButtons(touchInterface);
 		}
@@ -54,14 +56,14 @@ const ServiceAccessPage = () => {
 		if (!timeout || timeout === null) {
 			timeout = 30;
 		}
-		const nextTimeout = setTimeout(next, timeout*1000, responseProcess?.task?.onTimeout);
+		const nextTimeout = setTimeout(next, timeout * 1000, responseProcess?.task?.onTimeout);
 		setPageIndex(1);
 		setMenuList({});
 		addButtonClickListener(next, handleNextLiButtonClick, handlePrevLiButtonClick);
 		validateInputFields();
 
-		const menu=document?.getElementById("menu");
-		if(menu){
+		const menu = document?.getElementById("menu");
+		if (menu) {
 			getPaginationElements();
 		}
 
@@ -78,13 +80,13 @@ const ServiceAccessPage = () => {
 	}, [command]);
 
 	useEffect(() => {
-		const menu=document?.getElementById("menu");
-		if(menu && menuList){
-			const frag = getPaginationFragment(Array.from(menuList),pageIndex,pageSize);
+		const menu = document?.getElementById("menu");
+		if (menu && menuList) {
+			const frag = getPaginationFragment(Array.from(menuList), pageIndex, pageSize);
 			bodyHtml?.appendChild(document?.getElementById("menu")?.appendChild(frag));
-			if(!touchInterface){
+			if (!touchInterface) {
 				positionPaginatedButtons();
-			}	
+			}
 		}
 	}, [pageIndex]);
 
@@ -95,7 +97,7 @@ const ServiceAccessPage = () => {
 				urlEndpoint: generatePath(TASK_NEXT, { transactionId: responseProcess?.transactionId }),
 				method: "POST",
 				abortController,
-				body: postData(params,responseProcess,transactionData),
+				body: postData(params, responseProcess, transactionData),
 				headers: { "Content-Type": "application/json" }
 			})();
 
@@ -129,13 +131,13 @@ const ServiceAccessPage = () => {
 
 	// pagino solo se la lista è maggiore del pageSize
 	const listLength = bodyHtml?.querySelectorAll("#menu > li")?.length;
-	const paginateFlag = listLength>pageSize;
-	if(responseProcess?.task?.template?.type === "MENU" && paginateFlag){
+	const paginateFlag = listLength > pageSize;
+	if (responseProcess?.task?.template?.type === "MENU" && paginateFlag) {
 		bodyHtml?.appendChild(createNextLiButton());
 		bodyHtml?.appendChild(createPrevLiButton());
 	}
 
-	if (touchInterface){
+	if (touchInterface) {
 		const footerRow = document.createElement("div");
 		footerRow.classList.add("mui-row");
 		footerRow.id = "footerSection";
@@ -143,8 +145,8 @@ const ServiceAccessPage = () => {
 	}
 
 
-	const exitButton= bodyHtml?.querySelector("#exit");
-	if (!touchInterface && !exitButton?.hasAttribute("data-fdk")){
+	const exitButton = bodyHtml?.querySelector("#exit");
+	if (!touchInterface && !exitButton?.hasAttribute("data-fdk")) {
 		exitButton?.remove();
 	}
 
@@ -162,7 +164,7 @@ const ServiceAccessPage = () => {
 
 
 	return (
-		<React.Fragment>
+		<React.Fragment >
 			<Box id={touchInterface ? "touch" : "no-touch"} m={2}>
 				{loading ?
 					<Loading marginTop={"20%"} message="Operazione in corso, si prega di attendere" />
@@ -171,9 +173,16 @@ const ServiceAccessPage = () => {
 				}
 
 			</Box>
-			{command === AUTHORIZE || command === SCAN_BILL_DATA ? 
-				(<Box id="command" m={2}/>) : null
+			{command === AUTHORIZE || command === SCAN_BILL_DATA ? (<Box id="command" m={2} />) : null}
+
+			{responseProcess?.task?.template?.type === "FORM" &&
+					(
+						<Box id="keyPadContainer" >
+							<KeyPad next={next} />
+						</Box>
+					)
 			}
+
 		</React.Fragment>
 	);
 };

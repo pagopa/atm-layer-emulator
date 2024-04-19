@@ -119,7 +119,7 @@ strong {
     padding-left: 20px;
 }
 
-button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn, #login-button, #logout-button, #visible-section-btn) {
+button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn, #login-button, #logout-button, #visible-section-btn, #home-button-error-page, #btn-keypad, #canc-keypad, #enter-keypad, #clear-keypad) {
     position: absolute;
     right: 260px;
     left: auto;
@@ -358,4 +358,43 @@ td > img {
 .disabled {
     opacity: 0.33;
     pointer-events: none;
+}
+
+#keyPadContainer{
+    margin-left: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#keyPad{
+    padding: 2;
+    width: 380px;
+    display: flex;
+    flex-direction: row;
+    background-color: #cccccc;
+    border: 2px solid black;
+}
+
+#keyPad button#canc-keypad{
+    background-color: var(--error-main);
+}
+
+#keyPad button#clear-keypad{
+    background-color: var(--warning-main);
+}
+
+#keyPad button#enter-keypad{
+    background-color: var(--success-main);
+}
+
+#keyPad button{
+    background-color: #dddddd;
+    border: 2px solid black;
+    padding: 8px;
+}
+
+#keyPad button:hover{
+    filter: brightness(85%);
 }

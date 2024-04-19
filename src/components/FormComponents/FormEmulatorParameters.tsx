@@ -19,9 +19,10 @@ import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import { TASK_MAIN } from "../../commons/endpoints";
 import {
 	ACQUIRER_ID_LENGTH,
+	BRANCH_LENGTH,
 	CODE_LENGTH,
 	FISCAL_CODE_LENGTH,
-	TERMINAL_BRANCH_LENGTH,
+	TERMINAL_LENGTH,
 } from "../../commons/constants";
 import ROUTES from "../../routes";
 import { getCompletePathImage } from "../../utils/Commons";
@@ -31,13 +32,12 @@ import IbanInfoCard from "./IbanInfo";
 import formFunctions from "./FormFunctions";
 
 export const FormEmulatorParameters = () => {
-	const iconBaseUrl = process.env.REACT_APP_CDN_BASEURL;
 	const [loadingButton, setLoadingButton] = useState(false);
 
 	const panInfoFirstCard: PanDto = {
-		pan: "1234567891234567",
-		circuits: ["VISA", "BANCOMAT"],
-		bankName: "ISYBANK"
+		pan: "",
+		circuits: [],
+		bankName: ""
 	};
 
 	const panInfoSecondCard: PanDto = {
@@ -47,8 +47,8 @@ export const FormEmulatorParameters = () => {
 	};
 
 	const firstIban: IbanDto = {
-		IBAN: "IT12A1234512345123456789012",
-		bankName: "INTESA"
+		IBAN: "",
+		bankName: ""
 	};
 
 	const secondIban: IbanDto = {
@@ -65,7 +65,7 @@ export const FormEmulatorParameters = () => {
 		branchId: "12345",
 		code: "0001",
 		terminalId: "64874412",
-		fiscalCode: "SNNCNA88S04A567U",
+		fiscalCode: "",
 		printer: "OK",
 		scanner: "OK",
 	};
@@ -114,7 +114,7 @@ export const FormEmulatorParameters = () => {
 	const multiSelectMenuItems = () => availableCircuits.map((circuit) => (
 		<MenuItem key={circuit?.id} value={circuit?.value} sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
 			<ListItemAvatar>
-				<Avatar alt={circuit?.label} variant="rounded" sx={{ height: "25px" }} src={circuit?.icon}> 
+				<Avatar alt={circuit?.label} variant="rounded" sx={{ height: "25px" }} src={circuit?.icon}>
 					<CreditCardIcon fontSize="small" />
 				</Avatar>
 			</ListItemAvatar>
@@ -164,6 +164,26 @@ export const FormEmulatorParameters = () => {
 		} else {
 			removeAdditionalIbanPaymentMethod();
 		}
+	};
+
+	const setPanInfoValues = () => {
+		formDataPanInfoCards.panInfo.forEach((panInfoObject) => {
+			if (Object.values(panInfoObject).some((panCardvalue: any) => panCardvalue.length > 0)) {
+				setPanInfo(formDataPanInfoCards);
+			} else {
+				setPanInfo({panInfo: formDataPanInfoCards.panInfo.slice(0, -1)});
+			}
+		});
+	};
+
+	const setIbanListValues = () => {
+		formDataIbanList.IBANlist.forEach((ibanObject) => {
+			if (Object.values(ibanObject).some((ibanValue: any) => ibanValue.length > 0)) {
+				setIbanList(formDataIbanList);
+			} else {
+				setIbanList({IBANlist: formDataIbanList.IBANlist.slice(0, -1)});
+			}
+		});
 	};
 
 	useEffect(() => {
@@ -241,8 +261,8 @@ export const FormEmulatorParameters = () => {
 				if (response?.success) {
 					setResponseProcess(response?.valuesObj);
 					setTransactionData(formData);
-					setPanInfo(formDataPanInfoCards);
-					setIbanList(formDataIbanList);
+					setPanInfoValues();
+					setIbanListValues();
 					navigate(ROUTES.SERVICE_ACCESS);
 				}
 			} catch (error) {
@@ -289,7 +309,7 @@ export const FormEmulatorParameters = () => {
 						onChange={handleChange}
 						error={Boolean(errors.branchId)}
 						helperText={errors.branchId}
-						inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
+						inputProps={{ maxLength: BRANCH_LENGTH }}
 						defaultValue={initialValues.branchId}
 					/>
 				</Grid>
@@ -321,13 +341,12 @@ export const FormEmulatorParameters = () => {
 						onChange={handleChange}
 						error={Boolean(errors.terminalId)}
 						helperText={errors.terminalId}
-						inputProps={{ maxLength: TERMINAL_BRANCH_LENGTH }}
+						inputProps={{ maxLength: TERMINAL_LENGTH }}
 						defaultValue={initialValues.terminalId}
 					/>
 				</Grid>
 				<Grid xs={4} item my={1} px={1}>
 					<TextField
-						required
 						fullWidth
 						id="fiscalCode"
 						name="fiscalCode"

@@ -103,6 +103,16 @@ body #touch {
     background-position-x: 140px;
 }
 
+#touch li:not([id]){
+	background: none;
+	pointer-events: none;
+}
+
+#touch button:not([id]){
+	background: none;
+	pointer-events: none;
+}
+
 #touch li > span.small {
 	color: var(--primary-main);
 }

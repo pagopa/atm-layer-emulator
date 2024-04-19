@@ -1,7 +1,9 @@
 import { Ctx } from "../../../DataContext";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import ServiceAccessPage from "../ServiceAccessPage";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { executeCommand } from "../../../commons/utilsFunctions";
+import { createElement } from "react";
 
 beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => { });
@@ -47,7 +49,7 @@ describe("Service Access Page Tests", () => {
     };
     const content = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSIgPz4NCjwhRE9DVFlQRSBodG1sIFBVQkxJQyAiLS8vVzNDLy9EVEQgWEhUTUwgMS4wIFRyYW5zaXRpb25hbC8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9UUi94aHRtbDEvRFREL3hodG1sMS10cmFuc2l0aW9uYWwuZHRkIj4NCjxodG1sIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj4NCjxoZWFkPjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iY3NzL2VtdWxhdG9yZS5jc3MiIC8+PC9oZWFkPg0KPGJvZHk+DQoJDQoJDQoJDQoJPGltZyBpZD0ibG9nbyIgc3JjPSJodHRwczovL2QyeGR1eTd0Ymd1MmQzLmNsb3VkZnJvbnQubmV0L2ZpbGVzL0lDT04vZGVmYXVsdF9sb2dvLnN2ZyIvPg0KCTxoMT5TZXJ2aXppIGRpIHB1YmJsaWNhIHV0aWxpdCZhZ3JhdmU7PC9oMT4JDQoJPGgyPkluc2VyaXNjaSBpbCBjb2RpY2UgYXZ2aXNvPC9oMj4NCgk8aDM+SGEgMTggY2lmcmUsIGxvIHRyb3ZpIHZpY2lubyBhbCBjb2RpY2UgUVIuPC9oMz4NCgkNCgk8bGFiZWwgY2xhc3M9ImxhcmdlIj5Db2RpY2UgQXZ2aXNvDQogICAgICA8aW5wdXQgdHlwZT0idGV4dCIgaWQ9ImNvZGljZUF2dmlzbyIgdmFsdWU9IiIgcGF0dGVybj0iXlxkezE4fSQiICAvPg0KCSA8L2xhYmVsPg0KCQ0KCTxidXR0b24gY2xhc3M9Im5lZ2F0aXZlIiBkYXRhLWZkaz0iUzQiIGlkPSJleGl0Ij4NCiAgICAgIDxzcGFuPkVzY2k8L3NwYW4+DQogICAgPC9idXR0b24+DQoJDQoJPGJ1dHRvbiBjbGFzcz0icG9zaXRpdmUiIGRhdGEtZmRrPSJTOCIgaWQ9ImNvbmZpcm0iPg0KICAgICAgPHNwYW4+Q29uZmVybWE8L3NwYW4+DQogICAgPC9idXR0b24+CQ0KCQ0KCQ0KCTwvYm9keT4NCgkNCjwvaHRtbD4=";
 
-    function getTestResponse(timeout: number | null, command?: string, content?: string) {
+    function getTestResponse(timeout: number | null, command?: string, contentString?: string, type?:string) {
         return {
             outcome: {
                 description: "The operation completed successfully",
@@ -73,7 +75,8 @@ describe("Service Access Page Tests", () => {
                     errorDescription: "timeout on menu.html"
                 },
                 template: {
-                    content
+                    content: contentString ?? content,
+                    type: type ?? ""
                 },
                 timeout: timeout,
                 command: command,
@@ -263,6 +266,111 @@ describe("Service Access Page Tests", () => {
         expect(global.fetch).toHaveBeenCalled();
     });
 
+    test("calling next 204", async () => {
+        const responseProcess = getMenuTestResponseShort();
+        const touchInterface = true;
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            status: 204,
+        });
+
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+        const idPayButton = screen.getByText("Gestisci le iniziative ID Pay");
+        fireEvent.click(idPayButton);
+        await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+    });
+
+    test("calling next 401 should redirect to login page", async () => {
+        Object.defineProperty(window, 'location', {
+            value: { assign: jest.fn() }
+        });
+        const responseProcess = getMenuTestResponseShort();
+        const touchInterface = true;
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            status: 401,
+        });
+
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <MemoryRouter initialEntries={["/service-access"]}>
+                    <ServiceAccessPage />
+                </MemoryRouter>
+            </Ctx.Provider>
+        );
+        const idPayButton = screen.getByText("Gestisci le iniziative ID Pay");
+        fireEvent.click(idPayButton);
+        await waitFor(() => expect(window.location.assign).toBeCalledWith("/emulator/login"));
+    });
+
+    test("calling next 209 should redirect to error page", async () => {
+        Object.defineProperty(window, 'location', {
+            value: { assign: jest.fn() }
+        });
+        const responseProcess = getMenuTestResponseShort();
+        const touchInterface = true;
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            status: 209,
+        });
+
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <MemoryRouter initialEntries={["/service-access"]}>
+                    <ServiceAccessPage />
+                </MemoryRouter>
+            </Ctx.Provider>
+        );
+        const idPayButton = screen.getByText("Gestisci le iniziative ID Pay");
+        fireEvent.click(idPayButton);
+        await waitFor(() => expect(window.location.assign).toBeCalledWith("/emulator/error"));
+    });
+
+    test("calling next 202, should retry up to 3 times", async () => {
+        const responseProcess = getMenuTestResponseShort();
+        const touchInterface = true;
+        global.fetch = jest.fn().mockResolvedValue({
+            status: 202,
+        });
+
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+        const idPayButton = screen.getByText("Gestisci le iniziative ID Pay");
+        fireEvent.click(idPayButton);
+        await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(3));
+    });
+
+    test("calling next 400", async () => {
+        const responseProcess = getMenuTestResponseShort();
+        const touchInterface = true;
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            status: 400,
+            json: () => Promise.resolve({
+                message: "something went wrong"
+            }),
+
+        });
+
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+        const idPayButton = screen.getByText("Gestisci le iniziative ID Pay");
+        fireEvent.click(idPayButton);
+        await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+    });
+
     test("test with timeout null and useEffect PRINT_RECEIPT command", async () => {
         const responseProcess = getTestResponse(null, "PRINT_RECEIPT", undefined);
         const touchInterface = true;
@@ -273,7 +381,7 @@ describe("Service Access Page Tests", () => {
                 </BrowserRouter>
             </Ctx.Provider>
         );
-        await new Promise(res => setTimeout(res, 3000));
+        await new Promise(res => setTimeout(res, 4000));
     });
 
     test("test with timeout null and useEffect SCAN_BIIL_DATA command", () => {
@@ -287,7 +395,7 @@ describe("Service Access Page Tests", () => {
                 </BrowserRouter>
             </Ctx.Provider>
         );
-        const inputButton = screen.getByText("Conferma");
+        const inputButton = screen.queryAllByText("Conferma")[0];
         fireEvent.click(inputButton);
         expect(global.fetch).toHaveBeenCalled();
     });
@@ -355,5 +463,56 @@ describe("Service Access Page Tests", () => {
                 </BrowserRouter>
             </Ctx.Provider>
         );
+    });
+
+    test("test with UNKNOWN command", () => {
+        const unhandledDriver = "UNHANDLED_DRIVER";
+        const setCommand = jest.fn();
+        const next = jest.fn();
+        const responseProcess = {}; 
+        const result = executeCommand(unhandledDriver, setCommand, next, responseProcess);
+        expect(result).toBe("");
+        expect(setCommand).not.toHaveBeenCalled();
+        expect(next).not.toHaveBeenCalled();
+    });
+
+    test("test FORM type renders keypad, handleClicks working", () => {
+        global.fetch = jest.fn();
+        const inputTemplate = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSIgPz4NCjwhRE9DVFlQRSBodG1sIFBVQkxJQyAiLS8vVzNDLy9EVEQgWEhUTUwgMS4wIFRyYW5zaXRpb25hbC8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9UUi94aHRtbDEvRFREL3hodG1sMS10cmFuc2l0aW9uYWwuZHRkIj4NCjxodG1sIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj4NCjxoZWFkPjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iY3NzL2VtdWxhdG9yZS5jc3MiIC8+PC9oZWFkPg0KPGJvZHk+DQoJDQoJDQoJDQoJPGltZyBpZD0ibG9nbyIgc3JjPSJodHRwczovL2QyeGR1eTd0Ymd1MmQzLmNsb3VkZnJvbnQubmV0L2ZpbGVzL0lDT04vZGVmYXVsdF9sb2dvLnN2ZyIvPg0KCTxoMT5TZXJ2aXppIGRpIHB1YmJsaWNhIHV0aWxpdCZhZ3JhdmU7PC9oMT4JDQoJPGgyPkluc2VyaXNjaSBpbCBjb2RpY2UgYXZ2aXNvPC9oMj4NCgk8aDM+SGEgMTggY2lmcmUsIGxvIHRyb3ZpIHZpY2lubyBhbCBjb2RpY2UgUVIuPC9oMz4NCgkNCgk8bGFiZWwgY2xhc3M9ImxhcmdlIj5Db2RpY2UgQXZ2aXNvDQogICAgICA8aW5wdXQgdHlwZT0idGV4dCIgaWQ9ImNvZGljZUF2dmlzbyIgdmFsdWU9IiIgcGF0dGVybj0iXlxkezE4fSQiICAvPg0KCSA8L2xhYmVsPg0KCQ0KCTxidXR0b24gY2xhc3M9Im5lZ2F0aXZlIiBkYXRhLWZkaz0iUzQiIGlkPSJleGl0Ij4NCiAgICAgIDxzcGFuPkVzY2k8L3NwYW4+DQogICAgPC9idXR0b24+DQoJDQoJPGJ1dHRvbiBjbGFzcz0icG9zaXRpdmUiIGRhdGEtZmRrPSJTOCIgaWQ9ImNvbmZpcm0iPg0KICAgICAgPHNwYW4+Q29uZmVybWE8L3NwYW4+DQogICAgPC9idXR0b24+CQ0KCQ0KCQ0KCTwvYm9keT4NCgkNCjwvaHRtbD4=";
+        const responseProcess = getTestResponse(null, undefined, inputTemplate, "FORM");
+        const touchInterface = true;
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <BrowserRouter>
+                    <ServiceAccessPage />
+                </BrowserRouter>
+            </Ctx.Provider>
+        );
+        expect(screen.getByTestId("testKeyPad")).toBeInTheDocument();
+
+        const input = document.querySelector("input") as HTMLInputElement;
+        const cancButton=screen.getByText("Canc").closest("button") as HTMLButtonElement;
+        const enterButton=screen.getByText("Enter").closest("button") as HTMLButtonElement;
+        const clearButton=screen.getByText("Clear").closest("button") as HTMLButtonElement;
+        const keyPadNumbers = [];
+        for (let i = 0; i < 10; i++) {
+            keyPadNumbers.push(screen.getByText(i).closest("button") as HTMLButtonElement);
+        }
+        keyPadNumbers.map(number => fireEvent.click(number));
+        expect(input?.value).toBe("0123456789");
+
+        fireEvent.click(clearButton);
+        expect(input?.value).toBe("012345678");
+
+        fireEvent.click(enterButton);
+        expect(global.fetch).not.toHaveBeenCalled();
+
+        fireEvent.input(input, { target: { value: "012345678901234567" } });
+        fireEvent.click(enterButton);
+        expect(global.fetch).toHaveBeenCalled();
+
+        fireEvent.click(cancButton);
+        expect(global.fetch).toHaveBeenCalled();
+        
     });
 });

@@ -24,7 +24,8 @@ const LocalRoutes = () => (
 			<Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
 			<Route path={routes.SERVICE_ACCESS} element={<PageLayout><ServiceAccessPage /></PageLayout>} />
 			<Route path={routes.TIMEOUT_PAGE} element={<PageLayout><ErrorPage title="Il processo ha impiegato troppo tempo per rispondere" /></PageLayout>} />
-			<Route path={routes.ERROR_PAGE} element={<PageLayout><CommonErrorPage title={""} icon={undefined} /></PageLayout>} />
+			<Route path={routes.NO_ASSOCIATION} element={<PageLayout><ErrorPage title="Non sono stati trovati processi associati al terminale selezionato" /></PageLayout>} />
+			<Route path={routes.ERROR_PAGE} element={<PageLayout><ErrorPage title="Errore imprevisto di processo" /></PageLayout>} />
 		</Route>
 		<Route path={routes.LOGIN} element={<PageLayout><LoginPage /></PageLayout>} />
 		<Route path={routes.LOGIN_BACK} element={<PageLayout><LoginPageCallback /></PageLayout>} />
@@ -36,17 +37,16 @@ function App() {
 	const RELEASE_VERSION = process.env.REACT_APP_VERSION;
 	const [warningCodeValue, setWarningCodeValue] = useState("");
 	const [loading, setLoading] = useState(false);
-	const temp = sessionStorage.getItem("tempLog");
 	const jwt = sessionStorage.getItem("jwt_emulator");
 	const debugOn = sessionStorage.getItem("debugOn");
-	const [logged, setLogged] = useState(temp || jwt ? true : false);
+	const [logged, setLogged] = useState(jwt ? true : false);
 	const [userEmail, setUserEmail] = useState<JwtUser>({ email: undefined });
 	const [responseProcess, setResponseProcess] = useState({});
 	const [transactionData, setTransactionData] = useState ({});
 	const abortController = new AbortController();
 	const [touchInterface, setTouchInterface] = useState(true);
-	const [panInfo, setPanInfo] = useState<PanInfoDto>({panInfo: []});
-	const [ibanList, setIbanList] = useState<IbanListDto>({IBANlist: []});
+	const [panInfo, setPanInfo] = useState<PanInfoDto | undefined>();
+	const [ibanList, setIbanList] = useState<IbanListDto | undefined>();
 
 	function clearAll() {
 		if (sessionStorage.getItem("jwt_emulator")) {

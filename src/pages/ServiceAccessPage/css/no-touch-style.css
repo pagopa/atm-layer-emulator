@@ -207,6 +207,16 @@
     background-position-x: 10px;
 }
 
+#no-touch li:not([id]){
+	background: none;
+	pointer-events: none;
+}
+
+#no-touch button:not([id]){
+	background: none;
+	pointer-events: none;
+}
+
 
 #no-touch li>span{
     margin-left: 4px;
@@ -219,8 +229,8 @@
 }
 
 
-#no-touch li>span.small {
-    color: rgba(236, 236, 236, 1);
+#no-touch li > span.small {
+	color: var(--primary-main);
 }
 
 

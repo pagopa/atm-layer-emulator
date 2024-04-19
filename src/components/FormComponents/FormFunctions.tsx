@@ -13,13 +13,13 @@ const formFunctions = (
 	setPanInfoErrors: React.Dispatch<React.SetStateAction<any>>,
 	setIbanListErrors: React.Dispatch<React.SetStateAction<any>>,
 	setTouchInterface: any,
-	errors: any, 
-	formData: any, 
+	errors: any,
+	formData: any,
 	formDataPanInfoCards: any,
 	formDataIbanList: any,
 	panInfoErrors: Array<any>,
 	ibanListErrors: Array<any>
-) => { 
+) => {
 	const { cfIsValid, ibanIsValid, panIsValid } = checks();
 
 	const handleChange = (
@@ -86,7 +86,7 @@ const formFunctions = (
 		const formattedValue = Array.isArray(value) ? value : [value];
 
 		if (name === "multiple-checkbox-card") {
-		// eslint-disable-next-line functional/immutable-data
+			// eslint-disable-next-line functional/immutable-data
 			updatedFormDataPanInfoCards.panInfo[cardIndex] = {
 				...updatedFormDataPanInfoCards.panInfo[cardIndex],
 				circuits: formattedValue,
@@ -102,11 +102,7 @@ const formFunctions = (
 			branchId: formData.branchId ? "" : "Campo obbligatorio",
 			code: formData.code ? "" : "Campo obbligatorio",
 			terminalId: formData.terminalId ? "" : "Campo obbligatorio",
-			fiscalCode: formData.fiscalCode
-				? cfIsValid(formData.fiscalCode)
-					? ""
-					: "Codice fiscale non valido"
-				: "Campo obbligatorio",
+			fiscalCode: formData.fiscalCode ? cfIsValid(formData.fiscalCode) ? "" : "Codice fiscale non valido" : ""
 		};
 
 		setErrors(newErrors);
@@ -114,44 +110,52 @@ const formFunctions = (
 		return Object.values(newErrors).every((error) => !error);
 	};
 
-
 	const validatePanInfoForm = () => {
 		const newPanInfoErrors: Array<any> = [];
-
-		formDataPanInfoCards.panInfo.forEach((card: PanDto, index: number) => {
-			const cardErrors = {
-				pan: card.pan.trim() ? (panIsValid(card.pan) ? "" : "PAN non valido") : "Campo obbligatorio",
-				circuits: card.circuits.length > 0 ? "" : "Seleziona almeno un circuito",
-				bankName: card.bankName.trim() ? "" : "Campo obbligatorio"
-			};
-
-			newPanInfoErrors.push(cardErrors);
+		// eslint-disable-next-line functional/no-let
+		let isFormValid = true;
+	
+		formDataPanInfoCards.panInfo.forEach((panCard: any) => {
+			if (Object.values(panCard).some((panCardvalue: any) => panCardvalue.length > 0)) {
+				const cardErrors = {
+					pan: panCard.pan.trim() ? (panIsValid(panCard.pan) ? "" : "PAN non valido") : "Campo obbligatorio",
+					circuits: panCard.circuits.length > 0 ? "" : "Seleziona almeno un circuito",
+					bankName: panCard.bankName.trim() ? "" : "Campo obbligatorio"
+				};
+	
+				newPanInfoErrors.push(cardErrors);
+	
+				if (!Object.values(cardErrors).every((error) => !error)) {
+					isFormValid = false;
+				}
+			}
 		});
-
+	
 		setPanInfoErrors(newPanInfoErrors);
-
-		return newPanInfoErrors.every((errors) =>
-			Object.values(errors).every((error) => !error)
-		);
+		return isFormValid;
 	};
 
 	const validateIbanForm = () => {
 		const newIbanListErrors: Array<any> = [];
+		// eslint-disable-next-line functional/no-let
+		let isFormValid = true;
+		formDataIbanList.IBANlist.forEach((iban: any) => {
+			if(Object.values(iban).some((ibanValue: any) => ibanValue.length > 0)) {
+				console.log("iban", iban);
+				const ibanErrors = {
+					IBAN: iban.IBAN.trim() ? (ibanIsValid(iban.IBAN) ? "" : "IBAN non valido") : "Campo obbligatorio",
+					bankName: iban.bankName.trim() ? "" : "Campo obbligatorio"
+				};
 
-		formDataIbanList.IBANlist.forEach((iban: IbanDto, index: number) => {
-			const ibanErrors = {
-				IBAN: iban.IBAN.trim() ? (ibanIsValid(iban.IBAN) ? "" : "IBAN non valido") : "Campo obbligatorio",
-				bankName: iban.bankName.trim() ? "" : "Campo obbligatorio"
-			};
-
-			newIbanListErrors.push(ibanErrors);
+				newIbanListErrors.push(ibanErrors);
+				if(!Object.values(ibanErrors).every((error) => !error)) {
+					isFormValid = false;
+				}
+			} 
 		});
 
 		setIbanListErrors(newIbanListErrors);
-
-		return newIbanListErrors.every((errors) =>
-			Object.values(errors).every((error) => !error)
-		);
+		return isFormValid;
 	};
 
 	return {

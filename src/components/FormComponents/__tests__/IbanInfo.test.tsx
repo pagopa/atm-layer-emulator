@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import IbanInfoCard from "../IbanInfo";
 import { Ctx } from "../../../DataContext";
 
@@ -35,7 +35,11 @@ describe("IbanInfo Test", () => {
     );
 
     const ibanInput = getByPlaceholderText("IBAN") as HTMLInputElement;
+    const ibanLabel = screen.getByLabelText("IBAN");
+    const bankNameLabel = screen.getByLabelText("Banca IBAN");
     expect(ibanInput).toBeInTheDocument();
+    expect(ibanLabel).toBeInTheDocument();
+    expect(bankNameLabel).toBeInTheDocument();
     expect(ibanInput.value).toBe("IT60X0542811101000000123456");
   });
 
@@ -68,7 +72,7 @@ describe("IbanInfo Test", () => {
       />
     );
 
-    const bankNameInput = getByPlaceholderText("es: ISYBANK") as HTMLInputElement;
+    const bankNameInput = getByPlaceholderText("ISYBANK") as HTMLInputElement;
     expect(bankNameInput).toBeInTheDocument();
     expect(bankNameInput.value).toBe("ISYBANK");
   });
@@ -85,6 +89,26 @@ describe("IbanInfo Test", () => {
       />
     );
 
+    const button = getByText("Aggiungi metodo di pagamento Iban");
+    fireEvent.click(button);
+    expect(optionalPaymentMethodIbanManagment).toHaveBeenCalledTimes(1);
+  });
+
+  test("calls optionalPaymentMethodIbanManagment when button is clicked and IBAN fields are empty", () => {
+    const emptyIban = {
+      IBAN: "",
+      bankName: ""
+    };
+    const { getByText } = render(
+      <IbanInfoCard
+        iban={emptyIban}
+        index={0}
+        ibanListErrors={ibanListErrors}
+        handleChangeIbanList={handleChangeIbanList}
+        formDataIbanList={formDataIbanList}
+        optionalPaymentMethodIbanManagment={optionalPaymentMethodIbanManagment}
+      />
+    );
     const button = getByText("Aggiungi metodo di pagamento Iban");
     fireEvent.click(button);
     expect(optionalPaymentMethodIbanManagment).toHaveBeenCalledTimes(1);
