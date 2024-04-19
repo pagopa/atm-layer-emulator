@@ -307,6 +307,28 @@ describe("Service Access Page Tests", () => {
         await waitFor(() => expect(window.location.assign).toBeCalledWith("/emulator/login"));
     });
 
+    test("calling next 209 should redirect to error page", async () => {
+        Object.defineProperty(window, 'location', {
+            value: { assign: jest.fn() }
+        });
+        const responseProcess = getMenuTestResponseShort();
+        const touchInterface = true;
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            status: 209,
+        });
+
+        render(
+            <Ctx.Provider value={{ responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList }}>
+                <MemoryRouter initialEntries={["/service-access"]}>
+                    <ServiceAccessPage />
+                </MemoryRouter>
+            </Ctx.Provider>
+        );
+        const idPayButton = screen.getByText("Gestisci le iniziative ID Pay");
+        fireEvent.click(idPayButton);
+        await waitFor(() => expect(window.location.assign).toBeCalledWith("/emulator/error"));
+    });
+
     test("calling next 202, should retry up to 3 times", async () => {
         const responseProcess = getMenuTestResponseShort();
         const touchInterface = true;

@@ -100,6 +100,9 @@ export default function useFetch(endPoint?: string | undefined) {
 				} else if (status === 418){
 					window.location.assign(process.env.REACT_APP_HOME_PATH+ROUTES.NO_ASSOCIATION);
 					break;
+				} else if (status === 209){
+					window.location.assign(process.env.REACT_APP_HOME_PATH+ROUTES.ERROR_PAGE);
+					break;
 				} else if (status && !(CODE_SUCCESS.includes(status)) && status !== 206) {
 					const errorResponse = await response?.json();
 					data = { valuesObj: errorResponse, status, success: false }; // valuesObj conterrà il messaggio di errore
