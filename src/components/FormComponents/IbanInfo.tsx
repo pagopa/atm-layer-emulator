@@ -24,7 +24,7 @@ const IbanInfoCard = ({
 		{index === 0 && (
 			<Grid item xs={12} ml={1} my={1} display={"flex"} justifyContent={"center"} key={`grid${index}`}>
 				<Typography variant="body1" fontWeight="600">
-					{index === 0 ? "Inserire i dati dell'Iban principali" : "Indrire i dati dell'Iban opzionali"}
+					Inserire i dati dell&apos;Iban (opzionali)
 				</Typography>
 			</Grid>
 		)}

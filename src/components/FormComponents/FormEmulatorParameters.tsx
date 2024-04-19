@@ -65,7 +65,7 @@ export const FormEmulatorParameters = () => {
 		branchId: "12345",
 		code: "0001",
 		terminalId: "64874412",
-		fiscalCode: "SNNCNA88S04A567U",
+		fiscalCode: "",
 		printer: "OK",
 		scanner: "OK",
 	};
