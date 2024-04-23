@@ -101,6 +101,7 @@ body #touch {
 	background: url(./rightArrow.svg) no-repeat;
 	background-position-y: 85px;
     background-position-x: 140px;
+	word-wrap: break-word;
 }
 
 #touch li:not([id]){

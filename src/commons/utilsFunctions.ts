@@ -127,7 +127,7 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 		void next({ "result": "OK" });
 		break;
 	case GET_IBAN:
-		void next({ "result": "OK", "IBANlist": JSON.stringify(ibanList)});
+		void next({ "result": "OK", ...ibanList});
 		break;
 	case GET_PAN:
 		void next({ "result": "OK", ...panInfo});
