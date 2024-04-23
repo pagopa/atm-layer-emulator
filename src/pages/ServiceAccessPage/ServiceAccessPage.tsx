@@ -2,7 +2,7 @@
 /* eslint-disable functional/immutable-data */
 import { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { generatePath } from "react-router-dom";
 import React from "react";
 import { Ctx } from "../../DataContext";
@@ -173,16 +173,13 @@ const ServiceAccessPage = () => {
 				}
 
 			</Box>
-			{command === AUTHORIZE || command === SCAN_BILL_DATA ? (<Box id="command" m={2} />) : null}
-
-			{responseProcess?.task?.template?.type === "FORM" &&
-					(
-						<Box id="keyPadContainer" >
-							<KeyPad next={next} />
-						</Box>
-					)
-			}
-
+			<Box>
+				{command === AUTHORIZE || command === SCAN_BILL_DATA ? (<Box id="command" m={2} />) : null}
+				<Box id="keyPadContainer" >
+					<KeyPad next={next} type={responseProcess?.task?.template?.type} />
+				</Box>
+			</Box>
+			
 		</React.Fragment>
 	);
 };

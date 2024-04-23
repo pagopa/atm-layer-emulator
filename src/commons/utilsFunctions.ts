@@ -21,7 +21,7 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 
 			const titleColumn = document.createElement("div");
 			titleColumn.classList.add("mui-col-md-12", "center");
-			const title = document.createElement("h2");
+			const title = document.createElement("h4");
 			title.innerHTML = "Inserisci codice scansionato:";
 			titleColumn.appendChild(title);
 
@@ -60,7 +60,7 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 				const authorizeButton = document.createElement("button");
 				const doubtfulButton = document.createElement("button");
 				const cancelButton = document.createElement("button");
-				const text = document.createElement("h2");
+				const text = document.createElement("h4");
 	
 				authorizeButton.setAttribute("id", "authorize-button");
 				doubtfulButton.setAttribute("id", "doubtful-button");

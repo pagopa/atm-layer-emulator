@@ -3,9 +3,10 @@ import KeyPadRow from "./KeyPadRow";
 
 type Props = {
     next: (params: any) => Promise<void>;
+	type: string;
 };
 
-const KeyPad = ({ next }: Props) => {
+const KeyPad = ({ next, type }: Props) => {
 
 	const keyPadValue = document.querySelectorAll("input") as unknown as Array<HTMLInputElement>;
 
@@ -24,10 +25,10 @@ const KeyPad = ({ next }: Props) => {
 
 	return (
 		<Grid container id="keyPad" data-testid="testKeyPad" padding={2} width="380px" display={"flex"} flexDirection={"row"} sx={{ backgroundColor: "#cccccc", border:"2px solid black"}}>
-			<KeyPadRow rowContent={["1","2","3","Canc"]} handleAdd={handleAddKeyPadValue} handleRemove={handleRemoveKeyPadValue} next={next} />
-			<KeyPadRow rowContent={["4","5","6","Clear"]} handleAdd={handleAddKeyPadValue} handleRemove={handleRemoveKeyPadValue} next={next} />
-			<KeyPadRow rowContent={["7","8","9","Enter"]} handleAdd={handleAddKeyPadValue} handleRemove={handleRemoveKeyPadValue} next={next} />
-			<KeyPadRow rowContent={["","0","",""]} handleAdd={handleAddKeyPadValue} handleRemove={handleRemoveKeyPadValue} next={next} />
+			<KeyPadRow rowContent={["1","2","3","Canc"]} handleAdd={handleAddKeyPadValue} handleRemove={handleRemoveKeyPadValue} next={next} type={type}/>
+			<KeyPadRow rowContent={["4","5","6","Clear"]} handleAdd={handleAddKeyPadValue} handleRemove={handleRemoveKeyPadValue} next={next} type={type}/>
+			<KeyPadRow rowContent={["7","8","9","Enter"]} handleAdd={handleAddKeyPadValue} handleRemove={handleRemoveKeyPadValue} next={next} type={type}/>
+			<KeyPadRow rowContent={["","0","",""]} handleAdd={handleAddKeyPadValue} handleRemove={handleRemoveKeyPadValue} next={next} type={type}/>
 		</Grid>
 	);
 };

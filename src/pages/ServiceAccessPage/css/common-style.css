@@ -6,6 +6,7 @@
     margin: 16px;
     background-color: #FFFFFF;
     height: max-content;
+    width: 675px;
 }
 
 #command input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IBAN ,#banca-iban){
@@ -107,6 +108,17 @@ h3 {
     line-height: 24px;
     color: var(--text-secondary);
     margin-top: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h4 {
+    font-weight: 600;
+    font-size: var(--font-size-h4);
+    line-height: 42px;
+    color: var(--text-primary);
+    margin-top: 20px;
+    margin-bottom: 0px;
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -375,6 +387,9 @@ td > img {
     flex-direction: row;
     background-color: #cccccc;
     border: 2px solid black;
+    position: absolute;
+    top: 285px;
+    left: 1000px;
 }
 
 #keyPad button#canc-keypad{

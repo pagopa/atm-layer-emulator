@@ -5,9 +5,10 @@ type Props = {
     handleAdd: any;
     handleRemove: any;
     next: (params: any) => Promise<void>;
+	type: string;
 };
 
-const KeyPadButton = ( {content, handleAdd, handleRemove,  next} : Props) => {
+const KeyPadButton = ( {content, handleAdd, handleRemove,  next, type} : Props) => {
 	function handleClick(content:string){
 		switch (content){
 		case "Canc":
@@ -16,15 +17,24 @@ const KeyPadButton = ( {content, handleAdd, handleRemove,  next} : Props) => {
 		case "Enter":
 			if (!document?.getElementById("confirm")?.classList.contains("disabled")){
 				const inputElement = document.querySelector("input") as HTMLInputElement;
-				const params:any = {continue:true, [inputElement.id]:inputElement.value};
-				void next(params);
+				if(inputElement) {
+					const params:any = {continue:true, [inputElement.id]:inputElement.value};
+					void next(params);
+				} else {
+					void next({"continue": true});
+				}
+				
 			}
 			break;
 		case "Clear":
-			handleRemove(content);
+			if(type === "FORM") {
+				handleRemove(content);
+			}
 			break;
 		default:
-			handleAdd(content);
+			if(type === "FORM") {
+				handleAdd(content);
+			}
 			break;
 		}
 	}
