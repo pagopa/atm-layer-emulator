@@ -349,7 +349,7 @@ td > img {
 	cursor: pointer;
 }
 
-#circuits-label.MuiInputLabel-root{
+#circuits-label.MuiInputLabel-root:not(.MuiFormLabel-filled){
     top: -8px;
 }
 #circuits-label.MuiInputLabel-root.Mui-focused{
