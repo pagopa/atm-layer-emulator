@@ -127,10 +127,18 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 		void next({ "result": "OK" });
 		break;
 	case GET_IBAN:
-		void next({ "result": "OK", ...ibanList});
+		if(ibanList && ibanList.IBANlist.length > 0) {
+			void next({ "result": "OK", ...ibanList});
+		} else {
+			void next({ "result": "KO" });
+		}
 		break;
 	case GET_PAN:
-		void next({ "result": "OK", ...panInfo});
+		if(panInfo && panInfo.panInfo.length > 0) {
+			void next({ "result": "OK", ...panInfo});
+		} else {
+			void next({ "result": "KO" });
+		}
 		break;
 	default: return "";
 	};
