@@ -138,7 +138,7 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 		break;
 	case GET_PAN:
 		if(panInfo && panInfo.panInfo.length > 0) {
-			void next({ [outcomeKey]: "OK", ...panInfo});
+			void next({ [outcomeKey]: "OK"}, panInfo);
 		} else {
 			void next({ [outcomeKey]: "KO" });
 		}
