@@ -1,0 +1,407 @@
+@import "./root.css";
+
+#command {
+    flex: 0 0 550px;
+    border: 1px solid var(--divider);
+    margin: 16px;
+    background-color: #FFFFFF;
+    height: max-content;
+}
+
+#command input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IBAN ,#banca-iban){
+    width:60%;
+}
+
+#command-buttons-div {
+    display: flex;
+	justify-content: space-evenly;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.command-button {
+    border-radius: 10px;
+	padding: 10px 40px;
+	text-decoration: none;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 140px;
+    min-height: 45px;
+	min-width: 105px;
+	font-size: 16px;
+	margin: 10px;
+	float: right;
+	color: var(--background-paper);
+	font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+#authorize-button {
+    background-color: var(--success-main);
+    border: solid 2px var(--success-main);
+}
+
+#doubtful-button {
+    background-color: var(--warning-main);
+    border: solid 2px var(--warning-main);
+}
+
+#cancel-button {
+    background-color: var(--error-main);
+    border: solid 2px var(--error-main);
+}
+
+#text-authorize {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#title_page {
+    color: white;
+    padding: 10;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 600;
+    background-image: linear-gradient(to bottom, var(--background-default), var(--primary-main));
+}
+
+#headerSection{
+    height: 5rem;
+    width: 100%;
+    border-bottom: 1.5px solid var(--divider);
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+
+#logo {
+    position: absolute;
+    height: 60px;
+    margin: 10px;
+}
+
+h1 {
+    letter-spacing: -0.011em;
+    font-size: var(--font-size-h1);
+    text-align: right;
+    padding-right: 20px;
+    color: var(--text-primary);
+}
+
+h2 {
+    font-weight: 600;
+    font-size: var(--font-size-h2);
+    line-height: 42px;
+    color: var(--text-primary);
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h3 {
+    font-weight: 400;
+    font-size: var(--font-size-h3);
+    line-height: 24px;
+    color: var(--text-secondary);
+    margin-top: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h4 {
+    font-weight: 600;
+    font-size: var(--font-size-h4);
+    line-height: 42px;
+    color: var(--text-primary);
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+p{
+    margin-left: 20px;
+}
+
+button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn, #login-button, #logout-button, #visible-section-btn, #home-button-error-page, #btn-keypad, #canc-keypad, #enter-keypad, #clear-keypad) {
+    position: absolute;
+    right: 260px;
+    left: auto;
+    top: 530px;
+}
+
+.central {
+    margin:auto;
+    display: block;
+    top: 60px;
+    position: relative;
+    text-align: center;
+}
+
+img.central:has(+ h2){
+    min-height: 6%;
+    top: 170px;
+}
+
+.central~h2 {
+    text-align: center;
+    top: calc(50% - 130px);
+    position: relative;
+}
+
+.central~h3 {
+    text-align: center;
+    top: calc(50% - 120px);
+    position: relative;
+}
+
+
+body {
+    font-family: var(--font-family);
+}
+
+input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IBAN ,#banca-iban) {
+    width: 35%;
+    height: 60%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 1px solid var(--divider);
+    border-radius: 6px;
+    background-color: var(--background-paper);
+    border-color: var(--divider);
+}
+
+input:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IBAN,#banca-iban):focus{
+    border: 2px solid var(--primary-main);
+    outline: none;
+}
+
+input.warning:not(#acquirerId,#branchId,#terminalId,#code,#fiscalCode,#pan,#bankPan, #IBAN ,#banca-iban) {
+    border-color: var(--error-main);
+}
+
+input.warning::placeholder {
+    color: var(--error-main);
+  }
+
+label {
+    text-overflow: ellipsis;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    position: relative;
+    top: 20%;
+}
+
+span.small {
+    display: inline-block;
+    text-align: left;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+span.large {
+    display: inline-block;
+    text-align: left;
+    font-size: 18px;
+    color: black;
+}
+
+td>p>span,
+td>span {
+    color: black;
+    font-size: 0.9rem;
+    font-weight: 900;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+th {
+    font-size: 25px;
+    font-weight: 900;
+}
+
+th,
+tr {
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    width: 90%;
+    margin-right: 50px;
+    margin-left: 40px;
+    justify-content: space-between;
+}
+
+th.right,
+td.right {
+    text-align: right;
+    padding-left: 25px;
+}
+
+td {
+    border-bottom: 1px solid var(--divider);
+    display:inline-flex;
+    align-items: center;
+    width: 47%;
+}
+
+p.left {
+    position:absolute;
+    top:400px;
+    margin: 10px;
+    margin-left: 20px;
+    width: 305px;
+    background-color: var(--info-extraLight);
+    border-radius: 6px;
+    display: flex;
+    text-align: justify;
+    padding: 15px;
+    padding-right: 20px;
+}
+
+p.left > img {
+    padding-right: 15px;
+    height: 1.5rem;
+}
+
+td>p {
+    display: flex;
+    flex-direction: column;
+}
+
+span::before {
+    white-space: pre;
+}
+
+thead::before {
+    content: '-';
+    display: block;
+    line-height: 3em;
+    color: transparent;
+}
+
+
+#message_free {
+    margin: auto;
+    padding: 100px 50px;
+    font-size: x-large;
+    text-align: center;
+}
+
+thead > tr {
+    border: 1px solid var(--divider);
+    border-radius: 18px;
+    margin-bottom: 10px;
+}
+
+tbody > tr > td> span{
+    font-weight: 400;
+    margin-bottom: 10px;
+    margin-left: 50px;
+}
+
+tbody > tr > td.right > span{
+    font-weight: 900;
+}
+
+tfoot > tr > td {
+    border: none;
+    margin-left: 50px;
+}
+
+td > img {
+    margin-right: 10px;
+}
+
+#home-button{
+    display:none;
+}
+
+#command #command-submit-btn {
+	border-radius: 10px;
+	background-color: var(--primary-main);
+	border: 2px solid var(--primary-main);
+	padding: 10px 40px;
+	text-decoration: none;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 140px;
+    min-height: 45px;
+	min-width: 105px;
+	font-size: 16px;
+	margin: 10px;
+	float: right;
+	color: var(--background-paper);
+	font-weight: 600;
+	cursor: pointer;
+}
+
+#circuits-label.MuiInputLabel-root:not(.MuiFormLabel-filled){
+    top: -8px;
+}
+#circuits-label.MuiInputLabel-root.Mui-focused{
+    top: 0px;
+}
+
+.mui-col-md-12.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.disabled {
+    opacity: 0.33;
+    pointer-events: none;
+}
+
+#keyPadContainer{
+    margin-left: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#keyPad{
+    padding: 2;
+    width: 380px;
+    display: flex;
+    flex-direction: row;
+    background-color: #cccccc;
+    border: 2px solid black;
+}
+
+#keyPad button#canc-keypad{
+    background-color: var(--error-main);
+}
+
+#keyPad button#clear-keypad{
+    background-color: var(--warning-main);
+}
+
+#keyPad button#enter-keypad{
+    background-color: var(--success-main);
+}
+
+#keyPad button{
+    background-color: #dddddd;
+    border: 2px solid black;
+    padding: 8px;
+}
+
+#keyPad button:hover{
+    filter: brightness(85%);
+}
