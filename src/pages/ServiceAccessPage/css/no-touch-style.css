@@ -184,8 +184,6 @@
     width: 258px;
     height: 38px;
     border-radius: 6px;
-    background-color: #ffffff;
-    border: none;
     padding: 12px 40px;
     text-align: center;
     text-decoration: none;
@@ -217,17 +215,6 @@
 	background: none;
 	pointer-events: none;
 }
-
-#no-touch li:not([id]){
-	background: none;
-	pointer-events: none;
-}
-
-#no-touch button:not([id]){
-	background: none;
-	pointer-events: none;
-}
-
 
 #no-touch li>span{
     margin-left: 4px;
