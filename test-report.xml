@@ -62,7 +62,7 @@
     <testCase name="Commons Tests testing getCompletePathImage constant" duration="1"/>
     <testCase name="Commons Tests reset specific error" duration="1"/>
     <testCase name="Commons Tests should not reset a specific field error if it does not exist" duration="0"/>
-    <testCase name="Commons Tests should reset all errors of the fields" duration="1"/>
+    <testCase name="Commons Tests should reset all errors of the fields" duration="0"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/Layout/__tests__/PageLayout.test.tsx">
     <testCase name="PageLayout test Test render PageLayout component with loading false and no userEmail nor token" duration="77"/>

@@ -35,7 +35,7 @@
     </testcase>
     <testcase classname="IbanInfo Test" name="renders Banca IBAN input field" time="0.023">
     </testcase>
-    <testcase classname="IbanInfo Test" name="calls optionalPaymentMethodIbanManagment when button is clicked" time="0.021">
+    <testcase classname="IbanInfo Test" name="calls optionalPaymentMethodIbanManagment when button is clicked" time="0.019">
     </testcase>
     <testcase classname="IbanInfo Test" name="calls optionalPaymentMethodIbanManagment when button is clicked and IBAN fields are empty" time="0.021">
     </testcase>
@@ -45,21 +45,21 @@
     </testcase>
     <testcase classname="Validation Functions" name="isInvalidField returns false for valid fields" time="0">
     </testcase>
-    <testcase classname="Validation Functions" name="cfIsValid returns true for valid Italian fiscal codes" time="0.001">
+    <testcase classname="Validation Functions" name="cfIsValid returns true for valid Italian fiscal codes" time="0">
     </testcase>
     <testcase classname="Validation Functions" name="cfIsValid returns false for invalid Italian fiscal codes" time="0.001">
     </testcase>
     <testcase classname="Validation Functions" name="ibanIsValid returns true for valid Italian IBANs" time="0.006">
     </testcase>
-    <testcase classname="Validation Functions" name="ibanIsValid returns false for invalid Italian IBANs" time="0">
+    <testcase classname="Validation Functions" name="ibanIsValid returns false for invalid Italian IBANs" time="0.001">
     </testcase>
     <testcase classname="Validation Functions" name="panIsValid returns true for valid PANs" time="0">
     </testcase>
-    <testcase classname="Validation Functions" name="panIsValid returns false for invalid PANs" time="0.001">
+    <testcase classname="Validation Functions" name="panIsValid returns false for invalid PANs" time="0">
     </testcase>
-    <testcase classname="Validation Functions" name="isValidInputValue returns true for valid input values" time="0">
+    <testcase classname="Validation Functions" name="isValidInputValue returns true for valid input values" time="0.001">
     </testcase>
-    <testcase classname="Validation Functions" name="isValidInputValue returns false for invalid input values" time="0.001">
+    <testcase classname="Validation Functions" name="isValidInputValue returns false for invalid input values" time="0">
     </testcase>
   </testsuite>
   <testsuite name="src/components/FormComponents/__tests__/FormEmulatorParameters.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-05-16T07:42:18" time="6.474" tests="7">
@@ -81,7 +81,7 @@
   <testsuite name="src/components/FormComponents/__tests__/FormFunctions.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-05-16T07:42:23" time="1.98" tests="4">
     <testcase classname="Test FormFunctions component" name="Test handleChange" time="0.478">
     </testcase>
-    <testcase classname="Test FormFunctions component" name="Test handleChangePanInfoCards" time="0.146">
+    <testcase classname="Test FormFunctions component" name="Test handleChangePanInfoCards" time="0.191">
     </testcase>
     <testcase classname="Test FormFunctions component" name="Test handleChangeIbanList" time="0.181">
     </testcase>
@@ -103,11 +103,11 @@
   <testsuite name="src/utils/__tests__/Commons.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-05-16T07:42:26" time="0.181" tests="4">
     <testcase classname="Commons Tests" name="testing getCompletePathImage constant" time="0.001">
     </testcase>
-    <testcase classname="Commons Tests" name="reset specific error" time="0.001">
+    <testcase classname="Commons Tests" name="reset specific error" time="0.002">
     </testcase>
     <testcase classname="Commons Tests" name="should not reset a specific field error if it does not exist" time="0">
     </testcase>
-    <testcase classname="Commons Tests" name="should reset all errors of the fields" time="0.001">
+    <testcase classname="Commons Tests" name="should reset all errors of the fields" time="0">
     </testcase>
   </testsuite>
   <testsuite name="src/pages/Layout/__tests__/PageLayout.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-05-16T07:42:26" time="0.991" tests="2">

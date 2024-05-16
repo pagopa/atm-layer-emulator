@@ -2,7 +2,6 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Ctx } from "../DataContext";
 import routes from "../routes";
-// import { Loading } from "../components/Commons/Loading";
 import { Loading } from "../utils/Commons/Loading";
 
 

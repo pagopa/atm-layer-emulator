@@ -13,7 +13,6 @@ export default function BoxPageLayout({shadow=false,px=5, py=0, mx=0, my=5, bord
 	const theme=useTheme();
 	return (
 		<Box 
-			// display="flex"
 			flex="auto"
 			flexDirection="column"
 			my={my}

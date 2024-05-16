@@ -4,7 +4,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Route, Routes } from "react-router-dom";
 import { themeApp } from "./assets/jss/themeApp";
 import { Ctx } from "./DataContext.js";
-import { CommonErrorPage } from "./pages/ErrorPages/CommonErrorPage";
 import routes from "./routes";
 import PageLayout from "./pages/Layout/PageLayout";
 import { JwtUser } from "./components/model/UserModel";
@@ -107,6 +106,12 @@ function App() {
 		}
 	}, [logged]);
 
+	useEffect(() => {
+		if(debugOn){
+			console.log("login utente", logged);
+		}
+	}, [logged]);
+  
 	return (
 		<ThemeProvider theme={themeApp}>
 			<Ctx.Provider value={values}>
