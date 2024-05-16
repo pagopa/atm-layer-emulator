@@ -56,7 +56,6 @@ body #touch {
 }
 
 #touch #exit {
-	background-color: var(--background-paper);
 	color: var(--error-main);
 	border: 2px solid;
 	background: url(./exit.svg) no-repeat;
@@ -68,7 +67,6 @@ body #touch {
 }
 
 #touch #back {
-	background-color: var(--primary-main);
 	color: var(--primary-main);
 	border: 2px solid;
 	background: url(./back.svg) no-repeat;
@@ -82,8 +80,6 @@ body #touch {
 }
 
 #touch li {
-	border-radius: 4px;
-	border: none;
 	padding: 15px 10px;
 	text-decoration: none;
 	display: inline-block;
@@ -102,16 +98,6 @@ body #touch {
 	background-position-y: 85px;
     background-position-x: 140px;
 	word-wrap: break-word;
-}
-
-#touch li:not([id]){
-	background: none;
-	pointer-events: none;
-}
-
-#touch button:not([id]){
-	background: none;
-	pointer-events: none;
 }
 
 #touch li:not([id]){
