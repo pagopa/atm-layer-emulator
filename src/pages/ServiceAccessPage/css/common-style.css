@@ -111,12 +111,19 @@ h3 {
     padding-right: 20px;
 }
 
-p{
-    margin-left: 20px;
+h4 {
+    font-weight: 600;
+    font-size: var(--font-size-h4);
+    line-height: 42px;
+    color: var(--text-primary);
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-strong {
-    padding-left: 20px;
+p{
+    margin-left: 20px;
 }
 
 button:not([data-fdk], #home-button, #confirm-button, #authorize-button, #doubtful-button, #cancel-button, #command-submit-btn, #login-button, #logout-button, #visible-section-btn, #home-button-error-page, #btn-keypad, #canc-keypad, #enter-keypad, #clear-keypad) {
@@ -200,7 +207,7 @@ span.small {
 span.large {
     display: inline-block;
     text-align: left;
-    font-size: 28px;
+    font-size: 18px;
     color: black;
 }
 
@@ -342,7 +349,7 @@ td > img {
 	cursor: pointer;
 }
 
-#circuits-label.MuiInputLabel-root{
+#circuits-label.MuiInputLabel-root:not(.MuiFormLabel-filled){
     top: -8px;
 }
 #circuits-label.MuiInputLabel-root.Mui-focused{

@@ -90,14 +90,14 @@ const ServiceAccessPage = () => {
 		}
 	}, [pageIndex]);
 
-	const next = async (params: any) => {
+	const next = async (params: any, outerparams?:any) => {
 		setLoading(true);
 		try {
 			const response = await fetchRequest({
 				urlEndpoint: generatePath(TASK_NEXT, { transactionId: responseProcess?.transactionId }),
 				method: "POST",
 				abortController,
-				body: postData(params, responseProcess, transactionData),
+				body: postData(params, responseProcess, transactionData, outerparams),
 				headers: { "Content-Type": "application/json" }
 			})();
 

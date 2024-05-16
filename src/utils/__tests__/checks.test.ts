@@ -45,7 +45,7 @@ describe("Validation Functions", () => {
 
   test("panIsValid returns false for invalid PANs", () => {
     expect(checks().panIsValid("")).toBe(false);
-    expect(checks().panIsValid("12345678901234567")).toBe(false);
+    expect(checks().panIsValid("12345678901234567812374")).toBe(false);
     expect(checks().panIsValid("123456789012345")).toBe(false);
     expect(checks().panIsValid("123456789012345X")).toBe(false);
   });

@@ -23,7 +23,7 @@ const checks = () => {
 	};
 
 	const panIsValid = (value: string) => {
-		const panRegex = /^[0-9]{16}$/;
+		const panRegex = /^[0-9]{16,19}$/;
 		return panRegex.test(value);
 	};
 

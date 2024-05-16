@@ -9,7 +9,7 @@ export 	const handleClickFunction = (event: MouseEvent, next:any) => {
 		if (dataString) {
 			const data = dataString ? JSON.parse(dataString) : {};
 			const params: any = { ...data };
-			const inputElements = document?.querySelectorAll("input");
+			const inputElements = document?.querySelectorAll("input[id]:not(#textarea)");
 			inputElements.forEach((input: any) => {
 				// eslint-disable-next-line functional/immutable-data
 				params[input.id] = input.value;

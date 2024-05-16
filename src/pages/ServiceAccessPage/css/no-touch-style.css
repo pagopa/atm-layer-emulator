@@ -205,6 +205,17 @@
     background: url(./leftArrow.svg) no-repeat;
     background-position-y: center;
     background-position-x: 10px;
+    word-wrap: break-word;
+}
+
+#no-touch li:not([id]){
+	background: none;
+	pointer-events: none;
+}
+
+#no-touch button:not([id]){
+	background: none;
+	pointer-events: none;
 }
 
 #no-touch li:not([id]){
