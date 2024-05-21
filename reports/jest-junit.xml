@@ -7,7 +7,7 @@
     </testcase>
     <testcase classname="PanInfoCard Test" name="renders Banca PAN input field" time="0.044">
     </testcase>
-    <testcase classname="PanInfoCard Test" name="calls optionalPaymentMethodPanManagment when button is clicked" time="0.072">
+    <testcase classname="PanInfoCard Test" name="calls optionalPaymentMethodPanManagment when button is clicked" time="0.069">
     </testcase>
     <testcase classname="PanInfoCard Test" name="renders Circuits select field" time="0.042">
     </testcase>
@@ -159,7 +159,7 @@
     </testcase>
     <testcase classname="Handle Inputs Tests" name="validation has no effect if no inputs are present" time="0.002">
     </testcase>
-    <testcase classname="Handle Inputs Tests" name="validation has no effect if no confirm button is present" time="0.001">
+    <testcase classname="Handle Inputs Tests" name="validation has no effect if no confirm button is present" time="0.013">
     </testcase>
   </testsuite>
   <testsuite name="src/components/FormComponents/template/__tests__/FormTemplate.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-05-21T10:41:11" time="1.201" tests="2">

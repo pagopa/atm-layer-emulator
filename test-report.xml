@@ -59,8 +59,8 @@
     <testCase name="Login Page Tests renders with jwt and cleans storage" duration="15"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/utils/__tests__/Commons.test.tsx">
-    <testCase name="Commons Tests testing getCompletePathImage constant" duration="2"/>
-    <testCase name="Commons Tests reset specific error" duration="2"/>
+    <testCase name="Commons Tests testing getCompletePathImage constant" duration="1"/>
+    <testCase name="Commons Tests reset specific error" duration="1"/>
     <testCase name="Commons Tests should not reset a specific field error if it does not exist" duration="0"/>
     <testCase name="Commons Tests should reset all errors of the fields" duration="0"/>
   </file>
@@ -91,7 +91,7 @@
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/utils/__tests__/HandleInputs.test.tsx">
     <testCase name="Handle Inputs Tests should handle invalid input values" duration="8"/>
     <testCase name="Handle Inputs Tests validation has no effect if no inputs are present" duration="2"/>
-    <testCase name="Handle Inputs Tests validation has no effect if no confirm button is present" duration="1"/>
+    <testCase name="Handle Inputs Tests validation has no effect if no confirm button is present" duration="13"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/components/FormComponents/template/__tests__/FormTemplate.test.tsx">
     <testCase name="Test FormTemplate component Test maxWidth is &apos;75%&apos; when window width is greater than md breakpoint" duration="81"/>
