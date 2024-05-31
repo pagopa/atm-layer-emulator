@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-let */
 const checks = () => {
 	const isInvalidField = (field:any) => (
 		field === undefined ||
@@ -6,15 +7,37 @@ const checks = () => {
         (typeof field === "number" && field < 0)
 	);
 
-	// const isValidFiscalCode = (e: string) => {
-	// 	const fiscalCodeRegex = /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/;
-	// 	return fiscalCodeRegex.test(e);
-	// };
 
 	const cfIsValid = (value: string) => {
-		// eslint-disable-next-line functional/no-let, prefer-const
-		let cfRegex =/^([A-Za-z]{6}[0-9lmnpqrstuvLMNPQRSTUV]{2}[abcdehlmprstABCDEHLMPRST]{1}[0-9lmnpqrstuvLMNPQRSTUV]{2}[A-Za-z]{1}[0-9lmnpqrstuvLMNPQRSTUV]{3}[A-Za-z]{1})$/;
-		return cfRegex.test(value);
+		
+		if (value.length !== 16) {return false;}
+
+		const isLetter = (char: string) => /^[A-Z]$/i.test(char);
+		for (let i = 0; i < 6; i++) {
+			if (!isLetter(value[i])) {return false;}
+		}
+	
+		const isDigit = (char: string) => /^[0-9]$/.test(char);
+		for (let i = 6; i < 8; i++) {
+			if (!isDigit(value[i])) {return false;}
+		}
+	
+		const validMonthChars = "ABCDEHLMPRST";
+		if (!validMonthChars.includes(value[8].toUpperCase())) {return false;}
+	
+		for (let i = 9; i < 11; i++) {
+			if (!isDigit(value[i])) {return false;}
+		}
+	
+		if (!isLetter(value[11])) {return false;}
+	
+		for (let i = 12; i < 15; i++) {
+			if (!isDigit(value[i])) {return false;}
+		}
+	
+		if (!isLetter(value[15])) {return false;}
+	
+		return true;
 	};
 
 	const ibanIsValid = (value: string) => {
