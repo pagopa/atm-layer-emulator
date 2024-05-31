@@ -31,9 +31,9 @@
     <testCase name="Validation Functions ibanIsValid returns true for valid Italian IBANs" duration="7"/>
     <testCase name="Validation Functions ibanIsValid returns false for invalid Italian IBANs" duration="1"/>
     <testCase name="Validation Functions panIsValid returns true for valid PANs" duration="0"/>
-    <testCase name="Validation Functions panIsValid returns false for invalid PANs" duration="1"/>
-    <testCase name="Validation Functions isValidInputValue returns true for valid input values" duration="0"/>
-    <testCase name="Validation Functions isValidInputValue returns false for invalid input values" duration="1"/>
+    <testCase name="Validation Functions panIsValid returns false for invalid PANs" duration="0"/>
+    <testCase name="Validation Functions isValidInputValue returns true for valid input values" duration="1"/>
+    <testCase name="Validation Functions isValidInputValue returns false for invalid input values" duration="0"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/components/FormComponents/__tests__/FormEmulatorParameters.test.tsx">
     <testCase name="Test FormEmulatorParameters component Test add and remove new pan payment method positive case" duration="1277"/>

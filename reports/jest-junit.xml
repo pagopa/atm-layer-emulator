@@ -23,7 +23,7 @@
     </testcase>
     <testcase classname="handleClickFunction" name="should remove click listeners from buttons" time="0.008">
     </testcase>
-    <testcase classname="handleClickFunction" name="should handle valid input values" time="0.003">
+    <testcase classname="handleClickFunction" name="should handle valid input values" time="0.004">
     </testcase>
     <testcase classname="handleClickFunction" name="should handle button clicks without data" time="0.001">
     </testcase>
@@ -113,7 +113,7 @@
   <testsuite name="src/pages/Layout/__tests__/PageLayout.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-05-31T13:33:21" time="1.084" tests="2">
     <testcase classname="PageLayout test" name="Test render PageLayout component with loading false and no userEmail nor token" time="0.078">
     </testcase>
-    <testcase classname="PageLayout test" name="Test render PageLayout component with loading true and no userEmail with token" time="0.016">
+    <testcase classname="PageLayout test" name="Test render PageLayout component with loading true and no userEmail with token" time="0.013">
     </testcase>
   </testsuite>
   <testsuite name="src/pages/ServiceAccessPage/__tests__/ServiceAccessPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-05-31T13:33:13" time="9.079" tests="18">
