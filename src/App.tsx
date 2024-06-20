@@ -29,7 +29,7 @@ const LocalRoutes = () => (
 		<Route path={routes.LOGIN} element={<PageLayout><LoginPage /></PageLayout>} />
 		<Route path={routes.LOGIN_BACK} element={<PageLayout><LoginPageCallback /></PageLayout>} />
 	</Routes>
-);
+); 
 
   
 function App() {
