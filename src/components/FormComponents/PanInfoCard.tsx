@@ -11,7 +11,7 @@ import {
 	InputLabel,
 	SelectChangeEvent,
 } from "@mui/material";
-import { PAN_MAX_LENGTH } from "../../commons/constants";
+import { MAX_LENGHT_LARGE, PAN_MAX_LENGTH } from "../../commons/constants";
 import { PanDto, PanInfoDto } from "../model/ParametersModel";
 
 type Props = {
@@ -80,7 +80,7 @@ const PanInfoCard = ({
 				onChange={(e) => handleChangePanInfoCards(e, index)}
 				error={Boolean(panInfoErrors[index]?.bankName)}
 				helperText={panInfoErrors[index]?.bankName}
-				inputProps={{ "data-testid": "bankName-test" }}
+				inputProps={{ maxLength: MAX_LENGHT_LARGE, "data-testid": "bankName-test" }}
 			/>
 		</Grid>
 		<Grid xs={4} item my={1} px={1}>
