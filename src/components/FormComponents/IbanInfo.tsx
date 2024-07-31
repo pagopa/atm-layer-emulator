@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, TextField, Typography, Button } from "@mui/material";
 import { IbanDto, IbanListDto } from "../model/ParametersModel";
-import { IBAN_MAX_LENGTH } from "../../commons/constants";
+import { IBAN_MAX_LENGTH, MAX_LENGHT_LARGE } from "../../commons/constants";
 
 type Props = {
 	iban: IbanDto;
@@ -57,7 +57,7 @@ const IbanInfoCard = ({
 				onChange={(e) => handleChangeIbanList(e, index)}
 				error={Boolean(ibanListErrors[index]?.bankName)}
 				helperText={ibanListErrors[index]?.bankName}
-				inputProps={{ "data-testid": "bankNameIban-test" }}
+				inputProps={{ maxLength: MAX_LENGHT_LARGE, "data-testid": "bankNameIban-test" }}
 			/>
 		</Grid>
 
