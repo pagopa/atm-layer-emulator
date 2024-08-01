@@ -24,6 +24,7 @@ describe("Test FormEmulatorParameters component", () => {
 	const setTouchInterface = jest.fn();
 	const setPanInfo = jest.fn();
 	const setIbanList = jest.fn();
+	const setFiscalCode = jest.fn();
 
 	const renderApp = () => render(
 		<Ctx.Provider value={{
@@ -33,7 +34,8 @@ describe("Test FormEmulatorParameters component", () => {
 			touchInterface,
 			setTouchInterface,
 			setPanInfo,
-			setIbanList
+			setIbanList,
+			setFiscalCode,
 		}}>
 			<BrowserRouter>
 				<FormEmulatorParameters />
@@ -70,39 +72,45 @@ describe("Test FormEmulatorParameters component", () => {
 						],
 						terminalId: "64874412"
 					},
-					fiscalCode: "SNNCNA88S04A567U"
 				},
 			}),
 		});
 		
 		renderApp();
+	
+		const fiscalCodeInput = screen.getByLabelText("Codice Fiscale") as HTMLInputElement;
+		fireEvent.change(fiscalCodeInput, { target: { value: "RSSMRA74D22A001Q" } });
+	
 		const pan = screen.getByTestId("pan-test") as HTMLInputElement;
 		const bankName = screen.getByTestId("bankName-test") as HTMLInputElement;
 		const selectCircuits = screen.getByTestId("circuits-select-0") as HTMLSelectElement;
 		const circuits = screen.getByRole('combobox') as HTMLSelectElement;
 		const submitBtn = screen.getByText("Conferma");
-
+	
 		expect(pan.value).toBe("");
 		fireEvent.change(pan, { target: { value: "1234567890123456" } });
 		expect(pan.value).toBe("1234567890123456")
-
+	
 		expect(bankName.value).toBe("");
 		fireEvent.change(bankName, { target: { value: "BANK" } });
 		expect(bankName.value).toBe("BANK")
-
+	
 		fireEvent.mouseDown(circuits);
 		fireEvent.click(screen.getByText("Mastercard"));
 		expect(selectCircuits.value).toBe("MASTERCARD");
 		fireEvent.mouseLeave(circuits);
-
+	
 		const addPanBtn = screen.getByText("Aggiungi metodo di pagamento pan");
 		fireEvent.click(addPanBtn);
-
+	
 		const removePanBtn = screen.getByText("Rimuovi metodo di pagamento pan") as HTMLButtonElement;
 		fireEvent.click(removePanBtn);
-
+	
 		fireEvent.click(submitBtn);
+	
+		expect(setFiscalCode).toHaveBeenCalledWith("RSSMRA74D22A001Q");
 	});
+	
 
 	test("Test add and remove new pan payment method negative case", () => {
 		renderApp();
@@ -153,7 +161,6 @@ describe("Test FormEmulatorParameters component", () => {
 						],
 						terminalId: "64874412"
 					},
-					fiscalCode: "SNNCNA88S04A567U"
 				},
 			}),
 		});
@@ -229,14 +236,34 @@ describe("Test FormEmulatorParameters component", () => {
 						],
 						terminalId: "64874412"
 					},
-					fiscalCode: "SNNCNA88S04A567U"
 				},
 			}),
 		});
+	
 		renderApp();
+	
+		// Popolare tutti i campi necessari, incluso il fiscalCode
+		const fiscalCodeInput = screen.getByLabelText("Codice Fiscale") as HTMLInputElement;
+		fireEvent.change(fiscalCodeInput, { target: { value: "RSSMRA74D22A001Q" } });
+	
+		const acquirerIdInput = screen.getByLabelText("ID Banca *");
+		fireEvent.change(acquirerIdInput, { target: { value: "06789" } });
+	
+		const branchIdInput = screen.getByLabelText("ID Filiale *");
+		fireEvent.change(branchIdInput, { target: { value: "12345" } });
+	
+		const codeInput = screen.getByLabelText("Codice *");
+		fireEvent.change(codeInput, { target: { value: "0001" } });
+	
+		const terminalIdInput = screen.getByLabelText("ID Terminale *");
+		fireEvent.change(terminalIdInput, { target: { value: "64874412" } });
+	
 		const submitBtn = screen.getByText("Conferma");
 		fireEvent.click(submitBtn);
+	
+		expect(setFiscalCode).toHaveBeenCalledWith("RSSMRA74D22A001Q");
 	});
+	
 
 	test("Test submit of form emulator with error", () => {
 		global.fetch = jest.fn().mockRejectedValueOnce(new Error("Fetch error"));
@@ -269,6 +296,4 @@ describe("Test FormEmulatorParameters component", () => {
 		// const errorMessage = screen.getByText("Campo obbligatorio");
 		// expect(errorMessage).toBeInTheDocument();
 	});
-
-
 });
