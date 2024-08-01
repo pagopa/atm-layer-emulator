@@ -145,7 +145,8 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 		break;
 	case GET_CF:
 		// eslint-disable-next-line object-shorthand
-		void next({ [outcomeKey]: "OK", "fiscalCode": fiscalCode });
+		const fiscalCodeObj = {"fiscalCode": fiscalCode};
+		void next({[outcomeKey]: "OK"}, fiscalCodeObj);
 		break;
 	default: return "";
 	};
