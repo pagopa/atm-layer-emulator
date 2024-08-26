@@ -144,9 +144,13 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 		}
 		break;
 	case GET_CF:
-		// eslint-disable-next-line object-shorthand
-		const fiscalCodeObj = {"fiscalCode": fiscalCode};
-		void next({[outcomeKey]: "OK"}, fiscalCodeObj);
+		if (fiscalCode && fiscalCode.length > 0) {
+			// eslint-disable-next-line object-shorthand
+			const fiscalCodeObj = {"fiscalCode": fiscalCode};
+			void next({[outcomeKey]: "OK"}, fiscalCodeObj);
+		} else {
+			void next({ [outcomeKey]: "KO" });
+		}
 		break;
 	default: return "";
 	};
