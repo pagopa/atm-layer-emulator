@@ -29,7 +29,7 @@ const LocalRoutes = () => (
 		<Route path={routes.LOGIN} element={<PageLayout><LoginPage /></PageLayout>} />
 		<Route path={routes.LOGIN_BACK} element={<PageLayout><LoginPageCallback /></PageLayout>} />
 	</Routes>
-);
+); 
 
   
 function App() {
@@ -46,6 +46,7 @@ function App() {
 	const [touchInterface, setTouchInterface] = useState(true);
 	const [panInfo, setPanInfo] = useState<PanInfoDto | undefined>();
 	const [ibanList, setIbanList] = useState<IbanListDto | undefined>();
+	const [fiscalCode, setFiscalCode] = useState<string | undefined>();
 
 	function clearAll() {
 		if (sessionStorage.getItem("jwt_emulator")) {
@@ -91,7 +92,9 @@ function App() {
 		panInfo,
 		setPanInfo,
 		ibanList,
-		setIbanList
+		setIbanList,
+		fiscalCode,
+		setFiscalCode
 	};
   
 	useEffect(() => {

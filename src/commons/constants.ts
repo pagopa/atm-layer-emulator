@@ -17,3 +17,4 @@ export const DEFAULT_SCAN_CODE = "UEFHT1BBfDAwMnwzMDIwNTEyMzQ1NjcwMDAwNzB8Nzc3Nz
 export const ESITO_OK = "OK";
 export const ESITO_DUBBIO = "KO_DUBBIO";
 export const ESITO_KO = "KO";
+export const GET_CF = "GET_CF";

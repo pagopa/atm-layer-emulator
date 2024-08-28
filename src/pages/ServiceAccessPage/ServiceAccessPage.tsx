@@ -23,7 +23,7 @@ import { infoCommandTemp } from "../../utils/infoCommandTemplate";
 
 const ServiceAccessPage = () => {
 
-	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList } = useContext(Ctx);
+	const { responseProcess, abortController, setResponseProcess, transactionData, touchInterface, panInfo, ibanList, fiscalCode } = useContext(Ctx);
 	const [loading, setLoading] = useState(false);
 	const [command, setCommand] = useState(responseProcess?.task?.command);
 	const [menuList, setMenuList] = useState<any | NodeList>();
@@ -75,7 +75,7 @@ const ServiceAccessPage = () => {
 
 	useEffect(() => {
 		if (command && command !== "") {
-			executeCommand(command, setCommand, next, responseProcess, ibanList, panInfo);
+			executeCommand(command, setCommand, next, responseProcess, ibanList, panInfo, fiscalCode);
 		}
 	}, [command]);
 

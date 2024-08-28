@@ -91,6 +91,7 @@ export const FormEmulatorParameters = () => {
 	const [errors, setErrors] = useState<any>(initialValues);
 	const [panInfoErrors, setPanInfoErrors] = useState<Array<any>>([panInfoInitialErrors]);
 	const [ibanListErrors, setIbanListErrors] = useState<Array<any>>([ibanListInitialErrors]);
+	const [formDataFiscalCode, setFormDataFiscalCode] = useState("");
 
 	const {
 		abortController,
@@ -99,7 +100,8 @@ export const FormEmulatorParameters = () => {
 		touchInterface,
 		setTouchInterface,
 		setPanInfo,
-		setIbanList
+		setIbanList,
+		setFiscalCode
 	} = useContext(Ctx);
 	const [openFirstCard, setOpenFirstCard] = useState(false);
 	const [openSecondCard, setOpenSecondCard] = useState(false);
@@ -217,7 +219,7 @@ export const FormEmulatorParameters = () => {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-
+		
 		if (validateForm() && validatePanInfoForm() && validateIbanForm()) {
 			const date = new Date().toISOString().slice(0, -5);
 			const postData = {
@@ -244,9 +246,11 @@ export const FormEmulatorParameters = () => {
 					],
 					terminalId: formData.terminalId,
 				},
-				fiscalCode: formData.fiscalCode,
 			};
 
+			setFormDataFiscalCode(formData.fiscalCode);
+			setFiscalCode(formData.fiscalCode);
+		
 			setLoadingButton(true);
 			try {
 				const response = await fetchRequest({
@@ -257,7 +261,7 @@ export const FormEmulatorParameters = () => {
 					headers: { "Content-Type": "application/json" },
 				})();
 				setLoadingButton(false);
-
+		
 				if (response?.success) {
 					setResponseProcess(response?.valuesObj);
 					setTransactionData(formData);
@@ -271,6 +275,7 @@ export const FormEmulatorParameters = () => {
 			}
 		}
 	};
+		
 
 	return (
 		<FormTemplate handleSubmit={handleSubmit} loadingButton={loadingButton}>

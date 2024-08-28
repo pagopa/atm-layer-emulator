@@ -1,9 +1,9 @@
 import { IbanListDto } from "../components/model/ParametersModel";
 import { PanInfoDto } from "./../components/model/ParametersModel";
 /* eslint-disable functional/immutable-data */
-import { AUTHORIZE, END, GET_IBAN, GET_PAN, PRINT_RECEIPT, NEXT, SCAN_BILL_DATA, DEFAULT_SCAN_CODE, ESITO_OK, ESITO_KO, ESITO_DUBBIO } from "./constants";
+import { AUTHORIZE, END, GET_IBAN, GET_PAN, PRINT_RECEIPT, NEXT, SCAN_BILL_DATA, DEFAULT_SCAN_CODE, ESITO_OK, ESITO_KO, ESITO_DUBBIO, GET_CF } from "./constants";
 
-export function executeCommand(driver: string, setCommand: any, next: any, responseProcess: any, ibanList?:IbanListDto, panInfo?:PanInfoDto) {
+export function executeCommand(driver: string, setCommand: any, next: any, responseProcess: any, ibanList?:IbanListDto, panInfo?:PanInfoDto, fiscalCode?:any) {
 
 	const outcomeVar = responseProcess?.task?.outcomeVarName;
 	const outcomeKey = outcomeVar || "result";
@@ -139,6 +139,15 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 	case GET_PAN:
 		if(panInfo && panInfo.panInfo.length > 0) {
 			void next({ [outcomeKey]: "OK"}, panInfo);
+		} else {
+			void next({ [outcomeKey]: "KO" });
+		}
+		break;
+	case GET_CF:
+		if (fiscalCode ) {
+			// eslint-disable-next-line object-shorthand
+			const fiscalCodeObj = {"fiscalCode": fiscalCode};
+			void next({[outcomeKey]: "OK"}, fiscalCodeObj);
 		} else {
 			void next({ [outcomeKey]: "KO" });
 		}
