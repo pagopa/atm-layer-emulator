@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <testsuites name="jest tests" tests="87" failures="0" errors="0" time="13.274">
   <testsuite name="src/components/FormComponents/__tests__/PanInfoCard.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:38" time="3.305" tests="7">
     <testcase classname="PanInfoCard Test" name="renders PAN input field" time="0.149">
@@ -12,22 +13,26 @@
     <testcase classname="PanInfoCard Test" name="renders Circuits select field" time="0.04">
     </testcase>
     <testcase classname="PanInfoCard Test" name="opens and closes first card correctly" time="0.039">
+
     </testcase>
     <testcase classname="PanInfoCard Test" name="Test handleChange BankName" time="0.033">
     </testcase>
   </testsuite>
+
   <testsuite name="src/utils/__tests__/HandleClicks.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:41" time="0.356" tests="5">
     <testcase classname="handleClickFunction" name="should handle click events correctly" time="0.009">
+
     </testcase>
     <testcase classname="handleClickFunction" name="should add click listeners to buttons" time="0.009">
     </testcase>
-    <testcase classname="handleClickFunction" name="should remove click listeners from buttons" time="0.003">
+    <testcase classname="handleClickFunction" name="should remove click listeners from buttons" time="0.009">
     </testcase>
     <testcase classname="handleClickFunction" name="should handle valid input values" time="0.003">
     </testcase>
     <testcase classname="handleClickFunction" name="should handle button clicks without data" time="0.002">
     </testcase>
   </testsuite>
+
   <testsuite name="src/components/FormComponents/__tests__/IbanInfo.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:42" time="0.981" tests="5">
     <testcase classname="IbanInfo Test" name="renders IBAN input field" time="0.064">
     </testcase>
@@ -42,6 +47,7 @@
   </testsuite>
   <testsuite name="src/utils/__tests__/checks.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:43" time="0.186" tests="10">
     <testcase classname="Validation Functions" name="isInvalidField returns true for invalid fields" time="0.003">
+
     </testcase>
     <testcase classname="Validation Functions" name="isInvalidField returns false for valid fields" time="0.001">
     </testcase>
@@ -62,6 +68,7 @@
     <testcase classname="Validation Functions" name="isValidInputValue returns false for invalid input values" time="0">
     </testcase>
   </testsuite>
+
   <testsuite name="src/components/FormComponents/__tests__/FormEmulatorParameters.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:38" time="5.88" tests="7">
     <testcase classname="Test FormEmulatorParameters component" name="Test add and remove new pan payment method positive case" time="1.066">
     </testcase>
@@ -90,10 +97,12 @@
   </testsuite>
   <testsuite name="src/components/HeaderComponents/__tests__/HeaderAccountCustom.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:44" time="1.357" tests="2">
     <testcase classname="HeaderAccountCustom test" name="First render" time="0.043">
+
     </testcase>
-    <testcase classname="HeaderAccountCustom test" name="Calls onLogout function when logout button is clicked" time="0.019">
+    <testcase classname="HeaderAccountCustom test" name="Calls onLogout function when logout button is clicked" time="0.018">
     </testcase>
   </testsuite>
+
   <testsuite name="src/pages/__tests__/LoginPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:45" time="0.802" tests="2">
     <testcase classname="Login Page Tests" name="renders unlogged without jwt and tries access" time="0.049">
     </testcase>
@@ -101,6 +110,7 @@
     </testcase>
   </testsuite>
   <testsuite name="src/utils/__tests__/Commons.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:46" time="0.178" tests="4">
+
     <testcase classname="Commons Tests" name="testing getCompletePathImage constant" time="0.002">
     </testcase>
     <testcase classname="Commons Tests" name="reset specific error" time="0.002">
@@ -110,6 +120,7 @@
     <testcase classname="Commons Tests" name="should reset all errors of the fields" time="0.001">
     </testcase>
   </testsuite>
+
   <testsuite name="src/pages/Layout/__tests__/PageLayout.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:45" time="0.968" tests="2">
     <testcase classname="PageLayout test" name="Test render PageLayout component with loading false and no userEmail nor token" time="0.046">
     </testcase>
@@ -118,12 +129,14 @@
   </testsuite>
   <testsuite name="src/utils/__tests__/HandleInputs.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:46" time="0.365" tests="3">
     <testcase classname="Handle Inputs Tests" name="should handle invalid input values" time="0.007">
+
     </testcase>
     <testcase classname="Handle Inputs Tests" name="validation has no effect if no inputs are present" time="0.001">
     </testcase>
     <testcase classname="Handle Inputs Tests" name="validation has no effect if no confirm button is present" time="0.001">
     </testcase>
   </testsuite>
+
   <testsuite name="src/pages/ServiceAccessPage/__tests__/ServiceAccessPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:38" time="8.838" tests="18">
     <testcase classname="Service Access Page Tests" name="renders not-menu touchInterface" time="0.095">
     </testcase>
@@ -164,10 +177,12 @@
   </testsuite>
   <testsuite name="src/components/FormComponents/template/__tests__/FormTemplate.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:46" time="1.279" tests="2">
     <testcase classname="Test FormTemplate component" name="Test maxWidth is &apos;75%&apos; when window width is greater than md breakpoint" time="0.074">
+
     </testcase>
-    <testcase classname="Test FormTemplate component" name="Test maxWidth is &apos;100%&apos; when window width is less than or equal to md breakpoint" time="0.013">
+    <testcase classname="Service Access Page Tests" name="test FORM type renders keypad, handleClicks working" time="0.254">
     </testcase>
   </testsuite>
+
   <testsuite name="src/pages/ErrorPages/__tests__/ErrorPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:47" time="0.989" tests="2">
     <testcase classname="Error Page Tests" name="renders Error title correctly" time="0.08">
     </testcase>
@@ -220,6 +235,7 @@
   </testsuite>
   <testsuite name="src/commons/__tests__/decode.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-08-26T15:50:50" time="0.132" tests="1">
     <testcase classname="base64_encode function" name="encodes text to Base64 correctly" time="0.002">
+
     </testcase>
   </testsuite>
 </testsuites>
