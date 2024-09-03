@@ -51,7 +51,7 @@
     </testcase>
     <testcase classname="Validation Functions" name="ibanIsValid returns true for valid Italian IBANs" time="0">
     </testcase>
-    <testcase classname="Validation Functions" name="ibanIsValid returns false for invalid Italian IBANs" time="0.001">
+    <testcase classname="Validation Functions" name="ibanIsValid returns false for invalid Italian IBANs" time="0">
     </testcase>
     <testcase classname="Validation Functions" name="panIsValid returns true for valid PANs" time="0.001">
     </testcase>
@@ -183,7 +183,7 @@
   <testsuite name="src/pages/__tests__/LoginPageCallBack.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:13" time="0.943" tests="2">
     <testcase classname="Login Page Callback Tests" name="renders without jwt" time="0.065">
     </testcase>
-    <testcase classname="Login Page Callback Tests" name="renders with jwt" time="0.009">
+    <testcase classname="Login Page Callback Tests" name="renders with jwt" time="0.016">
     </testcase>
   </testsuite>
   <testsuite name="src/App.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:12" time="2.39" tests="3">
