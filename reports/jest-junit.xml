@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="87" failures="0" errors="0" time="13.393">
-  <testsuite name="src/components/FormComponents/__tests__/PanInfoCard.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:33" time="3.161" tests="7">
-    <testcase classname="PanInfoCard Test" name="renders PAN input field" time="0.14">
+<testsuites name="jest tests" tests="87" failures="0" errors="0" time="13.971">
+  <testsuite name="src/components/FormComponents/__tests__/PanInfoCard.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:03" time="3.228" tests="7">
+    <testcase classname="PanInfoCard Test" name="renders PAN input field" time="0.123">
     </testcase>
-    <testcase classname="PanInfoCard Test" name="calls handleChangePanInfoCards when PAN input changes" time="0.044">
+    <testcase classname="PanInfoCard Test" name="calls handleChangePanInfoCards when PAN input changes" time="0.045">
     </testcase>
-    <testcase classname="PanInfoCard Test" name="renders Banca PAN input field" time="0.032">
+    <testcase classname="PanInfoCard Test" name="renders Banca PAN input field" time="0.043">
     </testcase>
-    <testcase classname="PanInfoCard Test" name="calls optionalPaymentMethodPanManagment when button is clicked" time="0.037">
+    <testcase classname="PanInfoCard Test" name="calls optionalPaymentMethodPanManagment when button is clicked" time="0.035">
     </testcase>
-    <testcase classname="PanInfoCard Test" name="renders Circuits select field" time="0.033">
+    <testcase classname="PanInfoCard Test" name="renders Circuits select field" time="0.037">
     </testcase>
-    <testcase classname="PanInfoCard Test" name="opens and closes first card correctly" time="0.055">
+    <testcase classname="PanInfoCard Test" name="opens and closes first card correctly" time="0.046">
     </testcase>
     <testcase classname="PanInfoCard Test" name="Test handleChange BankName" time="0.034">
     </testcase>
   </testsuite>
-  <testsuite name="src/utils/__tests__/HandleClicks.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:36" time="0.438" tests="5">
+  <testsuite name="src/utils/__tests__/HandleClicks.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:06" time="0.478" tests="5">
     <testcase classname="handleClickFunction" name="should handle click events correctly" time="0.004">
     </testcase>
     <testcase classname="handleClickFunction" name="should add click listeners to buttons" time="0.01">
@@ -28,198 +28,198 @@
     <testcase classname="handleClickFunction" name="should handle button clicks without data" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/FormComponents/__tests__/IbanInfo.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:37" time="1.009" tests="5">
-    <testcase classname="IbanInfo Test" name="renders IBAN input field" time="0.068">
+  <testsuite name="src/components/FormComponents/__tests__/IbanInfo.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:06" time="1.106" tests="5">
+    <testcase classname="IbanInfo Test" name="renders IBAN input field" time="0.095">
     </testcase>
-    <testcase classname="IbanInfo Test" name="calls handleChangeIbanList when IBAN input changes" time="0.017">
+    <testcase classname="IbanInfo Test" name="calls handleChangeIbanList when IBAN input changes" time="0.033">
     </testcase>
-    <testcase classname="IbanInfo Test" name="renders Banca IBAN input field" time="0.015">
+    <testcase classname="IbanInfo Test" name="renders Banca IBAN input field" time="0.016">
     </testcase>
-    <testcase classname="IbanInfo Test" name="calls optionalPaymentMethodIbanManagment when button is clicked" time="0.021">
+    <testcase classname="IbanInfo Test" name="calls optionalPaymentMethodIbanManagment when button is clicked" time="0.018">
     </testcase>
-    <testcase classname="IbanInfo Test" name="calls optionalPaymentMethodIbanManagment when button is clicked and IBAN fields are empty" time="0.013">
+    <testcase classname="IbanInfo Test" name="calls optionalPaymentMethodIbanManagment when button is clicked and IBAN fields are empty" time="0.018">
     </testcase>
   </testsuite>
-  <testsuite name="src/utils/__tests__/checks.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:38" time="0.179" tests="10">
-    <testcase classname="Validation Functions" name="isInvalidField returns true for invalid fields" time="0.002">
+  <testsuite name="src/utils/__tests__/checks.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:08" time="0.205" tests="10">
+    <testcase classname="Validation Functions" name="isInvalidField returns true for invalid fields" time="0.003">
     </testcase>
-    <testcase classname="Validation Functions" name="isInvalidField returns false for valid fields" time="0.001">
+    <testcase classname="Validation Functions" name="isInvalidField returns false for valid fields" time="0">
     </testcase>
     <testcase classname="Validation Functions" name="cfIsValid returns true for valid Italian fiscal codes" time="0.001">
     </testcase>
     <testcase classname="Validation Functions" name="cfIsValid returns false for invalid Italian fiscal codes" time="0.001">
     </testcase>
-    <testcase classname="Validation Functions" name="ibanIsValid returns true for valid Italian IBANs" time="0.001">
+    <testcase classname="Validation Functions" name="ibanIsValid returns true for valid Italian IBANs" time="0">
     </testcase>
     <testcase classname="Validation Functions" name="ibanIsValid returns false for invalid Italian IBANs" time="0.001">
     </testcase>
-    <testcase classname="Validation Functions" name="panIsValid returns true for valid PANs" time="0">
+    <testcase classname="Validation Functions" name="panIsValid returns true for valid PANs" time="0.001">
     </testcase>
     <testcase classname="Validation Functions" name="panIsValid returns false for invalid PANs" time="0">
     </testcase>
     <testcase classname="Validation Functions" name="isValidInputValue returns true for valid input values" time="0.001">
     </testcase>
-    <testcase classname="Validation Functions" name="isValidInputValue returns false for invalid input values" time="0.005">
+    <testcase classname="Validation Functions" name="isValidInputValue returns false for invalid input values" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/FormComponents/__tests__/FormEmulatorParameters.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:33" time="6.018" tests="7">
-    <testcase classname="Test FormEmulatorParameters component" name="Test add and remove new pan payment method positive case" time="1.034">
+  <testsuite name="src/components/FormComponents/__tests__/FormEmulatorParameters.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:03" time="6.301" tests="7">
+    <testcase classname="Test FormEmulatorParameters component" name="Test add and remove new pan payment method positive case" time="1.096">
     </testcase>
-    <testcase classname="Test FormEmulatorParameters component" name="Test add and remove new pan payment method negative case" time="0.244">
+    <testcase classname="Test FormEmulatorParameters component" name="Test add and remove new pan payment method negative case" time="0.265">
     </testcase>
-    <testcase classname="Test FormEmulatorParameters component" name="Test add and remove new IBAN payment method positive case" time="0.22">
+    <testcase classname="Test FormEmulatorParameters component" name="Test add and remove new IBAN payment method positive case" time="0.246">
     </testcase>
-    <testcase classname="Test FormEmulatorParameters component" name="Test add and remove new IBAN payment method negative case" time="0.207">
+    <testcase classname="Test FormEmulatorParameters component" name="Test add and remove new IBAN payment method negative case" time="0.24">
     </testcase>
-    <testcase classname="Test FormEmulatorParameters component" name="Test submit of form emulator" time="0.205">
+    <testcase classname="Test FormEmulatorParameters component" name="Test submit of form emulator" time="0.145">
     </testcase>
-    <testcase classname="Test FormEmulatorParameters component" name="Test submit of form emulator with error" time="0.123">
+    <testcase classname="Test FormEmulatorParameters component" name="Test submit of form emulator with error" time="0.097">
     </testcase>
-    <testcase classname="Test FormEmulatorParameters component" name="validation blocks empty form fields" time="0.283">
-    </testcase>
-  </testsuite>
-  <testsuite name="src/components/FormComponents/__tests__/FormFunctions.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:38" time="1.722" tests="4">
-    <testcase classname="Test FormFunctions component" name="Test handleChange" time="0.445">
-    </testcase>
-    <testcase classname="Test FormFunctions component" name="Test handleChangePanInfoCards" time="0.118">
-    </testcase>
-    <testcase classname="Test FormFunctions component" name="Test handleChangeIbanList" time="0.126">
-    </testcase>
-    <testcase classname="Test FormFunctions component" name="Test handleChangeMultiSelectCard" time="0.294">
+    <testcase classname="Test FormEmulatorParameters component" name="validation blocks empty form fields" time="0.366">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/HeaderComponents/__tests__/HeaderAccountCustom.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:39" time="1.403" tests="2">
-    <testcase classname="HeaderAccountCustom test" name="First render" time="0.043">
+  <testsuite name="src/components/FormComponents/__tests__/FormFunctions.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:08" time="1.859" tests="4">
+    <testcase classname="Test FormFunctions component" name="Test handleChange" time="0.459">
     </testcase>
-    <testcase classname="HeaderAccountCustom test" name="Calls onLogout function when logout button is clicked" time="0.024">
+    <testcase classname="Test FormFunctions component" name="Test handleChangePanInfoCards" time="0.132">
     </testcase>
-  </testsuite>
-  <testsuite name="src/pages/__tests__/LoginPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:40" time="0.871" tests="2">
-    <testcase classname="Login Page Tests" name="renders unlogged without jwt and tries access" time="0.063">
+    <testcase classname="Test FormFunctions component" name="Test handleChangeIbanList" time="0.162">
     </testcase>
-    <testcase classname="Login Page Tests" name="renders with jwt and cleans storage" time="0.022">
+    <testcase classname="Test FormFunctions component" name="Test handleChangeMultiSelectCard" time="0.342">
     </testcase>
   </testsuite>
-  <testsuite name="src/utils/__tests__/Commons.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:41" time="0.204" tests="4">
-    <testcase classname="Commons Tests" name="testing getCompletePathImage constant" time="0.003">
+  <testsuite name="src/components/HeaderComponents/__tests__/HeaderAccountCustom.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:09" time="1.425" tests="2">
+    <testcase classname="HeaderAccountCustom test" name="First render" time="0.064">
     </testcase>
-    <testcase classname="Commons Tests" name="reset specific error" time="0.002">
+    <testcase classname="HeaderAccountCustom test" name="Calls onLogout function when logout button is clicked" time="0.025">
+    </testcase>
+  </testsuite>
+  <testsuite name="src/pages/__tests__/LoginPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:10" time="0.857" tests="2">
+    <testcase classname="Login Page Tests" name="renders unlogged without jwt and tries access" time="0.048">
+    </testcase>
+    <testcase classname="Login Page Tests" name="renders with jwt and cleans storage" time="0.025">
+    </testcase>
+  </testsuite>
+  <testsuite name="src/utils/__tests__/Commons.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:11" time="0.187" tests="4">
+    <testcase classname="Commons Tests" name="testing getCompletePathImage constant" time="0.002">
+    </testcase>
+    <testcase classname="Commons Tests" name="reset specific error" time="0.001">
     </testcase>
     <testcase classname="Commons Tests" name="should not reset a specific field error if it does not exist" time="0.001">
     </testcase>
     <testcase classname="Commons Tests" name="should reset all errors of the fields" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="src/pages/Layout/__tests__/PageLayout.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:41" time="1.003" tests="2">
-    <testcase classname="PageLayout test" name="Test render PageLayout component with loading false and no userEmail nor token" time="0.044">
+  <testsuite name="src/pages/Layout/__tests__/PageLayout.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:11" time="0.965" tests="2">
+    <testcase classname="PageLayout test" name="Test render PageLayout component with loading false and no userEmail nor token" time="0.051">
     </testcase>
-    <testcase classname="PageLayout test" name="Test render PageLayout component with loading true and no userEmail with token" time="0.013">
+    <testcase classname="PageLayout test" name="Test render PageLayout component with loading true and no userEmail with token" time="0.017">
     </testcase>
   </testsuite>
-  <testsuite name="src/utils/__tests__/HandleInputs.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:42" time="0.368" tests="3">
-    <testcase classname="Handle Inputs Tests" name="should handle invalid input values" time="0.011">
+  <testsuite name="src/utils/__tests__/HandleInputs.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:12" time="0.386" tests="3">
+    <testcase classname="Handle Inputs Tests" name="should handle invalid input values" time="0.009">
     </testcase>
     <testcase classname="Handle Inputs Tests" name="validation has no effect if no inputs are present" time="0.001">
     </testcase>
-    <testcase classname="Handle Inputs Tests" name="validation has no effect if no confirm button is present" time="0.001">
+    <testcase classname="Handle Inputs Tests" name="validation has no effect if no confirm button is present" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="src/pages/ServiceAccessPage/__tests__/ServiceAccessPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:33" time="8.821" tests="18">
-    <testcase classname="Service Access Page Tests" name="renders not-menu touchInterface" time="0.076">
+  <testsuite name="src/pages/ServiceAccessPage/__tests__/ServiceAccessPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:03" time="9.206" tests="18">
+    <testcase classname="Service Access Page Tests" name="renders not-menu touchInterface" time="0.092">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="renders menu no-touchInterface no-pagination" time="0.03">
+    <testcase classname="Service Access Page Tests" name="renders menu no-touchInterface no-pagination" time="0.035">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="renders menu touchInterface with pagination" time="0.09">
+    <testcase classname="Service Access Page Tests" name="renders menu touchInterface with pagination" time="0.083">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="calling next success and setCommand" time="0.073">
+    <testcase classname="Service Access Page Tests" name="calling next success and setCommand" time="0.069">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="calling next 204" time="0.035">
+    <testcase classname="Service Access Page Tests" name="calling next 204" time="0.037">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="calling next 401 should redirect to login page" time="0.11">
+    <testcase classname="Service Access Page Tests" name="calling next 401 should redirect to login page" time="0.115">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="calling next 209 should redirect to error page" time="0.036">
+    <testcase classname="Service Access Page Tests" name="calling next 209 should redirect to error page" time="0.037">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="calling next 202, should retry up to 3 times" time="0.062">
+    <testcase classname="Service Access Page Tests" name="calling next 202, should retry up to 3 times" time="0.06">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="calling next 400" time="0.036">
+    <testcase classname="Service Access Page Tests" name="calling next 400" time="0.023">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect PRINT_RECEIPT command" time="4.012">
+    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect PRINT_RECEIPT command" time="4.024">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect SCAN_BIIL_DATA command" time="0.03">
+    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect SCAN_BIIL_DATA command" time="0.037">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect AUTHORIZE command" time="0.017">
+    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect AUTHORIZE command" time="0.031">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect END command" time="0.019">
+    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect END command" time="0.026">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect NEXT command" time="0.047">
+    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect NEXT command" time="0.081">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect GET_IBAN command" time="0.015">
+    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect GET_IBAN command" time="0.021">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect GET_PAN command" time="0.02">
+    <testcase classname="Service Access Page Tests" name="test with timeout null and useEffect GET_PAN command" time="0.035">
     </testcase>
     <testcase classname="Service Access Page Tests" name="test with UNKNOWN command" time="0.001">
     </testcase>
-    <testcase classname="Service Access Page Tests" name="test FORM type renders keypad, handleClicks working" time="0.241">
+    <testcase classname="Service Access Page Tests" name="test FORM type renders keypad, handleClicks working" time="0.245">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/FormComponents/template/__tests__/FormTemplate.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:41" time="1.228" tests="2">
-    <testcase classname="Test FormTemplate component" name="Test maxWidth is &apos;75%&apos; when window width is greater than md breakpoint" time="0.054">
+  <testsuite name="src/components/FormComponents/template/__tests__/FormTemplate.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:11" time="1.237" tests="2">
+    <testcase classname="Test FormTemplate component" name="Test maxWidth is &apos;75%&apos; when window width is greater than md breakpoint" time="0.081">
     </testcase>
-    <testcase classname="Test FormTemplate component" name="Test maxWidth is &apos;100%&apos; when window width is less than or equal to md breakpoint" time="0.011">
-    </testcase>
-  </testsuite>
-  <testsuite name="src/pages/ErrorPages/__tests__/ErrorPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:42" time="0.9" tests="2">
-    <testcase classname="Error Page Tests" name="renders Error title correctly" time="0.084">
-    </testcase>
-    <testcase classname="Error Page Tests" name="navigates home on click" time="0.016">
+    <testcase classname="Test FormTemplate component" name="Test maxWidth is &apos;100%&apos; when window width is less than or equal to md breakpoint" time="0.031">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/HeaderComponents/__tests__/HeaderApp.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:42" time="1.174" tests="2">
-    <testcase classname="HeaderApp test" name="Test render Header component with login false" time="0.076">
+  <testsuite name="src/pages/ErrorPages/__tests__/ErrorPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:12" time="0.905" tests="2">
+    <testcase classname="Error Page Tests" name="renders Error title correctly" time="0.05">
     </testcase>
-    <testcase classname="HeaderApp test" name="Test render Header component with login true" time="0.046">
+    <testcase classname="Error Page Tests" name="navigates home on click" time="0.015">
     </testcase>
   </testsuite>
-  <testsuite name="src/pages/__tests__/LoginPageCallBack.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:43" time="0.87" tests="2">
-    <testcase classname="Login Page Callback Tests" name="renders without jwt" time="0.077">
+  <testsuite name="src/components/HeaderComponents/__tests__/HeaderApp.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:12" time="1.186" tests="2">
+    <testcase classname="HeaderApp test" name="Test render Header component with login false" time="0.075">
+    </testcase>
+    <testcase classname="HeaderApp test" name="Test render Header component with login true" time="0.045">
+    </testcase>
+  </testsuite>
+  <testsuite name="src/pages/__tests__/LoginPageCallBack.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:13" time="0.943" tests="2">
+    <testcase classname="Login Page Callback Tests" name="renders without jwt" time="0.065">
     </testcase>
     <testcase classname="Login Page Callback Tests" name="renders with jwt" time="0.009">
     </testcase>
   </testsuite>
-  <testsuite name="src/App.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:42" time="2.048" tests="3">
-    <testcase classname="App Tests" name="Test App without jwt in sessionStorage" time="0.336">
+  <testsuite name="src/App.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:12" time="2.39" tests="3">
+    <testcase classname="App Tests" name="Test App without jwt in sessionStorage" time="0.372">
     </testcase>
-    <testcase classname="App Tests" name="Test App with jwt in sessionStorage" time="0.151">
+    <testcase classname="App Tests" name="Test App with jwt in sessionStorage" time="0.21">
     </testcase>
-    <testcase classname="App Tests" name="Render Homepage with jwt in sessionStorage and test log out" time="0.207">
-    </testcase>
-  </testsuite>
-  <testsuite name="src/hook/fetch/__tests__/fetchRequest.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:44" time="0.196" tests="1">
-    <testcase classname="formOption Test" name="Verifica la presenza dei dati in valueObject" time="0.001">
+    <testcase classname="App Tests" name="Render Homepage with jwt in sessionStorage and test log out" time="0.299">
     </testcase>
   </testsuite>
-  <testsuite name="src/pages/__tests__/HomePage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:43" time="1.073" tests="1">
-    <testcase classname="Home Page Tests" name="renders homepage" time="0.237">
+  <testsuite name="src/pages/__tests__/HomePage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:13" time="1.188" tests="1">
+    <testcase classname="Home Page Tests" name="renders homepage" time="0.311">
     </testcase>
   </testsuite>
-  <testsuite name="src/hook/__tests__/getIconBySetType.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:45" time="0.331" tests="1">
+  <testsuite name="src/hook/fetch/__tests__/fetchRequest.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:14" time="0.203" tests="1">
+    <testcase classname="formOption Test" name="Verifica la presenza dei dati in valueObject" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="src/hook/__tests__/getIconBySetType.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:15" time="0.256" tests="1">
     <testcase classname="getIconBySetType Function Tests" name="Should return the correct icon for a given string" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="src/pages/ErrorPages/__tests__/CommonErrorPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:44" time="1.181" tests="1">
-    <testcase classname="Common Error Page Tests" name="renders Error elements correctly" time="0.039">
+  <testsuite name="src/pages/ErrorPages/__tests__/CommonErrorPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:14" time="1.329" tests="1">
+    <testcase classname="Common Error Page Tests" name="renders Error elements correctly" time="0.03">
     </testcase>
   </testsuite>
-  <testsuite name="src/commons/__tests__/decode.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:45" time="0.2" tests="1">
-    <testcase classname="base64_encode function" name="encodes text to Base64 correctly" time="0.002">
+  <testsuite name="src/commons/__tests__/decode.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:15" time="0.209" tests="1">
+    <testcase classname="base64_encode function" name="encodes text to Base64 correctly" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="src/pages/LoadingPage/__tests__/LoadingPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:44" time="1.027" tests="1">
-    <testcase classname="Loading Page Tests" name="renders loading correctly" time="0.036">
+  <testsuite name="src/pages/LoadingPage/__tests__/LoadingPage.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:14" time="1.09" tests="1">
+    <testcase classname="Loading Page Tests" name="renders loading correctly" time="0.035">
     </testcase>
   </testsuite>
-  <testsuite name="src/utils/Commons/__tests__/IconBox.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:01:45" time="0.83" tests="1">
-    <testcase classname="Render Icon Box with default size and color test" name="First render" time="0.021">
+  <testsuite name="src/utils/Commons/__tests__/IconBox.test.tsx" errors="0" failures="0" skipped="0" timestamp="2024-09-03T11:06:15" time="0.78" tests="1">
+    <testcase classname="Render Icon Box with default size and color test" name="First render" time="0.02">
     </testcase>
   </testsuite>
 </testsuites>
