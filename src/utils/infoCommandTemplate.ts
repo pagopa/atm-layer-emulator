@@ -4,10 +4,10 @@ export const infoCommandTemp = `<?xml version="1.0" encoding="iso-8859-1" ?>
 
 <body>
  	
-	<img id="logo" src="${process.env.REACT_APP_CDN_BASEURL}/files/ICON/default_logo.svg" alt="default_logo.svg" />
+	<img id="logo" src="${process.env.REACT_APP_CDN_BASEURL}/files/OTHER/ICON/default_logo.svg" alt="default_logo.svg" />
 	<h1>Servizi di pubblica utilit&agrave;</h1>	
 	
-	<img id="concept" class="central" src="${process.env.REACT_APP_CDN_BASEURL}/files/ICON/info.svg" alt="info.svg"/>
+	<img id="concept" class="central" src="${process.env.REACT_APP_CDN_BASEURL}/files/OTHER/ICON/info.svg" alt="info.svg"/>
 	
 	<h2>Eseguire il comando per procedere</h2>
 	
