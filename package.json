@@ -1,6 +1,6 @@
 {
   "name": "atm-layer-emulator",
-  "version": "v1.9.0",
+  "version": "v1.8.0-dev.3",
   "private": true,
   "homepage": "/emulator",
   "jest": {

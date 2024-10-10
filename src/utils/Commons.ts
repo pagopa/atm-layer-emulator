@@ -79,7 +79,7 @@ export function positionUnpaginatedButtons(touchInterface: boolean) {
 export function createNextLiButton() {
 	const nextLiButton = document.createElement("button");
 	nextLiButton.id = "nextLiButton";
-	nextLiButton.innerHTML = "Iniziative successive";
+	nextLiButton.innerHTML = "Pagina successiva";
 	nextLiButton.setAttribute("data-fdk", "S7");
 	nextLiButton.setAttribute("data-testid", "nextLiTestButton");
 	return nextLiButton;
@@ -88,7 +88,7 @@ export function createNextLiButton() {
 export function createPrevLiButton() {
 	const prevtLiButton = document.createElement("button");
 	prevtLiButton.id = "prevLiButton";
-	prevtLiButton.innerHTML = "Iniziative precedenti";
+	prevtLiButton.innerHTML = "Pagina precedente";
 	prevtLiButton.setAttribute("data-fdk", "S3");
 	prevtLiButton.setAttribute("data-testid", "prevLiTestButton");
 	return prevtLiButton;

@@ -2,7 +2,7 @@
 /* eslint-disable functional/immutable-data */
 import { useContext, useEffect, useState } from "react";
 import parse from "html-react-parser";
-import { Box, Grid, Typography } from "@mui/material";
+import { Alert, Box, Grid, Typography } from "@mui/material";
 import { generatePath } from "react-router-dom";
 import React from "react";
 import { Ctx } from "../../DataContext";
@@ -12,7 +12,7 @@ import { fetchRequest } from "../../hook/fetch/fetchRequest";
 import "./css/style-page.css";
 import { executeCommand } from "../../commons/utilsFunctions";
 import { Loading } from "../../utils/Commons/Loading";
-import { AUTHORIZE, SCAN_BILL_DATA } from "../../commons/constants";
+import { AUTHORIZE, GET_CF, SCAN_BILL_DATA } from "../../commons/constants";
 import { addHeaderRow, createNextLiButton, createPrevLiButton, getPaginationFragment, positionPaginatedButtons, positionUnpaginatedButtons } from "../../utils/Commons";
 import { addButtonClickListener, removeButtonClickListener } from "../../utils/HandleClicks";
 import { postData } from "../../utils/PostData";
@@ -28,6 +28,7 @@ const ServiceAccessPage = () => {
 	const [command, setCommand] = useState(responseProcess?.task?.command);
 	const [menuList, setMenuList] = useState<any | NodeList>();
 	const [pageIndex, setPageIndex] = useState(1);
+	const [cfError, setCfError] = useState<string | null>(null);
 	const pageSize = 4;
 	let bodyHtml: any;
 	let timeout = responseProcess?.task?.timeout;
@@ -75,7 +76,7 @@ const ServiceAccessPage = () => {
 
 	useEffect(() => {
 		if (command && command !== "") {
-			executeCommand(command, setCommand, next, responseProcess, ibanList, panInfo, fiscalCode);
+			executeCommand(command, setCommand, next, responseProcess, ibanList, panInfo, fiscalCode, setCfError);
 		}
 	}, [command]);
 
@@ -174,6 +175,13 @@ const ServiceAccessPage = () => {
 
 			</Box>
 			{command === AUTHORIZE || command === SCAN_BILL_DATA ? (<Box id="command" m={2} />) : null}
+		
+			{/* Visualizza un alert se c'è un errore del codice fiscale */}
+			{cfError && (
+				<Alert severity="error" sx={{ marginTop: 2 }} id="alert-cf">
+					{cfError}
+				</Alert>
+			)}
 
 			{responseProcess?.task?.template?.type === "FORM" &&
 					(

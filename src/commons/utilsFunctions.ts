@@ -3,7 +3,8 @@ import { PanInfoDto } from "./../components/model/ParametersModel";
 /* eslint-disable functional/immutable-data */
 import { AUTHORIZE, END, GET_IBAN, GET_PAN, PRINT_RECEIPT, NEXT, SCAN_BILL_DATA, DEFAULT_SCAN_CODE, ESITO_OK, ESITO_KO, ESITO_DUBBIO, GET_CF } from "./constants";
 
-export function executeCommand(driver: string, setCommand: any, next: any, responseProcess: any, ibanList?:IbanListDto, panInfo?:PanInfoDto, fiscalCode?:any) {
+export function executeCommand(driver: string, setCommand: any, next: any, responseProcess: any, ibanList?:IbanListDto, panInfo?:PanInfoDto, fiscalCode?:any, setCfError?:any) {
+	
 
 	const outcomeVar = responseProcess?.task?.outcomeVarName;
 	const outcomeKey = outcomeVar || "result";
@@ -148,8 +149,10 @@ export function executeCommand(driver: string, setCommand: any, next: any, respo
 			// eslint-disable-next-line object-shorthand
 			const fiscalCodeObj = {"fiscalCode": fiscalCode};
 			void next({[outcomeKey]: "OK"}, fiscalCodeObj);
+			setCfError?.(null);
 		} else {
 			void next({ [outcomeKey]: "KO" });
+			setCfError?.("Non è stato inserito il codice fiscale nella fase di avvio.");
 		}
 		break;
 	default: return "";
