@@ -405,3 +405,8 @@ td > img {
 #keyPad button:hover{
     filter: brightness(85%);
 }
+
+#alert-cf{
+    width: 380px;
+    height: 190px;
+}
