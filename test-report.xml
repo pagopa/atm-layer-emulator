@@ -1,138 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/components/FormComponents/__tests__/PanInfoCard.test.tsx">
-    <testCase name="PanInfoCard Test renders PAN input field" duration="150"/>
-    <testCase name="PanInfoCard Test calls handleChangePanInfoCards when PAN input changes" duration="42"/>
-    <testCase name="PanInfoCard Test renders Banca PAN input field" duration="33"/>
-    <testCase name="PanInfoCard Test calls optionalPaymentMethodPanManagment when button is clicked" duration="51"/>
-    <testCase name="PanInfoCard Test renders Circuits select field" duration="40"/>
-    <testCase name="PanInfoCard Test opens and closes first card correctly" duration="41"/>
+    <testCase name="PanInfoCard Test renders PAN input field" duration="141"/>
+    <testCase name="PanInfoCard Test calls handleChangePanInfoCards when PAN input changes" duration="50"/>
+    <testCase name="PanInfoCard Test renders Banca PAN input field" duration="32"/>
+    <testCase name="PanInfoCard Test calls optionalPaymentMethodPanManagment when button is clicked" duration="65"/>
+    <testCase name="PanInfoCard Test renders Circuits select field" duration="55"/>
+    <testCase name="PanInfoCard Test opens and closes first card correctly" duration="39"/>
     <testCase name="PanInfoCard Test Test handleChange BankName" duration="35"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/utils/__tests__/HandleClicks.test.tsx">
-    <testCase name="handleClickFunction should handle click events correctly" duration="3"/>
-    <testCase name="handleClickFunction should add click listeners to buttons" duration="10"/>
+    <testCase name="handleClickFunction should handle click events correctly" duration="4"/>
+    <testCase name="handleClickFunction should add click listeners to buttons" duration="9"/>
     <testCase name="handleClickFunction should remove click listeners from buttons" duration="4"/>
-    <testCase name="handleClickFunction should handle valid input values" duration="4"/>
+    <testCase name="handleClickFunction should handle valid input values" duration="3"/>
     <testCase name="handleClickFunction should handle button clicks without data" duration="2"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/components/FormComponents/__tests__/IbanInfo.test.tsx">
-    <testCase name="IbanInfo Test renders IBAN input field" duration="99"/>
-    <testCase name="IbanInfo Test calls handleChangeIbanList when IBAN input changes" duration="27"/>
-    <testCase name="IbanInfo Test renders Banca IBAN input field" duration="15"/>
-    <testCase name="IbanInfo Test calls optionalPaymentMethodIbanManagment when button is clicked" duration="19"/>
-    <testCase name="IbanInfo Test calls optionalPaymentMethodIbanManagment when button is clicked and IBAN fields are empty" duration="15"/>
+    <testCase name="IbanInfo Test renders IBAN input field" duration="86"/>
+    <testCase name="IbanInfo Test calls handleChangeIbanList when IBAN input changes" duration="19"/>
+    <testCase name="IbanInfo Test renders Banca IBAN input field" duration="19"/>
+    <testCase name="IbanInfo Test calls optionalPaymentMethodIbanManagment when button is clicked" duration="18"/>
+    <testCase name="IbanInfo Test calls optionalPaymentMethodIbanManagment when button is clicked and IBAN fields are empty" duration="14"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/utils/__tests__/checks.test.ts">
-    <testCase name="Validation Functions isInvalidField returns true for invalid fields" duration="3"/>
+    <testCase name="Validation Functions isInvalidField returns true for invalid fields" duration="2"/>
     <testCase name="Validation Functions isInvalidField returns false for valid fields" duration="1"/>
     <testCase name="Validation Functions cfIsValid returns true for valid Italian fiscal codes" duration="1"/>
-    <testCase name="Validation Functions cfIsValid returns false for invalid Italian fiscal codes" duration="1"/>
+    <testCase name="Validation Functions cfIsValid returns false for invalid Italian fiscal codes" duration="0"/>
     <testCase name="Validation Functions ibanIsValid returns true for valid Italian IBANs" duration="1"/>
     <testCase name="Validation Functions ibanIsValid returns false for invalid Italian IBANs" duration="1"/>
     <testCase name="Validation Functions panIsValid returns true for valid PANs" duration="0"/>
     <testCase name="Validation Functions panIsValid returns false for invalid PANs" duration="1"/>
-    <testCase name="Validation Functions isValidInputValue returns true for valid input values" duration="1"/>
+    <testCase name="Validation Functions isValidInputValue returns true for valid input values" duration="0"/>
     <testCase name="Validation Functions isValidInputValue returns false for invalid input values" duration="0"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/components/FormComponents/__tests__/FormEmulatorParameters.test.tsx">
-    <testCase name="Test FormEmulatorParameters component Test add and remove new pan payment method positive case" duration="1197"/>
-    <testCase name="Test FormEmulatorParameters component Test add and remove new pan payment method negative case" duration="280"/>
-    <testCase name="Test FormEmulatorParameters component Test add and remove new IBAN payment method positive case" duration="252"/>
-    <testCase name="Test FormEmulatorParameters component Test add and remove new IBAN payment method negative case" duration="237"/>
-    <testCase name="Test FormEmulatorParameters component Test submit of form emulator" duration="189"/>
-    <testCase name="Test FormEmulatorParameters component Test submit of form emulator with error" duration="118"/>
-    <testCase name="Test FormEmulatorParameters component validation blocks empty form fields" duration="302"/>
+    <testCase name="Test FormEmulatorParameters component Test add and remove new pan payment method positive case" duration="1058"/>
+    <testCase name="Test FormEmulatorParameters component Test add and remove new pan payment method negative case" duration="244"/>
+    <testCase name="Test FormEmulatorParameters component Test add and remove new IBAN payment method positive case" duration="238"/>
+    <testCase name="Test FormEmulatorParameters component Test add and remove new IBAN payment method negative case" duration="225"/>
+    <testCase name="Test FormEmulatorParameters component Test submit of form emulator" duration="160"/>
+    <testCase name="Test FormEmulatorParameters component Test submit of form emulator with error" duration="90"/>
+    <testCase name="Test FormEmulatorParameters component validation blocks empty form fields" duration="331"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/components/FormComponents/__tests__/FormFunctions.test.tsx">
-    <testCase name="Test FormFunctions component Test handleChange" duration="442"/>
-    <testCase name="Test FormFunctions component Test handleChangePanInfoCards" duration="133"/>
-    <testCase name="Test FormFunctions component Test handleChangeIbanList" duration="152"/>
-    <testCase name="Test FormFunctions component Test handleChangeMultiSelectCard" duration="318"/>
+    <testCase name="Test FormFunctions component Test handleChange" duration="402"/>
+    <testCase name="Test FormFunctions component Test handleChangePanInfoCards" duration="119"/>
+    <testCase name="Test FormFunctions component Test handleChangeIbanList" duration="112"/>
+    <testCase name="Test FormFunctions component Test handleChangeMultiSelectCard" duration="322"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/components/HeaderComponents/__tests__/HeaderAccountCustom.test.tsx">
-    <testCase name="HeaderAccountCustom test First render" duration="65"/>
-    <testCase name="HeaderAccountCustom test Calls onLogout function when logout button is clicked" duration="24"/>
+    <testCase name="HeaderAccountCustom test First render" duration="60"/>
+    <testCase name="HeaderAccountCustom test Calls onLogout function when logout button is clicked" duration="26"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/__tests__/LoginPage.test.tsx">
-    <testCase name="Login Page Tests renders unlogged without jwt and tries access" duration="49"/>
-    <testCase name="Login Page Tests renders with jwt and cleans storage" duration="22"/>
+    <testCase name="Login Page Tests renders unlogged without jwt and tries access" duration="57"/>
+    <testCase name="Login Page Tests renders with jwt and cleans storage" duration="15"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/utils/__tests__/Commons.test.tsx">
-    <testCase name="Commons Tests testing getCompletePathImage constant" duration="2"/>
-    <testCase name="Commons Tests reset specific error" duration="2"/>
+    <testCase name="Commons Tests testing getCompletePathImage constant" duration="1"/>
+    <testCase name="Commons Tests reset specific error" duration="1"/>
     <testCase name="Commons Tests should not reset a specific field error if it does not exist" duration="0"/>
-    <testCase name="Commons Tests should reset all errors of the fields" duration="1"/>
+    <testCase name="Commons Tests should reset all errors of the fields" duration="0"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/Layout/__tests__/PageLayout.test.tsx">
-    <testCase name="PageLayout test Test render PageLayout component with loading false and no userEmail nor token" duration="51"/>
-    <testCase name="PageLayout test Test render PageLayout component with loading true and no userEmail with token" duration="12"/>
-  </file>
-  <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/ServiceAccessPage/__tests__/ServiceAccessPage.test.tsx">
-    <testCase name="Service Access Page Tests renders not-menu touchInterface" duration="98"/>
-    <testCase name="Service Access Page Tests renders menu no-touchInterface no-pagination" duration="34"/>
-    <testCase name="Service Access Page Tests renders menu touchInterface with pagination" duration="120"/>
-    <testCase name="Service Access Page Tests calling next success and setCommand" duration="61"/>
-    <testCase name="Service Access Page Tests calling next 204" duration="31"/>
-    <testCase name="Service Access Page Tests calling next 401 should redirect to login page" duration="146"/>
-    <testCase name="Service Access Page Tests calling next 209 should redirect to error page" duration="40"/>
-    <testCase name="Service Access Page Tests calling next 202, should retry up to 3 times" duration="62"/>
-    <testCase name="Service Access Page Tests calling next 400" duration="46"/>
-    <testCase name="Service Access Page Tests test with timeout null and useEffect PRINT_RECEIPT command" duration="4016"/>
-    <testCase name="Service Access Page Tests test with timeout null and useEffect SCAN_BIIL_DATA command" duration="35"/>
-    <testCase name="Service Access Page Tests test with timeout null and useEffect AUTHORIZE command" duration="38"/>
-    <testCase name="Service Access Page Tests test with timeout null and useEffect END command" duration="26"/>
-    <testCase name="Service Access Page Tests test with timeout null and useEffect NEXT command" duration="78"/>
-    <testCase name="Service Access Page Tests test with timeout null and useEffect GET_IBAN command" duration="20"/>
-    <testCase name="Service Access Page Tests test with timeout null and useEffect GET_PAN command" duration="25"/>
-    <testCase name="Service Access Page Tests test with UNKNOWN command" duration="1"/>
-    <testCase name="Service Access Page Tests test FORM type renders keypad, handleClicks working" duration="231"/>
+    <testCase name="PageLayout test Test render PageLayout component with loading false and no userEmail nor token" duration="44"/>
+    <testCase name="PageLayout test Test render PageLayout component with loading true and no userEmail with token" duration="11"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/utils/__tests__/HandleInputs.test.tsx">
-    <testCase name="Handle Inputs Tests should handle invalid input values" duration="13"/>
-    <testCase name="Handle Inputs Tests validation has no effect if no inputs are present" duration="2"/>
+    <testCase name="Handle Inputs Tests should handle invalid input values" duration="7"/>
+    <testCase name="Handle Inputs Tests validation has no effect if no inputs are present" duration="1"/>
     <testCase name="Handle Inputs Tests validation has no effect if no confirm button is present" duration="1"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/components/FormComponents/template/__tests__/FormTemplate.test.tsx">
-    <testCase name="Test FormTemplate component Test maxWidth is &apos;75%&apos; when window width is greater than md breakpoint" duration="65"/>
-    <testCase name="Test FormTemplate component Test maxWidth is &apos;100%&apos; when window width is less than or equal to md breakpoint" duration="21"/>
+    <testCase name="Test FormTemplate component Test maxWidth is &apos;75%&apos; when window width is greater than md breakpoint" duration="115"/>
+    <testCase name="Test FormTemplate component Test maxWidth is &apos;100%&apos; when window width is less than or equal to md breakpoint" duration="20"/>
+  </file>
+  <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/ServiceAccessPage/__tests__/ServiceAccessPage.test.tsx">
+    <testCase name="Service Access Page Tests renders not-menu touchInterface" duration="109"/>
+    <testCase name="Service Access Page Tests renders menu no-touchInterface no-pagination" duration="29"/>
+    <testCase name="Service Access Page Tests renders menu touchInterface with pagination" duration="79"/>
+    <testCase name="Service Access Page Tests calling next success and setCommand" duration="90"/>
+    <testCase name="Service Access Page Tests calling next 204" duration="30"/>
+    <testCase name="Service Access Page Tests calling next 401 should redirect to login page" duration="75"/>
+    <testCase name="Service Access Page Tests calling next 209 should redirect to error page" duration="33"/>
+    <testCase name="Service Access Page Tests calling next 202, should retry up to 3 times" duration="43"/>
+    <testCase name="Service Access Page Tests calling next 400" duration="29"/>
+    <testCase name="Service Access Page Tests test with timeout null and useEffect PRINT_RECEIPT command" duration="4017"/>
+    <testCase name="Service Access Page Tests test with timeout null and useEffect SCAN_BIIL_DATA command" duration="29"/>
+    <testCase name="Service Access Page Tests test with timeout null and useEffect AUTHORIZE command" duration="17"/>
+    <testCase name="Service Access Page Tests test with timeout null and useEffect END command" duration="31"/>
+    <testCase name="Service Access Page Tests test with timeout null and useEffect NEXT command" duration="67"/>
+    <testCase name="Service Access Page Tests test with timeout null and useEffect GET_IBAN command" duration="19"/>
+    <testCase name="Service Access Page Tests test with timeout null and useEffect GET_PAN command" duration="26"/>
+    <testCase name="Service Access Page Tests test with UNKNOWN command" duration="1"/>
+    <testCase name="Service Access Page Tests test FORM type renders keypad, handleClicks working" duration="218"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/ErrorPages/__tests__/ErrorPage.test.tsx">
-    <testCase name="Error Page Tests renders Error title correctly" duration="87"/>
-    <testCase name="Error Page Tests navigates home on click" duration="17"/>
+    <testCase name="Error Page Tests renders Error title correctly" duration="72"/>
+    <testCase name="Error Page Tests navigates home on click" duration="32"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/components/HeaderComponents/__tests__/HeaderApp.test.tsx">
-    <testCase name="HeaderApp test Test render Header component with login false" duration="71"/>
-    <testCase name="HeaderApp test Test render Header component with login true" duration="29"/>
-  </file>
-  <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/__tests__/LoginPageCallBack.test.tsx">
-    <testCase name="Login Page Callback Tests renders without jwt" duration="34"/>
-    <testCase name="Login Page Callback Tests renders with jwt" duration="18"/>
+    <testCase name="HeaderApp test Test render Header component with login false" duration="76"/>
+    <testCase name="HeaderApp test Test render Header component with login true" duration="59"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/App.test.tsx">
-    <testCase name="App Tests Test App without jwt in sessionStorage" duration="344"/>
-    <testCase name="App Tests Test App with jwt in sessionStorage" duration="217"/>
-    <testCase name="App Tests Render Homepage with jwt in sessionStorage and test log out" duration="265"/>
+    <testCase name="App Tests Test App without jwt in sessionStorage" duration="386"/>
+    <testCase name="App Tests Test App with jwt in sessionStorage" duration="157"/>
+    <testCase name="App Tests Render Homepage with jwt in sessionStorage and test log out" duration="245"/>
   </file>
-  <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/__tests__/HomePage.test.tsx">
-    <testCase name="Home Page Tests renders homepage" duration="278"/>
+  <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/__tests__/LoginPageCallBack.test.tsx">
+    <testCase name="Login Page Callback Tests renders without jwt" duration="39"/>
+    <testCase name="Login Page Callback Tests renders with jwt" duration="8"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/hook/fetch/__tests__/fetchRequest.test.ts">
-    <testCase name="formOption Test Verifica la presenza dei dati in valueObject" duration="3"/>
+    <testCase name="formOption Test Verifica la presenza dei dati in valueObject" duration="12"/>
+  </file>
+  <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/__tests__/HomePage.test.tsx">
+    <testCase name="Home Page Tests renders homepage" duration="256"/>
+  </file>
+  <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/ErrorPages/__tests__/CommonErrorPage.test.tsx">
+    <testCase name="Common Error Page Tests renders Error elements correctly" duration="42"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/hook/__tests__/getIconBySetType.test.ts">
     <testCase name="getIconBySetType Function Tests Should return the correct icon for a given string" duration="3"/>
   </file>
-  <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/ErrorPages/__tests__/CommonErrorPage.test.tsx">
-    <testCase name="Common Error Page Tests renders Error elements correctly" duration="34"/>
-  </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/commons/__tests__/decode.test.ts">
-    <testCase name="base64_encode function encodes text to Base64 correctly" duration="3"/>
+    <testCase name="base64_encode function encodes text to Base64 correctly" duration="2"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/pages/LoadingPage/__tests__/LoadingPage.test.tsx">
-    <testCase name="Loading Page Tests renders loading correctly" duration="37"/>
+    <testCase name="Loading Page Tests renders loading correctly" duration="27"/>
   </file>
   <file path="/home/runner/work/atm-layer-emulator/atm-layer-emulator/src/utils/Commons/__tests__/IconBox.test.tsx">
-    <testCase name="Render Icon Box with default size and color test First render" duration="22"/>
+    <testCase name="Render Icon Box with default size and color test First render" duration="18"/>
   </file>
 </testExecutions>
